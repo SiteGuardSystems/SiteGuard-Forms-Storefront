@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SiteGuard FORMS | Controlled HSEQ Documents, On Demand</title>
+<meta name="description" content="Buy schema-controlled, version-managed HSEQ and WHS documents direct from SiteGuard's library. SWMS, trade packs and management system bundles — instant download." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+<div class="banner" id="checkout-banner" hidden></div>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="logo" href="/">SiteGuard <span class="logo-accent">FORMS</span></a>
+    <nav class="nav">
+      <a href="#packages">Packages</a>
+      <a href="#library">Library</a>
+      <a href="#enquire">Enquire</a>
+      <a href="https://www.siteguardsystems.com.au" class="nav-parent">SiteGuard Systems ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">Controlled document delivery — direct from the library</p>
+      <h1>HSEQ Documents.<br />Controlled. On Demand.</h1>
+      <p class="hero-sub">
+        Schema-controlled, version-managed SWMS, trade packs and management
+        system frameworks — the same library SiteGuard uses for its own
+        consulting, now available for direct, instant purchase.
+      </p>
+      <div class="hero-cta">
+        <a href="#packages" class="btn btn-primary">Browse Packages</a>
+        <a href="#enquire" class="btn btn-ghost">Talk to a Consultant</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" id="library">
+    <div class="wrap stats-row">
+      <div class="stat"><span class="stat-num" id="stat-clean">—</span><span class="stat-label">Ready for Purchase Now</span></div>
+      <div class="stat"><span class="stat-num">21</span><span class="stat-label">Trade Series</span></div>
+      <div class="stat"><span class="stat-num">27</span><span class="stat-label">Years in Construction</span></div>
+      <div class="stat"><span class="stat-num">ISO</span><span class="stat-label">Aligned Frameworks</span></div>
+    </div>
+    <p class="stats-note wrap">
+      The library grows as documents clear QA — every document offered here is
+      schema-controlled and version-managed before it goes on sale, not just
+      before it's built.
+    </p>
+  </section>
+
+  <section class="packages" id="packages">
+    <div class="wrap">
+      <p class="eyebrow">Packages</p>
+      <h2>Pick What You Need</h2>
+      <p class="section-sub">
+        Self-serve documents purchase and download instantly. Larger frameworks
+        are scoped before checkout — same senior-practitioner standard either way.
+      </p>
+      <div class="package-grid" id="package-grid" aria-live="polite">
+        <p class="loading">Loading packages…</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="enquire" id="enquire">
+    <div class="wrap enquire-grid">
+      <div>
+        <p class="eyebrow">Not sure what you need?</p>
+        <h2>Talk to SiteGuard First</h2>
+        <p class="section-sub">
+          Tell us about your project or requirement — we respond within one
+          business day. No obligation. This also covers custom scopes,
+          management system quotes, and anything outside the standard packages.
+        </p>
+      </div>
+      <form id="lead-form" class="lead-form">
+        <label>Your Name<input required name="name" type="text" autocomplete="name" /></label>
+        <label>Company<input name="company" type="text" autocomplete="organization" /></label>
+        <label>Email Address<input required name="email" type="email" autocomplete="email" /></label>
+        <label>I am a…
+          <select name="role">
+            <option value="">Select…</option>
+            <option>HSEQ / WHS Consultant</option>
+            <option>Tier 2 Builder</option>
+            <option>Tier 3 Builder / Head Contractor</option>
+            <option>Subcontractor</option>
+            <option>Project Manager</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>What Do You Need?
+          <textarea name="need" rows="3" placeholder="Brief description"></textarea>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">Send Enquiry</button>
+        <p class="form-status" id="lead-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <div>
+      <p class="logo">SiteGuard <span class="logo-accent">FORMS</span></p>
+      <p class="footer-note">
+        SiteGuard FORMS provides schema-controlled document frameworks.
+        SiteGuard does not guarantee certification, accreditation, regulatory
+        or audit outcomes. The PCBU retains full responsibility for
+        implementation, compliance and the operation of its own systems.
+      </p>
+    </div>
+    <p class="copyright">© 2026 SiteGuard Systems. Melbourne, Victoria. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+{
+  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Nothing here has been charged to a real customer yet. Prices are AUD, GST status TBC (confirm registration before launch).",
+  "currency": "aud",
+  "items": [
+    {
+      "id": "single-swms",
+      "tier": "self-serve",
+      "name": "Single SWMS",
+      "tagline": "One controlled SWMS, from the live library",
+      "description": "Pick any one of the currently clean, schema-controlled SWMS from SiteGuard's library. Instant download: DOCX master, PDF companion, document control register entry.",
+      "unit_amount": 14900,
+      "priceLabel": "$149",
+      "priceSuffix": "one-off",
+      "cta": "Buy Now",
+      "bullets": [
+        "Controlled DOCX + PDF companion",
+        "Document control register entry",
+        "Instant download after payment"
+      ]
+    },
+    {
+      "id": "trade-pack",
+      "tier": "self-serve",
+      "name": "Trade Compliance Pack",
+      "tagline": "Full document set for one trade",
+      "description": "SWMS suite for the trade, plus induction, site forms and registers. A complete document foundation for a subcontractor's safety system.",
+      "unit_amount": 49900,
+      "priceLabel": "$499",
+      "priceSuffix": "one-off",
+      "cta": "Buy Now",
+      "bullets": [
+        "Full trade SWMS suite",
+        "Induction & site forms included",
+        "Instant download after payment"
+      ]
+    },
+    {
+      "id": "sms-bundle",
+      "tier": "self-serve",
+      "name": "Subcontractor Management System",
+      "tagline": "Pre-built SMS framework",
+      "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
+      "unit_amount": 129900,
+      "priceLabel": "$1,299",
+      "priceSuffix": "one-off",
+      "cta": "Buy Now",
+      "bullets": [
+        "Complete SMS document set",
+        "Policy + plans + registers",
+        "Instant download after payment"
+      ]
+    },
+    {
+      "id": "ims-quote",
+      "tier": "quote",
+      "name": "ISO / IMS Framework",
+      "tagline": "45001 · 9001 · 14001 — standalone or combined",
+      "description": "Pre-built ISO management system pack, standalone or combined into a single Integrated Management System. Scoped to your organisation before checkout.",
+      "priceLabel": "From $2,900",
+      "priceSuffix": "final quote before payment",
+      "cta": "Request Quote",
+      "bullets": [
+        "Standalone or combined IMS",
+        "Scoped to your organisation",
+        "Consulting available for implementation"
+      ]
+    }
+  ]
+}

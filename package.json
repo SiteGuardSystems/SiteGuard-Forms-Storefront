@@ -1,0 +1,19 @@
+{
+  "name": "siteguard-forms-storefront",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SiteGuard FORMS — public landing page + Stripe checkout for self-serve document purchases. Deliberately separate from SiteGuard-Artifact-Factory (internal ops tool): different trust boundary, public traffic, no SharePoint/Graph credentials here.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "stripe": "^16.12.0"
+  }
+}
