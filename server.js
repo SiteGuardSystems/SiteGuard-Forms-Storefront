@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Stripe from "stripe";
 import { createApp } from "./lib/create-app.js";
+import { createMailer } from "./lib/mailer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VAR_DIR = process.env.SITEGUARD_FORMS_VAR_DIR ?? path.join(__dirname, "var");
@@ -39,6 +40,17 @@ if (stripeSecretKey && !stripeTestMode && !stripeSecretKey.startsWith("sk_live_"
   console.warn("STRIPE_SECRET_KEY doesn't look like sk_test_... or sk_live_... — double-check it.");
 }
 
+// Until siteguardforms.com.au's DNS is verified with Resend, RESEND_FROM_EMAIL
+// should be Resend's shared onboarding@resend.dev sender — real domain
+// sending needs the DNS records Resend's dashboard provides after "Add Domain".
+const mailer = createMailer({
+  apiKey: process.env.RESEND_API_KEY,
+  fromAddress: process.env.RESEND_FROM_EMAIL,
+});
+if (!mailer.configured) {
+  console.warn("RESEND_API_KEY/RESEND_FROM_EMAIL not set — magic links are logged to var/magic-links.jsonl only, no email sent.");
+}
+
 const app = createApp({
   catalogPath: path.join(__dirname, "packages.json"),
   varDir: VAR_DIR,
@@ -48,6 +60,7 @@ const app = createApp({
   stripeWebhookSecret,
   publicOrigin: PUBLIC_ORIGIN,
   magicLinkSecret: MAGIC_LINK_SECRET,
+  mailer,
 });
 
 app.listen(PORT, HOST, () => {
@@ -62,4 +75,5 @@ app.listen(PORT, HOST, () => {
   } else {
     console.log("Stripe: LIVE MODE (sk_live_...) — real cards will be charged");
   }
+  console.log(mailer.configured ? `Mail: Resend configured (from ${process.env.RESEND_FROM_EMAIL})` : "Mail: NOT configured — magic links logged to file only");
 });
