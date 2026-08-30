@@ -12,7 +12,7 @@ async function loadPackages() {
     stripeConfigured = Boolean(catalog.stripeConfigured);
     stripeTestMode = Boolean(catalog.stripeTestMode);
     showTestModeBanner();
-    renderPackages(catalog.items ?? []);
+    renderCatalog(catalog.categories ?? []);
   } catch {
     grid.innerHTML = `<p class="loading">Couldn't load packages right now — please try again shortly.</p>`;
   }
@@ -29,18 +29,51 @@ function showTestModeBanner() {
     "TEST MODE — Stripe test key active, no real card is charged. Use card 4242 4242 4242 4242, any future date, any CVC.";
 }
 
-function renderPackages(items) {
+// Merges each category's _itemDefaults into its items — mirrors the same
+// merge the server does when flattening for checkout, so a category like
+// SWMS can define "coming-soon" / "Notify Me" once for 21 trades instead of
+// repeating it.
+function withDefaults(category) {
+  const defaults = category._itemDefaults ?? {};
+  return (category.items ?? []).map((item) => ({ ...defaults, ...item }));
+}
+
+/** Resolve the actual purchasability of an item: self-serve only counts as
+ *  buyable when Stripe is actually configured on this deployment. */
+function resolvedState(item) {
+  if (item.tier === "quote") return "quote";
+  if (item.tier === "coming-soon") return "coming-soon";
+  return stripeConfigured ? "self-serve" : "coming-soon";
+}
+
+function renderCatalog(categories) {
   grid.innerHTML = "";
+  for (const category of categories) {
+    const section = document.createElement("div");
+    section.className = "category-block";
+    section.innerHTML = `
+      <h3 class="category-name">${escapeHtml(category.name)}</h3>
+      ${category.description ? `<p class="category-desc">${escapeHtml(category.description)}</p>` : ""}
+    `;
+    const items = withDefaults(category);
+    section.appendChild(
+      category.layout === "chips" ? renderChipGrid(items) : renderCardGrid(items),
+    );
+    grid.appendChild(section);
+  }
+}
+
+function renderCardGrid(items) {
+  const container = document.createElement("div");
+  container.className = "package-grid";
   for (const item of items) {
+    const state = resolvedState(item);
     const card = document.createElement("article");
-    card.className = `package-card tier-${item.tier}`;
+    card.className = `package-card tier-${state}`;
 
-    const bullets = (item.bullets ?? [])
-      .map((b) => `<li>${escapeHtml(b)}</li>`)
-      .join("");
-
-    const isQuote = item.tier === "quote";
-    const buyDisabled = !isQuote && !stripeConfigured;
+    const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+    const label =
+      state === "quote" ? (item.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : (item.cta ?? "Buy Now");
 
     card.innerHTML = `
       <p class="package-name">${escapeHtml(item.name)}</p>
@@ -49,24 +82,44 @@ function renderPackages(items) {
       <p class="package-price-suffix">${escapeHtml(item.priceSuffix ?? "")}</p>
       <p>${escapeHtml(item.description ?? "")}</p>
       <ul class="package-bullets">${bullets}</ul>
-      <button class="btn ${isQuote ? "btn-ghost" : "btn-primary"} btn-block" data-id="${item.id}" data-quote="${isQuote}" ${buyDisabled ? "disabled" : ""}>
-        ${isQuote ? escapeHtml(item.cta ?? "Request Quote") : buyDisabled ? "Coming Soon" : escapeHtml(item.cta ?? "Buy Now")}
-      </button>
-      ${buyDisabled ? `<p class="package-status">Checkout opens shortly — use the enquiry form below to be notified.</p>` : ""}
+      <button class="btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block">${escapeHtml(label)}</button>
+      ${state === "coming-soon" ? `<p class="package-status">Not available for purchase yet — use the enquiry form below to be notified.</p>` : ""}
     `;
-
     const button = card.querySelector("button");
-    button.addEventListener("click", () => handlePackageAction(item, isQuote, buyDisabled, button));
-    grid.appendChild(card);
+    button.addEventListener("click", () => handlePackageAction(item, state, button));
+    container.appendChild(card);
   }
+  return container;
 }
 
-async function handlePackageAction(item, isQuote, buyDisabled, button) {
-  if (isQuote || buyDisabled) {
+/** Compact one-line-per-trade layout — 21 near-identical big cards would
+ *  bury the actually-buyable categories above them. */
+function renderChipGrid(items) {
+  const container = document.createElement("div");
+  container.className = "trade-chip-grid";
+  for (const item of items) {
+    const state = resolvedState(item);
+    const chip = document.createElement("div");
+    chip.className = `trade-chip tier-${state}`;
+    chip.innerHTML = `
+      <span class="trade-chip-name">${escapeHtml(item.trade ?? item.name ?? "")}</span>
+      <button class="btn-chip">${escapeHtml(item.cta ?? "Notify Me")}</button>
+    `;
+    chip.querySelector("button").addEventListener("click", (e) =>
+      handlePackageAction(item, state, e.currentTarget),
+    );
+    container.appendChild(chip);
+  }
+  return container;
+}
+
+async function handlePackageAction(item, state, button) {
+  if (state !== "self-serve") {
     document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
     const need = document.querySelector('textarea[name="need"]');
+    const label = item.trade ? `SWMS — ${item.trade}` : item.name;
     if (need && !need.value) {
-      need.value = `Interested in: ${item.name}`;
+      need.value = `Interested in: ${label}`;
     }
     return;
   }
@@ -156,10 +209,3 @@ function wireLeadForm() {
 showCheckoutBanner();
 wireLeadForm();
 loadPackages();
-
-// TODO: wire this to the real QA-clean document count instead of a hardcoded
-// figure. That count lives in the Artifact Factory's library_snapshot.json
-// (OPS_DIR, internal-only) — this public storefront deliberately has no
-// network path to that service, so either publish the single number via a
-// small internal->public sync, or accept a manually-updated figure for now.
-document.getElementById("stat-clean").textContent = "96+";

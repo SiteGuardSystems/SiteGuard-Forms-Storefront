@@ -1,68 +1,159 @@
 {
-  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Nothing here has been charged to a real customer yet. Prices are AUD, GST status TBC (confirm registration before launch).",
+  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Availability status per category is grounded in the Artifact Factory's library_snapshot.json QA lane counts as of 2026-08-30 (by_lane clean/total): Registers 18/18, ITPs 80/131, SWMS 9/211, Forms 10/123, Plans 20/198, Audit 2/17. Only Registers and ITPs have enough QA-clean inventory to sell as instant-download bundles today. SWMS entries exist here to show the intended catalog breadth (matches the 21 trade series on siteguardsystems.com.au) but stay 'coming-soon' until each trade clears review — do not flip any SWMS item to self-serve without checking current clean counts for that specific trade first.",
   "currency": "aud",
-  "items": [
+  "categories": [
     {
-      "id": "single-swms",
-      "tier": "self-serve",
-      "name": "Single SWMS",
-      "tagline": "One controlled SWMS, from the live library",
-      "description": "Pick any one of the currently clean, schema-controlled SWMS from SiteGuard's library. Instant download: DOCX master, PDF companion, document control register entry.",
-      "unit_amount": 14900,
-      "priceLabel": "$149",
-      "priceSuffix": "one-off",
-      "cta": "Buy Now",
-      "bullets": [
-        "Controlled DOCX + PDF companion",
-        "Document control register entry",
-        "Instant download after payment"
+      "id": "registers",
+      "name": "Safety Forms & Registers",
+      "description": "The one category that's fully cleared QA — every document here is schema-controlled, version-managed, and ready today.",
+      "items": [
+        {
+          "id": "registers-bundle",
+          "tier": "self-serve",
+          "name": "Safety Forms & Registers — Starter Bundle",
+          "tagline": "18 controlled registers and site forms — 100% QA-clean",
+          "description": "Site/contractor/visitor induction, pre-start meeting, toolbox talk, hazard & incident reporting, plant/PPE/test & tag registers, training & competency register, and more.",
+          "unit_amount": 24900,
+          "priceLabel": "$249",
+          "priceSuffix": "one-off",
+          "cta": "Buy Now",
+          "bullets": [
+            "18 registers and forms, fully QA-clean",
+            "Controlled DOCX + PDF companion for each",
+            "Document control register entry included"
+          ]
+        }
       ]
     },
     {
-      "id": "trade-pack",
-      "tier": "self-serve",
-      "name": "Trade Compliance Pack",
-      "tagline": "Full document set for one trade",
-      "description": "SWMS suite for the trade, plus induction, site forms and registers. A complete document foundation for a subcontractor's safety system.",
-      "unit_amount": 49900,
-      "priceLabel": "$499",
-      "priceSuffix": "one-off",
-      "cta": "Buy Now",
-      "bullets": [
-        "Full trade SWMS suite",
-        "Induction & site forms included",
-        "Instant download after payment"
+      "id": "itp",
+      "name": "Inspection & Test Plans (ITPs)",
+      "description": "The majority of the ITP library has cleared QA — bundled by scope.",
+      "items": [
+        {
+          "id": "itp-bundle",
+          "tier": "self-serve",
+          "name": "ITP Pack — General Construction",
+          "tagline": "Inspection & Test Plans across major trade scopes",
+          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs — QA-clean documents from the current library.",
+          "unit_amount": 39900,
+          "priceLabel": "$399",
+          "priceSuffix": "one-off",
+          "cta": "Buy Now",
+          "bullets": [
+            "QA-clean ITPs across 9 trade scopes",
+            "Controlled DOCX + PDF companion",
+            "Document control register entry included"
+          ]
+        }
       ]
     },
     {
-      "id": "sms-bundle",
-      "tier": "self-serve",
-      "name": "Subcontractor Management System",
-      "tagline": "Pre-built SMS framework",
-      "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
-      "unit_amount": 129900,
-      "priceLabel": "$1,299",
-      "priceSuffix": "one-off",
-      "cta": "Buy Now",
-      "bullets": [
-        "Complete SMS document set",
-        "Policy + plans + registers",
-        "Instant download after payment"
-      ]
+      "id": "swms",
+      "name": "Safe Work Method Statements (SWMS)",
+      "description": "21 trade series, rolling out as each trade clears QA review. Register interest for your trade to be notified the moment it's ready — most of the library is still in review, so this is the roadmap, not a live shelf.",
+      "layout": "chips",
+      "items": [
+        { "id": "swms-carpentry-framing", "trade": "Carpentry & Framing" },
+        { "id": "swms-civil-works", "trade": "Civil Works" },
+        { "id": "swms-commercial-fitout", "trade": "Commercial Fitout" },
+        { "id": "swms-concrete-works", "trade": "Concrete Works" },
+        { "id": "swms-demolition", "trade": "Demolition" },
+        { "id": "swms-electrical", "trade": "Electrical" },
+        { "id": "swms-facade-cladding", "trade": "Facade & Cladding" },
+        { "id": "swms-finishes", "trade": "Finishes" },
+        { "id": "swms-fire-services", "trade": "Fire Services" },
+        { "id": "swms-general-construction", "trade": "General Construction" },
+        { "id": "swms-high-risk-work", "trade": "High Risk Work" },
+        { "id": "swms-landscaping", "trade": "Landscaping" },
+        { "id": "swms-mechanical", "trade": "Mechanical" },
+        { "id": "swms-painting", "trade": "Painting" },
+        { "id": "swms-plastering", "trade": "Plastering" },
+        { "id": "swms-plumbing", "trade": "Plumbing" },
+        { "id": "swms-plant-equipment", "trade": "Plant & Equipment" },
+        { "id": "swms-roofing", "trade": "Roofing" },
+        { "id": "swms-services-install", "trade": "Services Install" },
+        { "id": "swms-structural-steel", "trade": "Structural Steel" },
+        { "id": "swms-waterproofing", "trade": "Waterproofing" }
+      ],
+      "_itemDefaults": {
+        "tier": "coming-soon",
+        "priceLabel": "From $149",
+        "priceSuffix": "when available",
+        "cta": "Notify Me"
+      }
     },
     {
-      "id": "ims-quote",
-      "tier": "quote",
-      "name": "ISO / IMS Framework",
-      "tagline": "45001 · 9001 · 14001 — standalone or combined",
-      "description": "Pre-built ISO management system pack, standalone or combined into a single Integrated Management System. Scoped to your organisation before checkout.",
-      "priceLabel": "From $2,900",
-      "priceSuffix": "final quote before payment",
-      "cta": "Request Quote",
-      "bullets": [
-        "Standalone or combined IMS",
-        "Scoped to your organisation",
-        "Consulting available for implementation"
+      "id": "management-systems",
+      "name": "Management System Frameworks",
+      "description": "Pre-built frameworks, scoped to your organisation before checkout — same senior-practitioner standard as SiteGuard's consulting engagements.",
+      "items": [
+        {
+          "id": "sms-bundle",
+          "tier": "quote",
+          "name": "Subcontractor Management System",
+          "tagline": "Pre-built SMS framework",
+          "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
+          "priceLabel": "From $1,299",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Complete SMS document set", "Policy + plans + registers", "Scoped to your organisation"]
+        },
+        {
+          "id": "iso-45001",
+          "tier": "quote",
+          "name": "ISO 45001 — Safety Management",
+          "tagline": "OHS/WHS management system pack",
+          "description": "Pre-built ISO 45001-aligned framework — policies, procedures, registers and evidence infrastructure.",
+          "priceLabel": "From $2,400",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+        },
+        {
+          "id": "iso-9001",
+          "tier": "quote",
+          "name": "ISO 9001 — Quality Management",
+          "tagline": "Quality management system pack",
+          "description": "Pre-built ISO 9001 framework — policies, procedures, registers and evidence infrastructure.",
+          "priceLabel": "From $2,400",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+        },
+        {
+          "id": "iso-14001",
+          "tier": "quote",
+          "name": "ISO 14001 — Environmental Management",
+          "tagline": "Environmental management system pack",
+          "description": "Pre-built ISO 14001 framework — policies, procedures, registers and evidence infrastructure.",
+          "priceLabel": "From $2,400",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+        },
+        {
+          "id": "iso-45003",
+          "tier": "quote",
+          "name": "ISO 45003 — Psychosocial Hazard Framework",
+          "tagline": "Psychosocial hazard management",
+          "description": "Hazard identification, risk controls, consultation structures and evidence records aligned to ISO 45003:2021.",
+          "priceLabel": "From $1,800",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Hazard ID + risk controls", "Consultation structures included", "Scoped to your organisation"]
+        },
+        {
+          "id": "ims-combined",
+          "tier": "quote",
+          "name": "Integrated Management System (IMS)",
+          "tagline": "45001 · 9001 · 14001 — combined framework",
+          "description": "One policy structure, one risk register, one audit cycle — a complete IMS framework combining all three standards.",
+          "priceLabel": "From $5,900",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": ["Combined ISO 45001/9001/14001", "One audit cycle", "Scoped to your organisation"]
+        }
       ]
     }
   ]

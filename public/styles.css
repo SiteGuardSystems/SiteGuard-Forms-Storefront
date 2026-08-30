@@ -167,6 +167,12 @@ a { color: var(--or); }
 /* Packages */
 .packages { padding: 4.5rem 0; text-align: center; }
 .section-sub { max-width: 620px; margin: 0 auto 2.5rem; color: var(--body); }
+
+.category-block { text-align: left; margin-bottom: 3rem; }
+.category-block:last-child { margin-bottom: 0; }
+.category-name { font-size: 1.4rem; border-bottom: 2px solid var(--or-lt); padding-bottom: 0.5rem; margin-bottom: 0.3rem; }
+.category-desc { color: var(--body); font-size: 0.92rem; max-width: 720px; margin-bottom: 1.25rem; }
+
 .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; text-align: left; }
 .package-card {
   background: var(--bg);
@@ -179,6 +185,7 @@ a { color: var(--or); }
   gap: 0.6rem;
 }
 .package-card.tier-quote { background: var(--or-lt); border-color: #F3D3AE; }
+.package-card.tier-coming-soon { background: var(--bg2); }
 .package-name { font-family: var(--f-hd); font-weight: 700; font-size: 1.2rem; color: var(--ch); }
 .package-tagline { color: var(--body); font-size: 0.88rem; margin-bottom: 0.4rem; }
 .package-price { font-family: var(--f-hd); font-size: 1.8rem; font-weight: 800; color: var(--ch); }
@@ -188,6 +195,36 @@ a { color: var(--or); }
 .package-bullets li::before { content: "✓"; position: absolute; left: 0; color: var(--or); font-weight: 700; }
 .package-status { font-size: 0.78rem; color: var(--body); margin-top: 0.3rem; }
 .loading { color: var(--body); }
+
+/* Trade chips (SWMS roadmap) — compact, one row per trade, not a full card */
+.trade-chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.6rem; }
+.trade-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 0.6rem 0.6rem 0.6rem 0.9rem;
+}
+.trade-chip-name { font-size: 0.88rem; font-weight: 700; color: var(--ch); }
+.btn-chip {
+  font-family: var(--f-hd);
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--or-dk);
+  background: var(--or-lt);
+  border: none;
+  border-radius: var(--r);
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-chip:hover { background: #F9DDBB; }
 
 /* Enquire */
 .enquire { background: var(--bg3); padding: 4.5rem 0; border-top: 1px solid var(--rule); }
