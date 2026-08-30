@@ -1,0 +1,18 @@
+[Unit]
+Description=Stripe CLI webhook forwarder for SiteGuard FORMS (test mode only)
+After=network-online.target siteguard-forms-storefront.service
+Wants=network-online.target
+Requires=siteguard-forms-storefront.service
+
+[Service]
+Type=simple
+User=dan
+Group=dan
+WorkingDirectory=/srv/siteguard/forms-storefront
+EnvironmentFile=-/srv/siteguard/forms-storefront/.env
+ExecStart=/bin/sh -c '/home/dan/bin/stripe listen --forward-to http://localhost:4300/api/webhook/stripe --api-key "$STRIPE_SECRET_KEY"'
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
