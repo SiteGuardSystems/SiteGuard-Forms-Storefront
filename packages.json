@@ -21,7 +21,33 @@
             "18 registers and forms, fully QA-clean",
             "Controlled DOCX + PDF companion for each",
             "Document control register entry included"
-          ]
+          ],
+          "purchaseOptions": {
+            "pdf": {
+              "unit_amount": 9900,
+              "priceLabel": "$99",
+              "priceSuffix": "one-off · PDF only",
+              "label": "PDF Reference Only",
+              "description": "Static PDF pack as-is, not customised to a project. No editable DOCX, no project credits."
+            },
+            "projectPack": {
+              "unit_amount": 24900,
+              "priceLabel": "$249",
+              "priceSuffix": "one-off · 5 projects",
+              "label": "Pack + 5 Projects",
+              "credits": 5,
+              "description": "Editable DOCX pack, plus 5 project-customisation credits (site address, client details) to use whenever you need them."
+            },
+            "subscription": {
+              "unit_amount": 19900,
+              "interval": "month",
+              "priceLabel": "$199",
+              "priceSuffix": "/mo · 5 projects/mo",
+              "label": "Subscription — 5/Month",
+              "credits": 5,
+              "description": "Same pack, billed monthly. 5 fresh project-customisation credits every billing period."
+            }
+          }
         }
       ]
     },
@@ -44,7 +70,33 @@
             "QA-clean ITPs across 9 trade scopes",
             "Controlled DOCX + PDF companion",
             "Document control register entry included"
-          ]
+          ],
+          "purchaseOptions": {
+            "pdf": {
+              "unit_amount": 14900,
+              "priceLabel": "$149",
+              "priceSuffix": "one-off · PDF only",
+              "label": "PDF Reference Only",
+              "description": "Static PDF pack as-is, not customised to a project. No editable DOCX, no project credits."
+            },
+            "projectPack": {
+              "unit_amount": 39900,
+              "priceLabel": "$399",
+              "priceSuffix": "one-off · 5 projects",
+              "label": "Pack + 5 Projects",
+              "credits": 5,
+              "description": "Editable DOCX pack, plus 5 project-customisation credits (site address, client details) to use whenever you need them."
+            },
+            "subscription": {
+              "unit_amount": 29900,
+              "interval": "month",
+              "priceLabel": "$299",
+              "priceSuffix": "/mo · 5 projects/mo",
+              "label": "Subscription — 5/Month",
+              "credits": 5,
+              "description": "Same pack, billed monthly. 5 fresh project-customisation credits every billing period."
+            }
+          }
         }
       ]
     },

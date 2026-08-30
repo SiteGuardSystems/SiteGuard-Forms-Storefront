@@ -63,6 +63,9 @@ function renderCatalog(categories) {
   }
 }
 
+const OPTION_ORDER = ["pdf", "projectPack", "subscription"];
+const DEFAULT_OPTION = "projectPack";
+
 function renderCardGrid(items) {
   const container = document.createElement("div");
   container.className = "package-grid";
@@ -75,18 +78,49 @@ function renderCardGrid(items) {
     const label =
       state === "quote" ? (item.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : (item.cta ?? "Buy Now");
 
+    const hasOptions = state === "self-serve" && item.purchaseOptions;
+    const optionKeys = hasOptions ? OPTION_ORDER.filter((k) => item.purchaseOptions[k]) : [];
+    const initialOption = optionKeys.includes(DEFAULT_OPTION) ? DEFAULT_OPTION : optionKeys[0];
+    const initialPricing = hasOptions ? item.purchaseOptions[initialOption] : item;
+
     card.innerHTML = `
       <p class="package-name">${escapeHtml(item.name)}</p>
       <p class="package-tagline">${escapeHtml(item.tagline ?? "")}</p>
-      <p class="package-price">${escapeHtml(item.priceLabel ?? "")}</p>
-      <p class="package-price-suffix">${escapeHtml(item.priceSuffix ?? "")}</p>
-      <p>${escapeHtml(item.description ?? "")}</p>
+      ${
+        hasOptions
+          ? `<div class="option-tabs" role="tablist">${optionKeys
+              .map(
+                (key) =>
+                  `<button type="button" class="option-tab${key === initialOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label)}</button>`,
+              )
+              .join("")}</div>`
+          : ""
+      }
+      <p class="package-price" data-role="price">${escapeHtml(initialPricing.priceLabel ?? "")}</p>
+      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initialPricing.priceSuffix ?? "")}</p>
+      <p data-role="option-desc">${escapeHtml(hasOptions ? initialPricing.description : item.description ?? "")}</p>
       <ul class="package-bullets">${bullets}</ul>
-      <button class="btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block">${escapeHtml(label)}</button>
+      <button class="btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block" data-role="buy">${escapeHtml(label)}</button>
       ${state === "coming-soon" ? `<p class="package-status">Not available for purchase yet — use the enquiry form below to be notified.</p>` : ""}
     `;
-    const button = card.querySelector("button");
-    button.addEventListener("click", () => handlePackageAction(item, state, button));
+
+    let selectedOption = initialOption;
+    if (hasOptions) {
+      const tabs = [...card.querySelectorAll(".option-tab")];
+      tabs.forEach((tab) =>
+        tab.addEventListener("click", () => {
+          selectedOption = tab.dataset.option;
+          tabs.forEach((t) => t.classList.toggle("active", t === tab));
+          const pricing = item.purchaseOptions[selectedOption];
+          card.querySelector('[data-role="price"]').textContent = pricing.priceLabel ?? "";
+          card.querySelector('[data-role="price-suffix"]').textContent = pricing.priceSuffix ?? "";
+          card.querySelector('[data-role="option-desc"]').textContent = pricing.description ?? "";
+        }),
+      );
+    }
+
+    const button = card.querySelector('[data-role="buy"]');
+    button.addEventListener("click", () => handlePackageAction(item, state, button, hasOptions ? selectedOption : null));
     container.appendChild(card);
   }
   return container;
@@ -113,7 +147,7 @@ function renderChipGrid(items) {
   return container;
 }
 
-async function handlePackageAction(item, state, button) {
+async function handlePackageAction(item, state, button, option = null) {
   if (state !== "self-serve") {
     document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
     const need = document.querySelector('textarea[name="need"]');
@@ -132,7 +166,7 @@ async function handlePackageAction(item, state, button) {
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ packageId: item.id }),
+      body: JSON.stringify({ packageId: item.id, option }),
     });
     const data = await res.json();
     if (data.ok && data.url) {

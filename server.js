@@ -23,6 +23,14 @@ const PUBLIC_ORIGIN = process.env.PUBLIC_ORIGIN ?? "https://www.siteguardforms.c
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
+
+// Signs magic-link redemption tokens (see lib/magic-link.js). Generate a real
+// one with e.g. `openssl rand -hex 32` before this ever handles a real
+// customer — without it, redemption links can't be created or verified.
+const MAGIC_LINK_SECRET = process.env.MAGIC_LINK_SECRET;
+if (!MAGIC_LINK_SECRET) {
+  console.warn("MAGIC_LINK_SECRET not set — subscription/project-pack redemption links won't work.");
+}
 // sk_test_... vs sk_live_... — surfaced to the page so a test-mode deployment
 // says so out loud. No real card is ever charged against a test key, but the
 // checkout page looks identical either way, so this is the only visible cue.
@@ -39,6 +47,7 @@ const app = createApp({
   stripeTestMode,
   stripeWebhookSecret,
   publicOrigin: PUBLIC_ORIGIN,
+  magicLinkSecret: MAGIC_LINK_SECRET,
 });
 
 app.listen(PORT, HOST, () => {

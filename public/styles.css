@@ -186,6 +186,20 @@ a { color: var(--or); }
 }
 .package-card.tier-quote { background: var(--or-lt); border-color: #F3D3AE; }
 .package-card.tier-coming-soon { background: var(--bg2); }
+
+.option-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.2rem 0 0.4rem; }
+.option-tab {
+  font-family: var(--f-bd);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.55rem;
+  border-radius: var(--r);
+  border: 1px solid var(--rule2);
+  background: var(--bg);
+  color: var(--body);
+  cursor: pointer;
+}
+.option-tab.active { background: var(--ch); border-color: var(--ch); color: #fff; }
 .package-name { font-family: var(--f-hd); font-weight: 700; font-size: 1.2rem; color: var(--ch); }
 .package-tagline { color: var(--body); font-size: 0.88rem; margin-bottom: 0.4rem; }
 .package-price { font-family: var(--f-hd); font-size: 1.8rem; font-weight: 800; color: var(--ch); }
