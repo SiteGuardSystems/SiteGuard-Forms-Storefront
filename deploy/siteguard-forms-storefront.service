@@ -1,0 +1,18 @@
+[Unit]
+Description=SiteGuard FORMS storefront (dev/staging — LAN only, not internet-exposed)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dan
+Group=dan
+WorkingDirectory=/srv/siteguard/forms-storefront
+Environment=HOME=/home/dan
+EnvironmentFile=-/srv/siteguard/forms-storefront/.env
+ExecStart=/home/dan/.nvm/versions/node/v20.20.2/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

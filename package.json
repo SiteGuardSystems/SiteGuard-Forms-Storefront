@@ -6,7 +6,8 @@
   "description": "SiteGuard FORMS — public landing page + Stripe checkout for self-serve document purchases. Deliberately separate from SiteGuard-Artifact-Factory (internal ops tool): different trust boundary, public traffic, no SharePoint/Graph credentials here.",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node --test lib/"
   },
   "engines": {
     "node": ">=20"

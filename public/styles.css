@@ -73,6 +73,7 @@ a { color: var(--accent); }
 }
 .banner.success { background: #E9F6EC; color: #1E6B33; }
 .banner.cancelled { background: var(--accent-tint); color: var(--accent-hover); }
+.banner.test-mode { background: #313035; color: #FFE7C2; letter-spacing: 0.02em; }
 
 /* Header */
 .site-header { border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 10; }

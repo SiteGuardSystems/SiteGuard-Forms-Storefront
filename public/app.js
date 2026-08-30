@@ -3,16 +3,30 @@
 
 const grid = document.getElementById("package-grid");
 let stripeConfigured = false;
+let stripeTestMode = false;
 
 async function loadPackages() {
   try {
     const res = await fetch("/api/packages");
     const catalog = await res.json();
     stripeConfigured = Boolean(catalog.stripeConfigured);
+    stripeTestMode = Boolean(catalog.stripeTestMode);
+    showTestModeBanner();
     renderPackages(catalog.items ?? []);
   } catch {
     grid.innerHTML = `<p class="loading">Couldn't load packages right now — please try again shortly.</p>`;
   }
+}
+
+function showTestModeBanner() {
+  if (!stripeTestMode) return;
+  const banner = document.getElementById("checkout-banner");
+  // Only overrides the ?checkout= banner if nothing else has claimed it yet.
+  if (!banner.hidden) return;
+  banner.hidden = false;
+  banner.className = "banner test-mode";
+  banner.textContent =
+    "TEST MODE — Stripe test key active, no real card is charged. Use card 4242 4242 4242 4242, any future date, any CVC.";
 }
 
 function renderPackages(items) {
@@ -94,7 +108,9 @@ function showCheckoutBanner() {
   banner.hidden = false;
   if (status === "success") {
     banner.className = "banner success";
-    banner.textContent = "Payment received — check your email for the download link and receipt.";
+    // No automated fulfillment yet (library is still being QA'd) — don't
+    // promise an email/download that nothing currently sends.
+    banner.textContent = "Payment received — thanks! We'll be in touch shortly to arrange delivery.";
   } else if (status === "cancelled") {
     banner.className = "banner cancelled";
     banner.textContent = "Checkout cancelled — no payment was taken.";
