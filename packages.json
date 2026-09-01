@@ -1,5 +1,5 @@
 {
-  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Availability status per category is grounded in the Artifact Factory's library_snapshot.json QA lane counts as of 2026-08-30 (by_lane clean/total): Registers 18/18, ITPs 80/131, SWMS 9/211, Forms 10/123, Plans 20/198, Audit 2/17. Only Registers and ITPs have enough QA-clean inventory to sell as instant-download bundles today. SWMS entries exist here to show the intended catalog breadth (matches the 21 trade series on siteguardsystems.com.au) but stay 'coming-soon' until each trade clears review — do not flip any SWMS item to self-serve without checking current clean counts for that specific trade first.",
+  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Availability status per category is grounded in the Artifact Factory's library_snapshot.json QA lane counts as of 2026-08-30 (by_lane clean/total): Registers 18/18, ITPs 80/131, SWMS 9/211, Forms 10/123, Plans 20/198, Audit 2/17. Only Registers and ITPs have enough QA-clean inventory to sell as instant-download bundles today. SWMS entries exist here to show the intended catalog breadth (matches the 21 trade series on siteguardsystems.com.au) but stay 'coming-soon' until each trade clears review — do not flip any SWMS item to self-serve without checking current clean counts for that specific trade first. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only — no subscriptions, no self-serve credit packs, until the whole thing moves to a cloud server. Every self-serve item is a single one-off order: pay, tell us the project, a human reviews and masters it before it ships.",
   "currency": "aud",
   "categories": [
     {
@@ -21,33 +21,7 @@
             "18 registers and forms, fully QA-clean",
             "Controlled DOCX + PDF companion for each",
             "Document control register entry included"
-          ],
-          "purchaseOptions": {
-            "pdf": {
-              "unit_amount": 9900,
-              "priceLabel": "$99",
-              "priceSuffix": "one-off · PDF only",
-              "label": "PDF Reference Only",
-              "description": "Static PDF pack as-is, not customised to a project. No editable DOCX, no project credits."
-            },
-            "projectPack": {
-              "unit_amount": 24900,
-              "priceLabel": "$249",
-              "priceSuffix": "one-off · 5 projects",
-              "label": "Pack + 5 Projects",
-              "credits": 5,
-              "description": "Editable DOCX pack, plus 5 project-customisation credits (site address, client details) to use whenever you need them."
-            },
-            "subscription": {
-              "unit_amount": 19900,
-              "interval": "month",
-              "priceLabel": "$199",
-              "priceSuffix": "/mo · 5 projects/mo",
-              "label": "Subscription — 5/Month",
-              "credits": 5,
-              "description": "Same pack, billed monthly. 5 fresh project-customisation credits every billing period."
-            }
-          }
+          ]
         }
       ]
     },
@@ -70,33 +44,7 @@
             "QA-clean ITPs across 9 trade scopes",
             "Controlled DOCX + PDF companion",
             "Document control register entry included"
-          ],
-          "purchaseOptions": {
-            "pdf": {
-              "unit_amount": 14900,
-              "priceLabel": "$149",
-              "priceSuffix": "one-off · PDF only",
-              "label": "PDF Reference Only",
-              "description": "Static PDF pack as-is, not customised to a project. No editable DOCX, no project credits."
-            },
-            "projectPack": {
-              "unit_amount": 39900,
-              "priceLabel": "$399",
-              "priceSuffix": "one-off · 5 projects",
-              "label": "Pack + 5 Projects",
-              "credits": 5,
-              "description": "Editable DOCX pack, plus 5 project-customisation credits (site address, client details) to use whenever you need them."
-            },
-            "subscription": {
-              "unit_amount": 29900,
-              "interval": "month",
-              "priceLabel": "$299",
-              "priceSuffix": "/mo · 5 projects/mo",
-              "label": "Subscription — 5/Month",
-              "credits": 5,
-              "description": "Same pack, billed monthly. 5 fresh project-customisation credits every billing period."
-            }
-          }
+          ]
         }
       ]
     },

@@ -1,14 +1,15 @@
 # SiteGuard FORMS — storefront
 
-Public landing page + Stripe checkout for self-serve HSEQ document purchases.
-Turns the "Coming Soon — Register Your Interest" FORMS teaser on
-siteguardsystems.com.au into an actual, buyable product.
+Public landing page + Stripe checkout for HSEQ document orders. Turns the
+"Coming Soon — Register Your Interest" FORMS teaser on siteguardsystems.com.au
+into an actual order form.
 
 **Deliberately a separate app from `SiteGuard-Artifact-Factory`.** Different
 trust boundary: this process is public-internet-facing and takes payments; it
-has no SharePoint/Graph credentials, no factory database access, and no code
-path into the internal ops tool. The only thing it shares with the Artifact
-Factory is the idea of the document library — not a network connection to it.
+has no SharePoint/Graph credentials and no factory database access. The one
+door between them is narrow and one-way: a completed order calls the
+factory's `POST /api/storefront-orders` (a shared API key, not the same
+credential as anything Graph/SharePoint) — see "The purchase model" below.
 
 ## Run it
 
@@ -23,16 +24,43 @@ enquiry form works — but "Buy Now" buttons show "Coming Soon" and defer to
 the enquiry form. That's intentional: this is safe to deploy and demo before
 Stripe is wired up.
 
+## The purchase model — purchase and order, not self-serve
+
+Per `docs/ORDER_SITE.md` in the `hseq-dev` repo (2026-08-03, Dan's own
+decision): **one-off orders only, no subscriptions, no self-serve credit
+packs**, until the whole thing moves to a cloud server. That document's
+reasoning is worth repeating here because it shapes everything in this repo:
+
+> Manual fulfilment makes the mastering gate hold by construction... A site
+> that takes an order and puts it in front of you before anything leaves
+> cannot ship an unapproved document, because you are the delivery mechanism.
+
+So: a customer pays once via Stripe Checkout, and tells us the project
+(address, client name, optional site notes) **right there on Stripe's own
+hosted page** via Checkout's `custom_fields` — no separate account, no
+redemption step, no repeat visits. The webhook then does exactly one thing:
+calls the Artifact Factory's `storefront-orders` route, which creates a
+normal `ArtifactJob` at `REGISTERED`. From there it's the same lifecycle
+every other job goes through — `READY_FOR_REVIEW` is where it waits for a
+human, `APPROVED` is mastering, `RELEASED` is delivery. This app never
+generates or delivers a document itself.
+
+This repo previously had a Stripe *Subscription* option and a self-serve
+project-credit ledger with magic-link redemption. That was built before
+`ORDER_SITE.md` was found, directly contradicts it, and has been removed —
+see git history if a subscription model is ever revisited (only after the
+cloud migration the doc names).
+
 ## What's real vs. stubbed
 
 | Piece | Status |
 |---|---|
-| Landing page, brand, copy | Built — matches siteguardsystems.com.au's palette (`#FB811C` / `#FFFBF7` / Barlow Condensed + Nunito) and the existing FORMS section's framing |
+| Landing page, brand, copy | Built — matches siteguardsystems.com.au's palette (`#FB811C` / white / Barlow Condensed + Helvetica Neue + Nunito wordmark) and the real shield logo |
 | Package catalog (`packages.json`) | **Draft placeholder pricing** — needs your sign-off before anything charges a real customer |
-| Stripe Checkout | Wired (`stripe.checkout.sessions.create`, redirect flow) — needs a real `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` |
-| Order/lead logging | Appends JSON lines to `var/orders.jsonl` / `var/leads.jsonl` — fine for launch volume, not a real CRM |
-| **Fulfillment handoff** (getting a redeemed project to the ops tool) | **Built 2026-09-01.** Redeeming a credit posts the project to the Artifact Factory's intake (`lib/fulfillment.js`), where it lands as `RECEIVED` and waits for a person. Needs `FACTORY_API_URL` + `STOREFRONT_API_KEY`; unset on either side and the handoff stays off and redemptions are recorded locally only |
-| **Fulfillment delivery** (actually sending the customer the document) | **Not built.** The factory records the request and a person moves it through review; nothing generates or sends a file yet. Still needs a delivery mechanism and the hard rule that only QA-clean documents are ever attached to a paid order — see below |
+| Stripe Checkout | Wired — one-off payment only, `custom_fields` collect the project address/client name/site notes on Stripe's own page |
+| Order → Job | Wired — `checkout.session.completed` calls the Artifact Factory's `storefront-orders` route, creating a real `ArtifactJob`. Verified live end-to-end. |
+| Order confirmation email | Wired via Resend — needs a real `RESEND_API_KEY` |
+| **Everything past `REGISTERED`** | **Manual, on purpose.** Mastering, QA, approval, and delivery all happen exactly as they do for any other job — this app has no more automation to add there without revisiting `ORDER_SITE.md`'s own reasoning first |
 
 ## Before this can actually go live
 
@@ -49,31 +77,18 @@ Stripe is wired up.
    domain for `STRIPE_WEBHOOK_SECRET`.
 4. **Pricing sign-off** — everything in `packages.json` is a placeholder
    guess. Needs Daniel's numbers, and a call on GST registration/inclusion.
-5. **Fulfillment delivery** — the handoff into the factory exists now, so a
-   redeemed project reaches a human queue by itself. What is still open is the
-   last step: how does a paying customer actually receive the file?
-   Options, roughly in order of effort:
-   - Manual for now: webhook emails you the order, you send the DOCX by hand
-     (fine at launch volume, zero extra build).
-   - Signed download link generated at webhook time, pointing at a copy of
-     the file already confirmed QA-clean (per the Artifact Factory's
-     `library_snapshot.json` — **only 96 of 1,354 library documents are
-     currently marked `clean`**; the rest are `reported_only`, `blocked`, or
-     `working_material` and should not be sold as finished controlled
-     documents yet).
-   - Full self-serve portal later, once volume justifies it.
-6. **Legal** — terms of sale, refund policy, and the same "SiteGuard does not
+   `ORDER_SITE.md` explicitly leaves catalogue units (individual documents,
+   trade packs, or whole-system bundles) undecided — this isn't blocking.
+5. **Turnaround promise** — `ORDER_SITE.md`: *"Taking money before
+   delivering makes turnaround a promise... state the turnaround on the
+   order page and make it one you can hit on your worst week."* Not on the
+   page yet.
+6. **familyCode/documentCode mapping** — `storefront-orders.ts` currently
+   uses a fixed `familyCode: "STOREFRONT"` and the storefront's own
+   `packageId` as `documentCode`, because there's no real mapping yet from
+   storefront packages to the DCRN register. Fine for now (jobs are still
+   identifiable and reviewable), but worth a proper mapping before volume.
+7. **Legal** — terms of sale, refund policy, and the same "SiteGuard does not
    guarantee certification/audit outcomes" disclaimer the parent site
    carries (already echoed in this page's footer) reviewed for an actual
    point-of-sale context, not just a consulting enquiry.
-
-## On removing HITL over time
-
-The Artifact Factory's own Organisation snapshot is explicit that its human
-review gates ("acts that never automate") are how the business is governed,
-not incidental friction. Automating *sales* of already-QA-cleared documents
-(this app) is a different, safer step than automating the *QA clearance*
-itself. Worth treating those as two separate roadmaps: this storefront can
-mature quickly since it never touches an un-reviewed document; loosening the
-QA/HITL gates on document *production* is a bigger, slower decision that
-deserves its own explicit review per gate, not a side effect of this launch.
