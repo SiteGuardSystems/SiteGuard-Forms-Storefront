@@ -31,7 +31,8 @@ Stripe is wired up.
 | Package catalog (`packages.json`) | **Draft placeholder pricing** — needs your sign-off before anything charges a real customer |
 | Stripe Checkout | Wired (`stripe.checkout.sessions.create`, redirect flow) — needs a real `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` |
 | Order/lead logging | Appends JSON lines to `var/orders.jsonl` / `var/leads.jsonl` — fine for launch volume, not a real CRM |
-| **Fulfillment** (actually delivering the purchased document) | **Not built.** The webhook handler has a marked extension point (`server.js`, `TODO(fulfillment)`) but sending files needs a decision on delivery mechanism, and a hard rule that only QA-clean documents are ever attached to a paid order — see below |
+| **Fulfillment handoff** (getting a redeemed project to the ops tool) | **Built 2026-09-01.** Redeeming a credit posts the project to the Artifact Factory's intake (`lib/fulfillment.js`), where it lands as `RECEIVED` and waits for a person. Needs `FACTORY_API_URL` + `STOREFRONT_API_KEY`; unset on either side and the handoff stays off and redemptions are recorded locally only |
+| **Fulfillment delivery** (actually sending the customer the document) | **Not built.** The factory records the request and a person moves it through review; nothing generates or sends a file yet. Still needs a delivery mechanism and the hard rule that only QA-clean documents are ever attached to a paid order — see below |
 
 ## Before this can actually go live
 
@@ -48,7 +49,9 @@ Stripe is wired up.
    domain for `STRIPE_WEBHOOK_SECRET`.
 4. **Pricing sign-off** — everything in `packages.json` is a placeholder
    guess. Needs Daniel's numbers, and a call on GST registration/inclusion.
-5. **Fulfillment** — how does a paying customer actually receive the file?
+5. **Fulfillment delivery** — the handoff into the factory exists now, so a
+   redeemed project reaches a human queue by itself. What is still open is the
+   last step: how does a paying customer actually receive the file?
    Options, roughly in order of effort:
    - Manual for now: webhook emails you the order, you send the DOCX by hand
      (fine at launch volume, zero extra build).

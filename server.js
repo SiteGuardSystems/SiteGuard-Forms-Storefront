@@ -9,6 +9,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Stripe from "stripe";
 import { createApp } from "./lib/create-app.js";
+import { createFulfillmentClient } from "./lib/fulfillment.js";
 import { createMailer } from "./lib/mailer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -51,6 +52,16 @@ if (!mailer.configured) {
   console.warn("RESEND_API_KEY/RESEND_FROM_EMAIL not set — magic links are logged to var/magic-links.jsonl only, no email sent.");
 }
 
+// The factory handoff. Both halves must be present or the client stays
+// disabled — a base url with no key would post an unauthenticated project to
+// the factory, and a key with no url has nowhere to send it.
+const FACTORY_API_URL = process.env.FACTORY_API_URL ?? null;
+const STOREFRONT_API_KEY = process.env.STOREFRONT_API_KEY ?? null;
+const fulfillment = createFulfillmentClient({
+  baseUrl: FACTORY_API_URL,
+  apiKey: STOREFRONT_API_KEY,
+});
+
 const app = createApp({
   catalogPath: path.join(__dirname, "packages.json"),
   varDir: VAR_DIR,
@@ -61,10 +72,16 @@ const app = createApp({
   publicOrigin: PUBLIC_ORIGIN,
   magicLinkSecret: MAGIC_LINK_SECRET,
   mailer,
+  fulfillment,
 });
 
 app.listen(PORT, HOST, () => {
   console.log(`siteguard-forms-storefront listening on http://${HOST}:${PORT}`);
+  console.log(
+    fulfillment.enabled
+      ? `Factory handoff: ${FACTORY_API_URL} — redeemed projects are submitted for review`
+      : "Factory handoff: NOT configured — redemptions are recorded locally only",
+  );
   if (!stripe) {
     console.log("Stripe: NOT configured — checkout returns 501, buy buttons fall back to the enquiry form");
   } else if (stripeTestMode) {
