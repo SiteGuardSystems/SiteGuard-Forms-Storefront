@@ -58,13 +58,15 @@ if (!mailer.configured) {
   console.warn("RESEND_API_KEY/RESEND_FROM_EMAIL not set — order confirmations aren't emailed, only logged to var/mail-events.jsonl.");
 }
 
-// The Artifact Factory's narrow storefront-orders intake route (see
-// apps/api/src/routes/storefront-orders.ts there). Shared secret, not the
-// same credential as anything Graph/SharePoint-related.
-const ARTIFACT_FACTORY_ORDER_URL = process.env.ARTIFACT_FACTORY_ORDER_URL;
-const ARTIFACT_FACTORY_API_KEY = process.env.ARTIFACT_FACTORY_API_KEY;
-if (!ARTIFACT_FACTORY_ORDER_URL || !ARTIFACT_FACTORY_API_KEY) {
-  console.warn("ARTIFACT_FACTORY_ORDER_URL/API_KEY not set — orders complete and are logged, but no Job is created in the factory.");
+// SiteGuard-Forms' narrow storefront-orders intake route (see
+// server/routes.ts there, requireStorefrontApiKey). Shared secret, not the
+// same credential as anything Graph/SharePoint-related. Was the Artifact
+// Factory's storefront-orders route until 2026-09-05's consolidation
+// workstream 4 -- same shape, new destination.
+const ORDER_INTAKE_URL = process.env.ORDER_INTAKE_URL;
+const ORDER_INTAKE_API_KEY = process.env.ORDER_INTAKE_API_KEY;
+if (!ORDER_INTAKE_URL || !ORDER_INTAKE_API_KEY) {
+  console.warn("ORDER_INTAKE_URL/API_KEY not set — orders complete and are logged, but nothing is recorded for review.");
 }
 
 const app = createApp({
@@ -76,8 +78,8 @@ const app = createApp({
   stripeWebhookSecret,
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
-  artifactFactoryOrderUrl: ARTIFACT_FACTORY_ORDER_URL,
-  artifactFactoryApiKey: ARTIFACT_FACTORY_API_KEY,
+  orderIntakeUrl: ORDER_INTAKE_URL,
+  orderIntakeApiKey: ORDER_INTAKE_API_KEY,
 });
 
 app.listen(PORT, HOST, () => {
@@ -94,8 +96,8 @@ app.listen(PORT, HOST, () => {
   }
   console.log(mailer.configured ? `Mail: Resend configured (from ${process.env.RESEND_FROM_EMAIL})` : "Mail: NOT configured — logged to file only");
   console.log(
-    ARTIFACT_FACTORY_ORDER_URL && ARTIFACT_FACTORY_API_KEY
-      ? `Factory: orders create Jobs at ${ARTIFACT_FACTORY_ORDER_URL}`
-      : "Factory: NOT configured — orders are logged locally only, no Job is created",
+    ORDER_INTAKE_URL && ORDER_INTAKE_API_KEY
+      ? `Order intake: orders recorded for review at ${ORDER_INTAKE_URL}`
+      : "Order intake: NOT configured — orders are logged locally only, nothing recorded for review",
   );
 });

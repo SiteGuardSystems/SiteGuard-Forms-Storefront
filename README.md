@@ -4,12 +4,15 @@ Public landing page + Stripe checkout for HSEQ document orders. Turns the
 "Coming Soon — Register Your Interest" FORMS teaser on siteguardsystems.com.au
 into an actual order form.
 
-**Deliberately a separate app from `SiteGuard-Artifact-Factory`.** Different
-trust boundary: this process is public-internet-facing and takes payments; it
-has no SharePoint/Graph credentials and no factory database access. The one
-door between them is narrow and one-way: a completed order calls the
-factory's `POST /api/storefront-orders` (a shared API key, not the same
-credential as anything Graph/SharePoint) — see "The purchase model" below.
+**Deliberately a separate app from `SiteGuard-Forms`.** Different trust
+boundary: this process is public-internet-facing and takes payments; it has
+no access to SiteGuard-Forms' tenant/customer database or credentials. The
+one door between them is narrow and one-way: a completed order calls
+SiteGuard-Forms' `POST /api/v3/storefront-orders` (a shared API key, not the
+same credential as anything else) — see "The purchase model" below. Was the
+Artifact Factory's `storefront-orders` route until 2026-09-05's
+consolidation workstream 4 — same shape, new destination, same reasoning
+for keeping the two apps apart.
 
 ## Run it
 
@@ -39,11 +42,13 @@ So: a customer pays once via Stripe Checkout, and tells us the project
 (address, client name, optional site notes) **right there on Stripe's own
 hosted page** via Checkout's `custom_fields` — no separate account, no
 redemption step, no repeat visits. The webhook then does exactly one thing:
-calls the Artifact Factory's `storefront-orders` route, which creates a
-normal `ArtifactJob` at `REGISTERED`. From there it's the same lifecycle
-every other job goes through — `READY_FOR_REVIEW` is where it waits for a
-human, `APPROVED` is mastering, `RELEASED` is delivery. This app never
-generates or delivers a document itself.
+calls SiteGuard-Forms' `storefront-orders` route, which records the order
+(pack, option, customer/project details, Stripe session) for manual review.
+It does not auto-provision a tenant, grant a licence, or generate a
+document — a human reviews the order and delivers by hand, the same
+manual-fulfilment model `ORDER_SITE.md` describes above, now recorded in
+SiteGuard-Forms instead of the Artifact Factory. This app never generates
+or delivers a document itself.
 
 This repo previously had a Stripe *Subscription* option and a self-serve
 project-credit ledger with magic-link redemption. That was built before
@@ -56,11 +61,11 @@ cloud migration the doc names).
 | Piece | Status |
 |---|---|
 | Landing page, brand, copy | Built — matches siteguardsystems.com.au's palette (`#FB811C` / white / Barlow Condensed + Helvetica Neue + Nunito wordmark) and the real shield logo |
-| Package catalog (`packages.json`) | **Draft placeholder pricing** — needs your sign-off before anything charges a real customer |
+| Package catalog (`packages.json`) | Real prices, rebuilt 2026-09-04 off `docs/packages.py`'s four-rung ladder — still needs G2 (Founder) sign-off before anything charges a real customer |
 | Stripe Checkout | Wired — one-off payment only, `custom_fields` collect the project address/client name/site notes on Stripe's own page |
-| Order → Job | Wired — `checkout.session.completed` calls the Artifact Factory's `storefront-orders` route, creating a real `ArtifactJob`. Verified live end-to-end. |
+| Order → recorded for review | Wired — `checkout.session.completed` calls SiteGuard-Forms' `storefront-orders` route. Verified live end-to-end. |
 | Order confirmation email | Wired via Resend — needs a real `RESEND_API_KEY` |
-| **Everything past `REGISTERED`** | **Manual, on purpose.** Mastering, QA, approval, and delivery all happen exactly as they do for any other job — this app has no more automation to add there without revisiting `ORDER_SITE.md`'s own reasoning first |
+| **Everything past that** | **Manual, on purpose.** Mastering, QA, approval, and delivery all happen by hand — this app (and SiteGuard-Forms' intake) has no more automation to add there without revisiting `ORDER_SITE.md`'s own reasoning first |
 
 ## Before this can actually go live
 
@@ -75,19 +80,20 @@ cloud migration the doc names).
 3. **Stripe** — a real (not test-mode) Stripe account, business details
    verified, `STRIPE_SECRET_KEY` + a webhook registered against the live
    domain for `STRIPE_WEBHOOK_SECRET`.
-4. **Pricing sign-off** — everything in `packages.json` is a placeholder
-   guess. Needs Daniel's numbers, and a call on GST registration/inclusion.
+4. **Pricing sign-off** — `packages.json`'s prices are real (from
+   `docs/packages.py`'s ladder, not a guess), but still need Daniel's G2
+   sign-off before they're live, and a call on GST registration/inclusion.
    `ORDER_SITE.md` explicitly leaves catalogue units (individual documents,
    trade packs, or whole-system bundles) undecided — this isn't blocking.
 5. **Turnaround promise** — `ORDER_SITE.md`: *"Taking money before
    delivering makes turnaround a promise... state the turnaround on the
    order page and make it one you can hit on your worst week."* Not on the
    page yet.
-6. **familyCode/documentCode mapping** — `storefront-orders.ts` currently
-   uses a fixed `familyCode: "STOREFRONT"` and the storefront's own
-   `packageId` as `documentCode`, because there's no real mapping yet from
-   storefront packages to the DCRN register. Fine for now (jobs are still
-   identifiable and reviewable), but worth a proper mapping before volume.
+6. ~~familyCode/documentCode mapping~~ — resolved by the 2026-09-05 move to
+   SiteGuard-Forms: `storefront_orders` records `packageId`/`packageName`
+   directly, no DCRN-register mapping needed at intake time. The old
+   Artifact Factory `ArtifactJob` model (and its `familyCode: "STOREFRONT"`
+   placeholder) is no longer in the order path at all.
 7. **Legal** — terms of sale, refund policy, and the same "SiteGuard does not
    guarantee certification/audit outcomes" disclaimer the parent site
    carries (already echoed in this page's footer) reviewed for an actual
