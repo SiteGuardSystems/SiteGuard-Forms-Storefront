@@ -63,67 +63,113 @@ function renderCatalog(categories) {
   }
 }
 
-const OPTION_ORDER = ["pdf", "projectPack", "subscription"];
-const DEFAULT_OPTION = "projectPack";
+/** Resolve what a *specific option* (or the plain item, when it has none)
+ *  actually is right now: its purchasability, its price fields, and its
+ *  button label. Every option inherits anything it doesn't override from
+ *  the item — a rung that doesn't set its own `tier` is self-serve like
+ *  its siblings; one that sets `tier: "quote"` isn't, even though other
+ *  rungs on the same item are. This is what makes switching tabs on, say,
+ *  a Builder Pack (Domestic/Light Commercial self-serve, Heavy Commercial/
+ *  ISO-OFSC quote-only) change the whole card, not just the price line. */
+function resolveVariant(item, optionKey) {
+  const variant = optionKey ? { ...item, ...item.purchaseOptions[optionKey] } : item;
+  const state = resolvedState(variant);
+  const label =
+    state === "quote" ? (variant.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : (variant.cta ?? "Buy Now");
+  return { variant, state, label };
+}
 
 function renderCardGrid(items) {
   const container = document.createElement("div");
   container.className = "package-grid";
   for (const item of items) {
-    const state = resolvedState(item);
     const card = document.createElement("article");
-    card.className = `package-card tier-${state}`;
+
+    const hasOptions = Boolean(item.purchaseOptions);
+    // Preserves whatever order the catalog JSON defines the options in
+    // (object key order, e.g. domestic -> light-commercial -> heavy-commercial
+    // -> iso-ofsc) rather than a fixed list that only fit the one purpose it
+    // was written for.
+    const optionKeys = hasOptions ? Object.keys(item.purchaseOptions) : [];
+    let selectedOption = hasOptions
+      ? item.defaultOption && optionKeys.includes(item.defaultOption)
+        ? item.defaultOption
+        : optionKeys[0]
+      : null;
 
     const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
-    const label =
-      state === "quote" ? (item.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : (item.cta ?? "Buy Now");
+    const { variant: initial, state: initialState, label: initialLabel } = resolveVariant(item, selectedOption);
 
-    const hasOptions = state === "self-serve" && item.purchaseOptions;
-    const optionKeys = hasOptions ? OPTION_ORDER.filter((k) => item.purchaseOptions[k]) : [];
-    const initialOption = optionKeys.includes(DEFAULT_OPTION) ? DEFAULT_OPTION : optionKeys[0];
-    const initialPricing = hasOptions ? item.purchaseOptions[initialOption] : item;
-
+    card.className = `package-card tier-${initialState}`;
     card.innerHTML = `
       <p class="package-name">${escapeHtml(item.name)}</p>
-      <p class="package-tagline">${escapeHtml(item.tagline ?? "")}</p>
+      <p class="package-tagline" data-role="tagline">${escapeHtml(initial.tagline ?? "")}</p>
       ${
         hasOptions
           ? `<div class="option-tabs" role="tablist">${optionKeys
               .map(
                 (key) =>
-                  `<button type="button" class="option-tab${key === initialOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label)}</button>`,
+                  `<button type="button" class="option-tab${key === selectedOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label ?? item.purchaseOptions[key].name ?? key)}</button>`,
               )
               .join("")}</div>`
           : ""
       }
-      <p class="package-price" data-role="price">${escapeHtml(initialPricing.priceLabel ?? "")}</p>
-      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initialPricing.priceSuffix ?? "")}</p>
-      <p data-role="option-desc">${escapeHtml(hasOptions ? initialPricing.description : item.description ?? "")}</p>
-      <ul class="package-bullets">${bullets}</ul>
-      <button class="btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block" data-role="buy">${escapeHtml(label)}</button>
-      ${state === "coming-soon" ? `<p class="package-status">Not available for purchase yet — use the enquiry form below to be notified.</p>` : ""}
+      <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
+      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
+      <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
+      <ul class="package-bullets" data-role="bullets">${bullets}</ul>
+      <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
+      <p class="package-status" data-role="status"></p>
     `;
+    updateStatusLine(card, initialState);
 
-    let selectedOption = initialOption;
+    const button = card.querySelector('[data-role="buy"]');
+    button.className = `btn ${initialState === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+
     if (hasOptions) {
       const tabs = [...card.querySelectorAll(".option-tab")];
       tabs.forEach((tab) =>
         tab.addEventListener("click", () => {
           selectedOption = tab.dataset.option;
           tabs.forEach((t) => t.classList.toggle("active", t === tab));
-          const pricing = item.purchaseOptions[selectedOption];
-          card.querySelector('[data-role="price"]').textContent = pricing.priceLabel ?? "";
-          card.querySelector('[data-role="price-suffix"]').textContent = pricing.priceSuffix ?? "";
-          card.querySelector('[data-role="option-desc"]').textContent = pricing.description ?? "";
+          const { variant, state, label } = resolveVariant(item, selectedOption);
+          card.className = `package-card tier-${state}`;
+          card.querySelector('[data-role="tagline"]').textContent = variant.tagline ?? "";
+          card.querySelector('[data-role="price"]').textContent = variant.priceLabel ?? "";
+          card.querySelector('[data-role="price-suffix"]').textContent = variant.priceSuffix ?? "";
+          card.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
+          const bulletsEl = card.querySelector('[data-role="bullets"]');
+          bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+          button.textContent = label;
+          button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+          updateStatusLine(card, state);
         }),
       );
     }
 
-    const button = card.querySelector('[data-role="buy"]');
-    button.addEventListener("click", () => handlePackageAction(item, state, button, hasOptions ? selectedOption : null));
+    button.addEventListener("click", () => {
+      // Re-resolve at click time, not render time — selectedOption may have
+      // changed since the card was built.
+      const { state } = resolveVariant(item, selectedOption);
+      handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
+    });
     container.appendChild(card);
   }
   return container;
+}
+
+/** Shows/hides the "not available yet" status line under a card, without
+ *  rebuilding the whole card — called both on initial render and whenever
+ *  a rung-picker tab switches to/from a coming-soon option. */
+function updateStatusLine(card, state) {
+  const status = card.querySelector('[data-role="status"]');
+  if (state === "coming-soon") {
+    status.hidden = false;
+    status.textContent = "Not available for purchase yet — use the enquiry form below to be notified.";
+  } else {
+    status.hidden = true;
+    status.textContent = "";
+  }
 }
 
 /** Compact one-line-per-trade layout — 21 near-identical big cards would
@@ -151,7 +197,8 @@ async function handlePackageAction(item, state, button, option = null) {
   if (state !== "self-serve") {
     document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
     const need = document.querySelector('textarea[name="need"]');
-    const label = item.trade ? `SWMS — ${item.trade}` : item.name;
+    const variantName = option ? (item.purchaseOptions?.[option]?.name ?? option) : null;
+    const label = item.trade ? `SWMS — ${item.trade}` : variantName ?? item.name;
     if (need && !need.value) {
       need.value = `Interested in: ${label}`;
     }

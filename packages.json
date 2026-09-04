@@ -1,17 +1,17 @@
 {
-  "_comment": "DRAFT pricing — placeholder numbers for Daniel to review/adjust before go-live. Availability status per category is grounded in the Artifact Factory's library_snapshot.json QA lane counts as of 2026-08-30 (by_lane clean/total): Registers 18/18, ITPs 80/131, SWMS 9/211, Forms 10/123, Plans 20/198, Audit 2/17. Only Registers and ITPs have enough QA-clean inventory to sell as instant-download bundles today. SWMS entries exist here to show the intended catalog breadth (matches the 21 trade series on siteguardsystems.com.au) but stay 'coming-soon' until each trade clears review — do not flip any SWMS item to self-serve without checking current clean counts for that specific trade first. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only — no subscriptions, no self-serve credit packs, until the whole thing moves to a cloud server. Every self-serve item is a single one-off order: pay, tell us the project, a human reviews and masters it before it ships.",
+  "_comment": "Pricing sourced live from docs/packages.py (hseq-dev repo) via scripts/gen_ladder_pricing.py \u2014 not hand-typed. Subcontractor Packs and Builder Packs (Domestic/Light Commercial rungs) are gated on the mastering ledger's findings_at_mastering field, the authoritative per-document record from credentialed mastering, not a raw-source-tree scan: every rung sold self-serve here carries zero outstanding findings, confirmed 2026-09-04. Builder Heavy Commercial/ISO-OFSC (and the whole Consultant channel, not sold on this storefront at all) carry the 69 docs mastered-despite-findings and stay quote-only until that review pass clears (sign-off item B). Registers/ITP/management-systems categories are unrelated products, unchanged. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only \u2014 no subscriptions. The ladder's own subscription prices are not sold here for that reason.",
   "currency": "aud",
   "categories": [
     {
       "id": "registers",
       "name": "Safety Forms & Registers",
-      "description": "The one category that's fully cleared QA — every document here is schema-controlled, version-managed, and ready today.",
+      "description": "The one category that's fully cleared QA \u2014 every document here is schema-controlled, version-managed, and ready today.",
       "items": [
         {
           "id": "registers-bundle",
           "tier": "self-serve",
-          "name": "Safety Forms & Registers — Starter Bundle",
-          "tagline": "18 controlled registers and site forms — 100% QA-clean",
+          "name": "Safety Forms & Registers \u2014 Starter Bundle",
+          "tagline": "18 controlled registers and site forms \u2014 100% QA-clean",
           "description": "Site/contractor/visitor induction, pre-start meeting, toolbox talk, hazard & incident reporting, plant/PPE/test & tag registers, training & competency register, and more.",
           "unit_amount": 24900,
           "priceLabel": "$249",
@@ -28,14 +28,14 @@
     {
       "id": "itp",
       "name": "Inspection & Test Plans (ITPs)",
-      "description": "The majority of the ITP library has cleared QA — bundled by scope.",
+      "description": "The majority of the ITP library has cleared QA \u2014 bundled by scope.",
       "items": [
         {
           "id": "itp-bundle",
           "tier": "self-serve",
-          "name": "ITP Pack — General Construction",
+          "name": "ITP Pack \u2014 General Construction",
           "tagline": "Inspection & Test Plans across major trade scopes",
-          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs — QA-clean documents from the current library.",
+          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs \u2014 QA-clean documents from the current library.",
           "unit_amount": 39900,
           "priceLabel": "$399",
           "priceSuffix": "one-off",
@@ -49,110 +49,1262 @@
       ]
     },
     {
-      "id": "swms",
-      "name": "Safe Work Method Statements (SWMS)",
-      "description": "21 trade series, rolling out as each trade clears QA review. Register interest for your trade to be notified the moment it's ready — most of the library is still in review, so this is the roadmap, not a live shelf.",
-      "layout": "chips",
+      "id": "subcontractor-packs",
+      "name": "Subcontractor Packs",
+      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO/OFSC. Pick your trade, then pick the rung that matches the job \u2014 every rung here has cleared the mastering QA gate with zero outstanding findings.",
       "items": [
-        { "id": "swms-carpentry-framing", "trade": "Carpentry & Framing" },
-        { "id": "swms-civil-works", "trade": "Civil Works" },
-        { "id": "swms-commercial-fitout", "trade": "Commercial Fitout" },
-        { "id": "swms-concrete-works", "trade": "Concrete Works" },
-        { "id": "swms-demolition", "trade": "Demolition" },
-        { "id": "swms-electrical", "trade": "Electrical" },
-        { "id": "swms-facade-cladding", "trade": "Facade & Cladding" },
-        { "id": "swms-finishes", "trade": "Finishes" },
-        { "id": "swms-fire-services", "trade": "Fire Services" },
-        { "id": "swms-general-construction", "trade": "General Construction" },
-        { "id": "swms-high-risk-work", "trade": "High Risk Work" },
-        { "id": "swms-landscaping", "trade": "Landscaping" },
-        { "id": "swms-mechanical", "trade": "Mechanical" },
-        { "id": "swms-painting", "trade": "Painting" },
-        { "id": "swms-plastering", "trade": "Plastering" },
-        { "id": "swms-plumbing", "trade": "Plumbing" },
-        { "id": "swms-plant-equipment", "trade": "Plant & Equipment" },
-        { "id": "swms-roofing", "trade": "Roofing" },
-        { "id": "swms-services-install", "trade": "Services Install" },
-        { "id": "swms-structural-steel", "trade": "Structural Steel" },
-        { "id": "swms-waterproofing", "trade": "Waterproofing" }
-      ],
-      "_itemDefaults": {
-        "tier": "coming-soon",
-        "priceLabel": "From $149",
-        "priceSuffix": "when available",
-        "cta": "Notify Me"
-      }
+        {
+          "id": "subcontractor-carp",
+          "tier": "self-serve",
+          "name": "Carpentry",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Carpentry \u2014 Domestic",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "36 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Carpentry \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "47 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Carpentry \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "52 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Carpentry \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "267 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-civ",
+          "tier": "self-serve",
+          "name": "Civil",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Civil \u2014 Domestic",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "36 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Civil \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "47 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Civil \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "55 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Civil \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "270 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-comm",
+          "tier": "self-serve",
+          "name": "Communications",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Communications \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "23 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Communications \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "34 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Communications \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Communications \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-conc",
+          "tier": "self-serve",
+          "name": "Concrete",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Concrete \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "30 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Concrete \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "41 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Concrete \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "49 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Concrete \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "264 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-demo",
+          "tier": "self-serve",
+          "name": "Demolition",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Demolition \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "25 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Demolition \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "36 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Demolition \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Demolition \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-elec",
+          "tier": "self-serve",
+          "name": "Electrical",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Electrical \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "27 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Electrical \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "38 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Electrical \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "43 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Electrical \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "258 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-faca",
+          "tier": "self-serve",
+          "name": "Facade",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Facade \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "24 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Facade \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "35 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Facade \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "39 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Facade \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "254 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-fin",
+          "tier": "self-serve",
+          "name": "Finishes/Fitout",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Finishes/Fitout \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "26 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Finishes/Fitout \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "37 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Finishes/Fitout \u2014 Heavy Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "37 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Finishes/Fitout \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "252 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-fire",
+          "tier": "self-serve",
+          "name": "Fire Services",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Fire Services \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "24 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Fire Services \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "35 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Fire Services \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "40 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Fire Services \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "255 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-glaz",
+          "tier": "self-serve",
+          "name": "Glazing",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Glazing \u2014 Domestic",
+              "unit_amount": 34900,
+              "priceLabel": "$349",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "20 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Glazing \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "31 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Glazing \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "35 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Glazing \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "250 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-land",
+          "tier": "self-serve",
+          "name": "Landscaping",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Landscaping \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "23 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Landscaping \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "34 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Landscaping \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "39 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Landscaping \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "254 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-lift",
+          "tier": "self-serve",
+          "name": "Lifts",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Lifts \u2014 Domestic",
+              "unit_amount": 34900,
+              "priceLabel": "$349",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "19 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Lifts \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "30 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Lifts \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "34 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Lifts \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "249 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-mas",
+          "tier": "self-serve",
+          "name": "Masonry",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Masonry \u2014 Domestic",
+              "unit_amount": 34900,
+              "priceLabel": "$349",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "21 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Masonry \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "32 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Masonry \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "36 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Masonry \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "251 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-mech",
+          "tier": "self-serve",
+          "name": "Mechanical",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Mechanical \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "26 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Mechanical \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "37 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Mechanical \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "42 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Mechanical \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "257 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-paint",
+          "tier": "self-serve",
+          "name": "Painting",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Painting \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "23 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Painting \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "34 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Painting \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Painting \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-plt",
+          "tier": "self-serve",
+          "name": "Plant Operations",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Plant Operations \u2014 Domestic",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "33 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Plant Operations \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "44 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Plant Operations \u2014 Heavy Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "44 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Plant Operations \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "259 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-plas",
+          "tier": "self-serve",
+          "name": "Plastering",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Plastering \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "25 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Plastering \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "36 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Plastering \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Plastering \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-plmb",
+          "tier": "self-serve",
+          "name": "Plumbing",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Plumbing \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "27 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Plumbing \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "38 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Plumbing \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "43 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Plumbing \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "258 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-rwh",
+          "tier": "self-serve",
+          "name": "Rainwater Harvesting",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Rainwater Harvesting \u2014 Domestic",
+              "unit_amount": 34900,
+              "priceLabel": "$349",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "19 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Rainwater Harvesting \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "30 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Rainwater Harvesting \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "33 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Rainwater Harvesting \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "248 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-roof",
+          "tier": "self-serve",
+          "name": "Roofing",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Roofing \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "27 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Roofing \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "38 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Roofing \u2014 Heavy Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Roofing \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-serv",
+          "tier": "self-serve",
+          "name": "Services",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Services \u2014 Domestic",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "35 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Services \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "46 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Services \u2014 Heavy Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "46 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Services \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "261 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-steel",
+          "tier": "self-serve",
+          "name": "Structural Steel",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Structural Steel \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "25 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Structural Steel \u2014 Light Commercial",
+              "unit_amount": 64900,
+              "priceLabel": "$649",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "36 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Structural Steel \u2014 Heavy Commercial",
+              "unit_amount": 94900,
+              "priceLabel": "$949",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Structural Steel \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-tile",
+          "tier": "self-serve",
+          "name": "Tiling",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Tiling \u2014 Domestic",
+              "unit_amount": 34900,
+              "priceLabel": "$349",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "19 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Tiling \u2014 Light Commercial",
+              "unit_amount": 54900,
+              "priceLabel": "$549",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "30 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Tiling \u2014 Heavy Commercial",
+              "unit_amount": 84900,
+              "priceLabel": "$849",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "34 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Tiling \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "249 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        },
+        {
+          "id": "subcontractor-wp",
+          "tier": "self-serve",
+          "name": "Waterproofing",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Waterproofing \u2014 Domestic",
+              "unit_amount": 44900,
+              "priceLabel": "$449",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "28 documents. Trade SWMS + the Core Site Pack (shared site registers and forms)."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Waterproofing \u2014 Light Commercial",
+              "unit_amount": 74900,
+              "priceLabel": "$749",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "39 documents. Domestic + the 11-document safety management plan stream."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Waterproofing \u2014 Heavy Commercial",
+              "unit_amount": 109900,
+              "priceLabel": "$1,099",
+              "priceSuffix": "one-off",
+              "tagline": "Heavy Commercial",
+              "description": "44 documents. Light Commercial + Inspection & Test Plans for this trade."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Waterproofing \u2014 ISO / OFSC",
+              "unit_amount": 449900,
+              "priceLabel": "$4,499",
+              "priceSuffix": "one-off",
+              "tagline": "ISO / OFSC",
+              "description": "259 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "builder-packs",
+      "name": "Builder Packs",
+      "description": "Whole-of-site, not per trade \u2014 every trade's content bundled into one pack. Domestic and Light Commercial are self-serve today; Heavy Commercial and ISO/OFSC carry management-system content still completing a documentation review pass, so those two are scoped and quoted individually until that clears.",
+      "items": [
+        {
+          "id": "builder-pack",
+          "tier": "self-serve",
+          "name": "Builder Pack \u2014 Whole of Site",
+          "tagline": "Pick a rung \u2014 price and document count update below",
+          "defaultOption": "domestic",
+          "cta": "Buy Now",
+          "purchaseOptions": {
+            "domestic": {
+              "label": "Domestic",
+              "name": "Builder Pack \u2014 Domestic",
+              "unit_amount": 219900,
+              "priceLabel": "$2,199",
+              "priceSuffix": "one-off",
+              "tagline": "Domestic",
+              "description": "208 documents \u2014 every trade's SWMS across the whole site. No ITPs, no management system."
+            },
+            "light-commercial": {
+              "label": "Light Commercial",
+              "name": "Builder Pack \u2014 Light Commercial",
+              "unit_amount": 279900,
+              "priceLabel": "$2,799",
+              "priceSuffix": "one-off",
+              "tagline": "Light Commercial",
+              "description": "226 documents \u2014 Domestic + the safety management plan and minimum governance policies."
+            },
+            "heavy-commercial": {
+              "label": "Heavy Commercial",
+              "name": "Builder Pack \u2014 Heavy Commercial",
+              "tier": "quote",
+              "tagline": "Heavy Commercial",
+              "priceLabel": "From $4,899",
+              "priceSuffix": "final quote before payment",
+              "cta": "Request Quote",
+              "description": "501 documents \u2014 every trade's ITPs plus the full core management system. Includes content still completing a documentation review pass \u2014 quoted individually, not self-serve, until that clears."
+            },
+            "iso-ofsc": {
+              "label": "ISO / OFSC",
+              "name": "Builder Pack \u2014 ISO / OFSC",
+              "tier": "quote",
+              "tagline": "ISO / OFSC",
+              "priceLabel": "From $9,999",
+              "priceSuffix": "final quote before payment",
+              "cta": "Request Quote",
+              "description": "709 documents \u2014 the complete library, every specialist add-on, and full OFSC/IMS content. Same review-pass gate as Heavy Commercial."
+            }
+          }
+        }
+      ]
     },
     {
       "id": "management-systems",
       "name": "Management System Frameworks",
-      "description": "Pre-built frameworks, scoped to your organisation before checkout — same senior-practitioner standard as SiteGuard's consulting engagements.",
+      "description": "Pre-built frameworks, scoped to your organisation before checkout \u2014 same senior-practitioner standard as SiteGuard's consulting engagements.",
       "items": [
         {
           "id": "sms-bundle",
           "tier": "quote",
           "name": "Subcontractor Management System",
           "tagline": "Pre-built SMS framework",
-          "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
+          "description": "Policy, plans, forms, registers and SWMS library as one bundle \u2014 a pre-built framework to support a structured safety system.",
           "priceLabel": "From $1,299",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Complete SMS document set", "Policy + plans + registers", "Scoped to your organisation"]
+          "bullets": [
+            "Complete SMS document set",
+            "Policy + plans + registers",
+            "Scoped to your organisation"
+          ]
         },
         {
           "id": "iso-45001",
           "tier": "quote",
-          "name": "ISO 45001 — Safety Management",
+          "name": "ISO 45001 \u2014 Safety Management",
           "tagline": "OHS/WHS management system pack",
-          "description": "Pre-built ISO 45001-aligned framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 45001-aligned framework \u2014 policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+          "bullets": [
+            "Standalone or combined into an IMS",
+            "Scoped to your organisation"
+          ]
         },
         {
           "id": "iso-9001",
           "tier": "quote",
-          "name": "ISO 9001 — Quality Management",
+          "name": "ISO 9001 \u2014 Quality Management",
           "tagline": "Quality management system pack",
-          "description": "Pre-built ISO 9001 framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 9001 framework \u2014 policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+          "bullets": [
+            "Standalone or combined into an IMS",
+            "Scoped to your organisation"
+          ]
         },
         {
           "id": "iso-14001",
           "tier": "quote",
-          "name": "ISO 14001 — Environmental Management",
+          "name": "ISO 14001 \u2014 Environmental Management",
           "tagline": "Environmental management system pack",
-          "description": "Pre-built ISO 14001 framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 14001 framework \u2014 policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Standalone or combined into an IMS", "Scoped to your organisation"]
+          "bullets": [
+            "Standalone or combined into an IMS",
+            "Scoped to your organisation"
+          ]
         },
         {
           "id": "iso-45003",
           "tier": "quote",
-          "name": "ISO 45003 — Psychosocial Hazard Framework",
+          "name": "ISO 45003 \u2014 Psychosocial Hazard Framework",
           "tagline": "Psychosocial hazard management",
           "description": "Hazard identification, risk controls, consultation structures and evidence records aligned to ISO 45003:2021.",
           "priceLabel": "From $1,800",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Hazard ID + risk controls", "Consultation structures included", "Scoped to your organisation"]
+          "bullets": [
+            "Hazard ID + risk controls",
+            "Consultation structures included",
+            "Scoped to your organisation"
+          ]
         },
         {
           "id": "ims-combined",
           "tier": "quote",
           "name": "Integrated Management System (IMS)",
-          "tagline": "45001 · 9001 · 14001 — combined framework",
-          "description": "One policy structure, one risk register, one audit cycle — a complete IMS framework combining all three standards.",
+          "tagline": "45001 \u00b7 9001 \u00b7 14001 \u2014 combined framework",
+          "description": "One policy structure, one risk register, one audit cycle \u2014 a complete IMS framework combining all three standards.",
           "priceLabel": "From $5,900",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
-          "bullets": ["Combined ISO 45001/9001/14001", "One audit cycle", "Scoped to your organisation"]
+          "bullets": [
+            "Combined ISO 45001/9001/14001",
+            "One audit cycle",
+            "Scoped to your organisation"
+          ]
         }
       ]
     }
