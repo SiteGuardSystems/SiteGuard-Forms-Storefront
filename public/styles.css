@@ -392,6 +392,10 @@ a { color: var(--or); }
   flex-direction: column;
   box-shadow: -4px 0 24px rgba(49, 48, 53, 0.18);
 }
+.cart-drawer[hidden],
+.cart-overlay[hidden] {
+  display: none;
+}
 .cart-drawer-head {
   display: flex;
   align-items: center;
