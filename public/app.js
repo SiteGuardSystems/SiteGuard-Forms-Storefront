@@ -57,7 +57,11 @@ function renderCatalog(categories) {
     `;
     const items = withDefaults(category);
     section.appendChild(
-      category.layout === "chips" ? renderChipGrid(items) : renderCardGrid(items),
+      category.layout === "chips"
+        ? renderChipGrid(items)
+        : category.layout === "accordion"
+          ? renderAccordionGrid(items)
+          : renderCardGrid(items),
     );
     grid.appendChild(section);
   }
@@ -154,6 +158,108 @@ function renderCardGrid(items) {
       handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
     });
     container.appendChild(card);
+  }
+  return container;
+}
+
+/** Same purchasability/tab-switching behaviour as renderCardGrid, but each
+ *  item starts collapsed to a one-line header (name + representative price)
+ *  and expands on click. Built for Subcontractor Packs specifically — 24
+ *  full cards stacked vertically buried the page; this keeps the same
+ *  content but only renders it open for the one trade a visitor actually
+ *  wants. */
+function renderAccordionGrid(items) {
+  const container = document.createElement("div");
+  container.className = "trade-accordion";
+  for (const item of items) {
+    const itemEl = document.createElement("div");
+    itemEl.className = "accordion-item";
+
+    const hasOptions = Boolean(item.purchaseOptions);
+    const optionKeys = hasOptions ? Object.keys(item.purchaseOptions) : [];
+    let selectedOption = hasOptions
+      ? item.defaultOption && optionKeys.includes(item.defaultOption)
+        ? item.defaultOption
+        : optionKeys[0]
+      : null;
+
+    const { variant: initial, state: initialState, label: initialLabel } = resolveVariant(item, selectedOption);
+
+    const header = document.createElement("button");
+    header.type = "button";
+    header.className = "accordion-header";
+    header.setAttribute("aria-expanded", "false");
+    header.innerHTML = `
+      <span class="accordion-name">${escapeHtml(item.name)}</span>
+      <span class="accordion-summary">${escapeHtml(initial.priceLabel ?? "")}</span>
+      <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    `;
+
+    const body = document.createElement("div");
+    body.className = "accordion-body";
+    body.hidden = true;
+
+    const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+    body.innerHTML = `
+      <p class="package-tagline" data-role="tagline">${escapeHtml(initial.tagline ?? "")}</p>
+      ${
+        hasOptions
+          ? `<div class="option-tabs" role="tablist">${optionKeys
+              .map(
+                (key) =>
+                  `<button type="button" class="option-tab${key === selectedOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label ?? item.purchaseOptions[key].name ?? key)}</button>`,
+              )
+              .join("")}</div>`
+          : ""
+      }
+      <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
+      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
+      <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
+      <ul class="package-bullets" data-role="bullets">${bullets}</ul>
+      <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
+      <p class="package-status" data-role="status"></p>
+    `;
+    updateStatusLine(body, initialState);
+
+    const button = body.querySelector('[data-role="buy"]');
+    button.className = `btn ${initialState === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+
+    if (hasOptions) {
+      const tabs = [...body.querySelectorAll(".option-tab")];
+      tabs.forEach((tab) =>
+        tab.addEventListener("click", (e) => {
+          e.stopPropagation();
+          selectedOption = tab.dataset.option;
+          tabs.forEach((t) => t.classList.toggle("active", t === tab));
+          const { variant, state, label } = resolveVariant(item, selectedOption);
+          body.querySelector('[data-role="tagline"]').textContent = variant.tagline ?? "";
+          body.querySelector('[data-role="price"]').textContent = variant.priceLabel ?? "";
+          body.querySelector('[data-role="price-suffix"]').textContent = variant.priceSuffix ?? "";
+          body.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
+          const bulletsEl = body.querySelector('[data-role="bullets"]');
+          bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+          button.textContent = label;
+          button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+          updateStatusLine(body, state);
+        }),
+      );
+    }
+
+    button.addEventListener("click", () => {
+      const { state } = resolveVariant(item, selectedOption);
+      handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
+    });
+
+    header.addEventListener("click", () => {
+      const willOpen = body.hidden;
+      body.hidden = !willOpen;
+      itemEl.classList.toggle("open", willOpen);
+      header.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    itemEl.appendChild(header);
+    itemEl.appendChild(body);
+    container.appendChild(itemEl);
   }
   return container;
 }

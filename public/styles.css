@@ -210,6 +210,43 @@ a { color: var(--or); }
 .package-status { font-size: 0.78rem; color: var(--body); margin-top: 0.3rem; }
 .loading { color: var(--body); }
 
+/* Trade accordion (Subcontractor Packs) — 24 trades collapsed to one line
+   each by default; clicking a header reveals the same tabs/price/bullets
+   content the full package-card uses elsewhere, just nested inside. */
+.trade-accordion { display: flex; flex-direction: column; gap: 0.6rem; }
+.accordion-item {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  padding: 0.9rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--f-bd);
+}
+.accordion-header:hover { background: var(--bg2); }
+.accordion-name { font-family: var(--f-hd); font-weight: 700; font-size: 1.02rem; color: var(--ch); flex: 1; }
+.accordion-summary { font-family: var(--f-hd); font-weight: 700; font-size: 0.95rem; color: var(--or-dk); white-space: nowrap; }
+.accordion-chevron { color: var(--body); flex-shrink: 0; transition: transform 0.2s var(--ease); }
+.accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+.accordion-item.open { border-color: var(--rule2); }
+.accordion-body {
+  padding: 0 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1rem;
+}
+
 /* Trade chips (SWMS roadmap) — compact, one row per trade, not a full card */
 .trade-chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.6rem; }
 .trade-chip {

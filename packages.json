@@ -1,17 +1,17 @@
 {
-  "_comment": "Pricing sourced live from docs/packages.py (hseq-dev repo) via scripts/gen_ladder_pricing.py \u2014 not hand-typed. Subcontractor Packs and Builder Packs (Domestic/Light Commercial rungs) are gated on the mastering ledger's findings_at_mastering field, the authoritative per-document record from credentialed mastering, not a raw-source-tree scan: every rung sold self-serve here carries zero outstanding findings, confirmed 2026-09-04. Builder Heavy Commercial/ISO-OFSC (and the whole Consultant channel, not sold on this storefront at all) carry the 69 docs mastered-despite-findings and stay quote-only until that review pass clears (sign-off item B). Registers/ITP/management-systems categories are unrelated products, unchanged. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only \u2014 no subscriptions. The ladder's own subscription prices are not sold here for that reason.",
+  "_comment": "Pricing sourced live from docs/packages.py (hseq-dev repo) via scripts/gen_ladder_pricing.py — not hand-typed. Subcontractor Packs and Builder Packs (Domestic/Light Commercial rungs) are gated on the mastering ledger's findings_at_mastering field, the authoritative per-document record from credentialed mastering, not a raw-source-tree scan: every rung sold self-serve here carries zero outstanding findings, confirmed 2026-09-04. Builder Heavy Commercial/ISO-OFSC (and the whole Consultant channel, not sold on this storefront at all) carry the 69 docs mastered-despite-findings and stay quote-only until that review pass clears (sign-off item B). Registers/ITP/management-systems categories are unrelated products, unchanged. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only — no subscriptions. The ladder's own subscription prices are not sold here for that reason.",
   "currency": "aud",
   "categories": [
     {
       "id": "registers",
       "name": "Safety Forms & Registers",
-      "description": "The one category that's fully cleared QA \u2014 every document here is schema-controlled, version-managed, and ready today.",
+      "description": "The one category that's fully cleared QA — every document here is schema-controlled, version-managed, and ready today.",
       "items": [
         {
           "id": "registers-bundle",
           "tier": "self-serve",
-          "name": "Safety Forms & Registers \u2014 Starter Bundle",
-          "tagline": "18 controlled registers and site forms \u2014 100% QA-clean",
+          "name": "Safety Forms & Registers — Starter Bundle",
+          "tagline": "18 controlled registers and site forms — 100% QA-clean",
           "description": "Site/contractor/visitor induction, pre-start meeting, toolbox talk, hazard & incident reporting, plant/PPE/test & tag registers, training & competency register, and more.",
           "unit_amount": 24900,
           "priceLabel": "$249",
@@ -28,14 +28,14 @@
     {
       "id": "itp",
       "name": "Inspection & Test Plans (ITPs)",
-      "description": "The majority of the ITP library has cleared QA \u2014 bundled by scope.",
+      "description": "The majority of the ITP library has cleared QA — bundled by scope.",
       "items": [
         {
           "id": "itp-bundle",
           "tier": "self-serve",
-          "name": "ITP Pack \u2014 General Construction",
+          "name": "ITP Pack — General Construction",
           "tagline": "Inspection & Test Plans across major trade scopes",
-          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs \u2014 QA-clean documents from the current library.",
+          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs — QA-clean documents from the current library.",
           "unit_amount": 39900,
           "priceLabel": "$399",
           "priceSuffix": "one-off",
@@ -51,19 +51,19 @@
     {
       "id": "subcontractor-packs",
       "name": "Subcontractor Packs",
-      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO/OFSC. Pick your trade, then pick the rung that matches the job \u2014 every rung here has cleared the mastering QA gate with zero outstanding findings.",
+      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO. Pick your trade, then pick the rung that matches the job — every rung here has cleared the mastering QA gate with zero outstanding findings.",
       "items": [
         {
           "id": "subcontractor-carp",
           "tier": "self-serve",
           "name": "Carpentry",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Carpentry \u2014 Domestic",
+              "name": "Carpentry — Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -72,7 +72,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Carpentry \u2014 Light Commercial",
+              "name": "Carpentry — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -81,7 +81,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Carpentry \u2014 Heavy Commercial",
+              "name": "Carpentry — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -89,27 +89,29 @@
               "description": "52 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Carpentry \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "267 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Carpentry — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "267 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-civ",
           "tier": "self-serve",
           "name": "Civil",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Civil \u2014 Domestic",
+              "name": "Civil — Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -118,7 +120,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Civil \u2014 Light Commercial",
+              "name": "Civil — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -127,7 +129,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Civil \u2014 Heavy Commercial",
+              "name": "Civil — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -135,27 +137,29 @@
               "description": "55 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Civil \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "270 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Civil — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "270 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-comm",
           "tier": "self-serve",
           "name": "Communications",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Communications \u2014 Domestic",
+              "name": "Communications — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -164,7 +168,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Communications \u2014 Light Commercial",
+              "name": "Communications — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -173,7 +177,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Communications \u2014 Heavy Commercial",
+              "name": "Communications — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -181,27 +185,29 @@
               "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Communications \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Communications — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-conc",
           "tier": "self-serve",
           "name": "Concrete",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Concrete \u2014 Domestic",
+              "name": "Concrete — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -210,7 +216,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Concrete \u2014 Light Commercial",
+              "name": "Concrete — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -219,7 +225,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Concrete \u2014 Heavy Commercial",
+              "name": "Concrete — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -227,27 +233,29 @@
               "description": "49 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Concrete \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "264 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Concrete — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "264 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-demo",
           "tier": "self-serve",
           "name": "Demolition",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Demolition \u2014 Domestic",
+              "name": "Demolition — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -256,7 +264,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Demolition \u2014 Light Commercial",
+              "name": "Demolition — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -265,7 +273,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Demolition \u2014 Heavy Commercial",
+              "name": "Demolition — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -273,27 +281,29 @@
               "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Demolition \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Demolition — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-elec",
           "tier": "self-serve",
           "name": "Electrical",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Electrical \u2014 Domestic",
+              "name": "Electrical — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -302,7 +312,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Electrical \u2014 Light Commercial",
+              "name": "Electrical — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -311,7 +321,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Electrical \u2014 Heavy Commercial",
+              "name": "Electrical — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -319,27 +329,29 @@
               "description": "43 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Electrical \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "258 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Electrical — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "258 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-faca",
           "tier": "self-serve",
           "name": "Facade",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Facade \u2014 Domestic",
+              "name": "Facade — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -348,7 +360,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Facade \u2014 Light Commercial",
+              "name": "Facade — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -357,7 +369,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Facade \u2014 Heavy Commercial",
+              "name": "Facade — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -365,27 +377,29 @@
               "description": "39 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Facade \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "254 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Facade — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "254 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-fin",
           "tier": "self-serve",
           "name": "Finishes/Fitout",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Finishes/Fitout \u2014 Domestic",
+              "name": "Finishes/Fitout — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -394,7 +408,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Finishes/Fitout \u2014 Light Commercial",
+              "name": "Finishes/Fitout — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -403,7 +417,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Finishes/Fitout \u2014 Heavy Commercial",
+              "name": "Finishes/Fitout — Heavy Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -411,27 +425,29 @@
               "description": "37 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Finishes/Fitout \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "252 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Finishes/Fitout — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "252 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-fire",
           "tier": "self-serve",
           "name": "Fire Services",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Fire Services \u2014 Domestic",
+              "name": "Fire Services — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -440,7 +456,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Fire Services \u2014 Light Commercial",
+              "name": "Fire Services — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -449,7 +465,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Fire Services \u2014 Heavy Commercial",
+              "name": "Fire Services — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -457,27 +473,29 @@
               "description": "40 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Fire Services \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "255 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Fire Services — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "255 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-glaz",
           "tier": "self-serve",
           "name": "Glazing",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Glazing \u2014 Domestic",
+              "name": "Glazing — Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -486,7 +504,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Glazing \u2014 Light Commercial",
+              "name": "Glazing — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -495,7 +513,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Glazing \u2014 Heavy Commercial",
+              "name": "Glazing — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -503,27 +521,29 @@
               "description": "35 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Glazing \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "250 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Glazing — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "250 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-land",
           "tier": "self-serve",
           "name": "Landscaping",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Landscaping \u2014 Domestic",
+              "name": "Landscaping — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -532,7 +552,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Landscaping \u2014 Light Commercial",
+              "name": "Landscaping — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -541,7 +561,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Landscaping \u2014 Heavy Commercial",
+              "name": "Landscaping — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -549,27 +569,29 @@
               "description": "39 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Landscaping \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "254 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Landscaping — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "254 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-lift",
           "tier": "self-serve",
           "name": "Lifts",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Lifts \u2014 Domestic",
+              "name": "Lifts — Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -578,7 +600,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Lifts \u2014 Light Commercial",
+              "name": "Lifts — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -587,7 +609,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Lifts \u2014 Heavy Commercial",
+              "name": "Lifts — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -595,27 +617,29 @@
               "description": "34 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Lifts \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "249 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Lifts — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "249 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-mas",
           "tier": "self-serve",
           "name": "Masonry",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Masonry \u2014 Domestic",
+              "name": "Masonry — Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -624,7 +648,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Masonry \u2014 Light Commercial",
+              "name": "Masonry — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -633,7 +657,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Masonry \u2014 Heavy Commercial",
+              "name": "Masonry — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -641,27 +665,29 @@
               "description": "36 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Masonry \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "251 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Masonry — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "251 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-mech",
           "tier": "self-serve",
           "name": "Mechanical",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Mechanical \u2014 Domestic",
+              "name": "Mechanical — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -670,7 +696,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Mechanical \u2014 Light Commercial",
+              "name": "Mechanical — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -679,7 +705,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Mechanical \u2014 Heavy Commercial",
+              "name": "Mechanical — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -687,27 +713,29 @@
               "description": "42 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Mechanical \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "257 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Mechanical — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "257 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-paint",
           "tier": "self-serve",
           "name": "Painting",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Painting \u2014 Domestic",
+              "name": "Painting — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -716,7 +744,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Painting \u2014 Light Commercial",
+              "name": "Painting — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -725,7 +753,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Painting \u2014 Heavy Commercial",
+              "name": "Painting — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -733,27 +761,29 @@
               "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Painting \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Painting — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-plt",
           "tier": "self-serve",
           "name": "Plant Operations",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plant Operations \u2014 Domestic",
+              "name": "Plant Operations — Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -762,7 +792,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plant Operations \u2014 Light Commercial",
+              "name": "Plant Operations — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -771,7 +801,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plant Operations \u2014 Heavy Commercial",
+              "name": "Plant Operations — Heavy Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -779,27 +809,29 @@
               "description": "44 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Plant Operations \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "259 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Plant Operations — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "259 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-plas",
           "tier": "self-serve",
           "name": "Plastering",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plastering \u2014 Domestic",
+              "name": "Plastering — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -808,7 +840,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plastering \u2014 Light Commercial",
+              "name": "Plastering — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -817,7 +849,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plastering \u2014 Heavy Commercial",
+              "name": "Plastering — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -825,27 +857,29 @@
               "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Plastering \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Plastering — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-plmb",
           "tier": "self-serve",
           "name": "Plumbing",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plumbing \u2014 Domestic",
+              "name": "Plumbing — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -854,7 +888,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plumbing \u2014 Light Commercial",
+              "name": "Plumbing — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -863,7 +897,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plumbing \u2014 Heavy Commercial",
+              "name": "Plumbing — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -871,27 +905,29 @@
               "description": "43 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Plumbing \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "258 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Plumbing — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "258 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-rwh",
           "tier": "self-serve",
           "name": "Rainwater Harvesting",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Rainwater Harvesting \u2014 Domestic",
+              "name": "Rainwater Harvesting — Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -900,7 +936,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Rainwater Harvesting \u2014 Light Commercial",
+              "name": "Rainwater Harvesting — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -909,7 +945,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Rainwater Harvesting \u2014 Heavy Commercial",
+              "name": "Rainwater Harvesting — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -917,27 +953,29 @@
               "description": "33 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Rainwater Harvesting \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "248 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Rainwater Harvesting — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "248 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-roof",
           "tier": "self-serve",
           "name": "Roofing",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Roofing \u2014 Domestic",
+              "name": "Roofing — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -946,7 +984,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Roofing \u2014 Light Commercial",
+              "name": "Roofing — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -955,7 +993,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Roofing \u2014 Heavy Commercial",
+              "name": "Roofing — Heavy Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -963,27 +1001,29 @@
               "description": "38 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Roofing \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "253 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Roofing — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-serv",
           "tier": "self-serve",
           "name": "Services",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Services \u2014 Domestic",
+              "name": "Services — Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -992,7 +1032,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Services \u2014 Light Commercial",
+              "name": "Services — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -1001,7 +1041,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Services \u2014 Heavy Commercial",
+              "name": "Services — Heavy Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -1009,27 +1049,29 @@
               "description": "46 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Services \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "261 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Services — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "261 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-steel",
           "tier": "self-serve",
           "name": "Structural Steel",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Structural Steel \u2014 Domestic",
+              "name": "Structural Steel — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -1038,7 +1080,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Structural Steel \u2014 Light Commercial",
+              "name": "Structural Steel — Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -1047,7 +1089,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Structural Steel \u2014 Heavy Commercial",
+              "name": "Structural Steel — Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -1055,27 +1097,29 @@
               "description": "41 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Structural Steel \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "256 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Structural Steel — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-tile",
           "tier": "self-serve",
           "name": "Tiling",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Tiling \u2014 Domestic",
+              "name": "Tiling — Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -1084,7 +1128,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Tiling \u2014 Light Commercial",
+              "name": "Tiling — Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -1093,7 +1137,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Tiling \u2014 Heavy Commercial",
+              "name": "Tiling — Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -1101,27 +1145,29 @@
               "description": "34 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Tiling \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "249 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Tiling — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "249 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         },
         {
           "id": "subcontractor-wp",
           "tier": "self-serve",
           "name": "Waterproofing",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Waterproofing \u2014 Domestic",
+              "name": "Waterproofing — Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -1130,7 +1176,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Waterproofing \u2014 Light Commercial",
+              "name": "Waterproofing — Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -1139,7 +1185,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Waterproofing \u2014 Heavy Commercial",
+              "name": "Waterproofing — Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -1147,84 +1193,88 @@
               "description": "44 documents. Light Commercial + Inspection & Test Plans for this trade."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Waterproofing \u2014 ISO / OFSC",
-              "unit_amount": 449900,
-              "priceLabel": "$4,499",
-              "priceSuffix": "one-off",
-              "tagline": "ISO / OFSC",
-              "description": "259 documents. Every specialist management-system add-on plus OFSC/IMS content \u2014 flat-priced across every trade."
+              "label": "ISO",
+              "name": "Waterproofing — ISO",
+              "priceLabel": "From $4,499",
+              "priceSuffix": "final quote",
+              "tagline": "ISO",
+              "description": "259 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "tier": "quote",
+              "cta": "Request Quote"
             }
-          }
+          },
+          "description": ""
         }
-      ]
+      ],
+      "layout": "accordion"
     },
     {
       "id": "builder-packs",
       "name": "Builder Packs",
-      "description": "Whole-of-site, not per trade \u2014 every trade's content bundled into one pack. Domestic and Light Commercial are self-serve today; Heavy Commercial and ISO/OFSC carry management-system content still completing a documentation review pass, so those two are scoped and quoted individually until that clears.",
+      "description": "Whole-of-site, not per trade — every trade's content bundled into one pack. Domestic and Light Commercial are self-serve today; Heavy Commercial and ISO carry management-system content still completing a documentation review pass, so those two are scoped and quoted individually until that clears.",
       "items": [
         {
           "id": "builder-pack",
           "tier": "self-serve",
-          "name": "Builder Pack \u2014 Whole of Site",
-          "tagline": "Pick a rung \u2014 price and document count update below",
+          "name": "Builder Pack — Whole of Site",
+          "tagline": "Pick a rung — price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Builder Pack \u2014 Domestic",
+              "name": "Builder Pack — Domestic",
               "unit_amount": 219900,
               "priceLabel": "$2,199",
               "priceSuffix": "one-off",
               "tagline": "Domestic",
-              "description": "208 documents \u2014 every trade's SWMS across the whole site. No ITPs, no management system."
+              "description": "208 documents — every trade's SWMS across the whole site. No ITPs, no management system."
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Builder Pack \u2014 Light Commercial",
+              "name": "Builder Pack — Light Commercial",
               "unit_amount": 279900,
               "priceLabel": "$2,799",
               "priceSuffix": "one-off",
               "tagline": "Light Commercial",
-              "description": "226 documents \u2014 Domestic + the safety management plan and minimum governance policies."
+              "description": "226 documents — Domestic + the safety management plan and minimum governance policies."
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Builder Pack \u2014 Heavy Commercial",
+              "name": "Builder Pack — Heavy Commercial",
               "tier": "quote",
               "tagline": "Heavy Commercial",
               "priceLabel": "From $4,899",
               "priceSuffix": "final quote before payment",
               "cta": "Request Quote",
-              "description": "501 documents \u2014 every trade's ITPs plus the full core management system. Includes content still completing a documentation review pass \u2014 quoted individually, not self-serve, until that clears."
+              "description": "501 documents — every trade's ITPs plus the full core management system. Includes content still completing a documentation review pass — quoted individually, not self-serve, until that clears."
             },
             "iso-ofsc": {
-              "label": "ISO / OFSC",
-              "name": "Builder Pack \u2014 ISO / OFSC",
+              "label": "ISO",
+              "name": "Builder Pack — ISO",
               "tier": "quote",
-              "tagline": "ISO / OFSC",
-              "priceLabel": "From $9,999",
-              "priceSuffix": "final quote before payment",
+              "tagline": "ISO",
+              "priceLabel": "Request Quote",
+              "priceSuffix": "final quote",
               "cta": "Request Quote",
-              "description": "709 documents \u2014 the complete library, every specialist add-on, and full OFSC/IMS content. Same review-pass gate as Heavy Commercial."
+              "description": "709 documents — the complete library, every specialist add-on, and full IMS content. Same review-pass gate as Heavy Commercial."
             }
-          }
+          },
+          "description": ""
         }
       ]
     },
     {
       "id": "management-systems",
       "name": "Management System Frameworks",
-      "description": "Pre-built frameworks, scoped to your organisation before checkout \u2014 same senior-practitioner standard as SiteGuard's consulting engagements.",
+      "description": "Pre-built frameworks, scoped to your organisation before checkout — same senior-practitioner standard as SiteGuard's consulting engagements.",
       "items": [
         {
           "id": "sms-bundle",
           "tier": "quote",
           "name": "Subcontractor Management System",
           "tagline": "Pre-built SMS framework",
-          "description": "Policy, plans, forms, registers and SWMS library as one bundle \u2014 a pre-built framework to support a structured safety system.",
+          "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
           "priceLabel": "From $1,299",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -1237,9 +1287,9 @@
         {
           "id": "iso-45001",
           "tier": "quote",
-          "name": "ISO 45001 \u2014 Safety Management",
+          "name": "ISO 45001 — Safety Management",
           "tagline": "OHS/WHS management system pack",
-          "description": "Pre-built ISO 45001-aligned framework \u2014 policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 45001-aligned framework — policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -1251,9 +1301,9 @@
         {
           "id": "iso-9001",
           "tier": "quote",
-          "name": "ISO 9001 \u2014 Quality Management",
+          "name": "ISO 9001 — Quality Management",
           "tagline": "Quality management system pack",
-          "description": "Pre-built ISO 9001 framework \u2014 policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 9001 framework — policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -1265,9 +1315,9 @@
         {
           "id": "iso-14001",
           "tier": "quote",
-          "name": "ISO 14001 \u2014 Environmental Management",
+          "name": "ISO 14001 — Environmental Management",
           "tagline": "Environmental management system pack",
-          "description": "Pre-built ISO 14001 framework \u2014 policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 14001 framework — policies, procedures, registers and evidence infrastructure.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -1279,7 +1329,7 @@
         {
           "id": "iso-45003",
           "tier": "quote",
-          "name": "ISO 45003 \u2014 Psychosocial Hazard Framework",
+          "name": "ISO 45003 — Psychosocial Hazard Framework",
           "tagline": "Psychosocial hazard management",
           "description": "Hazard identification, risk controls, consultation structures and evidence records aligned to ISO 45003:2021.",
           "priceLabel": "From $1,800",
@@ -1295,8 +1345,8 @@
           "id": "ims-combined",
           "tier": "quote",
           "name": "Integrated Management System (IMS)",
-          "tagline": "45001 \u00b7 9001 \u00b7 14001 \u2014 combined framework",
-          "description": "One policy structure, one risk register, one audit cycle \u2014 a complete IMS framework combining all three standards.",
+          "tagline": "45001 · 9001 · 14001 — combined framework",
+          "description": "One policy structure, one risk register, one audit cycle — a complete IMS framework combining all three standards.",
           "priceLabel": "From $5,900",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
