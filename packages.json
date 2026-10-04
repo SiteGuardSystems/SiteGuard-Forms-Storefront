@@ -1,17 +1,17 @@
 {
-  "_comment": "Pricing sourced live from docs/packages.py (hseq-dev repo) via scripts/gen_ladder_pricing.py — not hand-typed. Subcontractor Packs and Builder Packs (Domestic/Light Commercial rungs) are gated on the mastering ledger's findings_at_mastering field, the authoritative per-document record from credentialed mastering, not a raw-source-tree scan: every rung sold self-serve here carries zero outstanding findings, confirmed 2026-09-04. Builder Heavy Commercial/ISO-OFSC (and the whole Consultant channel, not sold on this storefront at all) carry the 69 docs mastered-despite-findings and stay quote-only until that review pass clears (sign-off item B). Registers/ITP/management-systems categories are unrelated products, unchanged. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only — no subscriptions. The ladder's own subscription prices are not sold here for that reason.",
+  "_comment": "Pricing sourced live from docs/packages.py (hseq-dev repo) via scripts/gen_ladder_pricing.py \u2014 not hand-typed. Subcontractor Packs and Builder Packs (Domestic/Light Commercial rungs) are gated on the mastering ledger's findings_at_mastering field, the authoritative per-document record from credentialed mastering, not a raw-source-tree scan: every rung sold self-serve here carries zero outstanding findings, confirmed 2026-09-04. Builder Heavy Commercial/ISO-OFSC (and the whole Consultant channel, not sold on this storefront at all) carry the 69 docs mastered-despite-findings and stay quote-only until that review pass clears (sign-off item B). Registers/ITP/management-systems categories are unrelated products, unchanged. Per docs/ORDER_SITE.md (2026-08-03): purchase and order, one-off only \u2014 no subscriptions. The ladder's own subscription prices are not sold here for that reason.",
   "currency": "aud",
   "categories": [
     {
       "id": "registers",
       "name": "Safety Forms & Registers",
-      "description": "The one category that's fully cleared QA — every document here is schema-controlled, version-managed, and ready today.",
+      "description": "The one category that's fully cleared QA \u2014 every document here is schema-controlled, version-managed, and ready today.",
       "items": [
         {
           "id": "registers-bundle",
           "tier": "self-serve",
-          "name": "Safety Forms & Registers — Starter Bundle",
-          "tagline": "18 controlled registers and site forms — 100% QA-clean",
+          "name": "Safety Forms & Registers \u2014 Starter Bundle",
+          "tagline": "18 controlled registers and site forms \u2014 100% QA-clean",
           "description": "18 controlled registers and site forms covering induction, pre-start, toolbox talks, hazard/incident reporting, and plant/PPE/test & tag/training registers -- 100% QA-clean.",
           "unit_amount": 24900,
           "priceLabel": "$249",
@@ -102,12 +102,12 @@
     {
       "id": "itp",
       "name": "Inspection & Test Plans (ITPs)",
-      "description": "The majority of the ITP library has cleared QA — bundled by scope.",
+      "description": "The majority of the ITP library has cleared QA \u2014 bundled by scope.",
       "items": [
         {
           "id": "itp-bundle",
           "tier": "self-serve",
-          "name": "ITP Pack — General Construction",
+          "name": "ITP Pack \u2014 General Construction",
           "tagline": "Inspection & Test Plans across major trade scopes",
           "description": "64 Inspection & Test Plans across 13 trade scopes: structural steel, concrete, civil, waterproofing, mechanical, facade, glazing, masonry, electrical, plumbing, tiling, lift installation and rainwater harvesting.",
           "unit_amount": 39900,
@@ -381,7 +381,7 @@
         {
           "id": "itp-bundle-complete",
           "tier": "self-serve",
-          "name": "ITP Pack — Complete (All Trades)",
+          "name": "ITP Pack \u2014 Complete (All Trades)",
           "tagline": "Every ITP, every trade series",
           "description": "All 97 Inspection & Test Plans across every trade series in the library -- the 13 scopes in the General Construction pack plus carpentry, communications, demolition, fire services, landscaping, painting and plastering.",
           "unit_amount": 69900,
@@ -789,19 +789,19 @@
     {
       "id": "subcontractor-packs",
       "name": "Subcontractor Packs",
-      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO. Pick your trade, then pick the rung that matches the job — every rung here has cleared the mastering QA gate with zero outstanding findings.",
+      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO. Pick your trade, then pick the rung that matches the job \u2014 every rung here has cleared the mastering QA gate with zero outstanding findings.",
       "items": [
         {
           "id": "subcontractor-carp",
           "tier": "self-serve",
           "name": "Carpentry",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Carpentry — Domestic",
+              "name": "Carpentry \u2014 Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -956,7 +956,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Carpentry — Light Commercial",
+              "name": "Carpentry \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -1155,7 +1155,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Carpentry — Heavy Commercial",
+              "name": "Carpentry \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -1374,11 +1374,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Carpentry — ISO",
+              "name": "Carpentry \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "267 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "267 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -2459,13 +2459,13 @@
           "id": "subcontractor-civ",
           "tier": "self-serve",
           "name": "Civil",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Civil — Domestic",
+              "name": "Civil \u2014 Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -2620,7 +2620,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Civil — Light Commercial",
+              "name": "Civil \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -2819,7 +2819,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Civil — Heavy Commercial",
+              "name": "Civil \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -3050,11 +3050,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Civil — ISO",
+              "name": "Civil \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "270 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "270 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -4147,13 +4147,13 @@
           "id": "subcontractor-comm",
           "tier": "self-serve",
           "name": "Communications",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Communications — Domestic",
+              "name": "Communications \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -4174,7 +4174,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -4256,7 +4256,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Communications — Light Commercial",
+              "name": "Communications \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -4321,7 +4321,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -4403,7 +4403,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Communications — Heavy Commercial",
+              "name": "Communications \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -4484,7 +4484,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -4566,11 +4566,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Communications — ISO",
+              "name": "Communications \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -5460,7 +5460,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -5595,13 +5595,13 @@
           "id": "subcontractor-conc",
           "tier": "self-serve",
           "name": "Concrete",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Concrete — Domestic",
+              "name": "Concrete \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -5732,7 +5732,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Concrete — Light Commercial",
+              "name": "Concrete \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -5907,7 +5907,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Concrete — Heavy Commercial",
+              "name": "Concrete \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -6114,11 +6114,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Concrete — ISO",
+              "name": "Concrete \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "264 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "264 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -7187,13 +7187,13 @@
           "id": "subcontractor-demo",
           "tier": "self-serve",
           "name": "Demolition",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Demolition — Domestic",
+              "name": "Demolition \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -7304,7 +7304,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Demolition — Light Commercial",
+              "name": "Demolition \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -7459,7 +7459,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Demolition — Heavy Commercial",
+              "name": "Demolition \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -7634,11 +7634,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Demolition — ISO",
+              "name": "Demolition \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -8675,13 +8675,13 @@
           "id": "subcontractor-elec",
           "tier": "self-serve",
           "name": "Electrical",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Electrical — Domestic",
+              "name": "Electrical \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -8800,7 +8800,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Electrical — Light Commercial",
+              "name": "Electrical \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -8963,7 +8963,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Electrical — Heavy Commercial",
+              "name": "Electrical \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -9146,11 +9146,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Electrical — ISO",
+              "name": "Electrical \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "258 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "258 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -10195,13 +10195,13 @@
           "id": "subcontractor-faca",
           "tier": "self-serve",
           "name": "Facade",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Facade — Domestic",
+              "name": "Facade \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -10222,7 +10222,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -10308,7 +10308,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Facade — Light Commercial",
+              "name": "Facade \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -10373,7 +10373,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -10459,7 +10459,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Facade — Heavy Commercial",
+              "name": "Facade \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -10540,7 +10540,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -10626,11 +10626,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Facade — ISO",
+              "name": "Facade \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "254 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "254 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -11520,7 +11520,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -11659,13 +11659,13 @@
           "id": "subcontractor-fin",
           "tier": "self-serve",
           "name": "Finishes/Fitout",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Finishes/Fitout — Domestic",
+              "name": "Finishes/Fitout \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -11780,7 +11780,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Finishes/Fitout — Light Commercial",
+              "name": "Finishes/Fitout \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -11939,7 +11939,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Finishes/Fitout — Heavy Commercial",
+              "name": "Finishes/Fitout \u2014 Heavy Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -12098,11 +12098,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Finishes/Fitout — ISO",
+              "name": "Finishes/Fitout \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "252 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "252 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -13123,13 +13123,13 @@
           "id": "subcontractor-fire",
           "tier": "self-serve",
           "name": "Fire Services",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Fire Services — Domestic",
+              "name": "Fire Services \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -13154,7 +13154,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -13236,7 +13236,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Fire Services — Light Commercial",
+              "name": "Fire Services \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -13305,7 +13305,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -13387,7 +13387,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Fire Services — Heavy Commercial",
+              "name": "Fire Services \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -13476,7 +13476,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -13558,11 +13558,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Fire Services — ISO",
+              "name": "Fire Services \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "255 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "255 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -14460,7 +14460,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -14595,13 +14595,13 @@
           "id": "subcontractor-glaz",
           "tier": "self-serve",
           "name": "Glazing",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Glazing — Domestic",
+              "name": "Glazing \u2014 Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -14692,7 +14692,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Glazing — Light Commercial",
+              "name": "Glazing \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -14827,7 +14827,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Glazing — Heavy Commercial",
+              "name": "Glazing \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -14978,11 +14978,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Glazing — ISO",
+              "name": "Glazing \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "250 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "250 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -15995,13 +15995,13 @@
           "id": "subcontractor-land",
           "tier": "self-serve",
           "name": "Landscaping",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Landscaping — Domestic",
+              "name": "Landscaping \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -16104,7 +16104,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Landscaping — Light Commercial",
+              "name": "Landscaping \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -16251,7 +16251,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Landscaping — Heavy Commercial",
+              "name": "Landscaping \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -16418,11 +16418,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Landscaping — ISO",
+              "name": "Landscaping \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "254 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "254 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -17451,13 +17451,13 @@
           "id": "subcontractor-lift",
           "tier": "self-serve",
           "name": "Lifts",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Lifts — Domestic",
+              "name": "Lifts \u2014 Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -17544,7 +17544,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Lifts — Light Commercial",
+              "name": "Lifts \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -17675,7 +17675,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Lifts — Heavy Commercial",
+              "name": "Lifts \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -17822,11 +17822,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Lifts — ISO",
+              "name": "Lifts \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "249 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "249 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -18835,13 +18835,13 @@
           "id": "subcontractor-mas",
           "tier": "self-serve",
           "name": "Masonry",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Masonry — Domestic",
+              "name": "Masonry \u2014 Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -18936,7 +18936,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Masonry — Light Commercial",
+              "name": "Masonry \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -19075,7 +19075,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Masonry — Heavy Commercial",
+              "name": "Masonry \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -19230,11 +19230,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Masonry — ISO",
+              "name": "Masonry \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "251 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "251 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -20251,13 +20251,13 @@
           "id": "subcontractor-mech",
           "tier": "self-serve",
           "name": "Mechanical",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Mechanical — Domestic",
+              "name": "Mechanical \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -20372,7 +20372,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Mechanical — Light Commercial",
+              "name": "Mechanical \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -20531,7 +20531,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Mechanical — Heavy Commercial",
+              "name": "Mechanical \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -20710,11 +20710,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Mechanical — ISO",
+              "name": "Mechanical \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "257 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "257 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -21755,13 +21755,13 @@
           "id": "subcontractor-paint",
           "tier": "self-serve",
           "name": "Painting",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Painting — Domestic",
+              "name": "Painting \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -21864,7 +21864,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Painting — Light Commercial",
+              "name": "Painting \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -22011,7 +22011,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Painting — Heavy Commercial",
+              "name": "Painting \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -22174,11 +22174,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Painting — ISO",
+              "name": "Painting \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -23203,13 +23203,13 @@
           "id": "subcontractor-plt",
           "tier": "self-serve",
           "name": "Plant Operations",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plant Operations — Domestic",
+              "name": "Plant Operations \u2014 Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -23352,7 +23352,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plant Operations — Light Commercial",
+              "name": "Plant Operations \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -23539,7 +23539,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plant Operations — Heavy Commercial",
+              "name": "Plant Operations \u2014 Heavy Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -23726,11 +23726,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Plant Operations — ISO",
+              "name": "Plant Operations \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "259 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "259 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -24779,13 +24779,13 @@
           "id": "subcontractor-plas",
           "tier": "self-serve",
           "name": "Plastering",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plastering — Domestic",
+              "name": "Plastering \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -24882,11 +24882,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -24896,7 +24896,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plastering — Light Commercial",
+              "name": "Plastering \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -25037,11 +25037,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -25051,7 +25051,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plastering — Heavy Commercial",
+              "name": "Plastering \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -25212,11 +25212,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -25226,11 +25226,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Plastering — ISO",
+              "name": "Plastering \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -26200,11 +26200,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -26267,13 +26267,13 @@
           "id": "subcontractor-plmb",
           "tier": "self-serve",
           "name": "Plumbing",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Plumbing — Domestic",
+              "name": "Plumbing \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -26374,11 +26374,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -26392,7 +26392,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Plumbing — Light Commercial",
+              "name": "Plumbing \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -26537,11 +26537,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -26555,7 +26555,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Plumbing — Heavy Commercial",
+              "name": "Plumbing \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -26720,11 +26720,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -26738,11 +26738,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Plumbing — ISO",
+              "name": "Plumbing \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "258 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "258 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -27716,11 +27716,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -27787,13 +27787,13 @@
           "id": "subcontractor-rwh",
           "tier": "self-serve",
           "name": "Rainwater Harvesting",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Rainwater Harvesting — Domestic",
+              "name": "Rainwater Harvesting \u2014 Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -27880,7 +27880,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Rainwater Harvesting — Light Commercial",
+              "name": "Rainwater Harvesting \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -28011,7 +28011,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Rainwater Harvesting — Heavy Commercial",
+              "name": "Rainwater Harvesting \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -28154,11 +28154,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Rainwater Harvesting — ISO",
+              "name": "Rainwater Harvesting \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "248 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "248 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -29163,13 +29163,13 @@
           "id": "subcontractor-roof",
           "tier": "self-serve",
           "name": "Roofing",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Roofing — Domestic",
+              "name": "Roofing \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -29288,7 +29288,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Roofing — Light Commercial",
+              "name": "Roofing \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -29451,7 +29451,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Roofing — Heavy Commercial",
+              "name": "Roofing \u2014 Heavy Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -29614,11 +29614,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Roofing — ISO",
+              "name": "Roofing \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "253 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "253 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -30643,13 +30643,13 @@
           "id": "subcontractor-serv",
           "tier": "self-serve",
           "name": "Services",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Services — Domestic",
+              "name": "Services \u2014 Domestic",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -30800,7 +30800,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Services — Light Commercial",
+              "name": "Services \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -30995,7 +30995,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Services — Heavy Commercial",
+              "name": "Services \u2014 Heavy Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -31190,11 +31190,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Services — ISO",
+              "name": "Services \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "261 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "261 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -32251,13 +32251,13 @@
           "id": "subcontractor-steel",
           "tier": "self-serve",
           "name": "Structural Steel",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Structural Steel — Domestic",
+              "name": "Structural Steel \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -32358,7 +32358,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -32368,7 +32368,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Structural Steel — Light Commercial",
+              "name": "Structural Steel \u2014 Light Commercial",
               "unit_amount": 64900,
               "priceLabel": "$649",
               "priceSuffix": "one-off",
@@ -32513,7 +32513,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -32523,7 +32523,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Structural Steel — Heavy Commercial",
+              "name": "Structural Steel \u2014 Heavy Commercial",
               "unit_amount": 94900,
               "priceLabel": "$949",
               "priceSuffix": "one-off",
@@ -32688,7 +32688,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -32698,11 +32698,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Structural Steel — ISO",
+              "name": "Structural Steel \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "256 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "256 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -33676,7 +33676,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -33739,13 +33739,13 @@
           "id": "subcontractor-tile",
           "tier": "self-serve",
           "name": "Tiling",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Tiling — Domestic",
+              "name": "Tiling \u2014 Domestic",
               "unit_amount": 34900,
               "priceLabel": "$349",
               "priceSuffix": "one-off",
@@ -33832,7 +33832,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Tiling — Light Commercial",
+              "name": "Tiling \u2014 Light Commercial",
               "unit_amount": 54900,
               "priceLabel": "$549",
               "priceSuffix": "one-off",
@@ -33963,7 +33963,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Tiling — Heavy Commercial",
+              "name": "Tiling \u2014 Heavy Commercial",
               "unit_amount": 84900,
               "priceLabel": "$849",
               "priceSuffix": "one-off",
@@ -34110,11 +34110,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Tiling — ISO",
+              "name": "Tiling \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "249 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "249 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -35123,13 +35123,13 @@
           "id": "subcontractor-wp",
           "tier": "self-serve",
           "name": "Waterproofing",
-          "tagline": "Pick a rung — price and document count update below",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Waterproofing — Domestic",
+              "name": "Waterproofing \u2014 Domestic",
               "unit_amount": 44900,
               "priceLabel": "$449",
               "priceSuffix": "one-off",
@@ -35226,7 +35226,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -35252,7 +35252,7 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Waterproofing — Light Commercial",
+              "name": "Waterproofing \u2014 Light Commercial",
               "unit_amount": 74900,
               "priceLabel": "$749",
               "priceSuffix": "one-off",
@@ -35393,7 +35393,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -35419,7 +35419,7 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Waterproofing — Heavy Commercial",
+              "name": "Waterproofing \u2014 Heavy Commercial",
               "unit_amount": 109900,
               "priceLabel": "$1,099",
               "priceSuffix": "one-off",
@@ -35580,7 +35580,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -35606,11 +35606,11 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Waterproofing — ISO",
+              "name": "Waterproofing \u2014 ISO",
               "priceLabel": "From $4,499",
               "priceSuffix": "final quote",
               "tagline": "ISO",
-              "description": "259 documents. Every specialist management-system add-on plus IMS content — flat-priced across every trade.",
+              "description": "259 documents. Every specialist management-system add-on plus IMS content \u2014 flat-priced across every trade.",
               "tier": "quote",
               "cta": "Request Quote",
               "documents": [
@@ -36580,7 +36580,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -36659,26 +36659,2830 @@
       "layout": "select"
     },
     {
+      "id": "swms-packs",
+      "name": "SWMS Packs \u2014 By Trade",
+      "description": "24 trades, SWMS only \u2014 not bundled with registers, forms or ITPs. Pick your trade below. Priced by document count: $349 / $449 / $549 depending on how many SWMS that trade needs.",
+      "layout": "select",
+      "items": [
+        {
+          "id": "swms-pack-carp",
+          "tier": "self-serve",
+          "name": "Carpentry \u2014 SWMS Pack",
+          "tagline": "36 SWMS documents for this trade",
+          "unit_amount": 54900,
+          "priceLabel": "$549",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "36 SWMS documents covering every common carpentry activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-CARP-001",
+              "title": "General Carpentry Works"
+            },
+            {
+              "code": "SAF-SWMS-CARP-002",
+              "title": "Structural Timber Framing"
+            },
+            {
+              "code": "SAF-SWMS-CARP-003",
+              "title": "Joinery Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-004",
+              "title": "Cutting, Sawing & Machining"
+            },
+            {
+              "code": "SAF-SWMS-CARP-005",
+              "title": "Nail Gun & Pneumatic Tools"
+            },
+            {
+              "code": "SAF-SWMS-CARP-006",
+              "title": "Temporary Works & Protection"
+            },
+            {
+              "code": "SAF-SWMS-CARP-007",
+              "title": "Internal Framing"
+            },
+            {
+              "code": "SAF-SWMS-CARP-008",
+              "title": "Door Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-009",
+              "title": "Fire Door Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-010",
+              "title": "Door Hardware Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-011",
+              "title": "Skirting Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-012",
+              "title": "Architrave Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-013",
+              "title": "Timber Flooring Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-014",
+              "title": "Deck Construction"
+            },
+            {
+              "code": "SAF-SWMS-CARP-015",
+              "title": "Pergola Construction"
+            },
+            {
+              "code": "SAF-SWMS-CARP-016",
+              "title": "Balustrade Installation"
+            },
+            {
+              "code": "SAF-SWMS-CARP-017",
+              "title": "Handrail Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-civ",
+          "tier": "self-serve",
+          "name": "Civil \u2014 SWMS Pack",
+          "tagline": "36 SWMS documents for this trade",
+          "unit_amount": 54900,
+          "priceLabel": "$549",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "36 SWMS documents covering every common civil activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-CIV-001",
+              "title": "Bulk Earthworks"
+            },
+            {
+              "code": "SAF-SWMS-CIV-002",
+              "title": "Detailed Excavation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-003",
+              "title": "Trenching Services Installation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-004",
+              "title": "Shoring, Benching and Battering"
+            },
+            {
+              "code": "SAF-SWMS-CIV-005",
+              "title": "Deep Excavation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-006",
+              "title": "Working Near Services"
+            },
+            {
+              "code": "SAF-SWMS-CIV-007",
+              "title": "Backfilling & Compaction"
+            },
+            {
+              "code": "SAF-SWMS-CIV-008",
+              "title": "Civil Plant & People Interface"
+            },
+            {
+              "code": "SAF-SWMS-CIV-009",
+              "title": "Traffic & Public Interface"
+            },
+            {
+              "code": "SAF-SWMS-CIV-010",
+              "title": "Stormwater Drainage Installation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-011",
+              "title": "Sewer Installation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-012",
+              "title": "Civil Concrete Works"
+            },
+            {
+              "code": "SAF-SWMS-CIV-013",
+              "title": "Road Base Installation"
+            },
+            {
+              "code": "SAF-SWMS-CIV-014",
+              "title": "Kerb & Channel Construction"
+            },
+            {
+              "code": "SAF-SWMS-CIV-015",
+              "title": "Asphalt Placement"
+            },
+            {
+              "code": "SAF-SWMS-CIV-016",
+              "title": "Pavement Construction"
+            },
+            {
+              "code": "SAF-SWMS-CIV-017",
+              "title": "Service Pit Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-comm",
+          "tier": "self-serve",
+          "name": "Communications & Data \u2014 SWMS Pack",
+          "tagline": "23 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "23 SWMS documents covering every common communications & data activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-COMM-001",
+              "title": "Data Communications Cabling"
+            },
+            {
+              "code": "SAF-SWMS-COMM-002",
+              "title": "Security Systems Installation"
+            },
+            {
+              "code": "SAF-SWMS-COMM-003",
+              "title": "CCTV Access Control Installation"
+            },
+            {
+              "code": "SAF-SWMS-COMM-004",
+              "title": "Testing & Commissioning \u2013 Communications"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-conc",
+          "tier": "self-serve",
+          "name": "Concrete \u2014 SWMS Pack",
+          "tagline": "30 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "30 SWMS documents covering every common concrete activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-CONC-001",
+              "title": "Formwork Erection and Strip"
+            },
+            {
+              "code": "SAF-SWMS-CONC-002",
+              "title": "Falsework Installation"
+            },
+            {
+              "code": "SAF-SWMS-CONC-003",
+              "title": "Reinforcement Installation"
+            },
+            {
+              "code": "SAF-SWMS-CONC-004",
+              "title": "Post-Tensioning Operations"
+            },
+            {
+              "code": "SAF-SWMS-CONC-005",
+              "title": "Concrete Placement & Finishing"
+            },
+            {
+              "code": "SAF-SWMS-CONC-006",
+              "title": "Concrete Pumping Operations"
+            },
+            {
+              "code": "SAF-SWMS-CONC-007",
+              "title": "Precast Panel Installation"
+            },
+            {
+              "code": "SAF-SWMS-CONC-008",
+              "title": "Structural Grouting"
+            },
+            {
+              "code": "SAF-SWMS-CONC-009",
+              "title": "Concrete Cutting"
+            },
+            {
+              "code": "SAF-SWMS-CONC-010",
+              "title": "Concrete Drilling"
+            },
+            {
+              "code": "SAF-SWMS-CONC-011",
+              "title": "Structural Strengthening Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-demo",
+          "tier": "self-serve",
+          "name": "Demolition \u2014 SWMS Pack",
+          "tagline": "25 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "25 SWMS documents covering every common demolition activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-DEMO-001",
+              "title": "Structural Demolition"
+            },
+            {
+              "code": "SAF-SWMS-DEMO-002",
+              "title": "Non Structural Demolition"
+            },
+            {
+              "code": "SAF-SWMS-DEMO-003",
+              "title": "Soft Strip Demolition"
+            },
+            {
+              "code": "SAF-SWMS-DEMO-004",
+              "title": "Mechanical Demolition"
+            },
+            {
+              "code": "SAF-SWMS-DEMO-005",
+              "title": "Demolition Waste Handling and Removal"
+            },
+            {
+              "code": "SAF-SWMS-DEMO-006",
+              "title": "Asbestos Interface and Clearance"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-elec",
+          "tier": "self-serve",
+          "name": "Electrical \u2014 SWMS Pack",
+          "tagline": "27 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "27 SWMS documents covering every common electrical activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-ELEC-001",
+              "title": "Electrical Rough In Works"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-002",
+              "title": "Electrical Fit Off Works"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-003",
+              "title": "Live Testing Fault Finding"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-004",
+              "title": "Electrical Isolation and Lockout"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-005",
+              "title": "Temporary Power Installations"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-006",
+              "title": "Switchboard Installation and Commissioning"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-007",
+              "title": "Overhead & Underground Services"
+            },
+            {
+              "code": "SAF-SWMS-ELEC-008",
+              "title": "Electrical Testing"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-faca",
+          "tier": "self-serve",
+          "name": "Facade \u2014 SWMS Pack",
+          "tagline": "24 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "24 SWMS documents covering every common facade activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-FACA-001",
+              "title": "Facade System Installation"
+            },
+            {
+              "code": "SAF-SWMS-FACA-002",
+              "title": "Cladding Panel Installation"
+            },
+            {
+              "code": "SAF-SWMS-FACA-003",
+              "title": "Facade Access Interface"
+            },
+            {
+              "code": "SAF-SWMS-FACA-004",
+              "title": "Working at Heights \u2013 External Envelope"
+            },
+            {
+              "code": "SAF-SWMS-FACA-005",
+              "title": "Timber Cladding Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-fin",
+          "tier": "self-serve",
+          "name": "Finishing & Fixout \u2014 SWMS Pack",
+          "tagline": "26 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "26 SWMS documents covering every common finishing & fixout activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-FIN-001",
+              "title": "Wall Lining Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-002",
+              "title": "Stone Benchtop Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-003",
+              "title": "Carpet Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-004",
+              "title": "Vinyl Flooring Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-005",
+              "title": "Epoxy Flooring Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-006",
+              "title": "Wall Paper Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIN-007",
+              "title": "Sealant Application"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-fire",
+          "tier": "self-serve",
+          "name": "Fire Services \u2014 SWMS Pack",
+          "tagline": "24 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "24 SWMS documents covering every common fire services activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-FIRE-001",
+              "title": "Fire Hydrant and Hose Reel Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIRE-002",
+              "title": "Fire Sprinkler Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIRE-003",
+              "title": "Fire Detection EWIS Installation"
+            },
+            {
+              "code": "SAF-SWMS-FIRE-004",
+              "title": "Fire System Testing and Commissioning"
+            },
+            {
+              "code": "SAF-SWMS-FIRE-005",
+              "title": "Working at Heights \u2013 Fire Services"
+            },
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-glaz",
+          "tier": "self-serve",
+          "name": "Glazing \u2014 SWMS Pack",
+          "tagline": "20 SWMS documents for this trade",
+          "unit_amount": 34900,
+          "priceLabel": "$349",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "20 SWMS documents covering every common glazing activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-GLAZ-001",
+              "title": "Glazing Installation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-land",
+          "tier": "self-serve",
+          "name": "Landscaping \u2014 SWMS Pack",
+          "tagline": "23 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "23 SWMS documents covering every common landscaping activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-LAND-001",
+              "title": "Landscaping Works"
+            },
+            {
+              "code": "SAF-SWMS-LAND-002",
+              "title": "Retaining Wall Construction"
+            },
+            {
+              "code": "SAF-SWMS-LAND-003",
+              "title": "External Paving Concreting"
+            },
+            {
+              "code": "SAF-SWMS-LAND-004",
+              "title": "Use of Small Plant & Equipment"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-lift",
+          "tier": "self-serve",
+          "name": "Lifts & Vertical Transport \u2014 SWMS Pack",
+          "tagline": "19 SWMS documents for this trade",
+          "unit_amount": 34900,
+          "priceLabel": "$349",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "19 SWMS documents covering every common lifts & vertical transport activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-mas",
+          "tier": "self-serve",
+          "name": "Masonry \u2014 SWMS Pack",
+          "tagline": "21 SWMS documents for this trade",
+          "unit_amount": 34900,
+          "priceLabel": "$349",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "21 SWMS documents covering every common masonry activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-MAS-001",
+              "title": "Bricklaying and Masonry Works"
+            },
+            {
+              "code": "SAF-SWMS-MAS-002",
+              "title": "Rendered Finish Application"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-mech",
+          "tier": "self-serve",
+          "name": "Mechanical Services \u2014 SWMS Pack",
+          "tagline": "26 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "26 SWMS documents covering every common mechanical services activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-MECH-001",
+              "title": "Mechanical Plant Installation"
+            },
+            {
+              "code": "SAF-SWMS-MECH-002",
+              "title": "HVAC Ductwork Installation"
+            },
+            {
+              "code": "SAF-SWMS-MECH-003",
+              "title": "Refrigerant Handling Charging"
+            },
+            {
+              "code": "SAF-SWMS-MECH-004",
+              "title": "Roof Plant Installation"
+            },
+            {
+              "code": "SAF-SWMS-MECH-005",
+              "title": "Mechanical Lifting Operations"
+            },
+            {
+              "code": "SAF-SWMS-MECH-006",
+              "title": "Testing and Commissioning"
+            },
+            {
+              "code": "SAF-SWMS-MECH-007",
+              "title": "Refrigeration Pipework Installation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-paint",
+          "tier": "self-serve",
+          "name": "Painting \u2014 SWMS Pack",
+          "tagline": "23 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "23 SWMS documents covering every common painting activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-PAINT-001",
+              "title": "Painting and Decorating Works"
+            },
+            {
+              "code": "SAF-SWMS-PAINT-002",
+              "title": "Spray Painting Operations"
+            },
+            {
+              "code": "SAF-SWMS-PAINT-003",
+              "title": "Hazardous Substances Paints and Solvents"
+            },
+            {
+              "code": "SAF-SWMS-PAINT-004",
+              "title": "Elevated Access Painting Works"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-plt",
+          "tier": "self-serve",
+          "name": "Plant & Earthworks \u2014 SWMS Pack",
+          "tagline": "33 SWMS documents for this trade",
+          "unit_amount": 54900,
+          "priceLabel": "$549",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "33 SWMS documents covering every common plant & earthworks activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-PLT-001",
+              "title": "Excavator Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-002",
+              "title": "Skid Steer Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-003",
+              "title": "Telehandler Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-004",
+              "title": "Forklift Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-005",
+              "title": "Front End Loader Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-006",
+              "title": "Compactor Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-007",
+              "title": "Roller Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-008",
+              "title": "Concrete Pump Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-009",
+              "title": "Scissor Lift Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-010",
+              "title": "Boom Lift Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-011",
+              "title": "Tip Truck Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-012",
+              "title": "Water Cart Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-013",
+              "title": "Grader Operation"
+            },
+            {
+              "code": "SAF-SWMS-PLT-014",
+              "title": "Dozer Operation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-plas",
+          "tier": "self-serve",
+          "name": "Plastering \u2014 SWMS Pack",
+          "tagline": "25 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "25 SWMS documents covering every common plastering activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-001",
+              "title": "Plasterboard Installation"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-002",
+              "title": "Ceiling Grid Tile Installation"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-003",
+              "title": "Bulkheads Feature Ceilings"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-004",
+              "title": "Elevated Work Platforms \u2013 Internal"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-005",
+              "title": "Manual Handling \u2013 Sheets & Frames"
+            },
+            {
+              "code": "SAF-SWMS-PLAS-006",
+              "title": "Suspended Ceiling Installation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-plmb",
+          "tier": "self-serve",
+          "name": "Plumbing \u2014 SWMS Pack",
+          "tagline": "27 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "27 SWMS documents covering every common plumbing activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-001",
+              "title": "In Ground Plumbing Drainage"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-002",
+              "title": "Hydraulic Services Installation"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-003",
+              "title": "Gas Installation Testing"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-004",
+              "title": "Pressure Testing Operations"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-005",
+              "title": "Hot Works \u2013 Welding and Brazing"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-006",
+              "title": "Confined Space \u2013 Pits and Tanks"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-007",
+              "title": "Hydraulic Rough-In"
+            },
+            {
+              "code": "SAF-SWMS-PLMB-008",
+              "title": "Hydraulic Fit-Off"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-roof",
+          "tier": "self-serve",
+          "name": "Roofing \u2014 SWMS Pack",
+          "tagline": "27 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "27 SWMS documents covering every common roofing activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-001",
+              "title": "Metal Roof Installation"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-002",
+              "title": "Roof Tile Installation"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-003",
+              "title": "Roof Access Systems"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-004",
+              "title": "Roof Plumbing"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-005",
+              "title": "Gutter Installation"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-006",
+              "title": "Downpipe Installation"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-007",
+              "title": "Roof Flashings Installation"
+            },
+            {
+              "code": "SAF-SWMS-ROOF-008",
+              "title": "Skylight Installation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-rwh",
+          "tier": "self-serve",
+          "name": "Rope Access / Working at Heights \u2014 SWMS Pack",
+          "tagline": "19 SWMS documents for this trade",
+          "unit_amount": 34900,
+          "priceLabel": "$349",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "19 SWMS documents covering every common rope access / working at heights activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-serv",
+          "tier": "self-serve",
+          "name": "Services Trenching \u2014 SWMS Pack",
+          "tagline": "35 SWMS documents for this trade",
+          "unit_amount": 54900,
+          "priceLabel": "$549",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "35 SWMS documents covering every common services trenching activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-SERV-001",
+              "title": "Electrical Rough-In"
+            },
+            {
+              "code": "SAF-SWMS-SERV-002",
+              "title": "Electrical Fit-Off"
+            },
+            {
+              "code": "SAF-SWMS-SERV-003",
+              "title": "Switchboard Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-004",
+              "title": "Electrical Testing"
+            },
+            {
+              "code": "SAF-SWMS-SERV-005",
+              "title": "Temporary Electrical Supply"
+            },
+            {
+              "code": "SAF-SWMS-SERV-006",
+              "title": "Data & Communications Cabling"
+            },
+            {
+              "code": "SAF-SWMS-SERV-007",
+              "title": "Fire Alarm Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-008",
+              "title": "Fire Sprinkler Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-009",
+              "title": "Hydraulic Rough-In"
+            },
+            {
+              "code": "SAF-SWMS-SERV-010",
+              "title": "Hydraulic Fit-Off"
+            },
+            {
+              "code": "SAF-SWMS-SERV-011",
+              "title": "In Ground Plumbing"
+            },
+            {
+              "code": "SAF-SWMS-SERV-012",
+              "title": "Gas Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-013",
+              "title": "HVAC Duct Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-014",
+              "title": "Mechanical Plant Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-015",
+              "title": "Refrigeration Pipework Installation"
+            },
+            {
+              "code": "SAF-SWMS-SERV-016",
+              "title": "Solar Panel and Rooftop PV System Installation"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-steel",
+          "tier": "self-serve",
+          "name": "Structural Steel \u2014 SWMS Pack",
+          "tagline": "25 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "25 SWMS documents covering every common structural steel activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-001",
+              "title": "Structural Steel Erection"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-002",
+              "title": "Rigging and Dogging Operations"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-003",
+              "title": "Crane Lift Planning Execution"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-004",
+              "title": "Bolt Tensioning and Torqueing"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-005",
+              "title": "Weld, Cut and Grind \u2013 Steel Works"
+            },
+            {
+              "code": "SAF-SWMS-STEEL-006",
+              "title": "Temporary Bracing and Stability"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-tile",
+          "tier": "self-serve",
+          "name": "Tiling \u2014 SWMS Pack",
+          "tagline": "19 SWMS documents for this trade",
+          "unit_amount": 34900,
+          "priceLabel": "$349",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "19 SWMS documents covering every common tiling activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            }
+          ]
+        },
+        {
+          "id": "swms-pack-wp",
+          "tier": "self-serve",
+          "name": "Waterproofing \u2014 SWMS Pack",
+          "tagline": "28 SWMS documents for this trade",
+          "unit_amount": 44900,
+          "priceLabel": "$449",
+          "priceSuffix": "one-off",
+          "cta": "Add to Cart",
+          "description": "28 SWMS documents covering every common waterproofing activity. SWMS only -- no registers, forms or ITPs included. Pair with a Subcontractor Pack if you need the full site-document set for this trade.",
+          "documents": [
+            {
+              "code": "SAF-SWMS-GEN-001",
+              "title": "General Labour Works"
+            },
+            {
+              "code": "SAF-SWMS-GEN-002",
+              "title": "Site Establishment"
+            },
+            {
+              "code": "SAF-SWMS-GEN-003",
+              "title": "Material Handling & Deliveries"
+            },
+            {
+              "code": "SAF-SWMS-GEN-004",
+              "title": "Waste Removal & Site Cleaning"
+            },
+            {
+              "code": "SAF-SWMS-GEN-005",
+              "title": "Use of Hand Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-006",
+              "title": "Use of Power Tools"
+            },
+            {
+              "code": "SAF-SWMS-GEN-007",
+              "title": "Small Plant Operation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-008",
+              "title": "Temporary Fencing Installation"
+            },
+            {
+              "code": "SAF-SWMS-GEN-009",
+              "title": "Site Amenities Setup"
+            },
+            {
+              "code": "SAF-SWMS-GEN-010",
+              "title": "Working in Ceiling Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-011",
+              "title": "Working in Roof Spaces"
+            },
+            {
+              "code": "SAF-SWMS-GEN-012",
+              "title": "Working on Ladders"
+            },
+            {
+              "code": "SAF-SWMS-GEN-013",
+              "title": "Use of Step Platforms"
+            },
+            {
+              "code": "SAF-SWMS-GEN-014",
+              "title": "Noise Exposure Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-015",
+              "title": "Dust Management"
+            },
+            {
+              "code": "SAF-SWMS-GEN-016",
+              "title": "Manual Handling Tasks"
+            },
+            {
+              "code": "SAF-SWMS-GEN-017",
+              "title": "Working Around Mobile Plant"
+            },
+            {
+              "code": "SAF-SWMS-GEN-018",
+              "title": "Toolbox Meetings & Site Inductions"
+            },
+            {
+              "code": "SAF-SWMS-GEN-019",
+              "title": "Working in Contaminated Soil and Unexpected Finds"
+            },
+            {
+              "code": "SAF-SWMS-WP-001",
+              "title": "Waterproofing Membrane Installation"
+            },
+            {
+              "code": "SAF-SWMS-WP-002",
+              "title": "Wet Area Preparation"
+            },
+            {
+              "code": "SAF-SWMS-WP-003",
+              "title": "Tile Cutting Installation"
+            },
+            {
+              "code": "SAF-SWMS-WP-004",
+              "title": "Chemical Handling \u2013 Membranes & Adhesives"
+            },
+            {
+              "code": "SAF-SWMS-WP-005",
+              "title": "External Waterproofing"
+            },
+            {
+              "code": "SAF-SWMS-WP-006",
+              "title": "Balcony Waterproofing"
+            },
+            {
+              "code": "SAF-SWMS-WP-007",
+              "title": "Basement Waterproofing"
+            },
+            {
+              "code": "SAF-SWMS-WP-008",
+              "title": "Roof Membrane Installation"
+            },
+            {
+              "code": "SAF-SWMS-WP-009",
+              "title": "Joint Sealing Works"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "builder-packs",
       "name": "Builder Packs",
-      "description": "Whole-of-site, not per trade — every trade's content bundled into one pack. Domestic and Light Commercial are self-serve today; Heavy Commercial and ISO carry management-system content still completing a documentation review pass, so those two are scoped and quoted individually until that clears.",
+      "description": "Whole-of-site, not per trade \u2014 every trade's content bundled into one pack. Domestic and Light Commercial are self-serve today; Heavy Commercial and ISO carry management-system content still completing a documentation review pass, so those two are scoped and quoted individually until that clears.",
       "items": [
         {
           "id": "builder-pack",
           "tier": "self-serve",
-          "name": "Builder Pack — Whole of Site",
-          "tagline": "Pick a rung — price and document count update below",
+          "name": "Builder Pack \u2014 Whole of Site",
+          "tagline": "Pick a rung \u2014 price and document count update below",
           "defaultOption": "domestic",
           "cta": "Buy Now",
           "purchaseOptions": {
             "domestic": {
               "label": "Domestic",
-              "name": "Builder Pack — Domestic",
+              "name": "Builder Pack \u2014 Domestic",
               "unit_amount": 219900,
               "priceLabel": "$2,199",
               "priceSuffix": "one-off",
               "tagline": "Domestic",
-              "description": "208 documents — every trade's SWMS across the whole site. No ITPs, no management system.",
+              "description": "208 documents \u2014 every trade's SWMS across the whole site. No ITPs, no management system.",
               "documents": [
                 {
                   "code": "SAF-SWMS-CARP-001",
@@ -36830,7 +39634,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-CONC-001",
@@ -36946,7 +39750,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -36998,7 +39802,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -37118,7 +39922,7 @@
                 },
                 {
                   "code": "SAF-SWMS-HR-010",
-                  "title": "Hot Works – Welding/Cutting"
+                  "title": "Hot Works \u2013 Welding/Cutting"
                 },
                 {
                   "code": "SAF-SWMS-HR-011",
@@ -37258,11 +40062,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -37286,11 +40090,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -37470,7 +40274,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -37490,7 +40294,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -37516,12 +40320,12 @@
             },
             "light-commercial": {
               "label": "Light Commercial",
-              "name": "Builder Pack — Light Commercial",
+              "name": "Builder Pack \u2014 Light Commercial",
               "unit_amount": 279900,
               "priceLabel": "$2,799",
               "priceSuffix": "one-off",
               "tagline": "Light Commercial",
-              "description": "226 documents — Domestic + the safety management plan and minimum governance policies.",
+              "description": "226 documents \u2014 Domestic + the safety management plan and minimum governance policies.",
               "documents": [
                 {
                   "code": "GOV-POL-ABR-001",
@@ -37745,7 +40549,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-CONC-001",
@@ -37861,7 +40665,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -37913,7 +40717,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -38033,7 +40837,7 @@
                 },
                 {
                   "code": "SAF-SWMS-HR-010",
-                  "title": "Hot Works – Welding/Cutting"
+                  "title": "Hot Works \u2013 Welding/Cutting"
                 },
                 {
                   "code": "SAF-SWMS-HR-011",
@@ -38173,11 +40977,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -38201,11 +41005,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -38385,7 +41189,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -38405,7 +41209,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -38431,13 +41235,13 @@
             },
             "heavy-commercial": {
               "label": "Heavy Commercial",
-              "name": "Builder Pack — Heavy Commercial",
+              "name": "Builder Pack \u2014 Heavy Commercial",
               "tier": "quote",
               "tagline": "Heavy Commercial",
               "priceLabel": "From $4,899",
               "priceSuffix": "final quote before payment",
               "cta": "Request Quote",
-              "description": "501 documents — every trade's ITPs plus the full core management system. Includes content still completing a documentation review pass — quoted individually, not self-serve, until that clears.",
+              "description": "501 documents \u2014 every trade's ITPs plus the full core management system. Includes content still completing a documentation review pass \u2014 quoted individually, not self-serve, until that clears.",
               "documents": [
                 {
                   "code": "ENV-FRM-GEN-019",
@@ -39761,7 +42565,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-CONC-001",
@@ -39877,7 +42681,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -39929,7 +42733,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -40049,7 +42853,7 @@
                 },
                 {
                   "code": "SAF-SWMS-HR-010",
-                  "title": "Hot Works – Welding/Cutting"
+                  "title": "Hot Works \u2013 Welding/Cutting"
                 },
                 {
                   "code": "SAF-SWMS-HR-011",
@@ -40189,11 +42993,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -40217,11 +43021,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -40401,7 +43205,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -40421,7 +43225,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -40447,13 +43251,13 @@
             },
             "iso-ofsc": {
               "label": "ISO",
-              "name": "Builder Pack — ISO",
+              "name": "Builder Pack \u2014 ISO",
               "tier": "quote",
               "tagline": "ISO",
               "priceLabel": "Request Quote",
               "priceSuffix": "final quote",
               "cta": "Request Quote",
-              "description": "709 documents — the complete library, every specialist add-on, and full IMS content. Same review-pass gate as Heavy Commercial.",
+              "description": "709 documents \u2014 the complete library, every specialist add-on, and full IMS content. Same review-pass gate as Heavy Commercial.",
               "documents": [
                 {
                   "code": "AUD-FRM-GEN-006",
@@ -42561,7 +45365,7 @@
                 },
                 {
                   "code": "SAF-SWMS-COMM-004",
-                  "title": "Testing & Commissioning – Communications"
+                  "title": "Testing & Commissioning \u2013 Communications"
                 },
                 {
                   "code": "SAF-SWMS-CONC-001",
@@ -42677,7 +45481,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FACA-004",
-                  "title": "Working at Heights – External Envelope"
+                  "title": "Working at Heights \u2013 External Envelope"
                 },
                 {
                   "code": "SAF-SWMS-FACA-005",
@@ -42729,7 +45533,7 @@
                 },
                 {
                   "code": "SAF-SWMS-FIRE-005",
-                  "title": "Working at Heights – Fire Services"
+                  "title": "Working at Heights \u2013 Fire Services"
                 },
                 {
                   "code": "SAF-SWMS-GEN-001",
@@ -42849,7 +45653,7 @@
                 },
                 {
                   "code": "SAF-SWMS-HR-010",
-                  "title": "Hot Works – Welding/Cutting"
+                  "title": "Hot Works \u2013 Welding/Cutting"
                 },
                 {
                   "code": "SAF-SWMS-HR-011",
@@ -42989,11 +45793,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLAS-004",
-                  "title": "Elevated Work Platforms – Internal"
+                  "title": "Elevated Work Platforms \u2013 Internal"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-005",
-                  "title": "Manual Handling – Sheets & Frames"
+                  "title": "Manual Handling \u2013 Sheets & Frames"
                 },
                 {
                   "code": "SAF-SWMS-PLAS-006",
@@ -43017,11 +45821,11 @@
                 },
                 {
                   "code": "SAF-SWMS-PLMB-005",
-                  "title": "Hot Works – Welding and Brazing"
+                  "title": "Hot Works \u2013 Welding and Brazing"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-006",
-                  "title": "Confined Space – Pits and Tanks"
+                  "title": "Confined Space \u2013 Pits and Tanks"
                 },
                 {
                   "code": "SAF-SWMS-PLMB-007",
@@ -43201,7 +46005,7 @@
                 },
                 {
                   "code": "SAF-SWMS-STEEL-005",
-                  "title": "Weld, Cut and Grind – Steel Works"
+                  "title": "Weld, Cut and Grind \u2013 Steel Works"
                 },
                 {
                   "code": "SAF-SWMS-STEEL-006",
@@ -43221,7 +46025,7 @@
                 },
                 {
                   "code": "SAF-SWMS-WP-004",
-                  "title": "Chemical Handling – Membranes & Adhesives"
+                  "title": "Chemical Handling \u2013 Membranes & Adhesives"
                 },
                 {
                   "code": "SAF-SWMS-WP-005",
@@ -43301,14 +46105,14 @@
     {
       "id": "management-systems",
       "name": "Management System Frameworks",
-      "description": "Pre-built frameworks, scoped to your organisation before checkout — same senior-practitioner standard as SiteGuard's consulting engagements.",
+      "description": "Pre-built frameworks, scoped to your organisation before checkout \u2014 same senior-practitioner standard as SiteGuard's consulting engagements.",
       "items": [
         {
           "id": "sms-bundle",
           "tier": "quote",
           "name": "Subcontractor Management System",
           "tagline": "Pre-built SMS framework",
-          "description": "Policy, plans, forms, registers and SWMS library as one bundle — a pre-built framework to support a structured safety system.",
+          "description": "Policy, plans, forms, registers and SWMS library as one bundle \u2014 a pre-built framework to support a structured safety system.",
           "priceLabel": "From $1,299",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43321,9 +46125,9 @@
         {
           "id": "iso-45001",
           "tier": "quote",
-          "name": "ISO 45001 — Safety Management",
+          "name": "ISO 45001 \u2014 Safety Management",
           "tagline": "OHS/WHS management system pack",
-          "description": "Pre-built ISO 45001-aligned framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 45001-aligned framework \u2014 policies, procedures, registers and evidence infrastructure. Important: this is a base document framework \u2014 a starting point, not an ISO certification on its own. Certification requires tailoring the system to your specific business operations, then implementing, operating and monitoring it in practice, before a two-stage audit with an accredited third-party certification body. SiteGuard Systems can help facilitate that process from here.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43335,9 +46139,9 @@
         {
           "id": "iso-9001",
           "tier": "quote",
-          "name": "ISO 9001 — Quality Management",
+          "name": "ISO 9001 \u2014 Quality Management",
           "tagline": "Quality management system pack",
-          "description": "Pre-built ISO 9001 framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 9001 framework \u2014 policies, procedures, registers and evidence infrastructure. Important: this is a base document framework \u2014 a starting point, not an ISO certification on its own. Certification requires tailoring the system to your specific business operations, then implementing, operating and monitoring it in practice, before a two-stage audit with an accredited third-party certification body. SiteGuard Systems can help facilitate that process from here.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43349,9 +46153,9 @@
         {
           "id": "iso-14001",
           "tier": "quote",
-          "name": "ISO 14001 — Environmental Management",
+          "name": "ISO 14001 \u2014 Environmental Management",
           "tagline": "Environmental management system pack",
-          "description": "Pre-built ISO 14001 framework — policies, procedures, registers and evidence infrastructure.",
+          "description": "Pre-built ISO 14001 framework \u2014 policies, procedures, registers and evidence infrastructure. Important: this is a base document framework \u2014 a starting point, not an ISO certification on its own. Certification requires tailoring the system to your specific business operations, then implementing, operating and monitoring it in practice, before a two-stage audit with an accredited third-party certification body. SiteGuard Systems can help facilitate that process from here.",
           "priceLabel": "From $2,400",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43363,9 +46167,9 @@
         {
           "id": "iso-45003",
           "tier": "quote",
-          "name": "ISO 45003 — Psychosocial Hazard Framework",
+          "name": "ISO 45003 \u2014 Psychosocial Hazard Framework",
           "tagline": "Psychosocial hazard management",
-          "description": "Hazard identification, risk controls, consultation structures and evidence records aligned to ISO 45003:2021.",
+          "description": "Hazard identification, risk controls, consultation structures and evidence records aligned to ISO 45003:2021. Important: this is a base document framework \u2014 a starting point, not an ISO certification on its own. Certification requires tailoring the system to your specific business operations, then implementing, operating and monitoring it in practice, before a two-stage audit with an accredited third-party certification body. SiteGuard Systems can help facilitate that process from here.",
           "priceLabel": "From $1,800",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43379,8 +46183,8 @@
           "id": "ims-combined",
           "tier": "quote",
           "name": "Integrated Management System (IMS)",
-          "tagline": "45001 · 9001 · 14001 — combined framework",
-          "description": "One policy structure, one risk register, one audit cycle — a complete IMS framework combining all three standards.",
+          "tagline": "45001 \u00b7 9001 \u00b7 14001 \u2014 combined framework",
+          "description": "One policy structure, one risk register, one audit cycle \u2014 a complete IMS framework combining all three standards. Important: this is a base document framework \u2014 a starting point, not an ISO certification on its own. Certification requires tailoring the system to your specific business operations, then implementing, operating and monitoring it in practice, before a two-stage audit with an accredited third-party certification body. SiteGuard Systems can help facilitate that process from here.",
           "priceLabel": "From $5,900",
           "priceSuffix": "final quote before payment",
           "cta": "Request Quote",
@@ -43401,7 +46205,7 @@
         {
           "id": "consultant-whitelabel",
           "tier": "quote",
-          "name": "Full Suite — White-Label",
+          "name": "Full Suite \u2014 White-Label",
           "tagline": "Every trade, every management system, your branding",
           "description": "The complete SiteGuard library -- every trade, every specialist management-system add-on, full ISO/IMS content -- delivered white-labeled for you to resell under your own practice brand. Resale rights included contractually.",
           "priceLabel": "Price on application",
@@ -45519,7 +48323,7 @@
             },
             {
               "code": "SAF-SWMS-COMM-004",
-              "title": "Testing & Commissioning – Communications"
+              "title": "Testing & Commissioning \u2013 Communications"
             },
             {
               "code": "SAF-SWMS-CONC-001",
@@ -45635,7 +48439,7 @@
             },
             {
               "code": "SAF-SWMS-FACA-004",
-              "title": "Working at Heights – External Envelope"
+              "title": "Working at Heights \u2013 External Envelope"
             },
             {
               "code": "SAF-SWMS-FACA-005",
@@ -45687,7 +48491,7 @@
             },
             {
               "code": "SAF-SWMS-FIRE-005",
-              "title": "Working at Heights – Fire Services"
+              "title": "Working at Heights \u2013 Fire Services"
             },
             {
               "code": "SAF-SWMS-GEN-001",
@@ -45807,7 +48611,7 @@
             },
             {
               "code": "SAF-SWMS-HR-010",
-              "title": "Hot Works – Welding/Cutting"
+              "title": "Hot Works \u2013 Welding/Cutting"
             },
             {
               "code": "SAF-SWMS-HR-011",
@@ -45947,11 +48751,11 @@
             },
             {
               "code": "SAF-SWMS-PLAS-004",
-              "title": "Elevated Work Platforms – Internal"
+              "title": "Elevated Work Platforms \u2013 Internal"
             },
             {
               "code": "SAF-SWMS-PLAS-005",
-              "title": "Manual Handling – Sheets & Frames"
+              "title": "Manual Handling \u2013 Sheets & Frames"
             },
             {
               "code": "SAF-SWMS-PLAS-006",
@@ -45975,11 +48779,11 @@
             },
             {
               "code": "SAF-SWMS-PLMB-005",
-              "title": "Hot Works – Welding and Brazing"
+              "title": "Hot Works \u2013 Welding and Brazing"
             },
             {
               "code": "SAF-SWMS-PLMB-006",
-              "title": "Confined Space – Pits and Tanks"
+              "title": "Confined Space \u2013 Pits and Tanks"
             },
             {
               "code": "SAF-SWMS-PLMB-007",
@@ -46159,7 +48963,7 @@
             },
             {
               "code": "SAF-SWMS-STEEL-005",
-              "title": "Weld, Cut and Grind – Steel Works"
+              "title": "Weld, Cut and Grind \u2013 Steel Works"
             },
             {
               "code": "SAF-SWMS-STEEL-006",
@@ -46179,7 +48983,7 @@
             },
             {
               "code": "SAF-SWMS-WP-004",
-              "title": "Chemical Handling – Membranes & Adhesives"
+              "title": "Chemical Handling \u2013 Membranes & Adhesives"
             },
             {
               "code": "SAF-SWMS-WP-005",
