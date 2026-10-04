@@ -59,8 +59,8 @@ function renderCatalog(categories) {
     section.appendChild(
       category.layout === "chips"
         ? renderChipGrid(items)
-        : category.layout === "accordion"
-          ? renderAccordionGrid(items)
+        : category.layout === "select"
+          ? renderSelectGrid(items)
           : renderCardGrid(items),
     );
     grid.appendChild(section);
@@ -100,192 +100,129 @@ function renderDocList(documents) {
   `;
 }
 
+/** Builds one fully-wired package detail block — tabs, price, description,
+ *  bullets, document list, buy button, status line. The one place this
+ *  logic lives; renderCardGrid and renderSelectGrid both call it rather
+ *  than keeping their own copies, so a change here (or a bug fix) applies
+ *  everywhere a package can be shown. */
+function buildPackageDetail(item) {
+  const card = document.createElement("article");
+
+  const hasOptions = Boolean(item.purchaseOptions);
+  // Preserves whatever order the catalog JSON defines the options in
+  // (object key order, e.g. domestic -> light-commercial -> heavy-commercial
+  // -> iso-ofsc) rather than a fixed list that only fit the one purpose it
+  // was written for.
+  const optionKeys = hasOptions ? Object.keys(item.purchaseOptions) : [];
+  let selectedOption = hasOptions
+    ? item.defaultOption && optionKeys.includes(item.defaultOption)
+      ? item.defaultOption
+      : optionKeys[0]
+    : null;
+
+  const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+  const { variant: initial, state: initialState, label: initialLabel } = resolveVariant(item, selectedOption);
+
+  card.className = `package-card tier-${initialState}`;
+  card.innerHTML = `
+    <p class="package-name">${escapeHtml(item.name)}</p>
+    <p class="package-tagline" data-role="tagline">${escapeHtml(initial.tagline ?? "")}</p>
+    ${
+      hasOptions
+        ? `<div class="option-tabs" role="tablist">${optionKeys
+            .map(
+              (key) =>
+                `<button type="button" class="option-tab${key === selectedOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label ?? item.purchaseOptions[key].name ?? key)}</button>`,
+            )
+            .join("")}</div>`
+        : ""
+    }
+    <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
+    <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
+    <p class="package-desc" data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
+    <ul class="package-bullets" data-role="bullets">${bullets}</ul>
+    ${renderDocList(initial.documents)}
+    <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
+    <p class="package-status" data-role="status"></p>
+  `;
+  updateStatusLine(card, initialState);
+
+  const button = card.querySelector('[data-role="buy"]');
+  button.className = `btn ${initialState === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+
+  if (hasOptions) {
+    const tabs = [...card.querySelectorAll(".option-tab")];
+    tabs.forEach((tab) =>
+      tab.addEventListener("click", () => {
+        selectedOption = tab.dataset.option;
+        tabs.forEach((t) => t.classList.toggle("active", t === tab));
+        const { variant, state, label } = resolveVariant(item, selectedOption);
+        card.className = `package-card tier-${state}`;
+        card.querySelector('[data-role="tagline"]').textContent = variant.tagline ?? "";
+        card.querySelector('[data-role="price"]').textContent = variant.priceLabel ?? "";
+        card.querySelector('[data-role="price-suffix"]').textContent = variant.priceSuffix ?? "";
+        card.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
+        const bulletsEl = card.querySelector('[data-role="bullets"]');
+        bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+        card.querySelector('[data-role="doclist"]')?.remove();
+        const newDocList = renderDocList(variant.documents);
+        if (newDocList) bulletsEl.insertAdjacentHTML("afterend", newDocList);
+        button.textContent = label;
+        button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
+        updateStatusLine(card, state);
+      }),
+    );
+  }
+
+  button.addEventListener("click", () => {
+    // Re-resolve at click time, not render time — selectedOption may have
+    // changed since the card was built.
+    const { state } = resolveVariant(item, selectedOption);
+    handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
+  });
+
+  return card;
+}
+
 function renderCardGrid(items) {
   const container = document.createElement("div");
   container.className = "package-grid";
   for (const item of items) {
-    const card = document.createElement("article");
-
-    const hasOptions = Boolean(item.purchaseOptions);
-    // Preserves whatever order the catalog JSON defines the options in
-    // (object key order, e.g. domestic -> light-commercial -> heavy-commercial
-    // -> iso-ofsc) rather than a fixed list that only fit the one purpose it
-    // was written for.
-    const optionKeys = hasOptions ? Object.keys(item.purchaseOptions) : [];
-    let selectedOption = hasOptions
-      ? item.defaultOption && optionKeys.includes(item.defaultOption)
-        ? item.defaultOption
-        : optionKeys[0]
-      : null;
-
-    const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
-    const { variant: initial, state: initialState, label: initialLabel } = resolveVariant(item, selectedOption);
-
-    card.className = `package-card tier-${initialState}`;
-    card.innerHTML = `
-      <p class="package-name">${escapeHtml(item.name)}</p>
-      <p class="package-tagline" data-role="tagline">${escapeHtml(initial.tagline ?? "")}</p>
-      ${
-        hasOptions
-          ? `<div class="option-tabs" role="tablist">${optionKeys
-              .map(
-                (key) =>
-                  `<button type="button" class="option-tab${key === selectedOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label ?? item.purchaseOptions[key].name ?? key)}</button>`,
-              )
-              .join("")}</div>`
-          : ""
-      }
-      <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
-      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
-      <p class="package-desc" data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
-      <ul class="package-bullets" data-role="bullets">${bullets}</ul>
-      ${renderDocList(initial.documents)}
-      <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
-      <p class="package-status" data-role="status"></p>
-    `;
-    updateStatusLine(card, initialState);
-
-    const button = card.querySelector('[data-role="buy"]');
-    button.className = `btn ${initialState === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
-
-    if (hasOptions) {
-      const tabs = [...card.querySelectorAll(".option-tab")];
-      tabs.forEach((tab) =>
-        tab.addEventListener("click", () => {
-          selectedOption = tab.dataset.option;
-          tabs.forEach((t) => t.classList.toggle("active", t === tab));
-          const { variant, state, label } = resolveVariant(item, selectedOption);
-          card.className = `package-card tier-${state}`;
-          card.querySelector('[data-role="tagline"]').textContent = variant.tagline ?? "";
-          card.querySelector('[data-role="price"]').textContent = variant.priceLabel ?? "";
-          card.querySelector('[data-role="price-suffix"]').textContent = variant.priceSuffix ?? "";
-          card.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
-          const bulletsEl = card.querySelector('[data-role="bullets"]');
-          bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
-          card.querySelector('[data-role="doclist"]')?.remove();
-          const newDocList = renderDocList(variant.documents);
-          if (newDocList) bulletsEl.insertAdjacentHTML("afterend", newDocList);
-          button.textContent = label;
-          button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
-          updateStatusLine(card, state);
-        }),
-      );
-    }
-
-    button.addEventListener("click", () => {
-      // Re-resolve at click time, not render time — selectedOption may have
-      // changed since the card was built.
-      const { state } = resolveVariant(item, selectedOption);
-      handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
-    });
-    container.appendChild(card);
+    container.appendChild(buildPackageDetail(item));
   }
   return container;
 }
 
-/** Same purchasability/tab-switching behaviour as renderCardGrid, but each
- *  item starts collapsed to a one-line header (name + representative price)
- *  and expands on click. Built for Subcontractor Packs specifically — 24
- *  full cards stacked vertically buried the page; this keeps the same
- *  content but only renders it open for the one trade a visitor actually
- *  wants. */
-function renderAccordionGrid(items) {
+/** One dropdown to pick which item (trade, framework, etc.), one detail
+ *  block below it that rebuilds for whichever is selected. Replaces
+ *  showing every item at once — built for Subcontractor Packs (24 trades)
+ *  and Management System Frameworks (6 standards), where a visitor wants
+ *  exactly one and the rest is just scroll. */
+function renderSelectGrid(items) {
   const container = document.createElement("div");
-  container.className = "trade-accordion";
-  for (const item of items) {
-    const itemEl = document.createElement("div");
-    itemEl.className = "accordion-item";
+  container.className = "trade-select";
 
-    const hasOptions = Boolean(item.purchaseOptions);
-    const optionKeys = hasOptions ? Object.keys(item.purchaseOptions) : [];
-    let selectedOption = hasOptions
-      ? item.defaultOption && optionKeys.includes(item.defaultOption)
-        ? item.defaultOption
-        : optionKeys[0]
-      : null;
+  const select = document.createElement("select");
+  select.className = "trade-select-dropdown";
+  select.setAttribute("aria-label", "Choose one");
+  select.innerHTML = items
+    .map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.name)}</option>`)
+    .join("");
 
-    const { variant: initial, state: initialState, label: initialLabel } = resolveVariant(item, selectedOption);
+  const detail = document.createElement("div");
+  detail.className = "trade-select-detail";
 
-    const header = document.createElement("button");
-    header.type = "button";
-    header.className = "accordion-header";
-    header.setAttribute("aria-expanded", "false");
-    header.innerHTML = `
-      <span class="accordion-name">${escapeHtml(item.name)}</span>
-      <span class="accordion-summary">${escapeHtml(initial.priceLabel ?? "")}</span>
-      <svg class="accordion-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    `;
-
-    const body = document.createElement("div");
-    body.className = "accordion-body";
-    body.hidden = true;
-
-    const bullets = (item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
-    body.innerHTML = `
-      <p class="package-tagline" data-role="tagline">${escapeHtml(initial.tagline ?? "")}</p>
-      ${
-        hasOptions
-          ? `<div class="option-tabs" role="tablist">${optionKeys
-              .map(
-                (key) =>
-                  `<button type="button" class="option-tab${key === selectedOption ? " active" : ""}" data-option="${key}">${escapeHtml(item.purchaseOptions[key].label ?? item.purchaseOptions[key].name ?? key)}</button>`,
-              )
-              .join("")}</div>`
-          : ""
-      }
-      <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
-      <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
-      <p class="package-desc" data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
-      <ul class="package-bullets" data-role="bullets">${bullets}</ul>
-      ${renderDocList(initial.documents)}
-      <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
-      <p class="package-status" data-role="status"></p>
-    `;
-    updateStatusLine(body, initialState);
-
-    const button = body.querySelector('[data-role="buy"]');
-    button.className = `btn ${initialState === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
-
-    if (hasOptions) {
-      const tabs = [...body.querySelectorAll(".option-tab")];
-      tabs.forEach((tab) =>
-        tab.addEventListener("click", (e) => {
-          e.stopPropagation();
-          selectedOption = tab.dataset.option;
-          tabs.forEach((t) => t.classList.toggle("active", t === tab));
-          const { variant, state, label } = resolveVariant(item, selectedOption);
-          body.querySelector('[data-role="tagline"]').textContent = variant.tagline ?? "";
-          body.querySelector('[data-role="price"]').textContent = variant.priceLabel ?? "";
-          body.querySelector('[data-role="price-suffix"]').textContent = variant.priceSuffix ?? "";
-          body.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
-          const bulletsEl = body.querySelector('[data-role="bullets"]');
-          bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
-          body.querySelector('[data-role="doclist"]')?.remove();
-          const newDocList = renderDocList(variant.documents);
-          if (newDocList) bulletsEl.insertAdjacentHTML("afterend", newDocList);
-          button.textContent = label;
-          button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
-          updateStatusLine(body, state);
-        }),
-      );
-    }
-
-    button.addEventListener("click", () => {
-      const { state } = resolveVariant(item, selectedOption);
-      handlePackageAction(item, state, button, hasOptions ? selectedOption : null);
-    });
-
-    header.addEventListener("click", () => {
-      const willOpen = body.hidden;
-      body.hidden = !willOpen;
-      itemEl.classList.toggle("open", willOpen);
-      header.setAttribute("aria-expanded", String(willOpen));
-    });
-
-    itemEl.appendChild(header);
-    itemEl.appendChild(body);
-    container.appendChild(itemEl);
+  function showItem(itemId) {
+    const item = items.find((i) => i.id === itemId) ?? items[0];
+    detail.innerHTML = "";
+    detail.appendChild(buildPackageDetail(item));
   }
+
+  select.addEventListener("change", () => showItem(select.value));
+
+  container.appendChild(select);
+  container.appendChild(detail);
+  showItem(items[0]?.id);
   return container;
 }
 

@@ -36656,7 +36656,7 @@
           "description": ""
         }
       ],
-      "layout": "accordion"
+      "layout": "select"
     },
     {
       "id": "builder-packs",
@@ -43390,7 +43390,8 @@
             "Scoped to your organisation"
           ]
         }
-      ]
+      ],
+      "layout": "select"
     },
     {
       "id": "consultant",

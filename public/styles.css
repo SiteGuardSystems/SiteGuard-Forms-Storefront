@@ -248,47 +248,26 @@ a { color: var(--or); }
 .doc-code { font-family: monospace; font-size: 0.72rem; color: var(--body); margin-right: 0.5rem; }
 .loading { color: var(--body); }
 
-/* Trade accordion (Subcontractor Packs) — 24 trades collapsed to one line
-   each by default; clicking a header reveals the same tabs/price/bullets
-   content the full package-card uses elsewhere, just nested inside. */
-.trade-accordion {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 0.6rem;
-  align-items: start;
-}
-.accordion-item {
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.accordion-header {
+/* Dropdown-select (Subcontractor Packs, Management System Frameworks) —
+   one dropdown to pick the trade/framework, one detail block below that
+   rebuilds via buildPackageDetail() for whichever is selected. Replaces
+   showing every item at once. */
+.trade-select-dropdown {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: none;
-  border: none;
-  padding: 0.9rem 1.1rem;
-  cursor: pointer;
-  text-align: left;
+  max-width: 420px;
   font-family: var(--f-bd);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ch);
+  padding: 0.75rem 1rem;
+  border-radius: var(--r);
+  border: 1px solid var(--rule2);
+  background: var(--bg);
+  margin-bottom: 1rem;
+  cursor: pointer;
 }
-.accordion-header:hover { background: var(--bg2); }
-.accordion-name { font-family: var(--f-hd); font-weight: 700; font-size: 1.02rem; color: var(--ch); flex: 1; }
-.accordion-summary { font-family: var(--f-hd); font-weight: 700; font-size: 0.95rem; color: var(--or-dk); white-space: nowrap; }
-.accordion-chevron { color: var(--body); flex-shrink: 0; transition: transform 0.2s var(--ease); }
-.accordion-item.open .accordion-chevron { transform: rotate(180deg); }
-.accordion-item.open { border-color: var(--rule2); }
-.accordion-body {
-  padding: 0 1.1rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  border-top: 1px solid var(--rule);
-  padding-top: 1rem;
-}
+.trade-select-dropdown:focus { outline: 2px solid var(--or); outline-offset: 1px; }
+.trade-select-detail .package-card { max-width: 460px; }
 
 /* Trade chips (SWMS roadmap) — compact, one row per trade, not a full card */
 .trade-chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.6rem; }
