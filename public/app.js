@@ -18,6 +18,172 @@ async function loadPackages() {
   }
 }
 
+function formatAud(cents) {
+  return `$${(cents / 100).toLocaleString("en-AU", { maximumFractionDigits: 2 })}`;
+}
+
+function debounce(fn, ms) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), ms);
+  };
+}
+
+// ---------- Cart ----------
+// localStorage-backed so it survives a reload; everything self-serve goes
+// in here first, nothing redirects to Stripe until the drawer's own
+// Checkout button is pressed. One of each entry — "quantity" isn't a
+// concept here, a second add is a no-op rather than a second line item.
+const CART_KEY = "sgforms_cart_v1";
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+let cart = loadCart();
+
+function cartEntryKey(entry) {
+  return entry.documentCode ?? `${entry.packageId}:${entry.option ?? ""}`;
+}
+
+function addToCart(entry) {
+  if (cart.some((e) => cartEntryKey(e) === cartEntryKey(entry))) return false;
+  cart.push(entry);
+  persistCart();
+  return true;
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  persistCart();
+}
+
+function persistCart() {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch {
+    // Storage full/disabled — the cart still works for this page load, it
+    // just won't survive a reload. Not worth failing the add over.
+  }
+  renderCartBadge();
+  renderCartDrawer();
+}
+
+function cartTotal() {
+  return cart.reduce((sum, e) => sum + (e.unit_amount ?? 0), 0);
+}
+
+function renderCartBadge() {
+  const countEl = document.getElementById("cart-count");
+  if (!countEl) return;
+  countEl.textContent = String(cart.length);
+  countEl.hidden = cart.length === 0;
+}
+
+function renderCartDrawer() {
+  const body = document.getElementById("cart-drawer-body");
+  const totalEl = document.getElementById("cart-total");
+  const checkoutBtn = document.getElementById("cart-checkout");
+  if (!body) return;
+
+  if (cart.length === 0) {
+    body.innerHTML = `<p class="cart-empty">Your cart is empty.</p>`;
+    totalEl.textContent = formatAud(0);
+    checkoutBtn.disabled = true;
+    return;
+  }
+
+  body.innerHTML = cart
+    .map(
+      (entry, i) => `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <p class="cart-item-name">${escapeHtml(entry.name)}</p>
+          <p class="cart-item-price">${formatAud(entry.unit_amount)}</p>
+        </div>
+        <button type="button" class="cart-item-remove" data-index="${i}" aria-label="Remove from cart">✕</button>
+      </div>
+    `,
+    )
+    .join("");
+  body.querySelectorAll(".cart-item-remove").forEach((btn) =>
+    btn.addEventListener("click", () => removeFromCart(Number(btn.dataset.index))),
+  );
+
+  totalEl.textContent = formatAud(cartTotal());
+  checkoutBtn.disabled = false;
+}
+
+function openCart() {
+  document.getElementById("cart-drawer").hidden = false;
+  document.getElementById("cart-overlay").hidden = false;
+}
+
+function closeCart() {
+  document.getElementById("cart-drawer").hidden = true;
+  document.getElementById("cart-overlay").hidden = true;
+}
+
+async function checkoutCart() {
+  if (cart.length === 0) return;
+  const btn = document.getElementById("cart-checkout");
+  btn.disabled = true;
+  const originalText = btn.textContent;
+  btn.textContent = "Redirecting to checkout…";
+
+  try {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        cart: cart.map((e) =>
+          e.documentCode ? { documentCode: e.documentCode } : { packageId: e.packageId, option: e.option },
+        ),
+      }),
+    });
+    const data = await res.json();
+    if (data.ok && data.url) {
+      // Cleared on redirect, not before — if Stripe itself fails we want
+      // the cart still sitting there to retry, not silently emptied.
+      localStorage.removeItem(CART_KEY);
+      window.location.href = data.url;
+      return;
+    }
+    alert(data.reason ?? "Checkout is unavailable right now.");
+  } catch {
+    alert("Checkout is unavailable right now — please try again shortly.");
+  }
+  btn.disabled = false;
+  btn.textContent = originalText;
+}
+
+function wireCart() {
+  document.getElementById("cart-btn")?.addEventListener("click", openCart);
+  document.getElementById("cart-close")?.addEventListener("click", closeCart);
+  document.getElementById("cart-overlay")?.addEventListener("click", closeCart);
+  document.getElementById("cart-checkout")?.addEventListener("click", checkoutCart);
+  renderCartBadge();
+  renderCartDrawer();
+}
+
+/** Brief inline confirmation on whatever button triggered the add, instead
+ *  of forcing the drawer open on every click — the cart badge already
+ *  shows the count; opening on every add would fight a visitor adding
+ *  several things in a row. */
+function flashAdded(button, added) {
+  const original = button.textContent;
+  button.textContent = added ? "Added ✓" : "Already in cart";
+  setTimeout(() => {
+    button.textContent = original;
+  }, 1300);
+}
+
 function showTestModeBanner() {
   if (!stripeTestMode) return;
   const banner = document.getElementById("checkout-banner");
@@ -78,8 +244,12 @@ function renderCatalog(categories) {
 function resolveVariant(item, optionKey) {
   const variant = optionKey ? { ...item, ...item.purchaseOptions[optionKey] } : item;
   const state = resolvedState(variant);
-  const label =
-    state === "quote" ? (variant.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : (variant.cta ?? "Buy Now");
+  // Self-serve always says "Add to Cart" regardless of what the catalog's
+  // own cta field says — every item used to redirect straight to Stripe
+  // on click and some still carry that era's "Buy Now" text, but the
+  // actual behaviour now is uniformly "add it, checkout happens from the
+  // cart drawer".
+  const label = state === "quote" ? (variant.cta ?? "Request Quote") : state === "coming-soon" ? "Coming Soon" : "Add to Cart";
   return { variant, state, label };
 }
 
@@ -261,7 +431,7 @@ function renderChipGrid(items) {
   return container;
 }
 
-async function handlePackageAction(item, state, button, option = null) {
+function handlePackageAction(item, state, button, option = null) {
   if (state !== "self-serve") {
     document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
     const need = document.querySelector('textarea[name="need"]');
@@ -273,27 +443,14 @@ async function handlePackageAction(item, state, button, option = null) {
     return;
   }
 
-  button.disabled = true;
-  const originalText = button.textContent;
-  button.textContent = "Redirecting to checkout…";
-
-  try {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ packageId: item.id, option }),
-    });
-    const data = await res.json();
-    if (data.ok && data.url) {
-      window.location.href = data.url;
-      return;
-    }
-    alert(data.reason ?? "Checkout is unavailable right now.");
-  } catch {
-    alert("Checkout is unavailable right now — please try again shortly.");
-  }
-  button.disabled = false;
-  button.textContent = originalText;
+  const variant = option ? { ...item, ...item.purchaseOptions[option] } : item;
+  const added = addToCart({
+    packageId: item.id,
+    option: option ?? undefined,
+    name: variant.name,
+    unit_amount: variant.unit_amount,
+  });
+  flashAdded(button, added);
 }
 
 function escapeHtml(str) {
@@ -355,6 +512,103 @@ function wireLeadForm() {
   });
 }
 
+// ---------- Individual document browser ----------
+let allDocuments = [];
+let individualDocUnitAmount = 4900;
+let docKindFilter = "ALL";
+
+const DOC_KIND_LABELS = { SWMS: "SWMS", ITP: "ITP", FRM: "Forms", REG: "Registers", PLN: "Plans", POL: "Policies" };
+
+async function loadDocuments() {
+  const list = document.getElementById("doc-browser-list");
+  if (!list) return;
+  try {
+    const res = await fetch("/api/documents");
+    const data = await res.json();
+    allDocuments = data.documents ?? [];
+    individualDocUnitAmount = data.unitAmount ?? individualDocUnitAmount;
+    renderDocKindFilters();
+    renderDocBrowserResults();
+  } catch {
+    list.innerHTML = `<p class="loading">Couldn't load documents right now — please try again shortly.</p>`;
+  }
+}
+
+function renderDocKindFilters() {
+  const container = document.getElementById("doc-kind-filters");
+  const kinds = ["ALL", ...new Set(allDocuments.map((d) => d.kind))];
+  container.innerHTML = kinds
+    .map(
+      (k) =>
+        `<button type="button" class="doc-kind-filter${k === docKindFilter ? " active" : ""}" data-kind="${k}">${k === "ALL" ? "All" : escapeHtml(DOC_KIND_LABELS[k] ?? k)}</button>`,
+    )
+    .join("");
+  container.querySelectorAll(".doc-kind-filter").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      docKindFilter = btn.dataset.kind;
+      container.querySelectorAll(".doc-kind-filter").forEach((b) => b.classList.toggle("active", b === btn));
+      renderDocBrowserResults();
+    }),
+  );
+}
+
+const MAX_DOCS_SHOWN = 100;
+
+function renderDocBrowserResults() {
+  const list = document.getElementById("doc-browser-list");
+  const countEl = document.getElementById("doc-browser-count");
+  const query = (document.getElementById("doc-search")?.value ?? "").trim().toLowerCase();
+
+  let results = allDocuments;
+  if (docKindFilter !== "ALL") results = results.filter((d) => d.kind === docKindFilter);
+  if (query) {
+    results = results.filter((d) => d.title.toLowerCase().includes(query) || d.code.toLowerCase().includes(query));
+  }
+
+  countEl.textContent =
+    results.length === 0
+      ? "No documents match — try a different search or filter."
+      : `${results.length} document${results.length === 1 ? "" : "s"}${
+          results.length > MAX_DOCS_SHOWN ? ` — showing the first ${MAX_DOCS_SHOWN}, narrow your search for more` : ""
+        }`;
+
+  const shown = results.slice(0, MAX_DOCS_SHOWN);
+  list.innerHTML = shown
+    .map(
+      (d) => `
+      <div class="doc-row">
+        <div class="doc-row-info">
+          <span class="doc-row-kind">${escapeHtml(DOC_KIND_LABELS[d.kind] ?? d.kind)}</span>
+          <span class="doc-row-title">${escapeHtml(d.title)}</span>
+          <span class="doc-row-code">${escapeHtml(d.code)}</span>
+        </div>
+        <button type="button" class="btn-chip doc-row-add" data-code="${escapeHtml(d.code)}">Add — ${formatAud(individualDocUnitAmount)}</button>
+      </div>
+    `,
+    )
+    .join("");
+
+  list.querySelectorAll(".doc-row-add").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const doc = allDocuments.find((d) => d.code === btn.dataset.code);
+      if (!doc) return;
+      const added = addToCart({
+        documentCode: doc.code,
+        name: `${doc.code} — ${doc.title}`,
+        unit_amount: individualDocUnitAmount,
+      });
+      flashAdded(btn, added);
+    }),
+  );
+}
+
+function wireDocumentBrowser() {
+  document.getElementById("doc-search")?.addEventListener("input", debounce(renderDocBrowserResults, 150));
+}
+
 showCheckoutBanner();
 wireLeadForm();
+wireCart();
+wireDocumentBrowser();
 loadPackages();
+loadDocuments();
