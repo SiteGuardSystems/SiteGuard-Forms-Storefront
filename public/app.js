@@ -513,102 +513,100 @@ function wireLeadForm() {
 }
 
 // ---------- Individual document browser ----------
-let allDocuments = [];
+// One dropdown per document family (SWMS, Registers, Forms, ITP,
+// Management Plan, Policy) laid out across the page — not a single
+// search box. A visitor who wants one specific SWMS picks the SWMS
+// dropdown, not a mixed list of 680 documents of every kind.
 let individualDocUnitAmount = 4900;
-let docKindFilter = "ALL";
 
-const DOC_KIND_LABELS = { SWMS: "SWMS", ITP: "ITP", FRM: "Forms", REG: "Registers", PLN: "Plans", POL: "Policies" };
+const DOC_FAMILIES = [
+  { kind: "SWMS", label: "SWMS" },
+  { kind: "REG", label: "Registers" },
+  { kind: "FRM", label: "Forms" },
+  { kind: "ITP", label: "ITP" },
+  { kind: "PLN", label: "Management Plan" },
+  { kind: "POL", label: "Policy" },
+];
 
 async function loadDocuments() {
-  const list = document.getElementById("doc-browser-list");
-  if (!list) return;
+  const container = document.getElementById("doc-families");
+  if (!container) return;
   try {
     const res = await fetch("/api/documents");
     const data = await res.json();
-    allDocuments = data.documents ?? [];
+    const documents = data.documents ?? [];
     individualDocUnitAmount = data.unitAmount ?? individualDocUnitAmount;
-    renderDocKindFilters();
-    renderDocBrowserResults();
+    renderDocFamilies(documents);
   } catch {
-    list.innerHTML = `<p class="loading">Couldn't load documents right now — please try again shortly.</p>`;
+    container.innerHTML = `<p class="loading">Couldn't load documents right now — please try again shortly.</p>`;
   }
 }
 
-function renderDocKindFilters() {
-  const container = document.getElementById("doc-kind-filters");
-  const kinds = ["ALL", ...new Set(allDocuments.map((d) => d.kind))];
-  container.innerHTML = kinds
-    .map(
-      (k) =>
-        `<button type="button" class="doc-kind-filter${k === docKindFilter ? " active" : ""}" data-kind="${k}">${k === "ALL" ? "All" : escapeHtml(DOC_KIND_LABELS[k] ?? k)}</button>`,
-    )
-    .join("");
-  container.querySelectorAll(".doc-kind-filter").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      docKindFilter = btn.dataset.kind;
-      container.querySelectorAll(".doc-kind-filter").forEach((b) => b.classList.toggle("active", b === btn));
-      renderDocBrowserResults();
-    }),
-  );
-}
-
-const MAX_DOCS_SHOWN = 100;
-
-function renderDocBrowserResults() {
-  const list = document.getElementById("doc-browser-list");
-  const countEl = document.getElementById("doc-browser-count");
-  const query = (document.getElementById("doc-search")?.value ?? "").trim().toLowerCase();
-
-  let results = allDocuments;
-  if (docKindFilter !== "ALL") results = results.filter((d) => d.kind === docKindFilter);
-  if (query) {
-    results = results.filter((d) => d.title.toLowerCase().includes(query) || d.code.toLowerCase().includes(query));
+function renderDocFamilies(documents) {
+  const container = document.getElementById("doc-families");
+  const byKind = new Map();
+  for (const doc of documents) {
+    if (!byKind.has(doc.kind)) byKind.set(doc.kind, []);
+    byKind.get(doc.kind).push(doc);
   }
 
-  countEl.textContent =
-    results.length === 0
-      ? "No documents match — try a different search or filter."
-      : `${results.length} document${results.length === 1 ? "" : "s"}${
-          results.length > MAX_DOCS_SHOWN ? ` — showing the first ${MAX_DOCS_SHOWN}, narrow your search for more` : ""
-        }`;
+  // Known families first, in the stated order; anything the catalog adds
+  // later that isn't one of the six still shows up rather than silently
+  // vanishing from this page.
+  const knownKinds = new Set(DOC_FAMILIES.map((f) => f.kind));
+  const families = [
+    ...DOC_FAMILIES,
+    ...[...byKind.keys()].filter((k) => !knownKinds.has(k)).map((k) => ({ kind: k, label: k })),
+  ];
 
-  const shown = results.slice(0, MAX_DOCS_SHOWN);
-  list.innerHTML = shown
-    .map(
-      (d) => `
-      <div class="doc-row">
-        <div class="doc-row-info">
-          <span class="doc-row-kind">${escapeHtml(DOC_KIND_LABELS[d.kind] ?? d.kind)}</span>
-          <span class="doc-row-title">${escapeHtml(d.title)}</span>
-          <span class="doc-row-code">${escapeHtml(d.code)}</span>
+  container.innerHTML = "";
+  for (const family of families) {
+    const docs = (byKind.get(family.kind) ?? []).slice().sort((a, b) => a.title.localeCompare(b.title));
+    const block = document.createElement("div");
+    block.className = "doc-family";
+    block.innerHTML = `
+      <p class="doc-family-head">${escapeHtml(family.label)} <span class="doc-family-count">${docs.length}</span></p>
+      ${
+        docs.length === 0
+          ? `<p class="doc-family-empty">None available yet.</p>`
+          : `
+        <div class="doc-family-row">
+          <select class="doc-family-select" aria-label="Choose a ${escapeHtml(family.label)} document">
+            ${docs.map((d) => `<option value="${escapeHtml(d.code)}">${escapeHtml(d.title)}</option>`).join("")}
+          </select>
+          <button type="button" class="btn-chip doc-family-add">Add — ${formatAud(individualDocUnitAmount)}</button>
         </div>
-        <button type="button" class="btn-chip doc-row-add" data-code="${escapeHtml(d.code)}">Add — ${formatAud(individualDocUnitAmount)}</button>
-      </div>
-    `,
-    )
-    .join("");
+        <p class="doc-family-code" data-role="code">${escapeHtml(docs[0].code)}</p>
+      `
+      }
+    `;
 
-  list.querySelectorAll(".doc-row-add").forEach((btn) =>
-    btn.addEventListener("click", () => {
-      const doc = allDocuments.find((d) => d.code === btn.dataset.code);
-      if (!doc) return;
-      const added = addToCart({
-        documentCode: doc.code,
-        name: `${doc.code} — ${doc.title}`,
-        unit_amount: individualDocUnitAmount,
+    if (docs.length > 0) {
+      const select = block.querySelector(".doc-family-select");
+      const codeEl = block.querySelector('[data-role="code"]');
+      select.addEventListener("change", () => {
+        codeEl.textContent = select.value;
       });
-      flashAdded(btn, added);
-    }),
-  );
-}
 
-function wireDocumentBrowser() {
-  document.getElementById("doc-search")?.addEventListener("input", debounce(renderDocBrowserResults, 150));
+      const addBtn = block.querySelector(".doc-family-add");
+      addBtn.addEventListener("click", () => {
+        const doc = docs.find((d) => d.code === select.value);
+        if (!doc) return;
+        const added = addToCart({
+          documentCode: doc.code,
+          name: `${doc.code} — ${doc.title}`,
+          unit_amount: individualDocUnitAmount,
+        });
+        flashAdded(addBtn, added);
+      });
+    }
+
+    container.appendChild(block);
+  }
 }
 
 showCheckoutBanner();
 wireLeadForm();
 wireCart();
-wireDocumentBrowser();
 loadPackages();
 loadDocuments();

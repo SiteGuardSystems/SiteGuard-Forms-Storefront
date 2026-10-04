@@ -218,6 +218,12 @@ a { color: var(--or); }
 .package-bullets li::before { content: "✓"; position: absolute; left: 0; color: var(--or); font-weight: 700; }
 .package-status { font-size: 0.78rem; color: var(--body); margin-top: 0.3rem; }
 
+/* Cards in the same grid row vary a lot in content length (some have a
+   rung picker + doc-list, some have neither) — without this the buy
+   button lands at a different height on every card, which is the
+   "lopsided" look. Pins it to the bottom of the card uniformly. */
+.package-card [data-role="buy"] { margin-top: auto; }
+
 /* Included-documents disclosure — full transparency on what a package
    actually contains, not just marketing bullets. Native <details> so it
    needs no extra JS to open/close. */
@@ -436,73 +442,59 @@ a { color: var(--or); }
 }
 .cart-note { font-size: 0.76rem; color: var(--body); margin: 0.6rem 0 0; text-align: center; }
 
-/* Individual document browser */
+/* Individual document browser — one family per block, laid out across the
+   page: a heading, a dropdown of every real document in that family, and
+   an add-to-cart button for whichever is selected. */
 .documents { padding: 4.5rem 0; background: var(--bg2); border-top: 1px solid var(--rule); }
-.doc-browser { margin-top: 1.5rem; }
-.doc-browser-controls { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; }
-.doc-search {
-  flex: 1 1 320px;
+.doc-families {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.doc-family {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 1.25rem;
+}
+.doc-family-head {
+  font-family: var(--f-hd);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ch);
+  margin: 0 0 0.75rem;
+}
+.doc-family-count {
   font-family: var(--f-bd);
-  font-size: 0.95rem;
-  padding: 0.65rem 0.9rem;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: var(--or-dk);
+  background: var(--or-lt);
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  margin-left: 0.3rem;
+}
+.doc-family-empty { color: var(--body); font-size: 0.85rem; margin: 0; }
+.doc-family-row { display: flex; gap: 0.5rem; }
+.doc-family-select {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--f-bd);
+  font-size: 0.88rem;
+  padding: 0.6rem 0.7rem;
   border-radius: var(--r);
   border: 1px solid var(--rule2);
   background: var(--bg);
   color: var(--ch);
 }
-.doc-search:focus { outline: 2px solid var(--or); outline-offset: 1px; }
-.doc-kind-filters { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-.doc-kind-filter {
-  font-family: var(--f-bd);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0.4rem 0.7rem;
-  border-radius: var(--r);
-  border: 1px solid var(--rule2);
-  background: var(--bg);
-  color: var(--body);
-  cursor: pointer;
-}
-.doc-kind-filter.active { background: var(--ch); border-color: var(--ch); color: #fff; }
-.doc-browser-count { font-size: 0.82rem; color: var(--body); margin: 0 0 0.75rem; }
-.doc-browser-list {
-  max-height: 480px;
-  overflow-y: auto;
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-radius: var(--r);
-}
-.doc-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.7rem 1rem;
-  border-bottom: 1px solid var(--rule);
-}
-.doc-row:last-child { border-bottom: none; }
-.doc-row-info { display: flex; align-items: baseline; gap: 0.6rem; flex: 1; min-width: 0; flex-wrap: wrap; }
-.doc-row-kind {
-  font-family: var(--f-hd);
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--or-dk);
-  background: var(--or-lt);
-  padding: 0.1rem 0.4rem;
-  border-radius: var(--r);
-  flex-shrink: 0;
-}
-.doc-row-title { font-size: 0.88rem; color: var(--ch); font-weight: 600; }
-.doc-row-code { font-family: monospace; font-size: 0.72rem; color: var(--body); }
-.doc-row-add { flex-shrink: 0; white-space: nowrap; }
+.doc-family-select:focus { outline: 2px solid var(--or); outline-offset: 1px; }
+.doc-family-add { flex-shrink: 0; white-space: nowrap; }
+.doc-family-code { font-family: monospace; font-size: 0.72rem; color: var(--body); margin: 0.5rem 0 0; }
 
 @media (max-width: 760px) {
   .nav { gap: 0.1rem; }
   .nav-parent { display: none; }
   .enquire-grid { grid-template-columns: 1fr; }
   .footer-row { flex-direction: column; }
-  .doc-browser-controls { flex-direction: column; align-items: stretch; }
-  .doc-row { flex-wrap: wrap; }
 }
