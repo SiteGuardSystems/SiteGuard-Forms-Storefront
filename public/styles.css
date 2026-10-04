@@ -168,11 +168,11 @@ a { color: var(--or); }
 .packages { padding: 4.5rem 0; text-align: center; }
 .section-sub { max-width: 620px; margin: 0 auto 2.5rem; color: var(--body); }
 
-.category-block { text-align: left; margin-bottom: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.category-block { text-align: left; margin-bottom: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); }
 .category-block:first-child { padding-top: 0; border-top: none; }
 .category-block:last-child { margin-bottom: 0; }
-.category-name { font-size: 1.65rem; border-bottom: 3px solid var(--or); display: inline-block; padding-bottom: 0.4rem; margin-bottom: 0.5rem; }
-.category-desc { color: var(--body); font-size: 0.95rem; max-width: 720px; margin-bottom: 1.5rem; }
+.category-name { font-size: 1.5rem; border-bottom: 3px solid var(--or); display: inline-block; padding-bottom: 0.3rem; margin-bottom: 0.4rem; }
+.category-desc { color: var(--body); font-size: 0.92rem; max-width: 720px; margin-bottom: 1rem; }
 
 .package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; text-align: left; }
 .package-card {
@@ -251,7 +251,12 @@ a { color: var(--or); }
 /* Trade accordion (Subcontractor Packs) — 24 trades collapsed to one line
    each by default; clicking a header reveals the same tabs/price/bullets
    content the full package-card uses elsewhere, just nested inside. */
-.trade-accordion { display: flex; flex-direction: column; gap: 0.6rem; }
+.trade-accordion {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0.6rem;
+  align-items: start;
+}
 .accordion-item {
   background: var(--bg);
   border: 1px solid var(--rule);
