@@ -5,20 +5,20 @@
     {
       "id": "registers",
       "name": "Safety Forms & Registers",
-      "description": "The one category that's fully cleared QA \u2014 every document here is schema-controlled, version-managed, and ready today.",
+      "description": "Every document here is controlled, version-managed, and ready today.",
       "items": [
         {
           "id": "registers-bundle",
           "tier": "self-serve",
           "name": "Safety Forms & Registers \u2014 Starter Bundle",
-          "tagline": "18 controlled registers and site forms \u2014 100% QA-clean",
-          "description": "18 controlled registers and site forms covering induction, pre-start, toolbox talks, hazard/incident reporting, and plant/PPE/test & tag/training registers -- 100% QA-clean.",
+          "tagline": "18 controlled registers and site forms \u2014 ready to use",
+          "description": "18 controlled registers and site forms covering induction, pre-start, toolbox talks, hazard/incident reporting, and plant/PPE/test & tag/training registers.",
           "unit_amount": 24900,
           "priceLabel": "$249",
           "priceSuffix": "one-off",
           "cta": "Buy Now",
           "bullets": [
-            "18 registers and forms, fully QA-clean",
+            "18 registers and forms, ready to use",
             "Controlled DOCX + PDF companion for each",
             "Document control register entry included"
           ],
@@ -102,7 +102,7 @@
     {
       "id": "itp",
       "name": "Inspection & Test Plans (ITPs)",
-      "description": "The majority of the ITP library has cleared QA \u2014 bundled by scope.",
+      "description": "Inspection & Test Plans bundled by scope \u2014 covering the trade series available today.",
       "items": [
         {
           "id": "itp-bundle",
@@ -115,7 +115,7 @@
           "priceSuffix": "one-off",
           "cta": "Buy Now",
           "bullets": [
-            "QA-clean ITPs across 13 trade scopes",
+            "ITPs across 13 trade scopes",
             "Controlled DOCX + PDF companion",
             "Document control register entry included"
           ],
@@ -389,7 +389,7 @@
           "priceSuffix": "one-off",
           "cta": "Buy Now",
           "bullets": [
-            "QA-clean ITPs across all 20 trade series",
+            "ITPs across all 20 trade series",
             "Controlled DOCX + PDF companion",
             "Document control register entry included"
           ],
@@ -789,7 +789,7 @@
     {
       "id": "subcontractor-packs",
       "name": "Subcontractor Packs",
-      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO. Pick your trade, then pick the rung that matches the job \u2014 every rung here has cleared the mastering QA gate with zero outstanding findings.",
+      "description": "24 trades, each on the same four-rung ladder: Domestic, Light Commercial, Heavy Commercial, ISO. Pick your trade, then pick the rung that matches the job \u2014 every rung here is fully controlled and ready to use.",
       "items": [
         {
           "id": "subcontractor-carp",
@@ -43257,7 +43257,7 @@
               "priceLabel": "Request Quote",
               "priceSuffix": "final quote",
               "cta": "Request Quote",
-              "description": "709 documents \u2014 the complete library, every specialist add-on, and full IMS content. Same review-pass gate as Heavy Commercial.",
+              "description": "709 documents \u2014 the complete library, every specialist add-on, and full IMS content.",
               "documents": [
                 {
                   "code": "AUD-FRM-GEN-006",
