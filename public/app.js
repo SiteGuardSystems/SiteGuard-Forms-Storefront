@@ -137,7 +137,7 @@ function renderCardGrid(items) {
       }
       <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
       <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
-      <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
+      <p class="package-desc" data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
       <ul class="package-bullets" data-role="bullets">${bullets}</ul>
       ${renderDocList(initial.documents)}
       <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
@@ -235,7 +235,7 @@ function renderAccordionGrid(items) {
       }
       <p class="package-price" data-role="price">${escapeHtml(initial.priceLabel ?? "")}</p>
       <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
-      <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
+      <p class="package-desc" data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
       <ul class="package-bullets" data-role="bullets">${bullets}</ul>
       ${renderDocList(initial.documents)}
       <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>

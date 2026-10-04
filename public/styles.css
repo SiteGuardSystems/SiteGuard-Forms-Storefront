@@ -168,12 +168,13 @@ a { color: var(--or); }
 .packages { padding: 4.5rem 0; text-align: center; }
 .section-sub { max-width: 620px; margin: 0 auto 2.5rem; color: var(--body); }
 
-.category-block { text-align: left; margin-bottom: 3rem; }
+.category-block { text-align: left; margin-bottom: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.category-block:first-child { padding-top: 0; border-top: none; }
 .category-block:last-child { margin-bottom: 0; }
-.category-name { font-size: 1.4rem; border-bottom: 2px solid var(--or-lt); padding-bottom: 0.5rem; margin-bottom: 0.3rem; }
-.category-desc { color: var(--body); font-size: 0.92rem; max-width: 720px; margin-bottom: 1.25rem; }
+.category-name { font-size: 1.65rem; border-bottom: 3px solid var(--or); display: inline-block; padding-bottom: 0.4rem; margin-bottom: 0.5rem; }
+.category-desc { color: var(--body); font-size: 0.95rem; max-width: 720px; margin-bottom: 1.5rem; }
 
-.package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; text-align: left; }
+.package-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; text-align: left; }
 .package-card {
   background: var(--bg);
   border: 1px solid var(--rule);
@@ -187,24 +188,32 @@ a { color: var(--or); }
 .package-card.tier-quote { background: var(--or-lt); border-color: #F3D3AE; }
 .package-card.tier-coming-soon { background: var(--bg2); }
 
-.option-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin: 0.2rem 0 0.4rem; }
+.option-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  margin: 0.3rem 0 0.5rem;
+}
 .option-tab {
   font-family: var(--f-bd);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  padding: 0.3rem 0.55rem;
+  padding: 0.4rem 0.5rem;
   border-radius: var(--r);
   border: 1px solid var(--rule2);
   background: var(--bg);
   color: var(--body);
   cursor: pointer;
+  text-align: center;
+  line-height: 1.2;
 }
 .option-tab.active { background: var(--ch); border-color: var(--ch); color: #fff; }
 .package-name { font-family: var(--f-hd); font-weight: 700; font-size: 1.2rem; color: var(--ch); }
-.package-tagline { color: var(--body); font-size: 0.88rem; margin-bottom: 0.4rem; }
-.package-price { font-family: var(--f-hd); font-size: 1.8rem; font-weight: 800; color: var(--ch); }
-.package-price-suffix { font-size: 0.78rem; color: var(--body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-.package-bullets { list-style: none; margin: 0.4rem 0 0.8rem; padding: 0; font-size: 0.88rem; color: var(--ch2); }
+.package-tagline { color: var(--body); font-size: 0.88rem; margin-bottom: 0.2rem; }
+.package-price { font-family: var(--f-hd); font-size: 1.8rem; font-weight: 800; color: var(--ch); margin-top: 0.3rem; }
+.package-price-suffix { font-size: 0.78rem; color: var(--body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-top: -0.5rem; }
+.package-desc { font-size: 0.88rem; color: var(--ch2); margin: 0.2rem 0 0; }
+.package-bullets { list-style: none; margin: 0.2rem 0 0.4rem; padding: 0; font-size: 0.88rem; color: var(--ch2); }
 .package-bullets li { padding-left: 1.1em; position: relative; margin-bottom: 0.3rem; }
 .package-bullets li::before { content: "✓"; position: absolute; left: 0; color: var(--or); font-weight: 700; }
 .package-status { font-size: 0.78rem; color: var(--body); margin-top: 0.3rem; }
@@ -212,12 +221,12 @@ a { color: var(--or); }
 /* Included-documents disclosure — full transparency on what a package
    actually contains, not just marketing bullets. Native <details> so it
    needs no extra JS to open/close. */
-.doc-list { font-size: 0.82rem; }
+.doc-list { font-size: 0.82rem; margin-top: 0.3rem; padding-top: 0.6rem; border-top: 1px dashed var(--rule2); }
 .doc-list summary {
   cursor: pointer;
   color: var(--or-dk);
   font-weight: 700;
-  padding: 0.3rem 0;
+  padding: 0.2rem 0 0.4rem;
   list-style: none;
 }
 .doc-list summary::before {
