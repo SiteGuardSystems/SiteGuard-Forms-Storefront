@@ -1357,6 +1357,43 @@
           ]
         }
       ]
+    },
+    {
+      "id": "consultant",
+      "name": "Consultant Resale",
+      "description": "For HSEQ consultants and practices reselling SiteGuard content under their own engagement. Resale/onselling rights included contractually. White-label (unbranded) delivery is in development -- quote covers current branded delivery today, with white-label to follow.",
+      "items": [
+        {
+          "id": "consultant-t1",
+          "tier": "quote",
+          "name": "Consultant T1",
+          "tagline": "Core management system content",
+          "description": "Builder-system scope (SAF/QUA/ENV domains) under an ongoing subscription, with resale rights for your own client engagements. Quarterly content transmittal.",
+          "priceLabel": "From ,999/yr",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": [
+            "Builder-system scope (SAF/QUA/ENV)",
+            "Resale rights for client engagements",
+            "Quarterly content transmittal"
+          ]
+        },
+        {
+          "id": "consultant-t2",
+          "tier": "quote",
+          "name": "Consultant T2",
+          "tagline": "Full library, every specialist add-on",
+          "description": "The complete library -- every trade, every specialist management-system add-on, ISO/IMS content included -- under an ongoing subscription with resale rights. Quarterly content transmittal.",
+          "priceLabel": "From 1,999/yr",
+          "priceSuffix": "final quote before payment",
+          "cta": "Request Quote",
+          "bullets": [
+            "Full library -- every trade, every add-on",
+            "Resale rights for client engagements",
+            "Quarterly content transmittal"
+          ]
+        }
+      ]
     }
   ]
 }
