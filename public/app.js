@@ -83,6 +83,23 @@ function resolveVariant(item, optionKey) {
   return { variant, state, label };
 }
 
+/** A native <details> block listing exactly what's in a package — full
+ *  transparency on what a buyer actually receives, not just marketing
+ *  bullets. Empty string when a variant carries no documents list, so
+ *  callers can splice it in unconditionally. */
+function renderDocList(documents) {
+  if (!documents || !documents.length) return "";
+  const rows = documents
+    .map((d) => `<li><span class="doc-code">${escapeHtml(d.code ?? "")}</span>${escapeHtml(d.title ?? "")}</li>`)
+    .join("");
+  return `
+    <details class="doc-list" data-role="doclist">
+      <summary>View all ${documents.length} included documents</summary>
+      <ul>${rows}</ul>
+    </details>
+  `;
+}
+
 function renderCardGrid(items) {
   const container = document.createElement("div");
   container.className = "package-grid";
@@ -122,6 +139,7 @@ function renderCardGrid(items) {
       <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
       <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
       <ul class="package-bullets" data-role="bullets">${bullets}</ul>
+      ${renderDocList(initial.documents)}
       <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
       <p class="package-status" data-role="status"></p>
     `;
@@ -144,6 +162,9 @@ function renderCardGrid(items) {
           card.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
           const bulletsEl = card.querySelector('[data-role="bullets"]');
           bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+          card.querySelector('[data-role="doclist"]')?.remove();
+          const newDocList = renderDocList(variant.documents);
+          if (newDocList) bulletsEl.insertAdjacentHTML("afterend", newDocList);
           button.textContent = label;
           button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
           updateStatusLine(card, state);
@@ -216,6 +237,7 @@ function renderAccordionGrid(items) {
       <p class="package-price-suffix" data-role="price-suffix">${escapeHtml(initial.priceSuffix ?? "")}</p>
       <p data-role="option-desc">${escapeHtml(initial.description ?? "")}</p>
       <ul class="package-bullets" data-role="bullets">${bullets}</ul>
+      ${renderDocList(initial.documents)}
       <button class="btn btn-block" data-role="buy">${escapeHtml(initialLabel)}</button>
       <p class="package-status" data-role="status"></p>
     `;
@@ -238,6 +260,9 @@ function renderAccordionGrid(items) {
           body.querySelector('[data-role="option-desc"]').textContent = variant.description ?? "";
           const bulletsEl = body.querySelector('[data-role="bullets"]');
           bulletsEl.innerHTML = (variant.bullets ?? item.bullets ?? []).map((b) => `<li>${escapeHtml(b)}</li>`).join("");
+          body.querySelector('[data-role="doclist"]')?.remove();
+          const newDocList = renderDocList(variant.documents);
+          if (newDocList) bulletsEl.insertAdjacentHTML("afterend", newDocList);
           button.textContent = label;
           button.className = `btn ${state === "self-serve" ? "btn-primary" : "btn-ghost"} btn-block`;
           updateStatusLine(body, state);

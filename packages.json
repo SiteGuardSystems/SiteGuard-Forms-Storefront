@@ -12,7 +12,7 @@
           "tier": "self-serve",
           "name": "Safety Forms & Registers — Starter Bundle",
           "tagline": "18 controlled registers and site forms — 100% QA-clean",
-          "description": "Site/contractor/visitor induction, pre-start meeting, toolbox talk, hazard & incident reporting, plant/PPE/test & tag registers, training & competency register, and more.",
+          "description": "18 controlled registers and site forms covering induction, pre-start, toolbox talks, hazard/incident reporting, and plant/PPE/test & tag/training registers -- 100% QA-clean.",
           "unit_amount": 24900,
           "priceLabel": "$249",
           "priceSuffix": "one-off",
@@ -21,6 +21,80 @@
             "18 registers and forms, fully QA-clean",
             "Controlled DOCX + PDF companion for each",
             "Document control register entry included"
+          ],
+          "documents": [
+            {
+              "code": "SAF-FRM-GEN-001",
+              "title": "Worker Site Induction"
+            },
+            {
+              "code": "SAF-FRM-GEN-002",
+              "title": "Contractor / Trade Induction"
+            },
+            {
+              "code": "SAF-FRM-GEN-003",
+              "title": "Visitor Induction"
+            },
+            {
+              "code": "SAF-FRM-GEN-018",
+              "title": "Pre-Start Meeting Record"
+            },
+            {
+              "code": "SAF-FRM-GEN-016",
+              "title": "Toolbox Talk Agenda"
+            },
+            {
+              "code": "SAF-FRM-GEN-017",
+              "title": "Toolbox Talk Attendance Record"
+            },
+            {
+              "code": "SAF-FRM-GEN-030",
+              "title": "Hazard / Near Miss Report"
+            },
+            {
+              "code": "SAF-FRM-GEN-031",
+              "title": "Incident & Injury Report"
+            },
+            {
+              "code": "SAF-FRM-GEN-034",
+              "title": "Incident Investigation Report"
+            },
+            {
+              "code": "SAF-FRM-GEN-020",
+              "title": "Site Safety Inspection Checklist"
+            },
+            {
+              "code": "SAF-REG-GEN-002",
+              "title": "Hazard Register"
+            },
+            {
+              "code": "SAF-REG-GEN-003",
+              "title": "Incident & Injury Register"
+            },
+            {
+              "code": "SAF-REG-GEN-009",
+              "title": "Induction Register"
+            },
+            {
+              "code": "SAF-REG-GEN-007",
+              "title": "PPE Register"
+            },
+            {
+              "code": "SAF-REG-GEN-008",
+              "title": "Plant & Equipment Register"
+            },
+            {
+              "code": "SAF-REG-GEN-010",
+              "title": "Test & Tag Register"
+            },
+            {
+              "code": "SAF-REG-GEN-005",
+              "title": "Training & Competency Register"
+            },
+            {
+              "code": "SAF-REG-GEN-006",
+              "title": "High-Risk Work Licence Register"
+            }
           ]
         }
       ]
@@ -35,15 +109,679 @@
           "tier": "self-serve",
           "name": "ITP Pack — General Construction",
           "tagline": "Inspection & Test Plans across major trade scopes",
-          "description": "Structural steel, concrete, civil earthworks, roofing & waterproofing, mechanical & services, facade & cladding, electrical, plumbing and general finishing ITPs — QA-clean documents from the current library.",
+          "description": "64 Inspection & Test Plans across 13 trade scopes: structural steel, concrete, civil, waterproofing, mechanical, facade, glazing, masonry, electrical, plumbing, tiling, lift installation and rainwater harvesting.",
           "unit_amount": 39900,
           "priceLabel": "$399",
           "priceSuffix": "one-off",
           "cta": "Buy Now",
           "bullets": [
-            "QA-clean ITPs across 9 trade scopes",
+            "QA-clean ITPs across 13 trade scopes",
             "Controlled DOCX + PDF companion",
             "Document control register entry included"
+          ],
+          "documents": [
+            {
+              "code": "QUA-ITP-CIV-001",
+              "title": "Bulk Earthworks ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-002",
+              "title": "Detailed Excavation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-003",
+              "title": "Trenching & Services Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-004",
+              "title": "Shoring, Benching & Battering ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-005",
+              "title": "Backfilling & Compaction ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-006",
+              "title": "Subgrade Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-007",
+              "title": "Backfilling & Compaction ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-008",
+              "title": "Civil Plant & People Interface ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-001",
+              "title": "Formwork Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-002",
+              "title": "Falsework Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-003",
+              "title": "Reinforcement Fixing ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-004",
+              "title": "Pre-Pour Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-005",
+              "title": "Concrete Placement ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-006",
+              "title": "Concrete Finishing & Curing ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-007",
+              "title": "Post-Tensioning Works ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-008",
+              "title": "Precast Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-001",
+              "title": "Electrical Rough-In ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-002",
+              "title": "Electrical Fit-Off ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-003",
+              "title": "Switchboard Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-004",
+              "title": "Electrical Testing & Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-005",
+              "title": "As-Built & Compliance Documentation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-001",
+              "title": "Facade Framing Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-002",
+              "title": "Cladding Panel Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-003",
+              "title": "Waterproofing & Sealing ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-004",
+              "title": "Facade Completion & Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-001",
+              "title": "Glazing Frame Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-002",
+              "title": "Glass Panel Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-003",
+              "title": "Glazing Sealant and Weatherproofing ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-004",
+              "title": "Facade Glazing Completion and Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-001",
+              "title": "Lift Shaft Preparation and Setout ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-002",
+              "title": "Lift Equipment Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-003",
+              "title": "Lift Testing and Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-004",
+              "title": "Lift Certification and Handover ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-001",
+              "title": "Masonry Setout and Foundation Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-002",
+              "title": "Brickwork and Blockwork Construction ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-003",
+              "title": "Rendered Finish ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-004",
+              "title": "Masonry Completion and Tolerance Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-001",
+              "title": "Mechanical Plant Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-002",
+              "title": "Ductwork Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-003",
+              "title": "Pipework Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-004",
+              "title": "Testing, Adjusting & Balancing ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-005",
+              "title": "Mechanical Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-001",
+              "title": "In-Ground Plumbing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-002",
+              "title": "Rough-In Plumbing ITP Q 8.5.1"
+            },
+            {
+              "code": "QUA-ITP-PLMB-003",
+              "title": "Fit-Off Plumbing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-004",
+              "title": "Pressure Testing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-005",
+              "title": "Gas Installation & Certification ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-001",
+              "title": "Rainwater Harvesting System Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-002",
+              "title": "Tank and Filtration Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-003",
+              "title": "Rainwater System Testing and Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-001",
+              "title": "Structural Steel Fabrication ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-002",
+              "title": "Structural Steel Erection ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-003",
+              "title": "Bolt Installation & Torqueing ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-004",
+              "title": "Weld Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-005",
+              "title": "Stability & Temporary Bracing ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-001",
+              "title": "Floor Tiling Substrate Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-002",
+              "title": "Floor and Wall Tile Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-003",
+              "title": "Tiling Grout and Sealant Application ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-004",
+              "title": "Tiling Completion and Finish Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-001",
+              "title": "Substrate Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-002",
+              "title": "Waterproofing Membrane Application ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-003",
+              "title": "Flood Testing ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-004",
+              "title": "Tile Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-005",
+              "title": "Wet Area Completion ITP"
+            }
+          ]
+        },
+        {
+          "id": "itp-bundle-complete",
+          "tier": "self-serve",
+          "name": "ITP Pack — Complete (All Trades)",
+          "tagline": "Every ITP, every trade series",
+          "description": "All 97 Inspection & Test Plans across every trade series in the library -- the 13 scopes in the General Construction pack plus carpentry, communications, demolition, fire services, landscaping, painting and plastering.",
+          "unit_amount": 69900,
+          "priceLabel": "$699",
+          "priceSuffix": "one-off",
+          "cta": "Buy Now",
+          "bullets": [
+            "QA-clean ITPs across all 20 trade series",
+            "Controlled DOCX + PDF companion",
+            "Document control register entry included"
+          ],
+          "documents": [
+            {
+              "code": "QUA-ITP-CARP-001",
+              "title": "Structural Timber Framing ITP"
+            },
+            {
+              "code": "QUA-ITP-CARP-002",
+              "title": "Internal Framing ITP"
+            },
+            {
+              "code": "QUA-ITP-CARP-003",
+              "title": "Joinery & Fit-Out Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CARP-004",
+              "title": "Doors, Frames & Hardware ITP"
+            },
+            {
+              "code": "QUA-ITP-CARP-005",
+              "title": "Final Fit-Out Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-001",
+              "title": "Bulk Earthworks ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-002",
+              "title": "Detailed Excavation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-003",
+              "title": "Trenching & Services Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-004",
+              "title": "Shoring, Benching & Battering ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-005",
+              "title": "Backfilling & Compaction ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-006",
+              "title": "Subgrade Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-007",
+              "title": "Backfilling & Compaction ITP"
+            },
+            {
+              "code": "QUA-ITP-CIV-008",
+              "title": "Civil Plant & People Interface ITP"
+            },
+            {
+              "code": "QUA-ITP-COMM-001",
+              "title": "Data & Communications Cabling ITP"
+            },
+            {
+              "code": "QUA-ITP-COMM-002",
+              "title": "Security Systems Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-COMM-003",
+              "title": "CCTV & Access Control Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-COMM-004",
+              "title": "Systems Testing & Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-001",
+              "title": "Formwork Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-002",
+              "title": "Falsework Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-003",
+              "title": "Reinforcement Fixing ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-004",
+              "title": "Pre-Pour Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-005",
+              "title": "Concrete Placement ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-006",
+              "title": "Concrete Finishing & Curing ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-007",
+              "title": "Post-Tensioning Works ITP"
+            },
+            {
+              "code": "QUA-ITP-CONC-008",
+              "title": "Precast Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-DEMO-001",
+              "title": "Soft Strip Demolition ITP"
+            },
+            {
+              "code": "QUA-ITP-DEMO-002",
+              "title": "Structural Demolition ITP"
+            },
+            {
+              "code": "QUA-ITP-DEMO-003",
+              "title": "Mechanical Demolition ITP Q 8.5.1"
+            },
+            {
+              "code": "QUA-ITP-DEMO-004",
+              "title": "Demolition Waste Segregation ITP"
+            },
+            {
+              "code": "QUA-ITP-DEMO-005",
+              "title": "Clearance & Handover ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-001",
+              "title": "Electrical Rough-In ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-002",
+              "title": "Electrical Fit-Off ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-003",
+              "title": "Switchboard Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-004",
+              "title": "Electrical Testing & Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-ELEC-005",
+              "title": "As-Built & Compliance Documentation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-001",
+              "title": "Facade Framing Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-002",
+              "title": "Cladding Panel Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-003",
+              "title": "Waterproofing & Sealing ITP"
+            },
+            {
+              "code": "QUA-ITP-FACA-004",
+              "title": "Facade Completion & Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-FIRE-001",
+              "title": "Fire Hydrant & Hose Reel Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FIRE-002",
+              "title": "Fire Sprinkler Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FIRE-003",
+              "title": "Fire Detection & EWIS Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-FIRE-004",
+              "title": "Fire Systems Testing & Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-FIRE-005",
+              "title": "Fire Services Certification & Handover ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-001",
+              "title": "Glazing Frame Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-002",
+              "title": "Glass Panel Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-003",
+              "title": "Glazing Sealant and Weatherproofing ITP"
+            },
+            {
+              "code": "QUA-ITP-GLAZ-004",
+              "title": "Facade Glazing Completion and Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-LAND-001",
+              "title": "Subgrade & Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-LAND-002",
+              "title": "Retaining Wall Construction ITP"
+            },
+            {
+              "code": "QUA-ITP-LAND-003",
+              "title": "Paving & External Concreting ITP"
+            },
+            {
+              "code": "QUA-ITP-LAND-004",
+              "title": "Soft Landscaping Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-LAND-005",
+              "title": "External Works Completion ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-001",
+              "title": "Lift Shaft Preparation and Setout ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-002",
+              "title": "Lift Equipment Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-003",
+              "title": "Lift Testing and Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-LIFT-004",
+              "title": "Lift Certification and Handover ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-001",
+              "title": "Masonry Setout and Foundation Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-002",
+              "title": "Brickwork and Blockwork Construction ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-003",
+              "title": "Rendered Finish ITP"
+            },
+            {
+              "code": "QUA-ITP-MAS-004",
+              "title": "Masonry Completion and Tolerance Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-001",
+              "title": "Mechanical Plant Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-002",
+              "title": "Ductwork Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-003",
+              "title": "Pipework Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-004",
+              "title": "Testing, Adjusting & Balancing ITP"
+            },
+            {
+              "code": "QUA-ITP-MECH-005",
+              "title": "Mechanical Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-PAINT-001",
+              "title": "Surface Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-PAINT-002",
+              "title": "Paint Application ITP"
+            },
+            {
+              "code": "QUA-ITP-PAINT-003",
+              "title": "Coatings Thickness & Coverage ITP Q 8.5.1"
+            },
+            {
+              "code": "QUA-ITP-PAINT-004",
+              "title": "Final Finish Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-PLAS-001",
+              "title": "Wall Framing & Setout ITP"
+            },
+            {
+              "code": "QUA-ITP-PLAS-002",
+              "title": "Plasterboard Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-PLAS-003",
+              "title": "Ceiling Grid Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-PLAS-004",
+              "title": "Finishing, Stopping & Sanding ITP"
+            },
+            {
+              "code": "QUA-ITP-PLAS-005",
+              "title": "Final Wall & Ceiling Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-001",
+              "title": "In-Ground Plumbing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-002",
+              "title": "Rough-In Plumbing ITP Q 8.5.1"
+            },
+            {
+              "code": "QUA-ITP-PLMB-003",
+              "title": "Fit-Off Plumbing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-004",
+              "title": "Pressure Testing ITP"
+            },
+            {
+              "code": "QUA-ITP-PLMB-005",
+              "title": "Gas Installation & Certification ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-001",
+              "title": "Rainwater Harvesting System Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-002",
+              "title": "Tank and Filtration Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-RWH-003",
+              "title": "Rainwater System Testing and Commissioning ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-001",
+              "title": "Structural Steel Fabrication ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-002",
+              "title": "Structural Steel Erection ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-003",
+              "title": "Bolt Installation & Torqueing ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-004",
+              "title": "Weld Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-STEEL-005",
+              "title": "Stability & Temporary Bracing ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-001",
+              "title": "Floor Tiling Substrate Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-002",
+              "title": "Floor and Wall Tile Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-003",
+              "title": "Tiling Grout and Sealant Application ITP"
+            },
+            {
+              "code": "QUA-ITP-TILE-004",
+              "title": "Tiling Completion and Finish Inspection ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-001",
+              "title": "Substrate Preparation ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-002",
+              "title": "Waterproofing Membrane Application ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-003",
+              "title": "Flood Testing ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-004",
+              "title": "Tile Installation ITP"
+            },
+            {
+              "code": "QUA-ITP-WP-005",
+              "title": "Wet Area Completion ITP"
+            }
           ]
         }
       ]
