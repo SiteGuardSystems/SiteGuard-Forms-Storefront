@@ -58,6 +58,13 @@ if (!mailer.configured) {
   console.warn("RESEND_API_KEY/RESEND_FROM_EMAIL not set — order confirmations aren't emailed, only logged to var/mail-events.jsonl.");
 }
 
+// Internal order alert — CRM entry, manual delivery, support and quality
+// tracking all start from this email until there's a real admin queue.
+const ADMIN_NOTIFICATION_EMAIL = process.env.ADMIN_NOTIFICATION_EMAIL;
+if (!ADMIN_NOTIFICATION_EMAIL) {
+  console.warn("ADMIN_NOTIFICATION_EMAIL not set — no internal alert is sent when an order comes in.");
+}
+
 // SiteGuard-Forms' narrow storefront-orders intake route (see
 // server/routes.ts there, requireStorefrontApiKey). Shared secret, not the
 // same credential as anything Graph/SharePoint-related. Was the Artifact
@@ -79,6 +86,7 @@ const app = createApp({
   stripeWebhookSecret,
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
+  adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
 });
