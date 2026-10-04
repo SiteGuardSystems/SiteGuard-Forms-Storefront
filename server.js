@@ -76,6 +76,22 @@ if (!ORDER_INTAKE_URL || !ORDER_INTAKE_API_KEY) {
   console.warn("ORDER_INTAKE_URL/API_KEY not set — orders complete and are logged, but nothing is recorded for review.");
 }
 
+// Retrieves and parks a completed order's real files on the library host for
+// Dan to review before sending — per his 2026-10-04 decision, delivery stays
+// manual for now; this only gets the right files in front of him faster.
+// The SSH key here is forced to exactly one remote command (see ai-control's
+// authorized_keys) — this process can trigger a park, nothing else.
+const PARK_ORDER_HOST = process.env.PARK_ORDER_HOST;
+const PARK_ORDER_USER = process.env.PARK_ORDER_USER;
+const PARK_ORDER_SSH_KEY_PATH = process.env.PARK_ORDER_SSH_KEY_PATH;
+const parkOrder =
+  PARK_ORDER_HOST && PARK_ORDER_USER && PARK_ORDER_SSH_KEY_PATH
+    ? { host: PARK_ORDER_HOST, user: PARK_ORDER_USER, keyPath: PARK_ORDER_SSH_KEY_PATH }
+    : undefined;
+if (!parkOrder) {
+  console.warn("PARK_ORDER_HOST/USER/SSH_KEY_PATH not set — orders are recorded but documents aren't auto-retrieved for review.");
+}
+
 const app = createApp({
   catalogPath: path.join(__dirname, "packages.json"),
   individualDocsPath: path.join(__dirname, "individual-documents.json"),
@@ -89,6 +105,7 @@ const app = createApp({
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
+  parkOrder,
 });
 
 app.listen(PORT, HOST, () => {
@@ -108,5 +125,10 @@ app.listen(PORT, HOST, () => {
     ORDER_INTAKE_URL && ORDER_INTAKE_API_KEY
       ? `Order intake: orders recorded for review at ${ORDER_INTAKE_URL}`
       : "Order intake: NOT configured — orders are logged locally only, nothing recorded for review",
+  );
+  console.log(
+    parkOrder
+      ? `Park order: documents auto-retrieved to ${parkOrder.user}@${parkOrder.host} for review`
+      : "Park order: NOT configured — documents aren't auto-retrieved, pull them by hand",
   );
 });
