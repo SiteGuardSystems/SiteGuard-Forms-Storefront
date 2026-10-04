@@ -71,6 +71,7 @@ if (!ORDER_INTAKE_URL || !ORDER_INTAKE_API_KEY) {
 
 const app = createApp({
   catalogPath: path.join(__dirname, "packages.json"),
+  individualDocsPath: path.join(__dirname, "individual-documents.json"),
   varDir: VAR_DIR,
   publicDir: path.join(__dirname, "public"),
   stripe,
