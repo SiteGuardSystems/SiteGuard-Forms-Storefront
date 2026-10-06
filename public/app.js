@@ -605,8 +605,25 @@ function renderDocFamilies(documents) {
   }
 }
 
+/** Coming-soon teaser, same pattern every coming-soon/quote item already
+ *  uses in handlePackageAction -- scroll to the enquiry form, pre-fill
+ *  "need" only if the visitor hasn't already typed something. No live
+ *  subscription link exists yet (pricing isn't approved and there's no
+ *  public-facing signup flow) -- this captures real interest, it does
+ *  not pretend the thing itself is live. */
+function wireSubscriptionsTeaser() {
+  document.getElementById("subscriptions-notify")?.addEventListener("click", () => {
+    document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
+    const need = document.querySelector('textarea[name="need"]');
+    if (need && !need.value) {
+      need.value = "Interested in: Subscriptions (ongoing access, auto-updated documents)";
+    }
+  });
+}
+
 showCheckoutBanner();
 wireLeadForm();
 wireCart();
+wireSubscriptionsTeaser();
 loadPackages();
 loadDocuments();
