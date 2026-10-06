@@ -1,18 +1,25 @@
 [Unit]
-Description=SiteGuard FORMS storefront (dev/staging — LAN only, not internet-exposed)
+Description=SiteGuard FORMS storefront (siteguardforms.com.au -- live production, Stripe LIVE mode, real cards charged)
+Documentation=https://siteguardforms.com.au
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=dan
-Group=dan
+User=ubuntu
+Group=ubuntu
 WorkingDirectory=/srv/siteguard/forms-storefront
-Environment=HOME=/home/dan
+Environment=HOME=/home/ubuntu
+Environment=NVM_DIR=/home/ubuntu/.nvm
 EnvironmentFile=-/srv/siteguard/forms-storefront/.env
-ExecStart=/home/dan/.nvm/versions/node/v20.20.2/bin/node server.js
+
+ExecStart=/srv/siteguard/forms-storefront/deploy/run-storefront-prod.sh
 Restart=on-failure
 RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=siteguard-forms-storefront
 
 [Install]
 WantedBy=multi-user.target
