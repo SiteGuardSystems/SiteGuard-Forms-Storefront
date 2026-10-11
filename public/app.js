@@ -605,25 +605,134 @@ function renderDocFamilies(documents) {
   }
 }
 
-/** Coming-soon teaser, same pattern every coming-soon/quote item already
- *  uses in handlePackageAction -- scroll to the enquiry form, pre-fill
- *  "need" only if the visitor hasn't already typed something. No live
- *  subscription link exists yet (pricing isn't approved and there's no
- *  public-facing signup flow) -- this captures real interest, it does
- *  not pretend the thing itself is live. */
-function wireSubscriptionsTeaser() {
-  document.getElementById("subscriptions-notify")?.addEventListener("click", () => {
-    document.getElementById("enquire").scrollIntoView({ behavior: "smooth" });
-    const need = document.querySelector('textarea[name="need"]');
-    if (need && !need.value) {
-      need.value = "Interested in: Subscriptions (ongoing access, auto-updated documents)";
+/** Real subscription pricing, live (2026-10-11) -- subscriptions.json is a
+ *  static snapshot of the same 160-pack catalog the console app's own plan
+ *  picker reads from (docs/pack_catalog.py, hseq-dev), not hand-typed and
+ *  not a live API call: /api/billing/packs needs a session this visitor
+ *  does not have yet, same reason signup.tsx takes label/price as query
+ *  params rather than looking them up itself. Regenerate this file the
+ *  same way the one-off packages.json gets regenerated, if the underlying
+ *  pack catalog ever changes.
+ *
+ *  Grouping mirrors tenant-settings.tsx's plan picker exactly, so a pack
+ *  sorts under the same heading whichever app shows it. */
+function subscriptionGroupFor(packId) {
+  if (packId.startsWith("swms:")) return "SWMS Pack (one trade)";
+  if (packId.startsWith("compliance:")) return "Trade Compliance Pack (one trade)";
+  if (packId.endsWith(":domestic")) return "Subcontractor — Domestic";
+  if (packId.endsWith(":light-commercial")) return "Subcontractor — Light Commercial";
+  if (packId.endsWith(":heavy-commercial")) return "Subcontractor — Heavy Commercial";
+  if (packId.endsWith(":iso-ofsc") && packId.startsWith("subcontractor:")) return "Subcontractor — ISO/OFSC";
+  if (packId.startsWith("builder:")) return "Builder (whole-of-site)";
+  if (packId === "builder-system" || packId === "subcontractor-system") return "Management System (core)";
+  if (packId.startsWith("addon:")) return "Specialist Add-on";
+  if (packId.startsWith("consultant:")) return "Consultant / Reseller";
+  return "Other";
+}
+const SUBSCRIPTION_GROUP_ORDER = [
+  "SWMS Pack (one trade)", "Trade Compliance Pack (one trade)",
+  "Subcontractor — Domestic", "Subcontractor — Light Commercial",
+  "Subcontractor — Heavy Commercial", "Subcontractor — ISO/OFSC",
+  "Builder (whole-of-site)", "Management System (core)",
+  "Specialist Add-on", "Consultant / Reseller", "Other",
+];
+/** The trade/variant code a pack_id carries after its group's own fixed
+ *  prefix -- e.g. "swms:CARP" -> "CARP", "subcontractor:CARP:heavy-commercial"
+ *  -> "CARP". Only trade-shaped groups have more than one real option here;
+ *  everything else collapses to a single implicit choice. */
+function subscriptionVariantFor(packId) {
+  const parts = packId.split(":");
+  return parts.length >= 2 ? parts[1] : packId;
+}
+
+let subscriptionPacksByGroup = null; // Map<group, Pack[]>
+
+async function loadSubscriptions() {
+  try {
+    const res = await fetch("/subscriptions.json");
+    if (!res.ok) throw new Error(`subscriptions.json ${res.status}`);
+    const { packs } = await res.json();
+    subscriptionPacksByGroup = new Map();
+    for (const pack of packs) {
+      const group = subscriptionGroupFor(pack.pack_id);
+      if (!subscriptionPacksByGroup.has(group)) subscriptionPacksByGroup.set(group, []);
+      subscriptionPacksByGroup.get(group).push(pack);
     }
-  });
+    wireSubscriptionPicker();
+  } catch (err) {
+    console.error("Failed to load subscription pricing:", err);
+    const picker = document.getElementById("sub-picker");
+    if (picker) picker.innerHTML = '<p class="section-sub">Subscription pricing is temporarily unavailable -- <a href="#enquire">get in touch</a> and we will sort you out directly.</p>';
+  }
+}
+
+function wireSubscriptionPicker() {
+  const categorySelect = document.getElementById("sub-category-select");
+  const tradeRow = document.getElementById("sub-trade-row");
+  const tradeSelect = document.getElementById("sub-trade-select");
+  const priceEl = document.getElementById("sub-price");
+  const subscribeBtn = document.getElementById("sub-subscribe-btn");
+  const cadenceInputs = document.querySelectorAll('input[name="sub-cadence"]');
+  if (!categorySelect) return;
+
+  categorySelect.innerHTML = SUBSCRIPTION_GROUP_ORDER
+    .filter((g) => subscriptionPacksByGroup.has(g))
+    .map((g) => `<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`)
+    .join("");
+
+  function currentCadence() {
+    return Array.from(cadenceInputs).find((i) => i.checked)?.value ?? "annual";
+  }
+
+  function packsForCategory() {
+    return subscriptionPacksByGroup.get(categorySelect.value) ?? [];
+  }
+
+  function refreshTradeOptions() {
+    const packs = packsForCategory();
+    const isTradeShaped = packs.length > 1;
+    tradeRow.hidden = !isTradeShaped;
+    if (isTradeShaped) {
+      tradeSelect.innerHTML = packs
+        .map((p) => `<option value="${escapeHtml(p.pack_id)}">${escapeHtml(subscriptionVariantFor(p.pack_id))}</option>`)
+        .join("");
+    }
+  }
+
+  function currentPack() {
+    const packs = packsForCategory();
+    if (packs.length === 0) return null;
+    if (packs.length === 1) return packs[0];
+    return packs.find((p) => p.pack_id === tradeSelect.value) ?? packs[0];
+  }
+
+  function refreshPriceAndLink() {
+    const pack = currentPack();
+    if (!pack) return;
+    const cadence = currentCadence();
+    const amount = cadence === "monthly" ? pack.subscription_aud_per_month : pack.subscription_aud_per_year;
+    const period = cadence === "monthly" ? "/month" : "/year";
+    priceEl.textContent = `$${amount.toLocaleString("en-AU")}${period} — ${pack.documents} documents`;
+    const params = new URLSearchParams({
+      pack: pack.pack_id,
+      cadence,
+      label: pack.label,
+      price: String(amount),
+    });
+    subscribeBtn.href = `/signup?${params.toString()}`;
+  }
+
+  categorySelect.addEventListener("change", () => { refreshTradeOptions(); refreshPriceAndLink(); });
+  tradeSelect.addEventListener("change", refreshPriceAndLink);
+  cadenceInputs.forEach((input) => input.addEventListener("change", refreshPriceAndLink));
+
+  refreshTradeOptions();
+  refreshPriceAndLink();
 }
 
 showCheckoutBanner();
 wireLeadForm();
 wireCart();
-wireSubscriptionsTeaser();
+loadSubscriptions();
 loadPackages();
 loadDocuments();

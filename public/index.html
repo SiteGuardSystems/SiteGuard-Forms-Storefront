@@ -110,15 +110,27 @@
 
   <section class="subscriptions" id="subscriptions">
     <div class="wrap subscriptions-inner">
-      <p class="eyebrow">Coming Soon</p>
-      <h2>Subscriptions — Always Current, Always Yours</h2>
+      <p class="eyebrow">Subscriptions</p>
+      <h2>Always Current, Always Yours</h2>
       <p class="section-sub">
         Ongoing access to your project documents, kept current automatically
         as legislation changes — with your own company branding on every
-        document. Register your interest and we'll let you know the moment
-        it's live.
+        document.
       </p>
-      <button type="button" class="btn btn-primary" id="subscriptions-notify">Notify Me</button>
+      <div class="sub-picker" id="sub-picker">
+        <label class="sub-field">Plan
+          <select id="sub-category-select" class="doc-family-select"></select>
+        </label>
+        <label class="sub-field" id="sub-trade-row" hidden>Trade
+          <select id="sub-trade-select" class="doc-family-select"></select>
+        </label>
+        <div class="sub-cadence" role="radiogroup" aria-label="Billing">
+          <label><input type="radio" name="sub-cadence" value="annual" checked /> Annual</label>
+          <label><input type="radio" name="sub-cadence" value="monthly" /> Monthly</label>
+        </div>
+        <p class="sub-price" id="sub-price" aria-live="polite"></p>
+        <a href="/signup" id="sub-subscribe-btn" class="btn btn-primary">Subscribe</a>
+      </div>
     </div>
   </section>
 

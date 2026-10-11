@@ -1,0 +1,1124 @@
+{
+  "packs": [
+    {
+      "pack_id": "swms:CARP",
+      "label": "CARP — SWMS Pack",
+      "documents": 36,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "compliance:CARP",
+      "label": "CARP — Trade Compliance Pack",
+      "documents": 41,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:CARP:domestic",
+      "label": "CARP — Subcontractor, Domestic",
+      "documents": 36,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:CARP:light-commercial",
+      "label": "CARP — Subcontractor, Light Commercial",
+      "documents": 47,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:CARP:heavy-commercial",
+      "label": "CARP — Subcontractor, Heavy Commercial",
+      "documents": 52,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:CARP:iso-ofsc",
+      "label": "CARP — Subcontractor, Iso Ofsc",
+      "documents": 267,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:CIV",
+      "label": "CIV — SWMS Pack",
+      "documents": 36,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "compliance:CIV",
+      "label": "CIV — Trade Compliance Pack",
+      "documents": 44,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:CIV:domestic",
+      "label": "CIV — Subcontractor, Domestic",
+      "documents": 36,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:CIV:light-commercial",
+      "label": "CIV — Subcontractor, Light Commercial",
+      "documents": 47,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:CIV:heavy-commercial",
+      "label": "CIV — Subcontractor, Heavy Commercial",
+      "documents": 55,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:CIV:iso-ofsc",
+      "label": "CIV — Subcontractor, Iso Ofsc",
+      "documents": 270,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:COMM",
+      "label": "COMM — SWMS Pack",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:COMM",
+      "label": "COMM — Trade Compliance Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:COMM:domestic",
+      "label": "COMM — Subcontractor, Domestic",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:COMM:light-commercial",
+      "label": "COMM — Subcontractor, Light Commercial",
+      "documents": 34,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:COMM:heavy-commercial",
+      "label": "COMM — Subcontractor, Heavy Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:COMM:iso-ofsc",
+      "label": "COMM — Subcontractor, Iso Ofsc",
+      "documents": 253,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:CONC",
+      "label": "CONC — SWMS Pack",
+      "documents": 30,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:CONC",
+      "label": "CONC — Trade Compliance Pack",
+      "documents": 38,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:CONC:domestic",
+      "label": "CONC — Subcontractor, Domestic",
+      "documents": 30,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:CONC:light-commercial",
+      "label": "CONC — Subcontractor, Light Commercial",
+      "documents": 41,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:CONC:heavy-commercial",
+      "label": "CONC — Subcontractor, Heavy Commercial",
+      "documents": 49,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:CONC:iso-ofsc",
+      "label": "CONC — Subcontractor, Iso Ofsc",
+      "documents": 264,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:DEMO",
+      "label": "DEMO — SWMS Pack",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:DEMO",
+      "label": "DEMO — Trade Compliance Pack",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:DEMO:domestic",
+      "label": "DEMO — Subcontractor, Domestic",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:DEMO:light-commercial",
+      "label": "DEMO — Subcontractor, Light Commercial",
+      "documents": 36,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:DEMO:heavy-commercial",
+      "label": "DEMO — Subcontractor, Heavy Commercial",
+      "documents": 41,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:DEMO:iso-ofsc",
+      "label": "DEMO — Subcontractor, Iso Ofsc",
+      "documents": 256,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:ELEC",
+      "label": "ELEC — SWMS Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:ELEC",
+      "label": "ELEC — Trade Compliance Pack",
+      "documents": 32,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:ELEC:domestic",
+      "label": "ELEC — Subcontractor, Domestic",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:ELEC:light-commercial",
+      "label": "ELEC — Subcontractor, Light Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:ELEC:heavy-commercial",
+      "label": "ELEC — Subcontractor, Heavy Commercial",
+      "documents": 43,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:ELEC:iso-ofsc",
+      "label": "ELEC — Subcontractor, Iso Ofsc",
+      "documents": 258,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:FACA",
+      "label": "FACA — SWMS Pack",
+      "documents": 24,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:FACA",
+      "label": "FACA — Trade Compliance Pack",
+      "documents": 28,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:FACA:domestic",
+      "label": "FACA — Subcontractor, Domestic",
+      "documents": 24,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:FACA:light-commercial",
+      "label": "FACA — Subcontractor, Light Commercial",
+      "documents": 35,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:FACA:heavy-commercial",
+      "label": "FACA — Subcontractor, Heavy Commercial",
+      "documents": 39,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:FACA:iso-ofsc",
+      "label": "FACA — Subcontractor, Iso Ofsc",
+      "documents": 254,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:FIN",
+      "label": "FIN — SWMS Pack",
+      "documents": 26,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:FIN",
+      "label": "FIN — Trade Compliance Pack",
+      "documents": 26,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:FIN:domestic",
+      "label": "FIN — Subcontractor, Domestic",
+      "documents": 26,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:FIN:light-commercial",
+      "label": "FIN — Subcontractor, Light Commercial",
+      "documents": 37,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:FIN:heavy-commercial",
+      "label": "FIN — Subcontractor, Heavy Commercial",
+      "documents": 37,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:FIN:iso-ofsc",
+      "label": "FIN — Subcontractor, Iso Ofsc",
+      "documents": 252,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:FIRE",
+      "label": "FIRE — SWMS Pack",
+      "documents": 24,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:FIRE",
+      "label": "FIRE — Trade Compliance Pack",
+      "documents": 29,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:FIRE:domestic",
+      "label": "FIRE — Subcontractor, Domestic",
+      "documents": 24,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:FIRE:light-commercial",
+      "label": "FIRE — Subcontractor, Light Commercial",
+      "documents": 35,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:FIRE:heavy-commercial",
+      "label": "FIRE — Subcontractor, Heavy Commercial",
+      "documents": 40,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:FIRE:iso-ofsc",
+      "label": "FIRE — Subcontractor, Iso Ofsc",
+      "documents": 255,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:GLAZ",
+      "label": "GLAZ — SWMS Pack",
+      "documents": 20,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "compliance:GLAZ",
+      "label": "GLAZ — Trade Compliance Pack",
+      "documents": 24,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:GLAZ:domestic",
+      "label": "GLAZ — Subcontractor, Domestic",
+      "documents": 20,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "subcontractor:GLAZ:light-commercial",
+      "label": "GLAZ — Subcontractor, Light Commercial",
+      "documents": 31,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:GLAZ:heavy-commercial",
+      "label": "GLAZ — Subcontractor, Heavy Commercial",
+      "documents": 35,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:GLAZ:iso-ofsc",
+      "label": "GLAZ — Subcontractor, Iso Ofsc",
+      "documents": 250,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:LAND",
+      "label": "LAND — SWMS Pack",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:LAND",
+      "label": "LAND — Trade Compliance Pack",
+      "documents": 28,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:LAND:domestic",
+      "label": "LAND — Subcontractor, Domestic",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:LAND:light-commercial",
+      "label": "LAND — Subcontractor, Light Commercial",
+      "documents": 34,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:LAND:heavy-commercial",
+      "label": "LAND — Subcontractor, Heavy Commercial",
+      "documents": 39,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:LAND:iso-ofsc",
+      "label": "LAND — Subcontractor, Iso Ofsc",
+      "documents": 254,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:LIFT",
+      "label": "LIFT — SWMS Pack",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "compliance:LIFT",
+      "label": "LIFT — Trade Compliance Pack",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:LIFT:domestic",
+      "label": "LIFT — Subcontractor, Domestic",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "subcontractor:LIFT:light-commercial",
+      "label": "LIFT — Subcontractor, Light Commercial",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:LIFT:heavy-commercial",
+      "label": "LIFT — Subcontractor, Heavy Commercial",
+      "documents": 34,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:LIFT:iso-ofsc",
+      "label": "LIFT — Subcontractor, Iso Ofsc",
+      "documents": 249,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:MAS",
+      "label": "MAS — SWMS Pack",
+      "documents": 21,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "compliance:MAS",
+      "label": "MAS — Trade Compliance Pack",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:MAS:domestic",
+      "label": "MAS — Subcontractor, Domestic",
+      "documents": 21,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "subcontractor:MAS:light-commercial",
+      "label": "MAS — Subcontractor, Light Commercial",
+      "documents": 32,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:MAS:heavy-commercial",
+      "label": "MAS — Subcontractor, Heavy Commercial",
+      "documents": 36,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:MAS:iso-ofsc",
+      "label": "MAS — Subcontractor, Iso Ofsc",
+      "documents": 251,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:MECH",
+      "label": "MECH — SWMS Pack",
+      "documents": 26,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:MECH",
+      "label": "MECH — Trade Compliance Pack",
+      "documents": 31,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:MECH:domestic",
+      "label": "MECH — Subcontractor, Domestic",
+      "documents": 26,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:MECH:light-commercial",
+      "label": "MECH — Subcontractor, Light Commercial",
+      "documents": 37,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:MECH:heavy-commercial",
+      "label": "MECH — Subcontractor, Heavy Commercial",
+      "documents": 42,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:MECH:iso-ofsc",
+      "label": "MECH — Subcontractor, Iso Ofsc",
+      "documents": 257,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:PAINT",
+      "label": "PAINT — SWMS Pack",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:PAINT",
+      "label": "PAINT — Trade Compliance Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:PAINT:domestic",
+      "label": "PAINT — Subcontractor, Domestic",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:PAINT:light-commercial",
+      "label": "PAINT — Subcontractor, Light Commercial",
+      "documents": 34,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:PAINT:heavy-commercial",
+      "label": "PAINT — Subcontractor, Heavy Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:PAINT:iso-ofsc",
+      "label": "PAINT — Subcontractor, Iso Ofsc",
+      "documents": 253,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:PLAS",
+      "label": "PLAS — SWMS Pack",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:PLAS",
+      "label": "PLAS — Trade Compliance Pack",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:PLAS:domestic",
+      "label": "PLAS — Subcontractor, Domestic",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:PLAS:light-commercial",
+      "label": "PLAS — Subcontractor, Light Commercial",
+      "documents": 36,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:PLAS:heavy-commercial",
+      "label": "PLAS — Subcontractor, Heavy Commercial",
+      "documents": 41,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:PLAS:iso-ofsc",
+      "label": "PLAS — Subcontractor, Iso Ofsc",
+      "documents": 256,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:PLMB",
+      "label": "PLMB — SWMS Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:PLMB",
+      "label": "PLMB — Trade Compliance Pack",
+      "documents": 32,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:PLMB:domestic",
+      "label": "PLMB — Subcontractor, Domestic",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:PLMB:light-commercial",
+      "label": "PLMB — Subcontractor, Light Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:PLMB:heavy-commercial",
+      "label": "PLMB — Subcontractor, Heavy Commercial",
+      "documents": 43,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:PLMB:iso-ofsc",
+      "label": "PLMB — Subcontractor, Iso Ofsc",
+      "documents": 258,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:PLT",
+      "label": "PLT — SWMS Pack",
+      "documents": 33,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "compliance:PLT",
+      "label": "PLT — Trade Compliance Pack",
+      "documents": 33,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:PLT:domestic",
+      "label": "PLT — Subcontractor, Domestic",
+      "documents": 33,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:PLT:light-commercial",
+      "label": "PLT — Subcontractor, Light Commercial",
+      "documents": 44,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:PLT:heavy-commercial",
+      "label": "PLT — Subcontractor, Heavy Commercial",
+      "documents": 44,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:PLT:iso-ofsc",
+      "label": "PLT — Subcontractor, Iso Ofsc",
+      "documents": 259,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:ROOF",
+      "label": "ROOF — SWMS Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:ROOF",
+      "label": "ROOF — Trade Compliance Pack",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:ROOF:domestic",
+      "label": "ROOF — Subcontractor, Domestic",
+      "documents": 27,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:ROOF:light-commercial",
+      "label": "ROOF — Subcontractor, Light Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:ROOF:heavy-commercial",
+      "label": "ROOF — Subcontractor, Heavy Commercial",
+      "documents": 38,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:ROOF:iso-ofsc",
+      "label": "ROOF — Subcontractor, Iso Ofsc",
+      "documents": 253,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:RWH",
+      "label": "RWH — SWMS Pack",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "compliance:RWH",
+      "label": "RWH — Trade Compliance Pack",
+      "documents": 22,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:RWH:domestic",
+      "label": "RWH — Subcontractor, Domestic",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "subcontractor:RWH:light-commercial",
+      "label": "RWH — Subcontractor, Light Commercial",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:RWH:heavy-commercial",
+      "label": "RWH — Subcontractor, Heavy Commercial",
+      "documents": 33,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:RWH:iso-ofsc",
+      "label": "RWH — Subcontractor, Iso Ofsc",
+      "documents": 248,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:SERV",
+      "label": "SERV — SWMS Pack",
+      "documents": 35,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "compliance:SERV",
+      "label": "SERV — Trade Compliance Pack",
+      "documents": 35,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:SERV:domestic",
+      "label": "SERV — Subcontractor, Domestic",
+      "documents": 35,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:SERV:light-commercial",
+      "label": "SERV — Subcontractor, Light Commercial",
+      "documents": 46,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:SERV:heavy-commercial",
+      "label": "SERV — Subcontractor, Heavy Commercial",
+      "documents": 46,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:SERV:iso-ofsc",
+      "label": "SERV — Subcontractor, Iso Ofsc",
+      "documents": 261,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:STEEL",
+      "label": "STEEL — SWMS Pack",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:STEEL",
+      "label": "STEEL — Trade Compliance Pack",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:STEEL:domestic",
+      "label": "STEEL — Subcontractor, Domestic",
+      "documents": 25,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:STEEL:light-commercial",
+      "label": "STEEL — Subcontractor, Light Commercial",
+      "documents": 36,
+      "subscription_aud_per_year": 1199,
+      "subscription_aud_per_month": 115
+    },
+    {
+      "pack_id": "subcontractor:STEEL:heavy-commercial",
+      "label": "STEEL — Subcontractor, Heavy Commercial",
+      "documents": 41,
+      "subscription_aud_per_year": 1749,
+      "subscription_aud_per_month": 170
+    },
+    {
+      "pack_id": "subcontractor:STEEL:iso-ofsc",
+      "label": "STEEL — Subcontractor, Iso Ofsc",
+      "documents": 256,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:TILE",
+      "label": "TILE — SWMS Pack",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "compliance:TILE",
+      "label": "TILE — Trade Compliance Pack",
+      "documents": 23,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:TILE:domestic",
+      "label": "TILE — Subcontractor, Domestic",
+      "documents": 19,
+      "subscription_aud_per_year": 649,
+      "subscription_aud_per_month": 60
+    },
+    {
+      "pack_id": "subcontractor:TILE:light-commercial",
+      "label": "TILE — Subcontractor, Light Commercial",
+      "documents": 30,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:TILE:heavy-commercial",
+      "label": "TILE — Subcontractor, Heavy Commercial",
+      "documents": 34,
+      "subscription_aud_per_year": 1549,
+      "subscription_aud_per_month": 150
+    },
+    {
+      "pack_id": "subcontractor:TILE:iso-ofsc",
+      "label": "TILE — Subcontractor, Iso Ofsc",
+      "documents": 249,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "swms:WP",
+      "label": "WP — SWMS Pack",
+      "documents": 28,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "compliance:WP",
+      "label": "WP — Trade Compliance Pack",
+      "documents": 33,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "subcontractor:WP:domestic",
+      "label": "WP — Subcontractor, Domestic",
+      "documents": 28,
+      "subscription_aud_per_year": 849,
+      "subscription_aud_per_month": 80
+    },
+    {
+      "pack_id": "subcontractor:WP:light-commercial",
+      "label": "WP — Subcontractor, Light Commercial",
+      "documents": 39,
+      "subscription_aud_per_year": 1349,
+      "subscription_aud_per_month": 130
+    },
+    {
+      "pack_id": "subcontractor:WP:heavy-commercial",
+      "label": "WP — Subcontractor, Heavy Commercial",
+      "documents": 44,
+      "subscription_aud_per_year": 1999,
+      "subscription_aud_per_month": 190
+    },
+    {
+      "pack_id": "subcontractor:WP:iso-ofsc",
+      "label": "WP — Subcontractor, Iso Ofsc",
+      "documents": 259,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "addon:high-risk",
+      "label": "Add-on — High-Risk Work (cross-trade)",
+      "documents": 24,
+      "subscription_aud_per_year": 799,
+      "subscription_aud_per_month": 75
+    },
+    {
+      "pack_id": "builder:domestic",
+      "label": "Builder — Domestic",
+      "documents": 208,
+      "subscription_aud_per_year": 3999,
+      "subscription_aud_per_month": 385
+    },
+    {
+      "pack_id": "builder:light-commercial",
+      "label": "Builder — Light Commercial",
+      "documents": 226,
+      "subscription_aud_per_year": 4999,
+      "subscription_aud_per_month": 480
+    },
+    {
+      "pack_id": "builder:heavy-commercial",
+      "label": "Builder — Heavy Commercial",
+      "documents": 501,
+      "subscription_aud_per_year": 8499,
+      "subscription_aud_per_month": 815
+    },
+    {
+      "pack_id": "builder:iso-ofsc",
+      "label": "Builder — Iso Ofsc",
+      "documents": 709,
+      "subscription_aud_per_year": 10999,
+      "subscription_aud_per_month": 1055
+    },
+    {
+      "pack_id": "subcontractor-system",
+      "label": "Subcontractor Management System (Core)",
+      "documents": 189,
+      "subscription_aud_per_year": 2199,
+      "subscription_aud_per_month": 210
+    },
+    {
+      "pack_id": "builder-system",
+      "label": "Builder System (Core, every trade)",
+      "documents": 494,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "addon:governance",
+      "label": "Add-on — Governance",
+      "documents": 54,
+      "subscription_aud_per_year": 1499,
+      "subscription_aud_per_month": 145
+    },
+    {
+      "pack_id": "addon:info-security",
+      "label": "Add-on — Info Security",
+      "documents": 31,
+      "subscription_aud_per_year": 999,
+      "subscription_aud_per_month": 95
+    },
+    {
+      "pack_id": "addon:business-continuity",
+      "label": "Add-on — Business Continuity",
+      "documents": 17,
+      "subscription_aud_per_year": 799,
+      "subscription_aud_per_month": 75
+    },
+    {
+      "pack_id": "addon:energy",
+      "label": "Add-on — Energy",
+      "documents": 16,
+      "subscription_aud_per_year": 749,
+      "subscription_aud_per_month": 70
+    },
+    {
+      "pack_id": "addon:audit",
+      "label": "Add-on — Audit",
+      "documents": 15,
+      "subscription_aud_per_year": 749,
+      "subscription_aud_per_month": 70
+    },
+    {
+      "pack_id": "addon:sustainability",
+      "label": "Add-on — Sustainability",
+      "documents": 12,
+      "subscription_aud_per_year": 599,
+      "subscription_aud_per_month": 55
+    },
+    {
+      "pack_id": "addon:risk",
+      "label": "Add-on — Risk",
+      "documents": 15,
+      "subscription_aud_per_year": 749,
+      "subscription_aud_per_month": 70
+    },
+    {
+      "pack_id": "consultant:t1",
+      "label": "Consultant / Reseller — T1",
+      "documents": 494,
+      "subscription_aud_per_year": 7999,
+      "subscription_aud_per_month": 765
+    },
+    {
+      "pack_id": "consultant:t2",
+      "label": "Consultant / Reseller — T2",
+      "documents": 709,
+      "subscription_aud_per_year": 11999,
+      "subscription_aud_per_month": 1150
+    }
+  ]
+}

@@ -496,12 +496,10 @@ a { color: var(--or); }
 .doc-family-add { flex-shrink: 0; white-space: nowrap; }
 .doc-family-code { font-family: monospace; font-size: 0.72rem; color: var(--body); margin: 0.5rem 0 0; }
 
-/* Subscriptions teaser — a branded highlight band, deliberately distinct
-   from the plain .stats/.documents backgrounds either side of it, so a
-   "coming soon" announcement reads as a real upcoming thing rather than
-   blending into the one-off catalog sections around it. No live link yet
-   -- the Notify Me button feeds the same #enquire form every other
-   not-yet-purchasable item already uses, not a separate flow. */
+/* Subscriptions band -- a branded highlight, deliberately distinct from
+   the plain .stats/.documents backgrounds either side of it. Real pricing
+   and a real Subscribe link as of 2026-10-11 (was a "coming soon" teaser
+   before this). */
 .subscriptions {
   padding: 4rem 0;
   text-align: center;
@@ -510,6 +508,38 @@ a { color: var(--or); }
   border-bottom: 1px solid #F3D3AE;
 }
 .subscriptions-inner { max-width: 620px; margin: 0 auto; }
+
+.sub-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+.sub-field {
+  width: 100%;
+  max-width: 360px;
+  text-align: left;
+  font-family: var(--f-bd);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ch);
+}
+.sub-cadence {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--f-bd);
+  font-size: 0.88rem;
+  color: var(--ch);
+}
+.sub-cadence label { display: flex; align-items: center; gap: 0.4rem; font-weight: 400; }
+.sub-price {
+  font-family: var(--f-bd);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ch);
+  margin: 0;
+}
 
 @media (max-width: 760px) {
   .nav { gap: 0.1rem; }
