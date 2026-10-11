@@ -80,6 +80,22 @@ a { color: var(--or); }
 .banner.success { background: #E9F6EC; color: #1E6B33; }
 .banner.cancelled { background: var(--or-lt); color: var(--or-dk); }
 .banner.test-mode { background: var(--ch); color: #FFE7C2; letter-spacing: 0.02em; }
+/* Beta notice -- always on, not a dismissible/conditional banner like the
+   checkout ones above. Up deliberately while the product is still being
+   actively hardened and tested (2026-10-11); come down on Dan's own call,
+   not a timer in the code. */
+.beta-banner {
+  background: var(--ch);
+  color: #FFE7C2;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.beta-banner strong {
+  letter-spacing: 0.06em;
+  margin-right: 0.4rem;
+}
+.beta-banner a { color: #FFE7C2; text-decoration: underline; }
 
 /* Header — fixed, frosted glass, matching #nav on the parent site */
 .site-header {
