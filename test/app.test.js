@@ -242,6 +242,12 @@ describe("POST /api/checkout", () => {
       assert.match((await res.json()).reason, /subscription only/);
     });
   });
+  test("a line can't be both a package and a document, or the same document twice", async () => {
+    await withApp({ stripe: makeFakeStripe() }, async ({ base }) => {
+      assert.equal((await checkout(base, [{ documentCode: "SAF-SWMS-CARP-001", packageId: "a" }])).status, 400);
+      assert.equal((await checkout(base, [{ documentCode: "SAF-SWMS-CARP-001" }, { documentCode: "SAF-SWMS-CARP-001", packageId: undefined }])).status, 400);
+    });
+  });
   test("duplicate lines are refused", async () => {
     await withApp({ stripe: makeFakeStripe() }, async ({ base }) => {
       const res = await checkout(base, [{ documentCode: "SAF-SWMS-CARP-001" }, { documentCode: "SAF-SWMS-CARP-001" }]);
@@ -279,17 +285,17 @@ describe("POST /api/checkout", () => {
 });
 
 describe("POST /api/webhook/stripe", () => {
-  async function completeOrder(base, stripe, cart, eventId = "evt_1") {
-    await checkout(base, cart);
+  async function completeOrder(base, stripe, cart, eventId = "evt_1", over = {}) {
+    if (cart) await checkout(base, cart);
     const session = {
-      id: `cs_test_${stripe.calls.length}`, amount_total: 69000, currency: "aud",
+      id: `cs_test_${stripe.calls.length}`, amount_total: 69000, currency: "aud", payment_status: "paid",
       customer_details: { email: "buyer@example.com" }, total_details: { amount_tax: 6900 },
       metadata: { termsVersion: "SG-LEGAL-02 v0.1" },
       custom_fields: stripeCustomFields({ projectAddress: "1 Example St, Melbourne", clientName: "Acme Carpentry" }),
     };
     return fetch(`${base}/api/webhook/stripe`, {
       method: "POST", headers: { "Content-Type": "application/json", "stripe-signature": "t" },
-      body: JSON.stringify({ id: eventId, type: "checkout.session.completed", data: { object: session } }),
+      body: JSON.stringify({ id: eventId, type: over.type ?? "checkout.session.completed", data: { object: { ...session, ...over.session } } }),
     });
   }
   test("each line goes to the FORMS intake (packs by id, documents as doc:CODE) and the buyer gets a receipt", async () => {
@@ -301,6 +307,8 @@ describe("POST /api/webhook/stripe", () => {
       assert.equal(res.status, 200);
       const bodies = fetchImpl.calls.map((c) => JSON.parse(c.init.body));
       assert.deepEqual(bodies.map((b) => b.packageId), ["subcontractor:CARP:domestic", "doc:SAF-SWMS-CARP-001"]);
+      // one intake record per line, each idempotent on its own key
+      assert.deepEqual(bodies.map((b) => b.stripeSessionId), ["cs_test_1:subcontractor:CARP:domestic", "cs_test_1:doc:SAF-SWMS-CARP-001"]);
       assert.equal(bodies[0].clientName, "Acme Carpentry");
       assert.equal(fetchImpl.calls[0].init.headers["x-storefront-api-key"], "test-intake-key");
       assert.deepEqual(mailer.sent.map((m) => m.to), ["buyer@example.com", "dan@example.com"]);
@@ -314,9 +322,49 @@ describe("POST /api/webhook/stripe", () => {
     const fetchImpl = makeFakeFetch();
     await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl }, async ({ base }) => {
       await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_dup");
-      const again = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_dup");
+      const again = await completeOrder(base, stripe, null, "evt_dup");
       assert.equal((await again.json()).duplicate, true);
       assert.equal(fetchImpl.calls.length, 1);
+    });
+  });
+  test("an unpaid session is not fulfilled until the payment succeeds", async () => {
+    const stripe = makeFakeStripe();
+    const fetchImpl = makeFakeFetch();
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl }, async ({ base }) => {
+      const r1 = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_a", { session: { payment_status: "unpaid" } });
+      assert.equal((await r1.json()).awaitingPayment, true);
+      assert.equal(fetchImpl.calls.length, 0);
+      await completeOrder(base, stripe, null, "evt_b", { type: "checkout.session.async_payment_succeeded" });
+      assert.equal(fetchImpl.calls.length, 1);
+      // the completed event arriving again later does not fulfil twice
+      await completeOrder(base, stripe, null, "evt_c");
+      assert.equal(fetchImpl.calls.length, 1);
+    });
+  });
+  test("if Stripe can't list the items, answer 500 so Stripe retries, and the retry fulfils", async () => {
+    const stripe = makeFakeStripe();
+    const fetchImpl = makeFakeFetch();
+    const real = stripe.checkout.sessions.listLineItems;
+    let fail = true;
+    stripe.checkout.sessions.listLineItems = async (id, o) => { if (fail) throw new Error("stripe down"); return real(id, o); };
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl }, async ({ base }) => {
+      const r1 = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_x");
+      assert.equal(r1.status, 500);
+      assert.equal(fetchImpl.calls.length, 0);
+      fail = false;
+      const r2 = await completeOrder(base, stripe, null, "evt_x");
+      assert.equal(r2.status, 200);
+      assert.equal(fetchImpl.calls.length, 1);
+    });
+  });
+  test("an intake outage answers 500 before any email, so the retry is clean", async () => {
+    const stripe = makeFakeStripe();
+    const mailer = makeFakeMailer();
+    const down = makeFakeFetch({ ok: false, status: 503, body: {} });
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl: down, mailer }, async ({ base }) => {
+      const r = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_y");
+      assert.equal(r.status, 500);
+      assert.equal(mailer.sent.length, 0);
     });
   });
   test("a bad signature is rejected", async () => {
@@ -369,6 +417,16 @@ describe("POST /api/lead", () => {
       assert.equal(bad.status, 403);
       const post2 = await post(base, "/api/lead", { name: "A", email: "a@b.co" }, { Origin: "https://evil.example" });
       assert.equal(post2.headers.get("access-control-allow-origin"), null);
+    });
+  });
+  test("a plain form post (no JavaScript) is accepted and redirected to the sent page", async () => {
+    await withApp({}, async ({ base, varDir }) => {
+      const res = await fetch(`${base}/api/lead`, { method: "POST", redirect: "manual",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ source: "systems", name: "Sam", email: "sam@example.com", need: "x" }) });
+      assert.equal(res.status, 303);
+      assert.equal(res.headers.get("location"), "https://www.siteguardsystems.com.au/contact/sent/");
+      assert.match(await readFile(path.join(varDir, "leads.jsonl"), "utf8"), /sam@example.com/);
     });
   });
   test("rate limited after 5 in 10 minutes", async () => {

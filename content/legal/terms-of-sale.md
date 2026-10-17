@@ -15,7 +15,7 @@ These terms apply when you buy from siteguardforms.com.au or the SiteGuard FORMS
 
 1. We sell digital document templates individually and in packages, by **one-off purchase** or by **subscription**. Each product page lists the documents included.
 2. Documents are templates, not site-specific advice. The Document Use Disclaimer explains what that means for you.
-3. Items marked "Quote on request" are supplied under a separate written quote.
+3. Custom documents and consulting work are supplied under a separate written quote.
 
 ### 3. Prices, GST and payment
 

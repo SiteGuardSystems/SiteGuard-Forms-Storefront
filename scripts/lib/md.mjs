@@ -101,7 +101,7 @@ export function render(body, opts = {}) {
 
 /** Plain text (for meta descriptions). */
 export function plain(body, max = 155) {
-  const t = body.replace(/^[#>|-].*$/gm, " ").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+  const t = body.replace(/^[#>|-].*$/gm, " ").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(PLACEHOLDER_RE, "")
     .replace(/[*_]/g, "").replace(/\s+/g, " ").trim();
   return t.length > max ? t.slice(0, max - 1).replace(/\s+\S*$/, "") + "…" : t;
 }

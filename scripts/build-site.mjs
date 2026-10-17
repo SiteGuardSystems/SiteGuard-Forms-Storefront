@@ -241,6 +241,14 @@ async function build() {
   const trades = cat.trades.map((t) => ({ ...t, packs: shown.filter((p) => p.trade === t.code) })).filter((t) => t.packs.length);
   const f = cat.facts;
   const preview = cat.preview;
+  // The shop's own numbers count what can be bought here (every listed
+  // document in a preview), not the whole library.
+  const onSale = cat.documents.filter((d) => preview || d.sellable);
+  const shop = {
+    documents: onSale.length,
+    swms: onSale.filter((d) => d.family === "SWMS").length,
+    trades: trades.length,
+  };
   const fromOf = (packs) => {
     const v = packs.map((p) => p.prices.one_off ?? p.prices.annual);
     return v.length ? Math.min(...v) : null;
@@ -265,19 +273,19 @@ async function build() {
   page({
     url: "/", preview,
     title: "SiteGuard FORMS | HSEQ documents for Australian construction",
-    description: `${f.documents_rounded} controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.`,
+    description: "Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.",
     jsonld: [{ "@context": "https://schema.org", "@type": "Organization", name: "SiteGuard FORMS", url: ORIGIN,
       logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems Pty Ltd", url: SYSTEMS_URL } }],
     body: `<section class="hero"><div class="wrap">
   <h1>Site-ready HSEQ documents, with your name on them.</h1>
   <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Enter your business and project details, and the documents arrive in your inbox as PDFs.</p>
   <div class="btn-row"><a class="btn btn-hivis" href="/trade-packs/">Find your trade</a><a class="btn" href="/how-ordering-works/">How ordering works</a></div>
-  <dl class="title-block">
-    <div><dt>Controlled documents</dt><dd>${esc(f.documents_rounded)}</dd></div>
-    <div><dt>SWMS</dt><dd>${f.swms}</dd></div>
-    <div><dt>Trade series</dt><dd>${f.trades}</dd></div>
+  ${shop.documents ? `<dl class="title-block">
+    <div><dt>Documents available</dt><dd>${shop.documents}</dd></div>
+    <div><dt>SWMS</dt><dd>${shop.swms}</dd></div>
+    <div><dt>Trade and specialist packs</dt><dd>${shop.trades}</dd></div>
     <div><dt>Legislative review</dt><dd>6-monthly</dd></div>
-  </dl>
+  </dl>` : ""}
 </div></section>
 <section class="band band-grey"><div class="wrap">
   <h2>Choose a range</h2>
@@ -410,7 +418,7 @@ async function build() {
     url: "/subscriptions/", preview, title: "Subscriptions", trail: [["/subscriptions/", "Subscriptions"]],
     description: "Subscribe to any package yearly or monthly: unlimited use, your logo and projects, and documents updated after every 6-monthly legislative review.",
     body: `<section class="page-head"><div class="wrap">${crumbs([["/subscriptions/", "Subscriptions"]])}<h1>Subscriptions</h1>
-  <p class="lede">Every package can be bought outright or on subscription. A subscription keeps your documents current and lets you generate them for every project.</p></div></section>
+  <p class="lede">Every package is available on subscription, and most can also be bought outright. A subscription keeps your documents current and lets you generate them for every project.</p></div></section>
 <section class="band"><div class="wrap cols">
   <div><h2>What you get</h2><ul>
     <li><strong>Unlimited use.</strong> No limit on projects or how often you generate documents.</li>
@@ -429,13 +437,13 @@ async function build() {
   // How ordering works
   page({
     url: "/how-ordering-works/", preview, title: "How ordering works", trail: [["/how-ordering-works/", "How ordering works"]],
-    description: "Choose a package, pay securely, and receive your documents as PDFs with your details filled in, usually within minutes.",
+    description: "Choose a package, pay securely, and receive your documents as PDFs with your details filled in, within one business day.",
     body: `<section class="page-head"><div class="wrap">${crumbs([["/how-ordering-works/", "How ordering works"]])}<h1>How ordering works</h1></div></section>
 <section class="band"><div class="wrap cols">
   <div><h2>Buying outright</h2><ol class="steps">
     <li><h3>Choose your package</h3><p>Pick a pack for your trade or business, or single documents, and add them to your cart.</p></li>
     <li><h3>Pay securely</h3><p>Checkout is handled by Stripe. Enter your business name and project address; GST is added and shown on your tax invoice.</p></li>
-    <li><h3>Receive your documents</h3><p>The documents are filled with your details and emailed to you as PDFs, usually within minutes, with the Document Use Disclaimer. Occasionally an order is checked by our team before it is sent; it then arrives within one business day.</p></li>
+    <li><h3>Receive your documents</h3><p>The documents are filled with your details and emailed to you as PDFs, with the Document Use Disclaimer, within one business day and often within minutes.</p></li>
   </ol></div>
   <div><h2>Subscribing</h2><ol class="steps">
     <li><h3>Choose a package and billing</h3><p>Select "Subscribe yearly" or "Subscribe monthly" on any package and create your account.</p></li>
@@ -450,7 +458,7 @@ async function build() {
   // FAQ
   const faq = [
     ["What format are the documents?", "PDF, with your business and project details filled in. Subscribers can also add their logo."],
-    ["How quickly will I get them?", "Usually within minutes of payment, by email. Occasionally an order is checked by our team first; it then arrives within one business day."],
+    ["How quickly will I get them?", "By email within one business day of payment, and often within minutes."],
     ["Are prices inclusive of GST?", "No. Prices exclude GST. GST is calculated and added at checkout and shown on your tax invoice."],
     ["Can I use the documents on more than one project?", "Yes. Both outright purchases and subscriptions allow use across your own business and projects. A subscription also lets you generate the documents for each project with its details."],
     ["How are documents kept up to date?", "The whole library is reviewed against legislative change every 6 months. Subscribers receive the updated documents."],
@@ -473,6 +481,12 @@ async function build() {
     description: "Questions about a package, a custom document or consulting work. We reply within one business day.",
     body: `<section class="page-head"><div class="wrap">${crumbs([["/contact/", "Contact us"]])}<h1>Contact us</h1><p class="lede">Questions about a package, a custom document or consulting work. We reply within one business day.</p></div></section>
 <section class="band"><div class="wrap">${leadForm("forms")}</div></section>`,
+  });
+
+  page({
+    url: "/contact/sent/", preview, title: "Enquiry sent", trail: [["/contact/", "Contact us"], ["/contact/sent/", "Sent"]],
+    description: "Your enquiry has been sent. We reply within one business day.",
+    body: `<section class="page-head"><div class="wrap"><h1>Thanks. Your enquiry has been sent.</h1><p class="lede">We reply within one business day.</p><p><a class="btn" href="/">Back to the shop</a></p></div></section>`,
   });
 
   // Cart, order results
@@ -498,7 +512,7 @@ async function build() {
     url: "/order/success/", preview, title: "Order received", trail: [["/order/success/", "Order received"]],
     description: "Your order has been received.",
     body: `<section class="page-head"><div class="wrap"><h1>Thank you. Your order is in.</h1>
-  <p class="lede">We've emailed your receipt. Your documents will follow by email, usually within minutes. If an order is checked by our team first, it arrives within one business day.</p>
+  <p class="lede">We've emailed your receipt. Your documents will follow by email within one business day, and often within minutes.</p>
   <p><a class="btn" href="/">Back to the shop</a></p></div></section>`,
   });
   page({
@@ -544,7 +558,8 @@ async function legal(file) {
 }
 
 export function leadForm(source) {
-  return `<form class="form" data-lead-form data-source="${source}" novalidate>
+  return `<form class="form" data-lead-form data-source="${source}" method="post" action="/api/lead" novalidate>
+  <input type="hidden" name="source" value="${source}">
   <label>Your name<input name="name" autocomplete="name" required maxlength="200"></label>
   <label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
   <label>Company<input name="company" autocomplete="organization" maxlength="200"></label>

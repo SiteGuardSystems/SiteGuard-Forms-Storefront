@@ -5,6 +5,10 @@
   "use strict";
   var KEY = "sg-forms-cart-v1";
   var preview = document.body.getAttribute("data-preview") === "1";
+  // Site root, from this script's own address (works on the live domain and
+  // on a review copy hosted under a sub-path).
+  var script = document.currentScript || document.querySelector('script[src$="assets/app.js"]');
+  var ROOT = script ? script.src.replace(/assets\/app\.js.*$/, "") : "/";
 
   function money(n) { return "$" + Number(n).toLocaleString("en-AU"); }
   function load() {
@@ -80,7 +84,7 @@
     if (!view) return;
     var items = load();
     if (!items.length) {
-      view.innerHTML = '<p>Your cart is empty. <a href="/trade-packs/">Browse trade packs</a> or <a href="/documents/">single documents</a>.</p>';
+      view.innerHTML = '<p>Your cart is empty. <a href="' + ROOT + 'trade-packs/">Browse trade packs</a> or <a href="' + ROOT + 'documents/">single documents</a>.</p>';
       if (form) form.hidden = true;
       return;
     }
@@ -151,7 +155,7 @@
       }).join("");
       if (hits.length > 100) count.textContent += " (showing the first 100; search or filter to narrow the list)";
     };
-    fetch("/assets/documents.json").then(function (r) { return r.json(); }).then(function (j) {
+    fetch(ROOT + "assets/documents.json").then(function (r) { return r.json(); }).then(function (j) {
       all = j.documents || []; draw();
     }).catch(function () { count.textContent = "The document list couldn't load. Refresh the page to try again."; });
     filters.addEventListener("input", draw);

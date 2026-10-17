@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-17T11:48:33+00:00",
+ "generated_at": "2026-10-17T11:58:47+00:00",
  "preview": false,
  "pricing_revision": "Rev02 -- 2026-10-14",
  "pricing_status": "DRAFT — not published, not live. G2 gate: Founder approval required (PRD-001).",
@@ -16670,9 +16670,9 @@
     "150 forms"
    ],
    "prices": {
-    "one_off": 1199,
-    "annual": 2199,
-    "monthly": 210
+    "one_off": 999,
+    "annual": 1799,
+    "monthly": 170
    },
    "subscription_only": false,
    "sellable": false,
