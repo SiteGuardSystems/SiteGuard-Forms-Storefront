@@ -99,6 +99,8 @@ p, ul, ol { margin: 0 0 1em; }
 .band-ink { background: var(--ink); color: #E9E8E6; }
 .band-ink h2, .band-ink h3 { color: #fff; }
 .band-ink a { color: #FFB877; }
+.band-ink .btn-hivis, .band-ink .btn-hivis:hover { color: var(--ink); }
+.band-ink .btn-hivis:hover { background: #fff; border-color: #fff; }
 .page-head { padding: clamp(40px, 6vw, 72px) 0 clamp(24px, 4vw, 40px); border-bottom: 1px solid var(--rule); }
 .crumbs { font-size: 0.95rem; margin-bottom: 1rem; color: var(--muted); }
 .crumbs a { color: var(--muted); }
@@ -202,7 +204,7 @@ details.doclist li:last-child { border-bottom: 0; }
 .doc-table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
 .doc-table th { text-align: left; font: 600 1rem var(--f-cond); color: var(--ink); border-bottom: 2px solid var(--ink); padding: 0.5rem 0.4rem; }
 .doc-table td { border-bottom: 1px solid var(--rule); padding: 0.5rem 0.4rem; vertical-align: top; }
-.doc-table td:last-child { text-align: right; white-space: nowrap; }
+.doc-table td:last-child, .doc-table th:last-child { text-align: right; white-space: nowrap; }
 @media (max-width: 640px) {
   .doc-table thead { display: none; }
   .doc-table tr { display: grid; grid-template-columns: 1fr auto; border-bottom: 1px solid var(--rule); padding: 0.5rem 0; }
