@@ -49,6 +49,13 @@ banner, is not indexed, refuses payment, and `build:production` refuses it.
 * **Checkout notice:** the cart requires the SG-LEGAL-06 tick box; the server
   refuses a checkout without it and records the terms versions on the order.
 
+## Stripe webhook
+
+Register `https://www.siteguardforms.com.au/api/webhook/stripe` for
+**`checkout.session.completed`** and **`checkout.session.async_payment_succeeded`**.
+Orders are fulfilled only once the session is paid, once per session; a
+Stripe or intake outage answers 500 so Stripe retries.
+
 ## Run it
 
 ```bash
