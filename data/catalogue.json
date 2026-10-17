@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-17T11:30:37+00:00",
+ "generated_at": "2026-10-17T11:48:33+00:00",
  "preview": false,
  "pricing_revision": "Rev02 -- 2026-10-14",
  "pricing_status": "DRAFT — not published, not live. G2 gate: Founder approval required (PRD-001).",
@@ -42,6 +42,148 @@
   "specialist-packs": null,
   "consultants": null
  },
+ "trade_counts": [
+  {
+   "name": "Carpentry",
+   "swms": 17,
+   "itp": 6
+  },
+  {
+   "name": "Civil Works",
+   "swms": 17,
+   "itp": 14
+  },
+  {
+   "name": "Communications & Security",
+   "swms": 3,
+   "itp": 4
+  },
+  {
+   "name": "Concrete",
+   "swms": 11,
+   "itp": 8
+  },
+  {
+   "name": "Demolition",
+   "swms": 6,
+   "itp": 5
+  },
+  {
+   "name": "Electrical",
+   "swms": 10,
+   "itp": 5
+  },
+  {
+   "name": "Facade & Cladding",
+   "swms": 6,
+   "itp": 5
+  },
+  {
+   "name": "Foundations & Piling",
+   "swms": 2,
+   "itp": 3
+  },
+  {
+   "name": "Fencing",
+   "swms": 3,
+   "itp": 2
+  },
+  {
+   "name": "Interior Finishes",
+   "swms": 8,
+   "itp": 0
+  },
+  {
+   "name": "Fire Services",
+   "swms": 5,
+   "itp": 5
+  },
+  {
+   "name": "Glazing",
+   "swms": 1,
+   "itp": 4
+  },
+  {
+   "name": "Landscaping & External Works",
+   "swms": 5,
+   "itp": 6
+  },
+  {
+   "name": "Lifts & Vertical Transport",
+   "swms": 2,
+   "itp": 4
+  },
+  {
+   "name": "Masonry",
+   "swms": 2,
+   "itp": 4
+  },
+  {
+   "name": "Mechanical Services",
+   "swms": 7,
+   "itp": 5
+  },
+  {
+   "name": "Painting",
+   "swms": 4,
+   "itp": 4
+  },
+  {
+   "name": "Passive Fire Protection",
+   "swms": 2,
+   "itp": 3
+  },
+  {
+   "name": "Plastering & Linings",
+   "swms": 7,
+   "itp": 7
+  },
+  {
+   "name": "Plumbing & Hydraulics",
+   "swms": 8,
+   "itp": 5
+  },
+  {
+   "name": "Plant Operation",
+   "swms": 14,
+   "itp": 0
+  },
+  {
+   "name": "Roofing",
+   "swms": 8,
+   "itp": 4
+  },
+  {
+   "name": "Rainwater Harvesting",
+   "swms": 0,
+   "itp": 3
+  },
+  {
+   "name": "Building Services",
+   "swms": 8,
+   "itp": 0
+  },
+  {
+   "name": "Solar PV, Battery & EV Charging",
+   "swms": 0,
+   "itp": 3
+  },
+  {
+   "name": "Structural Steel",
+   "swms": 4,
+   "itp": 5
+  },
+  {
+   "name": "Tiling",
+   "swms": 0,
+   "itp": 4
+  },
+  {
+   "name": "Waterproofing",
+   "swms": 9,
+   "itp": 5
+  }
+ ],
  "trades": [
   {
    "code": "CARP",
