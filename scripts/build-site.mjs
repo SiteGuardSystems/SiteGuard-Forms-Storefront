@@ -66,7 +66,7 @@ function header(current) {
   return `<a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="/"><img src="/assets/shield.png" alt="" width="26" height="43"><span class="brand-name">SiteGuard <b>FORMS</b></span></a>
+    <a class="brand" href="/"><img src="/assets/shield.png" alt="" width="34" height="44"><span class="brand-name">SiteGuard <b>FORMS</b></span></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav" aria-label="Main">${nav}<a class="cart-link" href="/cart/">Cart <span data-cart-count>(0)</span></a></nav>
   </div>
