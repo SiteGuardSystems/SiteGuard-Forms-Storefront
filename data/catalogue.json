@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-18T10:49:18+00:00",
+ "generated_at": "2026-10-18T11:33:52+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -40,7 +40,7 @@
   "builder-packs": 2390,
   "management-systems": 349,
   "specialist-packs": 390,
-  "consultants": 3990
+  "consultants": null
  },
  "trade_counts": [
   {
