@@ -49,6 +49,9 @@ const GROUPS = {
 };
 
 const money = (n) => "$" + Number(n).toLocaleString("en-AU");
+// Set in build(): the consultants page, its nav links and its mentions appear
+// only when a consultant plan is on sale (no "coming soon").
+let CONSULTANTS_ON = false;
 const problems = [];
 const pages = [];
 
@@ -60,7 +63,7 @@ function header(current) {
     ["/management-systems/", "Management systems"], ["/specialist-packs/", "Specialist packs"],
     ["/documents/", "Single documents"], ["/consultants/", "Consultants"],
     ["/how-ordering-works/", "How it works"],
-  ];
+  ].filter(([href]) => CONSULTANTS_ON || href !== "/consultants/");
   const nav = links.map(([href, label]) =>
     `<a href="${href}"${current.startsWith(href) ? ' aria-current="page"' : ""}>${label}</a>`).join("");
   return `<a class="skip" href="#main">Skip to content</a>
@@ -74,7 +77,7 @@ function header(current) {
 }
 
 function footer() {
-  const legal = LEGAL_PAGES.map((l) => `<li><a href="/legal/${l.slug}/">${l.nav}</a></li>`).join("");
+  const legal = LEGAL_PAGES.filter((l) => CONSULTANTS_ON || l.slug !== "consultant-licence").map((l) => `<li><a href="/legal/${l.slug}/">${l.nav}</a></li>`).join("");
   return `<footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
@@ -89,7 +92,7 @@ function footer() {
           <li><a href="/trade-packs/">Trade packs</a></li><li><a href="/builder-packs/">Builder packs</a></li>
           <li><a href="/management-systems/">Management systems</a></li><li><a href="/specialist-packs/">Specialist packs</a></li>
           <li><a href="/documents/">Single documents</a></li><li><a href="/subscriptions/">Subscriptions</a></li>
-          <li><a href="/consultants/">Consultants</a></li>
+          ${CONSULTANTS_ON ? '<li><a href="/consultants/">Consultants</a></li>' : ""}
         </ul>
       </div>
       <div>
@@ -213,6 +216,27 @@ function packArticle(p, cat, titles, heading) {
   </article>`;
 }
 
+/** Consultant plans as one table: every plan has the same library, so the
+ *  document list is shown once, under the table. */
+function consultantPlans(plans, cat, titles) {
+  if (!plans.length) return "";
+  const onSale = (p) => !cat.preview && p.sellable;
+  const dis = (p) => onSale(p) ? "" : ' aria-disabled="true" data-preview-disabled="1"';
+  const rows = plans.map((p) => `<tr id="${esc(packSlug(p.id))}">
+      <th scope="row">${esc(p.name)}</th>
+      <td>${p.client_limit == null ? "No limit" : p.client_limit === 1 ? "1" : `Up to ${p.client_limit}`}</td>
+      <td>${p.seats_included ?? ""}</td>
+      <td class="num">${money(p.prices.annual)}<small> a year</small><br><span class="small">or ${money(p.prices.monthly)} a month</span></td>
+      <td><div class="btn-row"><a class="btn btn-small" href="${esc(subscribeHref(p, "annual"))}"${dis(p)}>Yearly</a><a class="btn btn-small" href="${esc(subscribeHref(p, "monthly"))}"${dis(p)}>Monthly</a></div></td>
+    </tr>`).join("");
+  const lib = plans.at(-1);
+  return `<div class="table-scroll"><table class="doc-table plan-table"><thead><tr><th scope="col">Plan</th><th scope="col">Clients a year</th><th scope="col">Users included</th><th scope="col">Price</th><th scope="col"><span class="hp">Subscribe</span></th></tr></thead><tbody>${rows}</tbody></table></div>
+  <p class="gst">Prices exclude GST. Available by subscription only.</p>
+  <h2 class="mt-lg">The library on every plan</h2>
+  <ul>${lib.includes.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+  ${docList(lib, titles)}`;
+}
+
 function productLd(p, url) {
   const offers = [];
   if (p.prices.one_off) offers.push({ "@type": "Offer", name: "Buy outright", priceCurrency: "AUD", price: p.prices.one_off, availability: "https://schema.org/InStock", url: ORIGIN + url,
@@ -238,6 +262,7 @@ async function build() {
   for (const p of cat.packs) for (const c of p.documents) if (!titles.has(c)) titles.set(c, c);
   const shown = cat.packs.filter((p) => p.show && p.prices);
   const inGroup = (g) => shown.filter((p) => p.group === g);
+  CONSULTANTS_ON = inGroup("consultants").some((p) => p.id !== "consultant:seat");
   const trades = cat.trades.map((t) => ({ ...t, packs: shown.filter((p) => p.trade === t.code) })).filter((t) => t.packs.length);
   const f = cat.facts;
   const preview = cat.preview;
@@ -256,7 +281,7 @@ async function build() {
 
   // Home
   const ranges = Object.entries(GROUPS).map(([g, meta]) => {
-    const packs = inGroup(g);
+    let packs = inGroup(g);
     if (!packs.length) return "";
     const from = fromOf(packs);
     const blurb = {
@@ -264,8 +289,9 @@ async function build() {
       "builder-packs": "Every trade's SWMS for a builder running the whole site, up to a full management system.",
       "management-systems": "Safety, quality and environmental systems, plus governance, information security, continuity and more.",
       "specialist-packs": "Fencing, passive fire, solar and EV, foundations, facade and cladding, high risk work and labour hire.",
-      "consultants": "Prepare documents for your own clients, under their name and logo.",
+      "consultants": "Prepare documents for your own clients under your brand or theirs. Plans by number of clients.",
     }[g];
+    if (g === "consultants") packs = packs.filter((p) => p.id !== "consultant:seat");
     return `<div class="register-row"><div><h3><a href="${meta.path}">${meta.title}</a></h3><p>${blurb}</p></div>
       <p class="from">From ${money(from)}<span>${packs.length} ${packs.length === 1 ? "package" : "packages"}</span></p>
       <a class="btn btn-small" href="${meta.path}">View ${meta.title.toLowerCase()}</a></div>`;
@@ -292,10 +318,10 @@ async function build() {
   ${ranges ? `<div class="register">${ranges}</div>` : emptyState("packages")}
 </div></section>
 <section class="band"><div class="wrap cols">
-  <div><h2>Three ways to buy</h2>
+  <div><h2>${CONSULTANTS_ON ? "Three" : "Two"} ways to buy</h2>
     <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details and emailed to you as PDFs.</p>
     <p><strong>Subscribe.</strong> Yearly or monthly. Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. When the library is reviewed every 6 months, your documents are updated.</p>
-    <p><strong>Consultants.</strong> Prepare documents for your own clients under their name and logo. <a href="/consultants/">See consultant subscriptions</a>.</p>
+    ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}
   </div>
   <div><h2>What every document carries</h2>
     <ul>
@@ -363,25 +389,29 @@ async function build() {
   const groupIntro = {
     "builder-packs": "For builders running the whole site: every trade's SWMS, then safety plans and governance, then the full management system.",
     "management-systems": "Management-system documents aligned to the ISO standards, ready to adapt to how your business works. ISO certification support is consulting work through SiteGuard Systems.",
-    "consultants": "Consultant subscriptions let you prepare SiteGuard documents for your own clients, under their name and logo, with unlimited client engagements.",
+    "consultants": "Consultant plans let you prepare documents for your own clients, issued under your brand or your client's. Every plan includes the whole library; plans differ by how many clients you serve.",
   };
+  const extraSeat = inGroup("consultants").find((p) => p.id === "consultant:seat");
   for (const g of ["builder-packs", "management-systems", "consultants"]) {
     const meta = GROUPS[g];
-    const packs = inGroup(g);
+    if (g === "consultants" && !CONSULTANTS_ON) continue;
+    const packs = inGroup(g).filter((p) => p.id !== "consultant:seat");
     const extra = g === "consultants" ? `<section class="band band-grey"><div class="wrap cols">
   <div><h2>How it works</h2><ol class="steps">
-    <li><h3>Subscribe</h3><p>Choose T1 or T2, yearly or monthly. Your account is set up as a consultant account.</p></li>
-    <li><h3>Add a client</h3><p>Enter the client's business details and upload their logo.</p></li>
-    <li><h3>Generate and send</h3><p>Pick the documents, generate them as PDFs with the client's details and logo, and email them.</p></li>
+    <li><h3>Choose a plan</h3><p>Pick the plan that covers the number of clients you serve in a year, yearly or monthly. Your account is set up as a consultant account.</p></li>
+    <li><h3>Add a client</h3><p>Enter the client's business details and ABN, and upload their logo if you want their brand on the documents.</p></li>
+    <li><h3>Generate and send</h3><p>Pick the documents and generate them as PDFs under your brand or your client's, ready to send.</p></li>
   </ol></div>
-  <div><h2>The licence</h2><p>You may use and adapt the documents while delivering services to your own clients, within your tier. You may not resell the templates as a standalone product or publish them. <a href="/legal/consultant-licence/">Read the Consultant Licence</a>.</p>
-  <p>Every set you generate includes the Document Use Disclaimer, issued to your client.</p></div>
+  <div><h2>Plans and users</h2><p>A client counts towards your plan once you generate a document for it in your subscription year. Need more clients? Move up a plan at any time; you pay only the difference for the rest of the year.</p>
+  ${extraSeat ? `<p>Each plan includes the users shown. Extra users are ${money(extraSeat.prices.annual)} a year each.</p>` : ""}
+  <h2>The licence</h2><p>You may use and adapt the documents while delivering services to your own clients. You may not resell the templates as a standalone product or publish them. <a href="/legal/consultant-licence/">Read the Consultant Licence</a>.</p>
+  <p>Every set you generate includes a Document Use Disclaimer for your client.</p></div>
 </div></section>` : g === "management-systems" ? `<section class="band band-grey"><div class="wrap"><div class="note"><p>Looking for ISO 45001, ISO 9001 or ISO 14001 implementation, an integrated management system or audit readiness support? That is consulting work. <a href="${SYSTEMS_URL}/services/iso-ims/">See SiteGuard Systems ISO and IMS services</a>.</p></div></div></section>` : "";
     page({
       url: meta.path, preview, title: meta.title, trail: [[meta.path, meta.title]],
       description: groupIntro[g], jsonld: packs.map((p) => productLd(p, meta.path)),
       body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title]])}<h1>${meta.title}</h1><p class="lede">${groupIntro[g]}</p></div></section>
-<section class="band"><div class="wrap">${packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p, cat, titles)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${extra}`,
+<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs, cat, titles) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p, cat, titles)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${extra}`,
     });
   }
 
@@ -422,7 +452,7 @@ async function build() {
 <section class="band"><div class="wrap cols">
   <div><h2>What you get</h2><ul>
     <li><strong>Unlimited use.</strong> No limit on projects or how often you generate documents.</li>
-    <li><strong>Your branding.</strong> Upload your logo once; it goes on every document.</li>
+    <li><strong>Your branding, included.</strong> Upload your logo once and it goes on every document, at no extra cost.</li>
     <li><strong>Project details filled in.</strong> Set up each project and the documents are generated with its details, as PDFs, emailed to you.</li>
     <li><strong>Kept current.</strong> The library is reviewed against legislative change every 6 months, and your documents are updated.</li>
   </ul></div>
@@ -464,7 +494,7 @@ async function build() {
     ["How are documents kept up to date?", "The whole library is reviewed against legislative change every 6 months. Subscribers receive the updated documents."],
     ["Do the documents meet my legal obligations on their own?", "No document can do that on its own. They are written to Australian WHS laws and aligned to the ISO standards, but the business using them must review and adapt each one to its work and site, consult its workers and keep it current."],
     ["Can I cancel a subscription?", "Yes, at any time from your account. Cancellation takes effect at the end of the period you've paid for."],
-    ["I'm a consultant. Can I use these for my clients?", "Yes, with a consultant subscription. See the consultants page and the Consultant Licence."],
+    ...(CONSULTANTS_ON ? [["I'm a consultant. Can I use these for my clients?", "Yes, with a consultant plan. Plans are priced by how many clients you serve, and documents are issued under your brand or your client's. See the consultants page and the Consultant Licence."]] : []),
     ["Can you write a custom SWMS or build our management system?", "Yes. That is consulting work through SiteGuard Systems. Contact us and we'll reply within one business day."],
   ];
   page({

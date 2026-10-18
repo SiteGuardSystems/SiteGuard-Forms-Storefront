@@ -84,3 +84,13 @@ test("sitemap lists the shop pages and no cart or order pages", async () => {
   assert.match(sm, /<loc>https:\/\/[^<]+\/trade-packs\/<\/loc>/);
   assert.ok(!/\/cart\/|\/order\//.test(sm));
 });
+
+test("consultant pages and links appear only when a consultant plan is on show", () => {
+  const on = cat.packs.some((p) => p.group === "consultants" && p.id !== "consultant:seat" && p.show && p.prices);
+  const all = pages.map((p) => p.html).join("\n");
+  assert.equal(pages.some((p) => p.f === "consultants/index.html"), on);
+  assert.equal(all.includes('href="/consultants/"'), on);
+  // Legal pages are solicitor-controlled and change only through the legal suite.
+  const marketing = pages.filter((p) => !p.f.startsWith("legal/")).map((p) => p.html).join("\n");
+  assert.ok(!/\b(T1|T2)\b/.test(marketing.replace(/<script[\s\S]*?<\/script>/g, "")), "old consultant tier names on a page");
+});
