@@ -7,7 +7,7 @@ date: 17 October 2026
 status: Issued while the solicitor review is in progress.
 ---
 
-SiteGuard Systems Pty Ltd [ABN] ("we", "us") respects your privacy. This policy explains how we handle personal information through siteguardsystems.com.au, siteguardforms.com.au and the SiteGuard FORMS app. We handle personal information in line with the Australian Privacy Principles.
+SiteGuard Systems (ABN 36 765 797 871, a business name of Daniel Silver) ("we", "us") respects your privacy. This policy explains how we handle personal information through siteguardsystems.com.au, siteguardforms.com.au and the SiteGuard FORMS app. We handle personal information in line with the Australian Privacy Principles.
 
 
 ### 1. What we collect

@@ -9,7 +9,7 @@ status: Issued while the solicitor review is in progress.
 
 ### 1. About these terms
 
-These terms apply when you buy from siteguardforms.com.au or the SiteGuard FORMS app. "We", "us" and "SiteGuard" mean SiteGuard Systems Pty Ltd [ABN], Melbourne, Victoria. "You" means the person or business placing the order. By placing an order you agree to these terms, the Document Use Disclaimer and our Privacy Policy.
+These terms apply when you buy from siteguardforms.com.au or the SiteGuard FORMS app. "We", "us" and "SiteGuard" mean SiteGuard Systems (ABN 36 765 797 871, a business name of Daniel Silver), Melbourne, Victoria. "You" means the person or business placing the order. By placing an order you agree to these terms, the Document Use Disclaimer and our Privacy Policy.
 
 ### 2. Products
 
@@ -63,4 +63,4 @@ These terms are governed by the laws of Victoria, Australia. Each party submits 
 
 ### 10. Contact
 
-SiteGuard Systems Pty Ltd, Melbourne, Victoria. Email: **[sales/support email]**.
+SiteGuard Systems, Melbourne, Victoria. Email: **[sales/support email]**.

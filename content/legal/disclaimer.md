@@ -6,7 +6,7 @@ version: "0.2"
 date: 17 October 2026
 status: Issued while the solicitor review is in progress. Replace this file with the solicitor-approved revision and bump the version.
 ---
-This notice accompanies every document, template, register, plan, procedure, policy, Safe Work Method Statement (SWMS), inspection and test plan, and bundle supplied by SiteGuard Systems Pty Ltd, trading as SiteGuard FORMS ("SiteGuard", "we", "us"), to the purchaser ("you", "the Purchaser"). It explains what SiteGuard supplies, what it does not supply, and the responsibilities that stay with you as the person conducting the business or undertaking that will use the documents.
+This notice accompanies every document, template, register, plan, procedure, policy, Safe Work Method Statement (SWMS), inspection and test plan, and bundle supplied by SiteGuard Systems, trading as SiteGuard FORMS ("SiteGuard", "we", "us"), to the purchaser ("you", "the Purchaser"). It explains what SiteGuard supplies, what it does not supply, and the responsibilities that stay with you as the person conducting the business or undertaking that will use the documents.
 
 ### 1. What SiteGuard supplies
 
@@ -56,4 +56,4 @@ Before a SiteGuard document is issued to a worker, used on a live site or relied
 
 By buying, receiving or using a document supplied by SiteGuard, the Purchaser acknowledges that it has read and understood this notice. It accepts that it keeps full responsibility, as the PCBU or on behalf of the PCBU that engaged it, for the review, adaptation, consultation, training, implementation and ongoing currency of every document it buys.
 
-*SiteGuard Systems Pty Ltd, Melbourne, Victoria, Australia. Read this notice together with the SiteGuard FORMS Terms of Sale.*
+*SiteGuard Systems, Melbourne, Victoria, Australia. Read this notice together with the SiteGuard FORMS Terms of Sale.*

@@ -6,7 +6,7 @@ version: "0.1"
 date: 17 October 2026
 status: First draft for solicitor review.
 ---
-These terms apply to siteguardsystems.com.au and siteguardforms.com.au (the "Sites"), operated by SiteGuard Systems Pty Ltd **[ABN]**. By using the Sites you agree to them. Buying from SiteGuard FORMS is covered by the Terms of Sale, and the FORMS app by its own Terms of Use.
+These terms apply to siteguardsystems.com.au and siteguardforms.com.au (the "Sites"), operated by SiteGuard Systems (ABN 36 765 797 871, a business name of Daniel Silver). By using the Sites you agree to them. Buying from SiteGuard FORMS is covered by the Terms of Sale, and the FORMS app by its own Terms of Use.
 
 ### 1. Information on the Sites
 
