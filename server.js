@@ -92,26 +92,39 @@ if (!parkOrder) {
   console.warn("PARK_ORDER_HOST/USER/SSH_KEY_PATH not set — orders are recorded but documents aren't auto-retrieved for review.");
 }
 
+// Unreleased packs can be test-bought end to end only with a TEST key and
+// this flag; ignored with a live key (see create-app.js).
+const ALLOW_UNRELEASED_CHECKOUT = process.env.ALLOW_UNRELEASED_CHECKOUT === "1";
+// Stripe Tax adds GST at checkout (prices are ex GST). Needs Stripe Tax set
+// up in the Stripe dashboard first; STRIPE_AUTOMATIC_TAX=off disables it.
+const STRIPE_AUTOMATIC_TAX = process.env.STRIPE_AUTOMATIC_TAX !== "off";
+const LEAD_ALLOWED_ORIGINS = (process.env.LEAD_ALLOWED_ORIGINS ??
+  "https://www.siteguardsystems.com.au,https://siteguardsystems.com.au").split(",").map((s) => s.trim()).filter(Boolean);
+
 const app = createApp({
-  catalogPath: path.join(__dirname, "packages.json"),
-  individualDocsPath: path.join(__dirname, "individual-documents.json"),
+  catalogPath: path.join(__dirname, "data", "catalogue.json"),
   varDir: VAR_DIR,
-  publicDir: path.join(__dirname, "public"),
+  publicDir: path.join(__dirname, "dist"),
   stripe,
   stripeTestMode,
   stripeWebhookSecret,
+  stripeAutomaticTax: STRIPE_AUTOMATIC_TAX,
+  allowUnreleasedCheckout: ALLOW_UNRELEASED_CHECKOUT,
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
+  leadNotificationEmailTo: process.env.LEAD_NOTIFICATION_EMAIL ?? ADMIN_NOTIFICATION_EMAIL,
+  leadAllowedOrigins: LEAD_ALLOWED_ORIGINS,
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
+  trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 
 app.listen(PORT, HOST, () => {
   console.log(`siteguard-forms-storefront listening on http://${HOST}:${PORT}`);
   if (!stripe) {
-    console.log("Stripe: NOT configured — checkout returns 501, buy buttons fall back to the enquiry form");
+    console.log("Stripe: NOT configured — checkout returns 501");
   } else if (stripeTestMode) {
     console.log("Stripe: TEST MODE (sk_test_...) — no real card will be charged");
     if (!stripeWebhookSecret) {
