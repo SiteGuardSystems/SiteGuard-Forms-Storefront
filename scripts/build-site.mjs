@@ -80,7 +80,7 @@ function footer() {
     <div class="footer-grid">
       <div>
         <h2>SiteGuard FORMS</h2>
-        <p>Controlled HSEQ documents for Australian construction, from SiteGuard Systems Pty Ltd, Melbourne.</p>
+        <p>Controlled HSEQ documents for Australian construction, from SiteGuard Systems, Melbourne.</p>
         <p><a href="${SYSTEMS_URL}/">SiteGuard Systems consulting</a></p>
       </div>
       <div>
@@ -101,7 +101,7 @@ function footer() {
       </div>
       <div><h2>Legal</h2><ul>${legal}</ul></div>
     </div>
-    <p class="footer-base">Documents are templates. The business using them must review and adapt each one to its own work and site. Prices exclude GST.<br>© ${new Date().getFullYear()} SiteGuard Systems Pty Ltd</p>
+    <p class="footer-base">Documents are templates. The business using them must review and adapt each one to its own work and site. Prices exclude GST.<br>© ${new Date().getFullYear()} SiteGuard Systems · ABN 36 765 797 871</p>
   </div>
 </footer>`;
 }
@@ -275,7 +275,7 @@ async function build() {
     title: "SiteGuard FORMS | HSEQ documents for Australian construction",
     description: "Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.",
     jsonld: [{ "@context": "https://schema.org", "@type": "Organization", name: "SiteGuard FORMS", url: ORIGIN,
-      logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems Pty Ltd", url: SYSTEMS_URL } }],
+      logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems", url: SYSTEMS_URL } }],
     body: `<section class="hero"><div class="wrap">
   <h1>Site-ready HSEQ documents, with your name on them.</h1>
   <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Enter your business and project details, and the documents arrive in your inbox as PDFs.</p>
