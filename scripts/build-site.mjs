@@ -553,6 +553,8 @@ async function build() {
 
   // Legal pages
   for (const l of LEGAL_PAGES) {
+    // The Consultant Licence is published only while a consultant plan is on sale.
+    if (l.slug === "consultant-licence" && !CONSULTANTS_ON) continue;
     const doc = await legal(l.file);
     const url = `/legal/${l.slug}/`;
     const left = doc.body.match(PLACEHOLDER_RE) ?? [];
