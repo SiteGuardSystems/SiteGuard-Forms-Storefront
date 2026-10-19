@@ -168,7 +168,15 @@ ${footer()}
 
 function subscribeHref(p, cadence) {
   const q = new URLSearchParams({ pack: p.id, cadence, label: p.name, price: String(cadence === "annual" ? p.prices.annual : p.prices.monthly) });
-  if (p.id.startsWith("consultant:")) q.set("type", "consultant");
+  // Consultant plans (Pricing Rev03 3.A3, 20 Oct 2026): every consultant
+  // account needs admin approval first -- sign straight into checkout
+  // would let an unapproved tenant buy a plan with nothing behind it.
+  // The pack/cadence query stays on the link so the apply page can tell
+  // the applicant what they'll be subscribing to once approved.
+  if (p.id.startsWith("consultant:")) {
+    q.set("type", "consultant");
+    return `${APP_URL}/consultant/apply?${q}`;
+  }
   return `${APP_URL}/signup?${q}`;
 }
 
