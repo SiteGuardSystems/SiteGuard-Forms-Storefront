@@ -2,8 +2,8 @@
 reference: SG-LEGAL-08
 title: Terms of Use: SiteGuard FORMS App
 brand: SiteGuard FORMS
-version: "0.1"
-date: 17 October 2026
+version: "0.4"
+date: 19 October 2026
 status: First draft for solicitor review.
 ---
 These terms cover using the SiteGuard FORMS app at siteguardforms.com.au: creating an account, adding users, entering business and project details, uploading a logo, and generating documents. Buying is covered by the Terms of Sale; consultants also agree to the Consultant and Reseller Licence.
@@ -12,7 +12,7 @@ These terms cover using the SiteGuard FORMS app at siteguardforms.com.au: creati
 
 1. You must give accurate details and keep them current, including the email address documents are sent to.
 2. The person who opens the account is its owner. The owner can add users and give them a role (owner, manager, supervisor or worker). You are responsible for everything done under your account and for the people you give access to.
-3. Keep logins private. Tell us straight away at **[support email]** if you think an account has been misused.
+3. Keep logins private. Tell us straight away at **hello@siteguardsystems.com.au** if you think an account has been misused.
 
 ### 2. Your content
 
@@ -47,7 +47,7 @@ We aim to keep the app available, but it may be unavailable at times for mainten
 
 1. We may suspend access if these terms are breached, if payment fails, or to protect the app or other customers. Where we can, we'll tell you first and give you a chance to fix the problem.
 2. You can close your account at any time. Closing an account doesn't cancel a subscription; cancel that through billing first.
-3. After an account closes, we keep delivery and billing records for as long as the law requires, and delete Your Content within **[90] days** unless the law requires us to keep it.
+3. After an account closes, we keep delivery and billing records for as long as the law requires, and delete Your Content within **90 days** unless the law requires us to keep it.
 
 ### 8. General
 

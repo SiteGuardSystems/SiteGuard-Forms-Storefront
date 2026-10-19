@@ -2,8 +2,8 @@
 reference: SG-LEGAL-04
 brand: SiteGuard Systems and SiteGuard FORMS
 title: Privacy Policy
-version: "0.1"
-date: 17 October 2026
+version: "0.4"
+date: 19 October 2026
 status: Issued while the solicitor review is in progress.
 ---
 
@@ -15,7 +15,7 @@ SiteGuard Systems (ABN 36 765 797 871, a business name of Daniel Silver) ("we", 
 - **Contact details:** name, business name, ABN, email, phone and business address, given when you enquire, order or open an account.
 - **Order and billing records:** what you bought, when and for how much. Card payments are processed by Stripe; we don't receive or store full card numbers.
 - **Project information you enter in the app:** project names, addresses, and the names and roles of people you add to documents (for example supervisors or workers who sign on).
-- **Technical information:** IP address, browser and device type, and pages visited, collected by our hosting and security provider (Cloudflare) and server logs, for security and to keep the sites working. **[Analytics: none / name the tool, to confirm.]**
+- **Technical information:** IP address, browser and device type, and pages visited, collected by our hosting and security provider (Cloudflare) and server logs, for security and to keep the sites working. We don't use analytics or advertising tools on our sites.
 
 ### 2. Why we collect it
 
@@ -41,7 +41,7 @@ Some providers store or process information outside Australia, mainly in the USA
 
 ### 5. AI assistance
 
-When you use the app's drafting assistance, the text you enter for that task is sent to our AI provider (Anthropic) to generate a draft. A person on our team reviews AI-assisted product content before we issue it. We don't use your information to train AI models, and our provider's commercial terms **[confirm: do not permit training on API data]**.
+When you use the app's drafting assistance, the text you enter for that task is sent to our AI provider (Anthropic) to generate a draft. A person on our team reviews AI-assisted product content before we issue it. We don't use your information to train AI models, and our provider's commercial terms do not permit it to train its models on the information we send.
 
 ### 6. Security and retention
 
@@ -49,7 +49,7 @@ We store information on secured systems with access controls and encrypted conne
 
 ### 7. Access, correction and complaints
 
-You can ask to see or correct the personal information we hold about you by emailing **[privacy email]**. If you have a privacy complaint, contact us first and we'll respond within 30 days. If you're not satisfied, you can complain to the Office of the Australian Information Commissioner (oaic.gov.au).
+You can ask to see or correct the personal information we hold about you by emailing **hello@siteguardsystems.com.au**. If you have a privacy complaint, contact us first and we'll respond within 30 days. If you're not satisfied, you can complain to the Office of the Australian Information Commissioner (oaic.gov.au).
 
 ### 8. Changes
 

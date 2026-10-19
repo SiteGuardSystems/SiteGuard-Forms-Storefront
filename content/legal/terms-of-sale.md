@@ -2,8 +2,8 @@
 reference: SG-LEGAL-02
 brand: SiteGuard FORMS
 title: Terms of Sale: SiteGuard FORMS
-version: "0.1"
-date: 17 October 2026
+version: "0.4"
+date: 19 October 2026
 status: Issued while the solicitor review is in progress.
 ---
 
@@ -26,7 +26,7 @@ These terms apply when you buy from siteguardforms.com.au or the SiteGuard FORMS
 
 ### 4. Delivery and your licence
 
-1. **Delivery.** After payment, your documents are generated with the details you give us and emailed to the address you nominate, usually within minutes. Some orders are checked by our team before they are sent, usually within **[turnaround, for example 1 business day]**. Every set comes with the Document Use Disclaimer. If we can't deliver an item, we'll tell you and refund that item.
+1. **Delivery.** After payment, your documents are generated with the details you give us and emailed to the address you nominate, usually within minutes. Some orders are checked by our team before they are sent, usually within **1 business day**. Every set comes with the Document Use Disclaimer. If we can't deliver an item, we'll tell you and refund that item.
 2. **Licence.** On delivery we grant you a non-exclusive, non-transferable licence to use, copy, adapt and complete the documents for **your own business and your own projects**, without limit on the number of projects, and to give completed copies to your workers, subcontractors, principal contractors, clients and regulators for those projects.
 3. **What you may not do.** Unless you hold a Consultant subscription, you may not sell, sublicense, publish, share or distribute the templates (completed or blank) to anyone outside your business for their own use, or present them as your own product.
 4. **Consultant subscriptions.** A Consultant subscriber may also use and adapt the documents while delivering services to its own clients, under the scope of its tier. It may not resell the templates as a standalone product, or publish them.
@@ -37,10 +37,10 @@ These terms apply when you buy from siteguardforms.com.au or the SiteGuard FORMS
 
 1. **Terms.** Subscriptions are billed **annually**, or **monthly** at a higher annualised rate. Each subscription covers the package shown at purchase.
 2. **What's included.** For as long as your subscription is active, you get the current revision of every document in your package, and the revised documents we issue after each **6-monthly legislative review**. Use is unlimited, with no limit on projects.
-3. **Renewal.** Your subscription **renews automatically** at the end of each period, unless you cancel before the renewal date. For annual subscriptions, we'll email you a reminder at least **[14] days** before renewal.
+3. **Renewal.** Your subscription **renews automatically** at the end of each period, unless you cancel before the renewal date. For annual subscriptions, we'll email you a reminder at least **14 days** before renewal.
 4. **Price changes.** We'll give you at least **30 days'** notice by email before a price change applies to your subscription. If you don't accept it, you can cancel before it takes effect.
 5. **Cancelling.** You can cancel at any time through your account or by emailing us. Cancellation takes effect at the end of the current billing period. Refunds are covered by the Refunds and Cancellations Policy.
-6. **After a subscription ends.** You may keep using documents delivered while you were subscribed, under the licence in clause 4. You won't receive further revisions **[Dan to confirm]**.
+6. **After a subscription ends.** You may keep using documents delivered while you were subscribed, under the licence in clause 4. You won't receive further revisions.
 
 ### 6. Your responsibilities
 
@@ -63,4 +63,4 @@ These terms are governed by the laws of Victoria, Australia. Each party submits 
 
 ### 10. Contact
 
-SiteGuard Systems, Melbourne, Victoria. Email: **[sales/support email]**.
+SiteGuard Systems, Melbourne, Victoria. Email: **hello@siteguardsystems.com.au**.

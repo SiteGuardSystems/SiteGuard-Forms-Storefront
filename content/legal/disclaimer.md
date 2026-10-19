@@ -2,8 +2,8 @@
 reference: SG-LEGAL-01
 brand: SiteGuard FORMS
 title: Document Use Disclaimer and Notice of PCBU Responsibilities
-version: "0.2"
-date: 17 October 2026
+version: "0.4"
+date: 18 October 2026
 status: Issued while the solicitor review is in progress. Replace this file with the solicitor-approved revision and bump the version.
 ---
 This notice accompanies every document, template, register, plan, procedure, policy, Safe Work Method Statement (SWMS), inspection and test plan, and bundle supplied by SiteGuard Systems, trading as SiteGuard FORMS ("SiteGuard", "we", "us"), to the purchaser ("you", "the Purchaser"). It explains what SiteGuard supplies, what it does not supply, and the responsibilities that stay with you as the person conducting the business or undertaking that will use the documents.
