@@ -12,7 +12,17 @@ export function esc(s) {
 /** Bracketed placeholders still to be filled in, e.g. "[ABN]" (not links). */
 export const PLACEHOLDER_RE = /\[[^\]\n]+\](?!\()/g;
 
-export function frontMatter(text) {
+export function frontMatter(rawText) {
+  // The legal sources are synced from SiteGuard-Forms (sync-legal.mjs) and
+  // have turned up with CRLF line endings before -- the \n-only regexes
+  // below silently matched nothing against "---\r\n", returning an EMPTY
+  // meta object with no error. Every field (title, version, date, status)
+  // was then `undefined` everywhere, which is how 6 legal pages ended up
+  // sharing one literal title ("undefined | SiteGuard FORMS") and the
+  // checkout's hidden termsVersion field was sending "SG-LEGAL-02 vundefined"
+  // on real orders. Normalize once, up front, so the rest of this function
+  // (and the returned body) never has to think about line-ending style again.
+  const text = rawText.replace(/\r\n/g, "\n");
   const m = text.match(/^---\n([\s\S]*?)\n---\n?/);
   if (!m) return { meta: {}, body: text };
   const meta = {};
