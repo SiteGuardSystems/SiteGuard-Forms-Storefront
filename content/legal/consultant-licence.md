@@ -2,8 +2,8 @@
 reference: SG-LEGAL-07
 title: Consultant and Reseller Licence: SiteGuard FORMS
 brand: SiteGuard FORMS
-version: "0.1"
-date: 17 October 2026
+version: "0.3"
+date: 18 October 2026
 status: First draft for solicitor review.
 ---
 This licence applies when a consultant, adviser or other business ("you", "the Consultant") subscribes to a SiteGuard FORMS consultant tier (currently T1 and T2) to prepare documents for its own clients. It sits alongside the Terms of Sale, the FORMS Terms of Use and the Document Use Disclaimer. Where this licence and the Terms of Sale differ on a consultant subscription, this licence applies.
