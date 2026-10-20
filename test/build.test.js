@@ -20,7 +20,12 @@ async function htmlFiles(dir = DIST) {
   return out;
 }
 const files = await htmlFiles();
-const pages = await Promise.all(files.map(async (f) => ({ f: path.relative(DIST, f), html: await readFile(f, "utf8") })));
+// path.relative() returns OS-native separators; every other assertion in this
+// file compares f against a forward-slash literal ("legal/", "cart/index.html"),
+// so a backslash here (Windows) makes those checks never match -- silently
+// skipping the banned-words check on legal pages instead of running it, and
+// throwing on the cart lookup. Normalise once, here.
+const pages = await Promise.all(files.map(async (f) => ({ f: path.relative(DIST, f).split(path.sep).join("/"), html: await readFile(f, "utf8") })));
 
 test("every page has a title, description, canonical, one h1 and no inline script or style", () => {
   for (const { f, html } of pages) {
