@@ -4,7 +4,8 @@
 (function () {
   "use strict";
   var KEY = "sg-forms-cart-v1";
-  var preview = document.body.getAttribute("data-preview") === "1";
+  var beta = document.body.getAttribute("data-beta") === "1";
+  var preview = document.body.getAttribute("data-preview") === "1" || beta;
   // Site root, from this script's own address (works on the live domain and
   // on a review copy hosted under a sub-path).
   var script = document.currentScript || document.querySelector('script[src$="assets/app.js"]');
@@ -52,7 +53,7 @@
   // Disabled (preview) buttons and links
   document.addEventListener("click", function (e) {
     var dis = e.target.closest("[data-preview-disabled]");
-    if (dis) { e.preventDefault(); toast("Preview build: this package isn't on sale yet."); return; }
+    if (dis) { e.preventDefault(); toast(beta ? "SiteGuard FORMS is in beta: orders aren't open yet." : "Preview build: this package isn't on sale yet."); return; }
     var btn = e.target.closest("[data-add-pack]");
     if (btn) add({ packageId: btn.getAttribute("data-add-pack"), name: btn.getAttribute("data-name"), price: Number(btn.getAttribute("data-price")) });
     var doc = e.target.closest("[data-add-doc]");
@@ -110,7 +111,7 @@
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     var status = form.querySelector("[data-status]");
-    if (preview) { status.className = "form-status err"; status.textContent = "Preview build: checkout is switched off."; return; }
+    if (preview) { status.className = "form-status err"; status.textContent = beta ? "SiteGuard FORMS is in beta: orders aren't open yet." : "Preview build: checkout is switched off."; return; }
     if (!form.accept.checked) { status.className = "form-status err"; status.textContent = "Tick the box to accept the Terms of Sale and the Document Use Disclaimer."; form.accept.focus(); return; }
     var cart = load().map(function (i) { return i.packageId ? { packageId: i.packageId } : { documentCode: i.documentCode }; });
     status.className = "form-status"; status.textContent = "Opening secure checkout…";

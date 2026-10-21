@@ -19,6 +19,10 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
 const CATALOGUE = process.env.CATALOGUE_PATH ? path.resolve(process.env.CATALOGUE_PATH) : path.join(ROOT, "data/catalogue.json");
 const PRODUCTION = process.argv.includes("--production");
+// Beta: the shop can be browsed but nothing can be bought or subscribed to
+// (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
+const SITE_MODE = JSON.parse(await readFile(path.join(ROOT, "data/site-mode.json"), "utf8").catch(() => "{}"));
+const BETA = SITE_MODE.beta === true;
 
 const ORIGIN = (process.env.SITE_ORIGIN ?? "https://www.siteguardforms.com.au").replace(/\/$/, "");
 const APP_URL = (process.env.FORMS_APP_URL ?? "https://app.siteguardforms.com.au").replace(/\/$/, "");
@@ -136,7 +140,7 @@ function page({ url, title, description, body, trail, jsonld = [], preview }) {
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${ORIGIN}${url}">
-${preview ? '<meta name="robots" content="noindex, nofollow">' : ""}
+${preview || BETA ? '<meta name="robots" content="noindex, nofollow">' : ""}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SiteGuard FORMS">
 <meta property="og:title" content="${esc(fullTitle)}">
@@ -151,7 +155,8 @@ ${preview ? '<meta name="robots" content="noindex, nofollow">' : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, "\\u003c")}</script>`).join("\n")}
 <script src="/assets/app.js" defer></script>
 </head>
-<body data-forms-app="${APP_URL}"${preview ? ' data-preview="1"' : ""}>
+<body data-forms-app="${APP_URL}"${preview ? ' data-preview="1"' : ""}${BETA ? ' data-beta="1"' : ""}>
+${BETA ? '<div class="preview-bar beta-bar" role="note"><strong>SiteGuard FORMS is in beta.</strong> You can browse the packs and documents, but orders and subscriptions aren\'t open yet. To talk about documents now, <a href="/contact/">contact us</a>.</div>' : ""}
 ${preview ? '<div class="preview-bar" role="note"><strong>Preview build.</strong> This shows every package for review, including packages not yet released for sale. Checkout is switched off.</div>' : ""}
 ${header(url)}
 <main id="main">
@@ -196,7 +201,7 @@ function docList(p, titles) {
 }
 
 function priceBlock(p, cat) {
-  const onSale = !cat.preview && p.sellable;
+  const onSale = !cat.preview && !BETA && p.sellable;
   const disabled = onSale ? "" : ' aria-disabled="true" data-preview-disabled="1"';
   const buy = p.prices.one_off
     ? `<p class="price-line"><span class="label">Buy outright</span><span class="amount">${money(p.prices.one_off)}</span></p>
@@ -228,7 +233,7 @@ function packArticle(p, cat, titles, heading) {
  *  document list is shown once, under the table. */
 function consultantPlans(plans, cat, titles) {
   if (!plans.length) return "";
-  const onSale = (p) => !cat.preview && p.sellable;
+  const onSale = (p) => !cat.preview && !BETA && p.sellable;
   const dis = (p) => onSale(p) ? "" : ' aria-disabled="true" data-preview-disabled="1"';
   const rows = plans.map((p) => `<tr id="${esc(packSlug(p.id))}">
       <th scope="row">${esc(p.name)}</th>
@@ -650,11 +655,11 @@ ${indexable.map((p) => `  <url><loc>${ORIGIN}${p.url}</loc></url>`).join("\n")}
 </urlset>
 `);
   const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
-  await writeFile(path.join(DIST, "robots.txt"), cat.preview
+  await writeFile(path.join(DIST, "robots.txt"), cat.preview || BETA
     ? "User-agent: *\nDisallow: /\n"
     : `User-agent: *\nDisallow: /cart/\nDisallow: /order/\nDisallow: /api/\nSitemap: ${ORIGIN}/sitemap.xml\n`);
   await writeFile(path.join(DIST, "build-info.json"), JSON.stringify({
-    built_at: new Date().toISOString(), catalogue_generated_at: cat.generated_at, preview: cat.preview,
+    built_at: new Date().toISOString(), catalogue_generated_at: cat.generated_at, preview: cat.preview, beta: BETA,
     pricing_revision: cat.pricing_revision, pages: pages.length,
   }, null, 1));
 

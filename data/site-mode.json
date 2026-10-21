@@ -1,0 +1,4 @@
+{
+  "beta": true,
+  "note": "Dan, 22 Oct 2026: FORMS stays in beta (browse only, no orders) on legal advice while a settlement is pending. Set beta to false, rebuild and restart to open orders."
+}

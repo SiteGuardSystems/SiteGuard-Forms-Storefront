@@ -7,6 +7,7 @@
 // real Stripe client, and listen().
 import "dotenv/config";
 import path from "node:path";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 // Backstop: an uncaught async error in a route handler used to take the
@@ -101,6 +102,11 @@ const STRIPE_AUTOMATIC_TAX = process.env.STRIPE_AUTOMATIC_TAX !== "off";
 const LEAD_ALLOWED_ORIGINS = (process.env.LEAD_ALLOWED_ORIGINS ??
   "https://www.siteguardsystems.com.au,https://siteguardsystems.com.au").split(",").map((s) => s.trim()).filter(Boolean);
 
+// Beta (browse only, no orders): data/site-mode.json, shared with the site build.
+let SITE_MODE = {};
+try { SITE_MODE = JSON.parse(readFileSync(path.join(__dirname, "data", "site-mode.json"), "utf8")); } catch { SITE_MODE = {}; }
+if (SITE_MODE.beta === true) console.warn("FORMS beta: /api/checkout refuses every order (data/site-mode.json).");
+
 const app = createApp({
   catalogPath: path.join(__dirname, "data", "catalogue.json"),
   varDir: VAR_DIR,
@@ -118,6 +124,7 @@ const app = createApp({
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
+  beta: SITE_MODE.beta === true,
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 
