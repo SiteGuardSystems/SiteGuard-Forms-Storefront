@@ -74,7 +74,8 @@ test("preview builds say so and are not indexed; live builds are", async () => {
     assert.match(robots, /Disallow: \//);
   } else {
     assert.ok(!/Preview build/.test(home));
-    assert.match(robots, /Sitemap:/);
+    const beta = JSON.parse(await readFile(path.join(ROOT, "data/site-mode.json"), "utf8").catch(() => "{}")).beta === true;
+    if (!beta) assert.match(robots, /Sitemap:/);   // beta keeps search engines out (separate test)
   }
 });
 
@@ -98,4 +99,19 @@ test("consultant pages and links appear only when a consultant plan is on show",
   // Legal pages are solicitor-controlled and change only through the legal suite.
   const marketing = pages.filter((p) => !p.f.startsWith("legal/")).map((p) => p.html).join("\n");
   assert.ok(!/\b(T1|T2)\b/.test(marketing.replace(/<script[\s\S]*?<\/script>/g, "")), "old consultant tier names on a page");
+});
+
+test("beta (data/site-mode.json): banner on every page, no indexing, nothing buyable", async () => {
+  const mode = JSON.parse(await readFile(path.join(ROOT, "data/site-mode.json"), "utf8"));
+  if (mode.beta !== true) return;
+  for (const { f, html } of pages) {
+    assert.match(html, /data-beta="1"/, f);
+    assert.match(html, /SiteGuard FORMS is in beta/, f);
+    assert.match(html, /noindex/, f);
+    // every add-to-cart and subscribe control is disabled
+    for (const m of html.matchAll(/<(?:button|a)[^>]*(?:data-add-pack|Subscribe (?:yearly|monthly))[^>]*>/g)) {
+      assert.match(m[0], /data-preview-disabled/, `${f}: ${m[0].slice(0, 80)}`);
+    }
+  }
+  assert.equal((await readFile(path.join(DIST, "robots.txt"), "utf8")).trim(), "User-agent: *\nDisallow: /");
 });
