@@ -377,12 +377,20 @@ describe("POST /api/webhook/stripe", () => {
       assert.equal(mailer.sent.length, 0);
     });
   });
-  test("a bad signature is rejected", async () => {
+  test("a bad signature is rejected, and alerts Dan once", async () => {
     const stripe = makeFakeStripe();
     stripe.webhooks.constructEvent = () => { throw new Error("bad sig"); };
-    await withApp({ stripe, stripeWebhookSecret: "whsec" }, async ({ base }) => {
-      const res = await fetch(`${base}/api/webhook/stripe`, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+    const mailer = makeFakeMailer();
+    await withApp({ stripe, stripeWebhookSecret: "whsec", mailer, adminNotificationEmail: "dan@siteguardsystems.com.au" }, async ({ base }) => {
+      const post = () => fetch(`${base}/api/webhook/stripe`, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      const res = await post();
       assert.equal(res.status, 400);
+      assert.equal(mailer.sent.length, 1, "one alert for the first failure");
+      assert.match(mailer.sent[0].subject, /signature check failed/i);
+      assert.equal(mailer.sent[0].to, "dan@siteguardsystems.com.au");
+      // A second failure within the hour is rate-limited, not a second email.
+      await post();
+      assert.equal(mailer.sent.length, 1, "rate-limited to one alert per hour");
     });
   });
   test("501 when the webhook isn't configured", async () => {
