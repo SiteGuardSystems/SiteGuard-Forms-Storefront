@@ -132,6 +132,7 @@ async function withApp(opts, fn) {
     orderIntakeUrl: opts.orderIntakeUrl ?? "http://intake.test/api/v3/storefront-orders",
     orderIntakeApiKey: opts.orderIntakeApiKey ?? "test-intake-key",
     fetchImpl: opts.fetchImpl ?? makeFakeFetch(),
+    beta: opts.beta ?? false,
   });
   const server = app.listen(0);
   await new Promise((resolve) => server.once("listening", resolve));
@@ -183,6 +184,15 @@ describe("POST /api/checkout", () => {
       assert.equal((await checkout(base, [])).status, 400);
       const big = Array.from({ length: 51 }, (_, i) => ({ documentCode: `X-${i}` }));
       assert.equal((await checkout(base, big)).status, 400);
+    });
+  });
+  test("beta: every order is refused before Stripe is ever called", async () => {
+    const stripe = makeFakeStripe();
+    await withApp({ stripe, beta: true }, async ({ base }) => {
+      const res = await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }]);
+      assert.equal(res.status, 503);
+      assert.match((await res.json()).reason, /beta/);
+      assert.equal(stripe.calls.length, 0);
     });
   });
   test("501 when Stripe isn't configured", async () => {
