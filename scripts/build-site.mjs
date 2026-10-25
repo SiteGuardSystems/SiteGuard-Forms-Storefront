@@ -21,7 +21,8 @@ const CATALOGUE = process.env.CATALOGUE_PATH ? path.resolve(process.env.CATALOGU
 const PRODUCTION = process.argv.includes("--production");
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
-const SITE_MODE = JSON.parse(await readFile(path.join(ROOT, "data/site-mode.json"), "utf8").catch(() => "{}"));
+const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
+const SITE_MODE = JSON.parse(await readFile(SITE_MODE_PATH, "utf8").catch(() => "{}"));
 const BETA = SITE_MODE.beta === true;
 
 const ORIGIN = (process.env.SITE_ORIGIN ?? "https://www.siteguardforms.com.au").replace(/\/$/, "");

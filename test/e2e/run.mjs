@@ -25,8 +25,15 @@ for (const p of cat.packs) { p.sellable = true; p.show = p.listed; }
 for (const d of cat.documents) d.sellable = true;
 const catPath = path.join(dir, "catalogue.json");
 await writeFile(catPath, JSON.stringify(cat));
+// The purchase flow is tested with beta off; the beta build is checked separately below.
+const openMode = path.join(dir, "site-mode-open.json");
+await writeFile(openMode, JSON.stringify({ beta: false }));
+const betaMode = path.join(dir, "site-mode-beta.json");
+await writeFile(betaMode, JSON.stringify({ beta: true }));
 const dist = path.join(dir, "dist");
-execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: dist }, stdio: "inherit" });
+execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: dist, SITE_MODE_PATH: openMode }, stdio: "inherit" });
+const betaDist = path.join(dir, "dist-beta");
+execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: betaDist, SITE_MODE_PATH: betaMode }, stdio: "inherit" });
 
 const calls = [];
 let port;
@@ -94,6 +101,27 @@ try {
   await phone.goto(`${base}/`);
   await phone.click(".menu-toggle");
   assert.ok(await phone.locator("#site-nav").isVisible());
+
+  // Beta build: banner shown, Add to cart disabled, and the server refuses checkout.
+  const betaApp = createApp({ catalogPath: catPath, varDir: path.join(dir, "var-beta"), publicDir: betaDist, stripe, stripeTestMode: true,
+    publicOrigin: "http://127.0.0.1", mailer: { configured: false }, leadAllowedOrigins: [], beta: true });
+  const betaServer = betaApp.listen(0);
+  await new Promise((r) => betaServer.once("listening", r));
+  const betaBase = `http://127.0.0.1:${betaServer.address().port}`;
+  try {
+    const bp = await browser.newPage();
+    bp.on("pageerror", (e) => errors.push(e.message));
+    await bp.goto(`${betaBase}/trade-packs/carpentry/`);
+    assert.ok(await bp.locator(".beta-bar").isVisible(), "beta banner visible");
+    assert.equal(await bp.locator('[data-add-pack="subcontractor:CARP:domestic"]').getAttribute("aria-disabled"), "true");
+    const before = calls.length;
+    const res = await bp.evaluate(async () => (await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart: [{ packageId: "subcontractor:CARP:domestic" }], acceptedTerms: true }) })).status);
+    assert.equal(res, 503);
+    assert.equal(calls.length, before, "beta never reaches Stripe");
+  } finally {
+    await new Promise((r) => betaServer.close(r));
+  }
 
   assert.deepEqual(errors, [], "browser console errors");
   console.log("e2e: all checks passed");
