@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-18T11:33:52+00:00",
+ "generated_at": "2026-10-25T15:53:45+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,14 +9,13 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "4b2d7c6c259d0c1e",
+ "library_digest": "8e5574563446f111",
  "release": {
   "library_codes": 841,
-  "released": 797,
+  "released": 808,
   "not_released_reasons": {
    "held (OFSC, Rule 20)": 27,
-   "did not pass the library gate": 16,
-   "mastered at Rev01; library is at Rev04": 1
+   "did not pass the library gate": 6
   }
  },
  "facts": {
@@ -5106,15 +5105,10 @@
     "monthly": 170
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "QUA-ITP-PAINT-003"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "mastered at Rev01; library is at Rev04": 1
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "swms:PAINT",
@@ -5221,14 +5215,9 @@
     "monthly": 85
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "QUA-ITP-PAINT-003"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "mastered at Rev01; library is at Rev04": 1
-   },
    "show": false
   },
   {
@@ -9461,18 +9450,11 @@
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
-    "QUA-ITP-PAINT-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 9,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 4
    },
    "show": false
   },
@@ -10394,18 +10376,11 @@
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
-    "QUA-ITP-PAINT-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 9,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 4
    },
    "show": false
   },
@@ -10714,16 +10689,11 @@
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 9
+    "did not pass the library gate": 4
    },
    "show": false
   },
@@ -10931,17 +10901,10 @@
     "monthly": 75
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "did not pass the library gate": 3
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "addon:energy",
@@ -11134,16 +11097,10 @@
     "monthly": 70
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "did not pass the library gate": 2
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "subcontractor:FACA:domestic",
@@ -13056,27 +13013,15 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -13881,27 +13826,15 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -14706,29 +14639,17 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 1,
    "seats_included": 1,
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -15533,29 +15454,17 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 3,
    "seats_included": 1,
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -16360,29 +16269,17 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 10,
    "seats_included": 2,
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -17187,29 +17084,17 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 25,
    "seats_included": 3,
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -18014,29 +17899,17 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [
-    "BCM-PLN-GEN-002",
-    "BCM-PLN-GEN-003",
-    "BCM-PLN-GEN-004",
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
     "ENV-FRM-GEN-005",
-    "ENV-FRM-GEN-260",
     "ISM-FRM-GEN-002",
-    "QUA-ITP-PAINT-003",
-    "RSK-PLN-GEN-001",
-    "RSK-PLN-GEN-003",
-    "SAF-FRM-GEN-031",
-    "SAF-FRM-GEN-044",
-    "SAF-FRM-GEN-045",
-    "SAF-FRM-GEN-047",
     "SAF-FRM-GEN-053"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": null,
    "seats_included": 5,
    "blocked_reasons": {
-    "did not pass the library gate": 15,
-    "mastered at Rev01; library is at Rev04": 1
+    "did not pass the library gate": 5
    },
    "show": false
   },
@@ -18303,8 +18176,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "BCM-PLN-GEN-003",
@@ -18313,8 +18186,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "BCM-PLN-GEN-004",
@@ -18323,8 +18196,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "BCM-PLN-GEN-005",
@@ -18853,8 +18726,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "ENV-FRM-GEN-261",
@@ -21353,8 +21226,8 @@
    "trade": "PAINT",
    "trade_name": "Painting",
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev01; library is at Rev04"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "QUA-ITP-PAINT-004",
@@ -22213,8 +22086,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "RSK-PLN-GEN-002",
@@ -22233,8 +22106,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "RSK-POL-GEN-001",
@@ -22553,8 +22426,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-032",
@@ -22643,8 +22516,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-045",
@@ -22653,8 +22526,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-046",
@@ -22673,8 +22546,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-048",
