@@ -115,3 +115,12 @@ test("beta (data/site-mode.json): banner on every page, no indexing, nothing buy
   }
   assert.equal((await readFile(path.join(DIST, "robots.txt"), "utf8")).trim(), "User-agent: *\nDisallow: /");
 });
+
+test("partners page: a partner enquiry form posting to /api/lead, and the referral rules", () => {
+  const p = pages.find((x) => x.f === "partners/index.html");
+  assert.ok(p, "partners/index.html");
+  assert.match(p.html, /action="\/api\/lead"/);
+  assert.match(p.html, /name="enquiry_type" value="partner"/);
+  assert.match(p.html, /How referrals work/);
+  assert.match(pages.find((x) => x.f === "index.html").html, /href="\/partners\/"/);
+});

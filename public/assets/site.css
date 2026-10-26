@@ -248,3 +248,25 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 @media print {
   .site-header, .site-footer, .btn, .preview-bar { display: none !important; }
 }
+
+/* partners, affiliates and Google reviews (scripts/lib/trust.mjs) */
+.partners-strip { padding: clamp(28px, 4vw, 44px) 0; border-top: 1px solid var(--rule); }
+.partners-strip-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1.5rem; margin-bottom: 1rem; }
+.partners-strip-head h2 { margin: 0; font-size: 1.25rem; }
+.partner-logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+.partner-logos a { display: flex; flex-direction: column; gap: 0.35rem; align-items: flex-start; padding: 0.75rem 0.9rem; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); text-decoration: none; height: 100%; }
+.partner-logos a:hover { border-color: var(--ink); }
+.partner-logos img, .partner-card-logo img { max-width: 100%; height: auto; max-height: 56px; object-fit: contain; }
+.partner-name { font-weight: 600; line-height: 1.25; }
+.partner-cat { font-size: 0.85rem; color: var(--muted); margin: 0; }
+.partner-cards { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.partner-card { display: grid; gap: 0.75rem; padding: 1.1rem 1.2rem; border: 1px solid var(--rule); background: var(--paper); }
+.partner-card h3 { margin: 0; }
+.partner-card p { margin: 0.35rem 0 0; }
+.fee-note { color: var(--muted); }
+.review-block { margin-top: 1.5rem; display: grid; gap: 0.5rem; justify-items: start; }
+.review-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.8rem; border: 1px solid var(--rule-strong); background: var(--paper); color: var(--ink); text-decoration: none; }
+.review-stars { color: var(--hivis-deep); letter-spacing: 1px; }
+.review-link { font-weight: 600; }
+.review-compact { margin-top: 0.75rem; }
+.site-footer .review-badge { background: transparent; color: inherit; }

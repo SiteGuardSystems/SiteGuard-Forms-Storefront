@@ -1,0 +1,4 @@
+{
+  "note": "Partners and affiliates shown on the website. Written by the CRM (siteguard-ai: python -m siteguard_org partners export-sites) or edited by hand. Fields: id, name, kind (partner|affiliate), category, blurb (max 240 chars), url (https), logo (optional, /assets/partners/<file>), fee (none|we_receive|we_pay|both), sites ([\"systems\",\"forms\"]), order, active. Nothing shows until a partner is listed here.",
+  "partners": []
+}

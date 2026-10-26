@@ -1,0 +1,9 @@
+{
+  "note": "Google Business Profile. Fill place_id once the profile is verified (Google Business Profile > Ask for reviews gives the review link). rating, count and as_of are read off the profile, never estimated; leave them null until there are reviews. Written by the CRM (partners reviews-set, then export-sites) or edited by hand.",
+  "place_id": "",
+  "profile_url": "",
+  "review_url": "",
+  "rating": null,
+  "count": null,
+  "as_of": ""
+}

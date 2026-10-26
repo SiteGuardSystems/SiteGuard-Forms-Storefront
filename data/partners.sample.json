@@ -1,0 +1,9 @@
+{
+  "note": "SAMPLE DATA for preview builds only (node build --sample-partners). Fictional businesses; a production build refuses this file.",
+  "partners": [
+    { "id": "example-broker", "name": "Example Insurance Brokers (sample)", "kind": "partner", "category": "Insurance broker", "blurb": "Sample listing: professional indemnity and public liability for construction businesses.", "url": "https://example.com/", "fee": "both", "order": 1 },
+    { "id": "example-training", "name": "Example Safety Training (sample)", "kind": "partner", "category": "Training provider", "blurb": "Sample listing: white card, working at heights and first aid courses.", "url": "https://example.com/training", "fee": "we_pay", "order": 2 },
+    { "id": "example-software", "name": "Example Site Software (sample)", "kind": "affiliate", "category": "Site management software", "blurb": "Sample listing: digital site diaries and inductions.", "url": "https://example.com/software", "fee": "we_receive" },
+    { "id": "example-ppe", "name": "Example PPE Supply (sample)", "kind": "affiliate", "category": "PPE supplier", "url": "https://example.com/ppe", "fee": "none", "sites": ["forms"] }
+  ]
+}
