@@ -37,9 +37,34 @@ export async function loadVideo(root) {
     if (e.code !== "ENOENT") problems.push(`intro-video.json: ${e.message}`);
     return { video: null, problems };
   }
+  v = normalizeVideo(v);
   if (!v || !v.provider) return { video: null, problems };
   for (const m of checkVideo(v)) problems.push(`intro-video.json: ${m}`);
   return { video: problems.length ? null : v, problems };
+}
+
+/** The 11-character video ID from any YouTube link: watch?v=, youtu.be/,
+ *  /shorts/, /embed/ or /live/. Null if it isn't a YouTube video link. */
+export function youtubeId(url) {
+  let u;
+  try { u = new URL(String(url ?? "").trim()); } catch { return null; }
+  const host = u.hostname.replace(/^(www|m|music)\./, "");
+  let id = null;
+  if (host === "youtu.be") id = u.pathname.slice(1).split("/")[0];
+  else if (host === "youtube.com" || host === "youtube-nocookie.com") {
+    id = u.searchParams.get("v") ?? (u.pathname.match(/^\/(shorts|embed|live|v)\/([^/?#]+)/) ?? [])[2] ?? null;
+  }
+  return id && YT_ID_RE.test(id) ? id : null;
+}
+
+/** Fill in provider and youtube_id from a pasted youtube_url, so an entry
+ *  can be just { youtube_url, title, description, upload_date }. A pasted
+ *  link always plays through YouTube, so plays count on the channel. */
+export function normalizeVideo(v) {
+  if (!v || typeof v !== "object") return v;
+  if (!v.youtube_url) return v;
+  const id = youtubeId(v.youtube_url);
+  return id ? { ...v, provider: "youtube", youtube_id: id } : { ...v, provider: v.provider || "youtube", youtube_id: "" };
 }
 
 /** Problems with one video entry (empty list when it's complete). Used for
@@ -48,7 +73,7 @@ export function checkVideo(v) {
   const problems = [];
   const p = (m) => problems.push(m);
   if (!PROVIDERS.includes(v.provider)) p(`provider must be ${PROVIDERS.join(" or ")} (or empty for no video)`);
-  if (v.provider === "youtube" && !YT_ID_RE.test(v.youtube_id ?? "")) p("youtube_id must be the 11-character ID from the YouTube link (youtube.com/watch?v=ID)");
+  if (v.provider === "youtube" && !v.youtube_url && !YT_ID_RE.test(v.youtube_id ?? "")) p("youtube_id must be the 11-character ID from the YouTube link (youtube.com/watch?v=ID)");
   if (v.provider === "file" && !MP4_RE.test(v.file ?? "")) p("file must be an .mp4 in /assets/video/");
   if (v.provider === "file" && !v.poster) p("poster is required for a file video");
   if (v.poster && !POSTER_RE.test(v.poster)) p("poster must be an image in /assets/video/ (jpg, png or webp)");
@@ -57,6 +82,8 @@ export function checkVideo(v) {
   if (!v.description || typeof v.description !== "string" || v.description.length > 300) p("description is required (up to 300 characters)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v.upload_date ?? "")) p("upload_date (YYYY-MM-DD, the day the video was published) is required");
   if (v.duration && !DURATION_RE.test(v.duration)) p('duration must be ISO 8601, e.g. "PT1M45S"');
+  if (v.youtube_url && !youtubeId(v.youtube_url)) p("youtube_url isn't a YouTube video link (paste the link from the video's Share button)");
+  if (v.download_url && !/^(https:\/\/[^\s"<>]+|\/assets\/video\/[a-z0-9][a-z0-9._-]*\.mp4)$/.test(v.download_url)) p("download_url must be an https:// address or an .mp4 in /assets/video/");
   if (v.channel_url && !CHANNEL_RE.test(v.channel_url)) p("channel_url must be a youtube.com channel address (https://www.youtube.com/channel/... or /@handle)");
   if (v.channel_url && !v.channel_name) p("channel_name is required with channel_url");
   return problems;

@@ -254,4 +254,13 @@
     }
     if (applies) { applies.addEventListener("change", runApplies); runApplies(); }
   })();
+  // SiteGuard Education: "Copy link" buttons (scripts/lib/education.mjs).
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var url = b.getAttribute("data-copy");
+      var done = function () { var t = b.textContent; b.textContent = "Link copied"; setTimeout(function () { b.textContent = t; }, 2000); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { window.prompt("Copy this link:", url); });
+      else window.prompt("Copy this link:", url);
+    });
+  });
 })();

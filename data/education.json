@@ -1,5 +1,5 @@
 {
-  "note": "SiteGuard Education videos shown on /education/ (scripts/lib/education.mjs). Add videos to a group; each uses the same fields as data/intro-video.json (provider youtube with youtube_id, or file with an MP4 and poster in assets/video/). A group with no videos isn't shown. Rebuild after a change.",
+  "note": "SiteGuard Education videos (scripts/lib/education.mjs), shown on /education/ and /education/<slug>/ on both sites; keep this file identical in both repos. Each series (group) always has its tab and page. To add a video, add an entry to the series' \"videos\" list: {\"youtube_url\": \"<the link from the video's Share button>\", \"title\": \"...\", \"description\": \"one or two sentences\", \"upload_date\": \"YYYY-MM-DD\"}. Optional: \"duration\" (e.g. \"PT4M30S\"), \"poster\" (/assets/video/...jpg; YouTube's thumbnail is used without one), \"download_url\" (an https link or an .mp4 in /assets/video/) to show a Download button. Videos not yet on YouTube can use \"provider\": \"file\" with \"file\" and \"poster\" in /assets/video/ instead of youtube_url. Rebuild after a change; the storefront also needs a restart.",
   "channel_name": "SiteGuard Education",
   "channel_url": "https://www.youtube.com/channel/UCegFXOpYr0-gWG0t0H4as1Q",
   "groups": [
@@ -25,22 +25,26 @@
           "file": "/assets/video/forms-intro.mp4",
           "poster": "/assets/video/forms-intro.jpg"
         }
-      ]
+      ],
+      "slug": "about"
     },
     {
       "title": "How-tos",
       "intro": "Short walk-throughs of the documents and the systems behind them.",
-      "videos": []
+      "videos": [],
+      "slug": "how-tos"
     },
     {
       "title": "Toolbox talks",
       "intro": "Ready-to-run toolbox talks for site crews.",
-      "videos": []
+      "videos": [],
+      "slug": "toolbox-talks"
     },
     {
       "title": "Inductions",
       "intro": "Site and workplace induction videos.",
-      "videos": []
+      "videos": [],
+      "slug": "inductions"
     }
   ]
 }

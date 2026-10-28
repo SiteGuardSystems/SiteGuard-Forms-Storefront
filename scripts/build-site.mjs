@@ -19,7 +19,7 @@ import { esc, frontMatter, render, plain, PLACEHOLDER_RE } from "./lib/md.mjs";
 import { loadTrust, partnerStrip, reviewBadge, partnersBody } from "./lib/trust.mjs";
 import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
 import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBody, inspectionGroupBody, inspectionGroups, groupPath, icsFor, STATES, STATE_NAMES, statePath } from "./lib/planning.mjs";
-import { loadEducation, educationBody, educationJsonLd } from "./lib/education.mjs";
+import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -555,13 +555,27 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
   });
 
   // SiteGuard Education (same data and layout as siteguardsystems.com.au/education/)
-  if (EDU) page({
-    url: "/education/", preview, title: "SiteGuard Education: construction safety videos", trail: [["/education/", "SiteGuard Education"]],
-    description: "SiteGuard Education videos for Australian construction: introductions, how-tos, toolbox talks and inductions, also on YouTube.",
-    jsonld: [educationJsonLd(EDU, ORIGIN)],
-    body: `<section class="page-head"><div class="wrap">${crumbs([["/education/", "SiteGuard Education"]])}<h1>SiteGuard Education</h1><p class="lede">Practical HSEQ videos for Australian construction. Watch here, or subscribe on YouTube for new videos.</p></div></section>
+  if (EDU) {
+    const ed = (trail, h1, lede) => `<section class="page-head"><div class="wrap">${crumbs(trail)}<h1>${h1}</h1>${lede ? `<p class="lede">${lede}</p>` : ""}</div></section>`;
+    const TE = [["/education/", "SiteGuard Education"]];
+    page({
+      url: "/education/", preview, title: "SiteGuard Education: construction safety videos", trail: TE,
+      description: "SiteGuard Education videos for Australian construction: how-tos, toolbox talks and inductions to show your crews, also on YouTube.",
+      jsonld: [educationJsonLd(EDU, ORIGIN)].filter(Boolean),
+      body: `${ed(TE, "SiteGuard Education", "Practical HSEQ videos for Australian construction, to watch here or show your crews.")}
 ${educationBody(EDU)}`,
-  });
+    });
+    for (const g of EDU.groups) {
+      const tg = [...TE, [seriesPath(g.slug), g.title]];
+      page({
+        url: seriesPath(g.slug), preview, title: `${g.title}: SiteGuard Education videos`, trail: tg,
+        description: `${g.title} from SiteGuard Education: ${(g.intro ?? "videos for Australian construction").replace(/\.$/, "")}.`,
+        jsonld: [educationJsonLd(EDU, ORIGIN, g.slug)].filter(Boolean),
+        body: `${ed(tg, g.title, "")}
+${seriesBody(EDU, g.slug)}`,
+      });
+    }
+  }
 
   // Planning calendar (same data and layout as siteguardsystems.com.au/planning/)
   {

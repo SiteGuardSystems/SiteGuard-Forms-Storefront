@@ -371,3 +371,15 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 .plan-sections b { font: 600 1.3rem/1.1 var(--f-cond); }
 .plan-sections span { font-size: 0.9rem; color: var(--muted); }
 .basis-regulator-guidance { background: #EEF2F8; border-color: #5B6F8F; }
+.edu-top { padding-bottom: 0; }
+.edu-tabs .edu-count { display: inline-block; min-width: 1.3em; margin-left: 0.3rem; padding: 0 0.3rem; font-size: 0.8rem; text-align: center; background: var(--hivis); color: var(--ink); }
+.edu-use { max-width: var(--measure); }
+.edu-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.5rem; }
+.edu-head h2 a { color: inherit; text-decoration: none; }
+.edu-head h2 a:hover { text-decoration: underline; text-decoration-color: var(--hivis); }
+.edu-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.edu-actions button.btn { cursor: pointer; }
+.edu-link { margin-top: 0.5rem !important; overflow-wrap: anywhere; color: var(--muted); }
+.edu-empty { margin-top: 1rem; padding: 1.25rem 1.4rem; border: 1px dashed var(--rule-strong); background: var(--paper); max-width: 40rem; }
+.edu-empty p { margin: 0; }
+.edu-empty p + p { margin-top: 0.35rem; }
