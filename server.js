@@ -23,7 +23,8 @@ process.on("uncaughtException", (err) => {
   console.error("UNCAUGHT EXCEPTION — this should have been caught locally:", err);
 });
 import Stripe from "stripe";
-import { createApp } from "./lib/create-app.js";
+import { createApp, CSP } from "./lib/create-app.js";
+import { loadVideo, withVideoCsp } from "./scripts/lib/video.mjs";
 import { createMailer } from "./lib/mailer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -107,6 +108,11 @@ let SITE_MODE = {};
 try { SITE_MODE = JSON.parse(readFileSync(path.join(__dirname, "data", "site-mode.json"), "utf8")); } catch { SITE_MODE = {}; }
 if (SITE_MODE.beta === true) console.warn("FORMS beta: /api/checkout refuses every order (data/site-mode.json).");
 
+// Landing-page intro video: opens the CSP for the YouTube player only when
+// data/intro-video.json sets one (same file the site build reads).
+const INTRO_VIDEO = await loadVideo(__dirname);
+for (const p of INTRO_VIDEO.problems) console.warn(`Intro video not shown: ${p}`);
+
 const app = createApp({
   catalogPath: path.join(__dirname, "data", "catalogue.json"),
   varDir: VAR_DIR,
@@ -125,6 +131,7 @@ const app = createApp({
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
   beta: SITE_MODE.beta === true,
+  csp: withVideoCsp(CSP, INTRO_VIDEO.video),
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 

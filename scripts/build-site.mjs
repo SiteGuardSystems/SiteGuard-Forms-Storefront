@@ -17,6 +17,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc, frontMatter, render, plain, PLACEHOLDER_RE } from "./lib/md.mjs";
 import { loadTrust, partnerStrip, reviewBadge, partnersBody } from "./lib/trust.mjs";
+import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -26,6 +27,10 @@ const SAMPLE_PARTNERS = process.argv.includes("--sample-partners");
 // Partners, affiliates and the Google review link (data/partners.json,
 // data/google-reviews.json; scripts/lib/trust.mjs). Loaded in build().
 let TRUST = { partners: [], reviews: {} };
+// Landing-page introduction video (data/intro-video.json;
+// scripts/lib/video.mjs). Nothing shows until it is filled in. server.js
+// reads the same file for the CSP, so restart after changing it.
+let VIDEO = null;
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
@@ -282,6 +287,9 @@ async function build() {
   TRUST = await loadTrust(ROOT, "forms", { sample: SAMPLE_PARTNERS });
   for (const p of TRUST.problems) problems.push(/open item/.test(p) ? p : `data: ${p}`);
   if (SAMPLE_PARTNERS) problems.push(`data: built with SAMPLE partners and reviews (--sample-partners)${PRODUCTION ? "; a production build can't use sample data" : " (open item: preview only)"}`);
+  const vid = await loadVideo(ROOT);
+  VIDEO = vid.video;
+  for (const p of vid.problems) problems.push(`data: ${p}`);
   const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const titles = new Map(cat.documents.map((d) => [d.code, d.title]));
@@ -327,7 +335,8 @@ async function build() {
     title: "SiteGuard FORMS | HSEQ documents for Australian construction",
     description: "Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.",
     jsonld: [{ "@context": "https://schema.org", "@type": "Organization", name: "SiteGuard FORMS", url: ORIGIN,
-      logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems", url: SYSTEMS_URL } }],
+      logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems", url: SYSTEMS_URL } },
+      ...(VIDEO ? [videoJsonLd(VIDEO, ORIGIN)] : [])],
     body: `<section class="hero"><div class="wrap">
   <h1>Site-ready HSEQ documents, with your name on them.</h1>
   <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Enter your business and project details, and the documents arrive in your inbox as PDFs.</p>
@@ -339,6 +348,7 @@ async function build() {
     <div><dt>Legislative review</dt><dd>6-monthly</dd></div>
   </dl>` : ""}
 </div></section>
+${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
 <section class="band band-grey"><div class="wrap">
   <h2>Choose a range</h2>
   ${ranges ? `<div class="register">${ranges}</div>` : emptyState("packages")}

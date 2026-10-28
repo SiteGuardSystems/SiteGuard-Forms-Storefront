@@ -43,6 +43,18 @@ Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/tr
 - `/api/lead` takes four more optional fields: `enquiry_type` (`partner` or `enquiry`), `ref` (referral code from a `?ref=` link), `partner_url` and `partner_kind`. Anything invalid is dropped. Leads land in `leads.jsonl`; the notification email adds "Enquiry type", "Partner kind", "Partner website" and "Referral code" lines, which the CRM's inbox triage reads.
 - `npm run build -- --sample-partners` previews with fictional sample listings; `build:production` refuses it.
 
+## Introduction video (landing page)
+
+`scripts/lib/video.mjs` (the same file is in both SiteGuard sites; keep them identical) and `data/intro-video.json`. Each site has its own JSON, so each can show a different video. Nothing shows while `provider` is empty.
+
+- **YouTube (recommended):** set `"provider": "youtube"`, `youtube_id` (the 11 characters after `watch?v=`), `title`, `description` and `upload_date`. The page shows the poster with a play button and loads the player from `youtube-nocookie.com` only when someone presses play (fast page, nothing from Google until then; without JavaScript the poster links to YouTube). Add a `poster` in `/assets/video/` to use your own thumbnail; without one YouTube's thumbnail is used.
+- **Self-hosted:** `"provider": "file"`, an MP4 and a poster image in `/assets/video/` (keep the MP4 under 25 MiB, Cloudflare Pages' file limit), optional `captions` (.vtt).
+- Optional: `duration` (`PT1M45S`), `heading` (the section heading).
+- The CSP opens `frame-src https://www.youtube-nocookie.com` (and `img-src https://i.ytimg.com` when there's no local poster) only when a YouTube video is set. A `VideoObject` is added to the home page's JSON-LD.
+- An incomplete entry fails the build and nothing is shown.
+
+The storefront server reads the same file for its CSP: restart it after a change (`sudo systemctl restart siteguard-forms-storefront`).
+
 ## How buying works
 
 * **Buy outright:** cart → `/api/checkout` (prices re-read from the catalogue,

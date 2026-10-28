@@ -124,3 +124,10 @@ test("partners page: a partner enquiry form posting to /api/lead, and the referr
   assert.match(p.html, /How referrals work/);
   assert.match(pages.find((x) => x.f === "index.html").html, /href="\/partners\/"/);
 });
+
+test("no intro video until data/intro-video.json sets one", async () => {
+  const video = JSON.parse(await readFile(path.join(ROOT, "data/intro-video.json"), "utf8"));
+  if (video.provider) return;
+  const home = pages.find((p) => p.f === "index.html").html;
+  assert.ok(!/intro-video/.test(home));
+});
