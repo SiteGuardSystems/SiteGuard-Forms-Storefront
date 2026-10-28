@@ -24,7 +24,8 @@ process.on("uncaughtException", (err) => {
 });
 import Stripe from "stripe";
 import { createApp, CSP } from "./lib/create-app.js";
-import { loadVideo, withVideoCsp } from "./scripts/lib/video.mjs";
+import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs";
+import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { createMailer } from "./lib/mailer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -112,6 +113,8 @@ if (SITE_MODE.beta === true) console.warn("FORMS beta: /api/checkout refuses eve
 // data/intro-video.json sets one (same file the site build reads).
 const INTRO_VIDEO = await loadVideo(__dirname);
 for (const p of INTRO_VIDEO.problems) console.warn(`Intro video not shown: ${p}`);
+const EDUCATION = await loadEducation(__dirname);
+for (const p of EDUCATION.problems) console.warn(`Education page: ${p}`);
 
 const app = createApp({
   catalogPath: path.join(__dirname, "data", "catalogue.json"),
@@ -131,7 +134,7 @@ const app = createApp({
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
   beta: SITE_MODE.beta === true,
-  csp: withVideoCsp(CSP, INTRO_VIDEO.video),
+  csp: withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)),
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 

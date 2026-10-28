@@ -1,0 +1,1738 @@
+{
+ "note": "Inspection and testing planner (scripts/lib/planning.mjs). basis is the position in the model WHS states and territories; vic_basis is the Victorian position where it differs. confidence medium marks intervals taken from a published summary of a paywalled standard. Re-check at least every 6 months and update checked. Keep identical in both SiteGuard site repos.",
+ "checked": "2026-10-28",
+ "sources": [
+  {
+   "id": "whs-cth",
+   "publisher": "Federal Register of Legislation",
+   "title": "Work Health and Safety Regulations 2011 (Cth), Compilation No. 28 (25/03/2025) - mirrors model WHS Regulations numbering",
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "id": "vic-ohsr",
+   "publisher": "Victorian Legislation",
+   "title": "Occupational Health and Safety Regulations 2017 (Vic), Authorised Version No. 018",
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "id": "wsv-elec",
+   "publisher": "WorkSafe Victoria",
+   "title": "Industry standard: Electrical installations on construction sites (2011, reviewed 27/07/2022)",
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "id": "nt-elec",
+   "publisher": "NT WorkSafe",
+   "title": "Safety inspection and testing of electrical equipment on construction sites (bulletin)",
+   "url": "https://worksafe.nt.gov.au/forms-and-resources/bulletins/safety-inspection-and-testing-of-electrical-equipment-on-construction-sites"
+  },
+  {
+   "id": "tas-rcd",
+   "publisher": "WorkSafe Tasmania",
+   "title": "RCDs on construction sites",
+   "url": "https://www.worksafe.tas.gov.au/topics/Health-and-Safety/safety-by-industry/construction/rcds-on-construction-sites"
+  },
+  {
+   "id": "tas-sb",
+   "publisher": "WorkSafe Tasmania",
+   "title": "Switchboards on construction sites",
+   "url": "https://worksafe.tas.gov.au/topics/Health-and-Safety/safety-by-industry/construction/switchboards-on-construction-sites"
+  },
+  {
+   "id": "sa-elec",
+   "publisher": "SafeWork SA",
+   "title": "Inspection and testing of electrical equipment",
+   "url": "https://www.safework.sa.gov.au/workplaces/electrical/inspection-and-testing-of-electrical-equipment"
+  },
+  {
+   "id": "qld-tt",
+   "publisher": "WorkSafe Queensland",
+   "title": "Testing and tagging of electrical equipment",
+   "url": "https://www.worksafe.qld.gov.au/safety-and-prevention/hazards/electricity/electrical-products-and-equipment/testing-and-tagging-electrical-equipment"
+  },
+  {
+   "id": "swa-elec-fs",
+   "publisher": "Safe Work Australia",
+   "title": "Fact sheet - Electrical risks at the workplace",
+   "url": "https://www.safeworkaustralia.gov.au/system/files/documents/1702/electrical-risks.doc"
+  },
+  {
+   "id": "tlg-3760",
+   "publisher": "The Local Guys Test & Tag (secondary)",
+   "title": "AS/NZS 3760 overview and retest interval summary",
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/"
+  },
+  {
+   "id": "aca-gen",
+   "publisher": "Australian Constructors Association",
+   "title": "Single-phase generators guideline (2014)",
+   "url": "https://www.constructors.com.au/wp-content/uploads/2019/11/ACA-Single-Phase-Generators-Final-2014-1.pdf"
+  },
+  {
+   "id": "nsw-scaff",
+   "publisher": "SafeWork NSW",
+   "title": "Scaffolds (working at heights)",
+   "url": "https://www.safework.nsw.gov.au/hazards-a-z/working-at-heights/work-at-heights-sections/scaffolds"
+  },
+  {
+   "id": "wa-crane",
+   "publisher": "WorkSafe WA",
+   "title": "Information sheet: Major inspection requirements for registered mobile cranes and tower cranes",
+   "url": "https://worksafe.wa.gov.au/publications/information-sheet-focus-compliance-major-inspection-requirements-registered-mobile"
+  },
+  {
+   "id": "wsv-crane",
+   "publisher": "WorkSafe Victoria",
+   "title": "Major inspection of cranes, hoists and winches (guidance)",
+   "url": "https://www.worksafe.vic.gov.au/resources/major-inspection-cranes-hoists-and-winches"
+  },
+  {
+   "id": "ame-crane",
+   "publisher": "Asset Engineering (secondary)",
+   "title": "Mobile crane registration and inspection requirements",
+   "url": "https://www.asseteng.com.au/registration-inspection-requirements/mobile-cranes/"
+  },
+  {
+   "id": "tas-plant",
+   "publisher": "WorkSafe Tasmania",
+   "title": "Plant inspections",
+   "url": "https://worksafe.tas.gov.au/topics/licensing-permits-and-registration/plant-registration/plant-inspections"
+  },
+  {
+   "id": "swa-ewp",
+   "publisher": "Safe Work Australia",
+   "title": "Guide to inspecting and maintaining elevating work platforms",
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-01/Guide%20to%20inspecting%20and%20maintaining%20elevating%20work%20platforms.docx"
+  },
+  {
+   "id": "qld-ewp",
+   "publisher": "WorkSafe Queensland",
+   "title": "Maintenance, inspection and repair of EWPs",
+   "url": "https://www.worksafe.qld.gov.au/safety-and-prevention/hazards/workplace-hazards/agriculture/elevating-work-platforms/maintenance,-inspection-and-repair-of-ewps"
+  },
+  {
+   "id": "wsv-forklift",
+   "publisher": "WorkSafe Victoria",
+   "title": "Forklift maintenance and inspection",
+   "url": "https://www.worksafe.vic.gov.au/forklift-maintenance-and-inspection"
+  },
+  {
+   "id": "nsw-chain",
+   "publisher": "NSW Government",
+   "title": "Dogging and rigging guide - Care, use and inspection of alloy chain slings",
+   "url": "https://www.nsw.gov.au/employment/dogging-and-rigging/guide/part-1-general-rigging-principles/lifting-equipment/alloy-lifting-chain/care-use-and-inspection-alloy-chain-slings"
+  },
+  {
+   "id": "chs-lift",
+   "publisher": "CH-S (secondary)",
+   "title": "A comprehensive guide to lifting and rigging equipment test frequency",
+   "url": "https://shop.ch-s.com.au/blogs/articles/a-comprehensive-guide-to-lifting-and-rigging-equipment-test-frequency"
+  },
+  {
+   "id": "wsv-air",
+   "publisher": "WorkSafe Victoria",
+   "title": "Air receiver pressure vessels",
+   "url": "https://worksafe.vic.gov.au/air-receiver-pressure-vessels"
+  },
+  {
+   "id": "chs-height",
+   "publisher": "CH-S (secondary)",
+   "title": "Height safety equipment inspections and servicing (AS/NZS 1891.4 clause summary)",
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/"
+  },
+  {
+   "id": "sah-height",
+   "publisher": "Safe at Heights (secondary)",
+   "title": "Inspection and certification of fall arrest systems",
+   "url": "https://safeatheights.com.au/inspection-and-certification-of-fall-arrest-systems/"
+  },
+  {
+   "id": "nsw-anchor",
+   "publisher": "SafeWork NSW",
+   "title": "Fall arrest anchors",
+   "url": "https://www.safework.nsw.gov.au/resource-library/construction/fall-arrest-anchors"
+  },
+  {
+   "id": "nsw-edge",
+   "publisher": "SafeWork NSW",
+   "title": "Roof edge protection fact sheet",
+   "url": "https://www.safework.nsw.gov.au/resource-library/working-at-heights/roof-edge-protection-fact-sheet"
+  },
+  {
+   "id": "cc-ext",
+   "publisher": "Compliance Council (secondary)",
+   "title": "How often do fire extinguishers need to be inspected?",
+   "url": "https://www.compliancecouncil.com.au/insights/how-often-do-fire-extinguishers-need-to-be-inspected"
+  },
+  {
+   "id": "nt-pfes",
+   "publisher": "NT Police, Fire and Emergency Services",
+   "title": "Fire safety measures maintenance checklist (AS 1851-2012)",
+   "url": "https://pfes.nt.gov.au/file/download/481"
+  },
+  {
+   "id": "vba-esm",
+   "publisher": "Victorian Building Authority",
+   "title": "Practice Note ESM-02 Maintenance of Essential Safety Measures",
+   "url": "https://www.vba.vic.gov.au/__data/assets/pdf_file/0003/136533/Building-ESM-02-Maintenance-of-Essential-Safety-Measures-UNDER-REVIEW-15-Feb-2024.pdf"
+  },
+  {
+   "id": "tlg-2293",
+   "publisher": "The Local Guys Test & Tag (secondary)",
+   "title": "Emergency exit light testing in Melbourne",
+   "url": "https://thelocalguystestandtag.com.au/blog/emergency-exit-light-testing-in-melbourne-what-facility-managers-must-know/"
+  },
+  {
+   "id": "ff-door",
+   "publisher": "Futura Fire (secondary)",
+   "title": "Fire and smoke door maintenance",
+   "url": "https://futurafire.com/fire-and-smoke-door-maintenance/"
+  },
+  {
+   "id": "f5m-3745",
+   "publisher": "First 5 Minutes (secondary)",
+   "title": "AS 3745 compliance overview",
+   "url": "https://first5minutes.com.au/as-3745-compliance-the-australian-standard-for-emergency-planning-in-facilities/"
+  },
+  {
+   "id": "wsv-fa",
+   "publisher": "WorkSafe Victoria",
+   "title": "Compliance code: First aid in the workplace (2021)",
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2021-11/ISBN-Compliance-code-first-aid-in-the-workplace-2021-11.pdf"
+  },
+  {
+   "id": "swa-fa",
+   "publisher": "Safe Work Australia (as adopted by WorkSafe Tasmania)",
+   "title": "First aid in the workplace: Code of Practice (July 2019)",
+   "url": "https://www.worksafe.tas.gov.au/__data/assets/pdf_file/0006/569517/Code-of-practice-First-aid-in-the-workplace.pdf"
+  },
+  {
+   "id": "sm-4775",
+   "publisher": "Storemasta (secondary)",
+   "title": "Emergency eyewash and shower equipment (AS 4775)",
+   "url": "https://blog.storemasta.com.au/how-keep-emergency-eyewash-shower-equipment-compliant"
+  },
+  {
+   "id": "nsw-asb",
+   "publisher": "SafeWork NSW",
+   "title": "Asbestos registers and management plans fact sheet",
+   "url": "https://www.safework.nsw.gov.au/resource-library/asbestos-publications/asbestos-registers-and-management-plans-fact-sheet"
+  },
+  {
+   "id": "wsv-sds",
+   "publisher": "WorkSafe Victoria",
+   "title": "Safety data sheets",
+   "url": "https://www.worksafe.vic.gov.au/safety-data-sheets"
+  },
+  {
+   "id": "qld-sds",
+   "publisher": "WorkSafe Queensland",
+   "title": "Labelling and safety data sheets",
+   "url": "https://www.worksafe.qld.gov.au/safety-and-prevention/hazards/hazardous-chemicals/managing-hazchem-risks/labelling-and-safety-data-sheets"
+  },
+  {
+   "id": "wsv-wel",
+   "publisher": "WorkSafe Victoria",
+   "title": "Workplace exposure standards and limits",
+   "url": "https://www.worksafe.vic.gov.au/workplace-exposure-standards-and-limits"
+  },
+  {
+   "id": "wsv-silica",
+   "publisher": "WorkSafe Victoria",
+   "title": "Crystalline silica health assessments",
+   "url": "https://worksafe.vic.gov.au/crystalline-silica-health-assessments"
+  },
+  {
+   "id": "vdh-ct",
+   "publisher": "Department of Health Victoria",
+   "title": "Cooling tower system maintenance requirements",
+   "url": "https://health.vic.gov.au/water/cooling-tower-system-maintainance-requirements"
+  },
+  {
+   "id": "vdh-ct-rev",
+   "publisher": "Department of Health Victoria",
+   "title": "Monitoring and review - cooling tower risk management plans (Section 9)",
+   "url": "https://health.vic.gov.au/water/monitoring-and-review-cooling-tower-risk-management-plans-section-9"
+  },
+  {
+   "id": "vdh-ct-aud",
+   "publisher": "Department of Health Victoria",
+   "title": "Auditing - cooling tower risk management plans (Section 11)",
+   "url": "https://www.health.vic.gov.au/water/auditing-cooling-tower-risk-management-plans-section-11"
+  },
+  {
+   "id": "wsv-hrw",
+   "publisher": "WorkSafe Victoria",
+   "title": "High risk work licence",
+   "url": "https://www.worksafe.vic.gov.au/high-risk-work-licence"
+  },
+  {
+   "id": "wsv-swms",
+   "publisher": "WorkSafe Victoria",
+   "title": "Learn about Safe Work Method Statements (SWMS)",
+   "url": "https://worksafe.vic.gov.au/safe-work-method-statements-swms"
+  },
+  {
+   "id": "comcare-hsc",
+   "publisher": "Comcare",
+   "title": "Participating in effective health and safety committees",
+   "url": "https://www.comcare.gov.au/about/forms-pubs/docs/pubs/safety/participating-in-effective-health-safety-committees.pdf"
+  },
+  {
+   "id": "swa-tmp",
+   "publisher": "Safe Work Australia",
+   "title": "Traffic management: Guide for construction work",
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-04/Traffic%20management%20guide%20for%20construction.DOCX"
+  },
+  {
+   "id": "ato-45001",
+   "publisher": "Auditor Training Online (secondary)",
+   "title": "ISO 45001 clause 9.2 internal audit",
+   "url": "https://blog.auditortrainingonline.com/blog/iso-45001-clause-9-2"
+  },
+  {
+   "id": "vicroads-rwc",
+   "publisher": "VicRoads",
+   "title": "Steps to sell and complete your vehicle transfer",
+   "url": "https://www.vicroads.vic.gov.au/buy-sell-transfer/selling-car/selling-vehicle"
+  }
+ ],
+ "items": [
+  {
+   "group": "Electrical",
+   "item": "Portable electrical equipment, tools and flexible extension cords: construction site",
+   "interval": "Every 3 months",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 163 (compliance with AS/NZS 3012:2019); AS/NZS 3012:2019; WorkSafe Vic Industry standard s.4.4 & Table 2",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Inspect and test before first use; after repair; tag and record each test",
+   "who": "Licensed electrician, licensed electrical inspector, or competent person trained in pass/fail PAT testing",
+   "jurisdiction_note": "Model WHS jurisdictions (NSW, SA, TAS, ACT, NT, Cth; WA WHS (General) Regs 2022): r.163 makes AS/NZS 3012:2019 mandatory. QLD applies AS/NZS 3012 through the Electrical Safety Regulation 2013. VIC: the OHS Regulations 2017 contain no test-and-tag or RCD-testing regulation (no equivalent of model WHS r.150, r.163-165). The VIC benchmark is WorkSafe Victoria's Industry standard 'Electrical installations on construction sites' (Table 2); legal duty arises under OHS Act 2004 s.21 and OHS Regs r.114. VIC industry standard also requires 3-monthly test (earth continuity, insulation resistance per AS/NZS 3760).",
+   "source": "wsv-elec",
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "Visual check of electrical equipment and leads before use: construction site",
+   "interval": "Before each use",
+   "basis": "Standard",
+   "reference": "AS/NZS 3012:2019; WorkSafe Vic Industry standard s.4.4",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Withdraw and tag out if damaged",
+   "who": "User/operator",
+   "jurisdiction_note": "Model WHS: via r.163/AS/NZS 3012. VIC: industry standard s.4.4 ('should be inspected for wear and mechanical damage').",
+   "source": "wsv-elec",
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "Construction wiring including site switchboards and wiring in transportable structures (site sheds)",
+   "interval": "Every 6 months",
+   "basis": "Mandatory",
+   "reference": "AS/NZS 3012:2019 (via model WHS Reg 163); WorkSafe Vic Industry standard s.4.3 & Table 2",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Initial test and certification before first use; re-inspect and re-test if a switchboard is relocated",
+   "who": "Licensed electrician (VIC: A-class) or licensed electrical inspector",
+   "jurisdiction_note": "VIC: industry standard s.4.3 - re-test every 6 months by A-class licensed electrician or electrical inspector; records on site. Model jurisdictions: 6-monthly visual inspection per AS/NZS 3012 (NT, TAS). Disagreement: SafeWork SA page lists 3 months for fixed/transportable equipment, construction wiring and switchboards - check site-specific requirement.",
+   "source": "wsv-elec",
+   "also": [
+    "tas-sb",
+    "nt-elec",
+    "sa-elec"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf",
+   "confidence_note": "Regulator sources mostly agree on 6 months; SA page indicates 3 months."
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD push-button test: portable RCDs (portable outlet assemblies/PSOAs, generators) - construction site",
+   "interval": "After connecting to supply and at least daily when in use",
+   "basis": "Mandatory",
+   "reference": "AS/NZS 3012:2019 (via model WHS Reg 163); WorkSafe Vic Industry standard s.4.5 & Table 2",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Before connecting equipment",
+   "who": "Operator/user",
+   "jurisdiction_note": "Consistent across VIC industry standard, TAS and NT guidance. Daily push-button tests need not be recorded (model WHS r.165(2)).",
+   "source": "wsv-elec",
+   "also": [
+    "tas-rcd",
+    "nt-elec"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD push-button test: fixed RCDs on construction switchboards and site sheds",
+   "interval": "Every month",
+   "basis": "Mandatory",
+   "reference": "AS/NZS 3012:2019 (via model WHS Reg 163); WorkSafe Vic Industry standard s.4.5 & Table 2",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Record date and result",
+   "who": "Licensed electrician, competent person or site representative",
+   "jurisdiction_note": "VIC industry standard: 'must be tested every month' (monthly = up to 5 weeks). TAS and NT: monthly. SafeWork SA page shows 3 months for non-portable fixed RCDs - conservative monthly recorded.",
+   "source": "wsv-elec",
+   "also": [
+    "tas-rcd"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD operating-time (trip-time) test: portable RCDs - construction site",
+   "interval": "Every month (VIC); every 3 months (AS/NZS 3012:2019 elsewhere)",
+   "basis": "Mandatory",
+   "reference": "WorkSafe Vic Industry standard s.4.5 & Table 2; AS/NZS 3012:2019 cl.3.5 (via model WHS Reg 163)",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Tag and record results",
+   "who": "Licensed electrician or person trained and deemed competent with an RCD tester",
+   "jurisdiction_note": "VIC (default): monthly. Model WHS jurisdictions: 3-monthly under AS/NZS 3012 (TAS, NT). VIC is stricter.",
+   "source": "wsv-elec",
+   "also": [
+    "tas-rcd",
+    "nt-elec"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD operating-time (trip-time) test: fixed RCDs on construction switchboards",
+   "interval": "Every month (VIC, up to 3 months if justified); every 12 months (AS/NZS 3012:2019 elsewhere)",
+   "basis": "Mandatory",
+   "reference": "WorkSafe Vic Industry standard s.4.5 & Table 2; AS/NZS 3012:2019 cl.3.5 (via model WHS Reg 163)",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "VIC: may extend to 3 months only where the site shows an equipment-entry system plus a risk assessment",
+   "who": "Licensed electrician or trained competent person",
+   "jurisdiction_note": "VIC (default): monthly, or up to 3-monthly with documented justification. Model WHS jurisdictions: 12-monthly by competent person under AS/NZS 3012 (TAS, NT, SA); WorkSafe TAS recommends more often on site.",
+   "source": "wsv-elec",
+   "also": [
+    "tas-sb",
+    "nt-elec"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "Portable generators: construction site",
+   "interval": "Every 3 months",
+   "basis": "Mandatory",
+   "reference": "WorkSafe Vic Industry standard s.4.4-4.5 & Table 2 (portable equipment includes portable generators); AS/NZS 3012:2019; AS/NZS 3010 (generating sets)",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Initial RCD injection test for any generator new to the site or of unknown history; RCD on generator push-button tested daily",
+   "who": "Licensed electrician or competent person",
+   "jurisdiction_note": "VIC industry standard treats portable generators as portable equipment (3-monthly). Model WHS: r.163/AS/NZS 3012. No generator-specific interval found in regulator material.",
+   "source": "wsv-elec",
+   "also": [
+    "aca-gen"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf",
+   "confidence": "medium",
+   "confidence_note": "Interval derived from the 'portable equipment' definition, not a generator-specific clause."
+  },
+  {
+   "group": "Electrical",
+   "item": "Emergency evacuation lighting on construction sites (battery-powered)",
+   "interval": "Every 6 months (discharge test)",
+   "basis": "Standard",
+   "reference": "WorkSafe Vic Industry standard s.6 & Table 2",
+   "applies_to": "Construction",
+   "vic_basis": "Regulator guidance",
+   "trigger": "Record results; must operate at least 1 hour after loss of supply",
+   "who": "Licensed electrician or trained person",
+   "jurisdiction_note": "VIC-specific guidance. Elsewhere follow AS/NZS 3012 / AS/NZS 2293.2.",
+   "source": "wsv-elec",
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2018-06/ISBN-Electrical-installations-on-construction-sites-industry-standard-2011-01.pdf"
+  },
+  {
+   "group": "Electrical",
+   "item": "Portable electrical equipment: factories, workshops, places of manufacture, repair or assembly",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (retest interval table); model WHS Reg 150",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Also after repair/service and before return to service (AS/NZS 5762)",
+   "who": "Competent person (licensed electrician or trained PAT tester)",
+   "jurisdiction_note": "Model WHS r.150 requires regular inspection and testing by a competent person of plug-in equipment in hostile operating environments (moisture, heat, vibration, mechanical damage, corrosive chemicals, dust); intervals come from AS/NZS 3760. VIC: no equivalent regulation - AS/NZS 3760 is the benchmark under OHS Act s.21. QLD: Electrical Safety Regulation 2013 prescribes its own intervals for manufacturing, service, office, amusement and rural work and takes precedence over AS/NZS 3760.",
+   "source": "tlg-3760",
+   "also": [
+    "sa-elec"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "AS/NZS 3760 is paywalled; interval from secondary summary, corroborated by SafeWork SA."
+  },
+  {
+   "group": "Electrical",
+   "item": "Portable electrical equipment: environments with flexing, abuse or hostile conditions (not factory/construction)",
+   "interval": "Every 12 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (retest interval table); model WHS Reg 150",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Model WHS r.150 requires regular inspection and testing by a competent person of plug-in equipment in hostile operating environments (moisture, heat, vibration, mechanical damage, corrosive chemicals, dust); intervals come from AS/NZS 3760. VIC: no equivalent regulation - AS/NZS 3760 is the benchmark under OHS Act s.21. QLD: Electrical Safety Regulation 2013 prescribes its own intervals for manufacturing, service, office, amusement and rural work and takes precedence over AS/NZS 3760. SWA fact sheet also gives 'at least every 12 months' for hostile environments generally.",
+   "source": "tlg-3760",
+   "also": [
+    "swa-elec-fs"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS/NZS 3760; SWA fact sheet corroborates 12 months."
+  },
+  {
+   "group": "Electrical",
+   "item": "Portable electrical equipment: office/low-risk areas (not flexed, abused or hostile)",
+   "interval": "Every 5 years",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (retest interval table)",
+   "applies_to": "Office",
+   "trigger": "Inspect earlier if damage suspected",
+   "who": "Competent person",
+   "jurisdiction_note": "Model WHS r.150 requires regular inspection and testing by a competent person of plug-in equipment in hostile operating environments (moisture, heat, vibration, mechanical damage, corrosive chemicals, dust); intervals come from AS/NZS 3760. VIC: no equivalent regulation - AS/NZS 3760 is the benchmark under OHS Act s.21. QLD: Electrical Safety Regulation 2013 prescribes its own intervals for manufacturing, service, office, amusement and rural work and takes precedence over AS/NZS 3760. QLD office work: see Electrical Safety Regulation 2013 / WorkSafe QLD table (5 years for office equipment without safety-switch protection).",
+   "source": "tlg-3760",
+   "also": [
+    "qld-tt"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS/NZS 3760; many organisations adopt shorter internal intervals."
+  },
+  {
+   "group": "Electrical",
+   "item": "Portable electrical equipment: residential-type areas (hotels, motels, accommodation, halls)",
+   "interval": "Every 2 years",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (retest interval table)",
+   "applies_to": "All workplaces",
+   "trigger": "Includes cord sets, extension sets and portable outlet devices",
+   "who": "Competent person",
+   "jurisdiction_note": "Model WHS r.150 requires regular inspection and testing by a competent person of plug-in equipment in hostile operating environments (moisture, heat, vibration, mechanical damage, corrosive chemicals, dust); intervals come from AS/NZS 3760. VIC: no equivalent regulation - AS/NZS 3760 is the benchmark under OHS Act s.21. QLD: Electrical Safety Regulation 2013 prescribes its own intervals for manufacturing, service, office, amusement and rural work and takes precedence over AS/NZS 3760.",
+   "source": "tlg-3760",
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS/NZS 3760."
+  },
+  {
+   "group": "Electrical",
+   "item": "Commercial cleaning equipment",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (retest interval table)",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Model WHS r.150 requires regular inspection and testing by a competent person of plug-in equipment in hostile operating environments (moisture, heat, vibration, mechanical damage, corrosive chemicals, dust); intervals come from AS/NZS 3760. VIC: no equivalent regulation - AS/NZS 3760 is the benchmark under OHS Act s.21. QLD: Electrical Safety Regulation 2013 prescribes its own intervals for manufacturing, service, office, amusement and rural work and takes precedence over AS/NZS 3760.",
+   "source": "tlg-3760",
+   "also": [
+    "swa-elec-fs"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary; SWA fact sheet corroborates 6 months."
+  },
+  {
+   "group": "Electrical",
+   "item": "Hire electrical equipment",
+   "interval": "Before each hire, and every 3 months during hire",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022; SWA electrical risks fact sheet",
+   "applies_to": "All workplaces",
+   "trigger": "For extended hires, user applies the interval for their workplace type",
+   "who": "Hire company competent person",
+   "jurisdiction_note": "VIC: OHS Regs r.93 requires hire suppliers to inspect and maintain plant between hires (Mandatory). WorkSafe Vic construction industry standard: test before delivery.",
+   "source": "swa-elec-fs",
+   "url": "https://www.safeworkaustralia.gov.au/system/files/documents/1702/electrical-risks.doc"
+  },
+  {
+   "group": "Electrical",
+   "item": "Repaired, serviced or second-hand electrical equipment",
+   "interval": "Before return to service",
+   "basis": "Standard",
+   "reference": "Model WHS Reg 150; AS/NZS 3760:2022; AS/NZS 5762",
+   "applies_to": "All workplaces",
+   "trigger": "After repair/service that could affect electrical safety, before first use if second-hand or no test record",
+   "who": "Competent person",
+   "jurisdiction_note": "Testing before return to service comes from AS/NZS 3760 and AS/NZS 5762, not a regulation. Model WHS r.149: equipment found unsafe must not be used again until it is repaired or tested and found safe. New, unused equipment is exempt from r.150 testing unless there are grounds to suspect it is unsafe.",
+   "source": "swa-elec-fs",
+   "url": "https://www.safeworkaustralia.gov.au/system/files/documents/1702/electrical-risks.doc"
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD push-button test: fixed RCDs (non-construction workplaces)",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (RCD interval table); model WHS Reg 165 ('regularly')",
+   "applies_to": "All workplaces",
+   "who": "User or competent person",
+   "jurisdiction_note": "Model WHS r.165 requires regular testing by a competent person and records (excluding daily tests) until next test. Intervals from AS/NZS 3760. QLD: Electrical Safety Regulation 2013 office/manufacturing intervals apply. VIC: benchmark only.",
+   "source": "tlg-3760",
+   "also": [
+    "qld-tt"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS/NZS 3760; QLD regulator table corroborates 6 months."
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD push-button test: portable RCDs (non-construction workplaces)",
+   "interval": "Daily or before use (factories/workshops); every 3 months (other environments)",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (RCD interval table); model WHS Reg 165",
+   "applies_to": "Warehouse/factory",
+   "who": "User",
+   "jurisdiction_note": "See model WHS r.165. QLD: portable RCDs prohibited in manufacturing since 1 March 2008 (WorkSafe QLD).",
+   "source": "tlg-3760",
+   "also": [
+    "qld-tt"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS/NZS 3760."
+  },
+  {
+   "group": "Electrical",
+   "item": "RCD operating-time test: fixed and portable RCDs (non-construction workplaces)",
+   "interval": "Every 12 months (factories, hostile environments); every 2 years (low-risk/office)",
+   "basis": "Standard",
+   "reference": "AS/NZS 3760:2022 (RCD interval table); model WHS Reg 165",
+   "applies_to": "All workplaces",
+   "who": "Competent person with RCD tester",
+   "jurisdiction_note": "Model WHS r.165; QLD Electrical Safety Regulation 2013 office: 2 years (fixed). Conservative 12 months recorded.",
+   "source": "tlg-3760",
+   "also": [
+    "qld-tt"
+   ],
+   "url": "https://thelocalguystestandtag.com.au/as-nzs-3760/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary; QLD regulator corroborates."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Portable fire extinguishers: routine inspection",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS 1851-2012 (portable fire extinguishers section)",
+   "applies_to": "All workplaces",
+   "trigger": "Recharge after every use",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "cc-ext",
+   "also": [
+    "nt-pfes"
+   ],
+   "url": "https://www.compliancecouncil.com.au/insights/how-often-do-fire-extinguishers-need-to-be-inspected",
+   "confidence": "medium",
+   "confidence_note": "AS 1851 paywalled; two secondary/regulator sources agree on 6-monthly."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Portable fire extinguishers: pressure test / empty and refill",
+   "interval": "Every 5 years (typical; 3-6 years depending on type)",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "cc-ext",
+   "url": "https://www.compliancecouncil.com.au/insights/how-often-do-fire-extinguishers-need-to-be-inspected",
+   "confidence": "medium",
+   "confidence_note": "Source states 3, 5 or 6 years depending on type; 5-yearly recorded as common practice - confirm for each extinguisher type."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Fire blankets",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "nt-pfes",
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "Regulator checklist summary of AS 1851 (NT)."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Fire hose reels",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "nt-pfes",
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "Regulator checklist summary of AS 1851 (NT)."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Fire hydrants and booster inlets",
+   "interval": "Every 6 months; hydrostatic test every 5 years",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "trigger": "Booster pumps monthly",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "nt-pfes",
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "Regulator checklist summary of AS 1851 (NT)."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Automatic fire sprinkler systems",
+   "interval": "Every month (minimum)",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "trigger": "Pump-set tests may be more frequent under AS 1851",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "nt-pfes",
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "NT checklist gives monthly; full AS 1851 sprinkler schedule (weekly/yearly/5-yearly tasks) not verified."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Fire detection and alarm systems",
+   "interval": "Every month",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "nt-pfes",
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "Regulator checklist summary of AS 1851 (NT); six-monthly/yearly tasks not verified."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Emergency and exit lighting",
+   "interval": "Every 6 months (function and 90-minute discharge test)",
+   "basis": "Standard",
+   "reference": "AS/NZS 2293.2:2019",
+   "applies_to": "All workplaces",
+   "trigger": "Monthly visual check is common practice",
+   "who": "Licensed electrician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here. Construction sites (VIC): see electrical group - 6-monthly discharge test.",
+   "source": "nt-pfes",
+   "also": [
+    "tlg-2293"
+   ],
+   "url": "https://pfes.nt.gov.au/file/download/481",
+   "confidence": "medium",
+   "confidence_note": "Secondary sources; one is internally inconsistent on whether the 90-minute test is 6-monthly or annual."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Fire and smoke doors",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS 1851-2012",
+   "applies_to": "All workplaces",
+   "trigger": "Horizontal sliding fire doors: 3-monthly operational test",
+   "who": "Fire protection technician",
+   "jurisdiction_note": "VIC: for the building owner, mandatory where the item is an essential safety measure in the occupancy permit or maintenance determination (Building Regulations 2018 r.215 to 217), which commonly adopts AS 1851-2012. Elsewhere, and for workplaces that are not the building owner, AS 1851 is the benchmark. Other states have their own building fire-safety schemes (for example the NSW annual fire safety statement), not covered here.",
+   "source": "ff-door",
+   "url": "https://futurafire.com/fire-and-smoke-door-maintenance/",
+   "confidence": "medium",
+   "confidence_note": "Single secondary source; AS 1851 section number not verified."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Annual Essential Safety Measures Report (AESMR): VIC",
+   "interval": "Every 12 months",
+   "basis": "Mandatory",
+   "reference": "Building Regulations 2018 (Vic) r.223, r.224, r.225",
+   "applies_to": "All workplaces",
+   "trigger": "Prepare within 28 days before the anniversary date (13 June for pre-1994 buildings); keep 10 years of reports",
+   "who": "Building owner (or agent)",
+   "jurisdiction_note": "VIC only. Owner must keep ESM inspection/maintenance records and produce AESMRs within 24 hours of request by the municipal building surveyor or chief officer (r.225).",
+   "source": "vba-esm",
+   "url": "https://www.vba.vic.gov.au/__data/assets/pdf_file/0003/136533/Building-ESM-02-Maintenance-of-Essential-Safety-Measures-UNDER-REVIEW-15-Feb-2024.pdf"
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Emergency evacuation exercise (drill)",
+   "interval": "At least every 12 months",
+   "basis": "Standard",
+   "reference": "AS 3745-2010; model WHS Reg 43(1)(b)",
+   "applies_to": "All workplaces",
+   "trigger": "More often for high-risk facilities",
+   "who": "Emergency planning committee / chief warden",
+   "jurisdiction_note": "Model WHS r.43 requires the emergency plan to provide for testing of emergency procedures, including frequency of testing (PCBU sets it). VIC: no general emergency-plan regulation in OHS Regs 2017 (emergency procedures only for specific hazards); AS 3745 is the benchmark.",
+   "source": "f5m-3745",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://first5minutes.com.au/as-3745-compliance-the-australian-standard-for-emergency-planning-in-facilities/",
+   "confidence": "medium",
+   "confidence_note": "AS 3745 annual exercise from secondary summary; r.43 text verified."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Emergency plan review",
+   "interval": "At planned intervals and after exercises, incidents or significant change",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 43 (prepare, maintain and implement); AS 3745-2010",
+   "applies_to": "All workplaces",
+   "vic_basis": "Standard",
+   "who": "PCBU / emergency planning committee",
+   "jurisdiction_note": "Model WHS r.43 duty to maintain the plan. AS 3745 sets 'defined intervals' without a fixed period. VIC: AS 3745 benchmark only.",
+   "source": "whs-cth",
+   "also": [
+    "f5m-3745"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text",
+   "confidence": "medium",
+   "confidence_note": "No fixed review interval is prescribed; annual review is common practice only."
+  },
+  {
+   "group": "Fire and emergency",
+   "item": "Warden / emergency control organisation training refresher",
+   "interval": "Not prescribed (annual refresher is common practice)",
+   "basis": "Good practice",
+   "reference": "AS 3745-2010",
+   "applies_to": "All workplaces",
+   "trigger": "Train new ECO members before they take up duties",
+   "who": "RTO / emergency trainer",
+   "jurisdiction_note": "No regulator interval located.",
+   "source": "f5m-3745",
+   "url": "https://first5minutes.com.au/as-3745-compliance-the-australian-standard-for-emergency-planning-in-facilities/",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS 3745."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Plant: general inspection and maintenance",
+   "interval": "Per manufacturer's recommendations; else competent person's; else every 12 months",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 213; VIC OHS Regs r.105, r.106",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Model WHS r.213: inspection annually if neither manufacturer nor competent-person recommendations are reasonably practicable. VIC r.105: plant 'inspected to the extent necessary' (no default interval); r.106: keep inspection/maintenance records for specified plant (e.g. tower cranes, lifts, boilers/pressure vessels hazard A-C, certain Schedule 2 plant).",
+   "source": "whs-cth",
+   "also": [
+    "vic-ohsr",
+    "tas-plant"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Hired or leased plant: between hires",
+   "interval": "Between each hire",
+   "basis": "Mandatory",
+   "reference": "VIC OHS Regs r.93, r.94",
+   "applies_to": "All workplaces",
+   "trigger": "Record kept while supplier controls the plant",
+   "who": "Hire supplier",
+   "jurisdiction_note": "VIC-specific duty on hire suppliers. Model WHS: covered by supplier and r.213 duties.",
+   "source": "vic-ohsr",
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Mobile plant and forklift pre-start check",
+   "interval": "Start of each shift / before first daily use / when operator changes",
+   "basis": "Manufacturer",
+   "reference": "WorkSafe Vic forklift guidance; manufacturer's instructions; model WHS Reg 213",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Lock out any unit with a safety defect",
+   "who": "Operator",
+   "jurisdiction_note": "Same practice in all jurisdictions.",
+   "source": "wsv-forklift",
+   "url": "https://www.worksafe.vic.gov.au/forklift-maintenance-and-inspection"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Forklift periodic service and inspection",
+   "interval": "Per manufacturer's service schedule",
+   "basis": "Manufacturer",
+   "reference": "Manufacturer's instructions; model WHS Reg 213 (annual fallback); AS 2359 series",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Records of inspections, defects and repairs",
+   "who": "Competent forklift technician",
+   "jurisdiction_note": "WorkSafe Vic sets no fixed interval; engage a competent forklift technician. Forklift operation is high risk work (licence) in all jurisdictions.",
+   "source": "wsv-forklift",
+   "url": "https://www.worksafe.vic.gov.au/forklift-maintenance-and-inspection"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Mobile cranes (>10 t) and tower cranes: major inspection",
+   "interval": "End of manufacturer's design life; else competent person; else every 10 years",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 235; WA WHS (General) Regs 2022 r.235; AS 2550.1",
+   "applies_to": "Construction",
+   "vic_basis": "Standard",
+   "trigger": "From date first commissioned or registered, whichever earlier",
+   "who": "Competent person (NPER-registered or Chartered Professional Engineer, or regulator-approved)",
+   "jurisdiction_note": "Mandatory in model WHS jurisdictions and WA. VIC: no major-inspection regulation in OHS Regs 2017; WorkSafe Vic guidance on major inspection of cranes, hoists and winches references the AS 2550 approach.",
+   "source": "whs-cth",
+   "also": [
+    "wa-crane",
+    "wsv-crane"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Cranes: annual (periodic) inspection",
+   "interval": "Every 12 months",
+   "basis": "Standard",
+   "reference": "AS 2550.1; model WHS Reg 213 (annual fallback)",
+   "applies_to": "Construction",
+   "trigger": "Plus routine inspections per AS 2550 and manufacturer",
+   "who": "Competent person (third party)",
+   "jurisdiction_note": "Registered cranes in model jurisdictions also need a competent-person inspection for registration (e.g. r.267).",
+   "source": "ame-crane",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.asseteng.com.au/registration-inspection-requirements/mobile-cranes/",
+   "confidence": "medium",
+   "confidence_note": "Annual AS 2550.1 inspection from secondary engineering source."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Elevating work platforms: pre-operational inspection",
+   "interval": "Start of each shift",
+   "basis": "Standard",
+   "reference": "AS 2550.10; SWA Guide to inspecting and maintaining EWPs (Appendix A)",
+   "applies_to": "All workplaces",
+   "who": "Competent operator",
+   "jurisdiction_note": "Same in all jurisdictions; underlying legal duty model WHS r.213 / VIC r.105.",
+   "source": "swa-ewp",
+   "also": [
+    "qld-ewp"
+   ],
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-01/Guide%20to%20inspecting%20and%20maintaining%20elevating%20work%20platforms.docx"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Elevating work platforms: routine inspection",
+   "interval": "At least every 3 months",
+   "basis": "Standard",
+   "reference": "AS 2550.10; SWA EWP guide (Appendix B)",
+   "applies_to": "All workplaces",
+   "trigger": "Before returning to service after storage; more often in harsh/continuous use",
+   "who": "Competent person (written report)",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "swa-ewp",
+   "also": [
+    "qld-ewp"
+   ],
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-01/Guide%20to%20inspecting%20and%20maintaining%20elevating%20work%20platforms.docx"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Elevating work platforms: periodic inspection",
+   "interval": "Every 12 months (maximum, unless manufacturer specifies otherwise)",
+   "basis": "Standard",
+   "reference": "AS 2550.10; SWA EWP guide (Appendix C)",
+   "applies_to": "All workplaces",
+   "who": "Competent person (independent of operation)",
+   "jurisdiction_note": "VIC: boom-type EWPs require design registration (OHS Regs Schedule 2 item 1.10).",
+   "source": "swa-ewp",
+   "also": [
+    "qld-ewp"
+   ],
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-01/Guide%20to%20inspecting%20and%20maintaining%20elevating%20work%20platforms.docx"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Elevating work platforms: major inspection",
+   "interval": "After 10 years of service; repeat intervals as set by the manufacturer or a competent person",
+   "basis": "Standard",
+   "reference": "AS 2550.10; AS 1418.10 (design life); SWA EWP guide",
+   "applies_to": "All workplaces",
+   "trigger": "Earlier if damaged, modified, records missing or manufacturer requires",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions (guidance, not regulation).",
+   "source": "swa-ewp",
+   "also": [
+    "qld-ewp"
+   ],
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-01/Guide%20to%20inspecting%20and%20maintaining%20elevating%20work%20platforms.docx",
+   "confidence": "medium",
+   "confidence_note": "The 10-year first major inspection is confirmed; a fixed repeat interval is not."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Lifting gear: pre-use visual check (slings, chains, shackles, hooks)",
+   "interval": "Before each use",
+   "basis": "Standard",
+   "reference": "AS 3775.2; AS 1666.2; AS 1353.2; NSW dogging & rigging guide",
+   "applies_to": "All workplaces",
+   "trigger": "Remove damaged gear from service",
+   "who": "User / dogger / rigger",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "nsw-chain",
+   "url": "https://www.nsw.gov.au/employment/dogging-and-rigging/guide/part-1-general-rigging-principles/lifting-equipment/alloy-lifting-chain/care-use-and-inspection-alloy-chain-slings"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Alloy chain slings: periodic inspection",
+   "interval": "Every 12 months (1-5 lifts/week) down to monthly (201+ lifts/week)",
+   "basis": "Standard",
+   "reference": "AS 3775.2 (inspection guide table)",
+   "applies_to": "All workplaces",
+   "trigger": "6-monthly at 6-25 lifts/week, 3-monthly at 26-200; re-test after component or tag replacement",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions; end user sets schedule on duty cycle.",
+   "source": "nsw-chain",
+   "url": "https://www.nsw.gov.au/employment/dogging-and-rigging/guide/part-1-general-rigging-principles/lifting-equipment/alloy-lifting-chain/care-use-and-inspection-alloy-chain-slings"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Wire rope slings: periodic inspection",
+   "interval": "About every 12 months (usage-dependent)",
+   "basis": "Standard",
+   "reference": "AS 1666 series",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-lift",
+   "url": "https://shop.ch-s.com.au/blogs/articles/a-comprehensive-guide-to-lifting-and-rigging-equipment-test-frequency",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Synthetic / soft slings and roundslings: periodic inspection",
+   "interval": "Not more than every 3 months",
+   "basis": "Standard",
+   "reference": "AS 1353.2 (flat synthetic webbing slings); AS 4497 (roundslings)",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-lift",
+   "url": "https://shop.ch-s.com.au/blogs/articles/a-comprehensive-guide-to-lifting-and-rigging-equipment-test-frequency",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary; AS 4497 interval not separately confirmed."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Below-the-hook lifting devices (spreader/lifting beams)",
+   "interval": "Every 12 months (suggested) or as manufacturer/competent person sets",
+   "basis": "Standard",
+   "reference": "AS 4991",
+   "applies_to": "All workplaces",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-lift",
+   "url": "https://shop.ch-s.com.au/blogs/articles/a-comprehensive-guide-to-lifting-and-rigging-equipment-test-frequency",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Registered plant item: registration renewal",
+   "interval": "Every 5 years (model WHS); every 12 months (VIC amusement structures)",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 272 & Schedule 5 Part 2; VIC OHS Regs r.127C, r.513K",
+   "applies_to": "All workplaces",
+   "who": "Person with management or control of the plant",
+   "jurisdiction_note": "Model WHS registrable items: boilers and pressure vessels (hazard A-C, AS 4343), tower cranes, lifts/escalators, building maintenance units, amusement devices, concrete placing booms, mobile cranes >10 t. VIC (Authorised Version 018): item registration applies to amusement structures only (12-month registration, r.513K); other plant needs design registration only (Schedule 2). VIC amusement structure registration was introduced by S.R. No. 46/2026 (from 29 Jul 2026): apply by 30 Oct 2026 for structures designed on or after 1 Jul 1995, and by 1 Nov 2027 for older designs. QLD registers items annually.",
+   "source": "whs-cth",
+   "also": [
+    "vic-ohsr"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text",
+   "confidence_note": "VIC position reflects S.R. No. 46/2026 amendments - verify against WorkSafe Vic before publishing."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Plant design registration",
+   "interval": "No expiry - re-register if design is altered",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 259 (unlimited duration); VIC OHS Regs r.125, r.126 & Schedule 2",
+   "applies_to": "All workplaces",
+   "trigger": "Alteration that may affect health and safety (e.g. tower crane relocation in WA)",
+   "who": "Designer / owner",
+   "jurisdiction_note": "VIC Schedule 2 includes e.g. prefabricated scaffolding, boom-type EWPs, vehicle hoists, mast climbing work platforms, mobile cranes >10 t, concrete-placing booms.",
+   "source": "whs-cth",
+   "also": [
+    "vic-ohsr"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Air receivers (pV > 150 MPa.L): external inspection",
+   "interval": "Every 2 years",
+   "basis": "Standard",
+   "reference": "AS/NZS 3788:2006 (as cited by WorkSafe Vic); hazard level per AS 4343",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Commissioning inspection required; internal every 4 years; extended interval 12 years",
+   "who": "Competent person",
+   "jurisdiction_note": "VIC r.106 requires records for pressure vessels hazard A-C. Model WHS: hazard A-C vessels are registrable items (Schedule 5). AS 3788:2024 now current - intervals should be confirmed against the 2024 edition.",
+   "source": "wsv-air",
+   "url": "https://worksafe.vic.gov.au/air-receiver-pressure-vessels",
+   "confidence_note": "Regulator source; note edition change to AS 3788:2024."
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Air receivers (pV > 150 MPa.L): internal inspection",
+   "interval": "Every 4 years",
+   "basis": "Standard",
+   "reference": "AS/NZS 3788:2006 (as cited by WorkSafe Vic)",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Receivers pV <= 150 MPa.L: regular operating surveillance only",
+   "who": "Competent person",
+   "jurisdiction_note": "As above.",
+   "source": "wsv-air",
+   "url": "https://worksafe.vic.gov.au/air-receiver-pressure-vessels"
+  },
+  {
+   "group": "Plant and lifting",
+   "item": "Hoists (builders' hoists, mast climbing platforms, winches)",
+   "interval": "Per manufacturer; else competent person; else every 12 months",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 213; VIC OHS Regs r.105; WorkSafe Vic major inspection guidance (cranes, hoists and winches)",
+   "applies_to": "Construction",
+   "vic_basis": "Standard",
+   "trigger": "Major inspection per AS 2550 approach",
+   "who": "Competent person",
+   "jurisdiction_note": "Mast climbing work platforms need design registration in VIC (Schedule 2 item 1.13).",
+   "source": "whs-cth",
+   "also": [
+    "wsv-crane"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text",
+   "confidence": "medium",
+   "confidence_note": "No hoist-specific periodic interval verified; AS 2550.7 not reviewed."
+  },
+  {
+   "group": "Height",
+   "item": "Scaffold: handover inspection before first use",
+   "interval": "Before first use",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 225(2); AS/NZS 4576",
+   "applies_to": "Construction",
+   "vic_basis": "Good practice",
+   "trigger": "Written confirmation from competent person that construction is complete (handover certificate)",
+   "who": "Competent person (licensed scaffolder for >4 m)",
+   "jurisdiction_note": "Model WHS: applies to suspended, cantilevered, spur and hung scaffolds and any scaffold with a fall risk >4 m. VIC r.118: no work from scaffold until complete; no written-handover regulation (good practice).",
+   "source": "whs-cth",
+   "also": [
+    "nsw-scaff"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Height",
+   "item": "Scaffold: periodic inspection",
+   "interval": "At least every 30 days",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 225(3)",
+   "applies_to": "Construction",
+   "vic_basis": "Good practice",
+   "trigger": "And before use resumes after an incident affecting stability, or after repairs",
+   "who": "Competent person",
+   "jurisdiction_note": "Mandatory in model WHS jurisdictions (and WA). VIC: OHS Regs r.118 has no fixed interval - scaffold must be secure and repaired before use once found unsafe; 30-day inspection is good practice in VIC.",
+   "source": "whs-cth",
+   "also": [
+    "vic-ohsr",
+    "tas-plant"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Height",
+   "item": "Scaffold: daily pre-use check",
+   "interval": "Each day before use",
+   "basis": "Good practice",
+   "reference": "SafeWork NSW scaffold guidance",
+   "applies_to": "Construction",
+   "who": "Scaffold user / supervisor",
+   "jurisdiction_note": "Guidance only in all jurisdictions.",
+   "source": "nsw-scaff",
+   "url": "https://www.safework.nsw.gov.au/hazards-a-z/working-at-heights/work-at-heights-sections/scaffolds"
+  },
+  {
+   "group": "Height",
+   "item": "Harnesses and lanyards: user check",
+   "interval": "Before and after each use",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.2",
+   "applies_to": "All workplaces",
+   "who": "User",
+   "jurisdiction_note": "Same in all jurisdictions; follow manufacturer if stricter.",
+   "source": "chs-height",
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/",
+   "confidence": "medium",
+   "confidence_note": "AS/NZS 1891.4 clause references from secondary source."
+  },
+  {
+   "group": "Height",
+   "item": "Harnesses, lanyards and personal fall-arrest equipment: periodic inspection",
+   "interval": "Every 6 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.3.2",
+   "applies_to": "All workplaces",
+   "trigger": "More often in harsh conditions; on entry/re-entry into service",
+   "who": "Height safety equipment inspector (competent person)",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-height",
+   "also": [
+    "sah-height"
+   ],
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/",
+   "confidence": "medium",
+   "confidence_note": "Two secondary sources agree."
+  },
+  {
+   "group": "Height",
+   "item": "Fall-arrest devices (self-retracting lifelines)",
+   "interval": "Every 6 months (external); full service per manufacturer (up to 5 years)",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.3.4",
+   "applies_to": "All workplaces",
+   "vic_basis": "Manufacturer",
+   "who": "Height safety equipment inspector",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-height",
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/",
+   "confidence": "medium",
+   "confidence_note": "Secondary source."
+  },
+  {
+   "group": "Height",
+   "item": "Anchorage points (drilled-in / timber-framed)",
+   "interval": "Every 12 months",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.3.3; AS/NZS 5532 (design/manufacturer testing only)",
+   "applies_to": "All workplaces",
+   "trigger": "Annual load testing of chemical and friction anchors",
+   "who": "Height safety equipment inspector",
+   "jurisdiction_note": "SafeWork NSW: AS/NZS 5532 does not address ongoing inspection; inspection programs follow AS/NZS 1891.4. Other anchor types: up to 5 years if manufacturer recommends.",
+   "source": "chs-height",
+   "also": [
+    "nsw-anchor"
+   ],
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/"
+  },
+  {
+   "group": "Height",
+   "item": "Static lines and lifelines",
+   "interval": "Every 6 months (fibre rope/webbing and cable systems); steel rope/rail per manufacturer",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.3.5, 9.7",
+   "applies_to": "All workplaces",
+   "who": "Height safety equipment inspector",
+   "jurisdiction_note": "Disagreement: one source cites 6-monthly for cable static lines; another allows longer intervals for accredited steel rope/rail systems. Conservative 6 months recorded.",
+   "source": "chs-height",
+   "also": [
+    "sah-height"
+   ],
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/",
+   "confidence": "medium",
+   "confidence_note": "Sources disagree on steel/rail systems."
+  },
+  {
+   "group": "Height",
+   "item": "Fall-arrest equipment that has arrested a fall",
+   "interval": "Before any further use",
+   "basis": "Standard",
+   "reference": "AS/NZS 1891.4 cl.9.5",
+   "applies_to": "All workplaces",
+   "trigger": "Withdraw from service",
+   "who": "Competent person",
+   "jurisdiction_note": "Same in all jurisdictions.",
+   "source": "chs-height",
+   "url": "https://ch-s.com.au/height-safety-equipment-inspections-and-servicing/",
+   "confidence": "medium",
+   "confidence_note": "Secondary source."
+  },
+  {
+   "group": "Height",
+   "item": "Temporary edge protection / guardrails",
+   "interval": "After installation (before access); periodically (monthly is the regulator's example); after adverse weather",
+   "basis": "Good practice",
+   "reference": "AS/NZS 4994.1; AS/NZS 4994.2; SafeWork NSW roof edge protection fact sheet",
+   "applies_to": "Construction",
+   "trigger": "Handover certificate per AS/NZS 4994.2; record with photos",
+   "who": "Competent person",
+   "jurisdiction_note": "Guidance in all jurisdictions; monthly is given as an example, not a mandated interval.",
+   "source": "nsw-edge",
+   "url": "https://www.safework.nsw.gov.au/resource-library/working-at-heights/roof-edge-protection-fact-sheet"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "First aid kits: check and restock",
+   "interval": "Every 3 months (VIC); at least every 12 months (model code)",
+   "basis": "Code of practice",
+   "reference": "WorkSafe Vic Compliance code First aid in the workplace (2021) para 142; Model Code of Practice First aid in the workplace s.3.1; model WHS Reg 42",
+   "applies_to": "All workplaces",
+   "trigger": "And after every use; record on inventory",
+   "who": "First aid officer",
+   "jurisdiction_note": "VIC: every 3 months. Model WHS jurisdictions: after each use or at least annually.",
+   "source": "wsv-fa",
+   "also": [
+    "swa-fa"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2021-11/ISBN-Compliance-code-first-aid-in-the-workplace-2021-11.pdf"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "First aid qualification (HLTAID011 Provide First Aid)",
+   "interval": "Every 3 years",
+   "basis": "Code of practice",
+   "reference": "WorkSafe Vic First aid compliance code para 55; Model First aid code s.3.5",
+   "applies_to": "All workplaces",
+   "who": "RTO",
+   "jurisdiction_note": "Same in VIC and model codes.",
+   "source": "wsv-fa",
+   "also": [
+    "swa-fa"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2021-11/ISBN-Compliance-code-first-aid-in-the-workplace-2021-11.pdf"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "CPR refresher (HLTAID009)",
+   "interval": "Every 12 months",
+   "basis": "Code of practice",
+   "reference": "WorkSafe Vic First aid compliance code para 55; Model First aid code s.3.5",
+   "applies_to": "All workplaces",
+   "who": "RTO",
+   "jurisdiction_note": "Same in VIC and model codes.",
+   "source": "wsv-fa",
+   "also": [
+    "swa-fa"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2021-11/ISBN-Compliance-code-first-aid-in-the-workplace-2021-11.pdf"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "First aid arrangements review",
+   "interval": "Regularly, and after incidents or changes",
+   "basis": "Code of practice",
+   "reference": "WorkSafe Vic First aid compliance code paras 75, 120; Model First aid code s.3.8",
+   "applies_to": "All workplaces",
+   "who": "Employer / PCBU",
+   "jurisdiction_note": "No fixed interval in either code.",
+   "source": "wsv-fa",
+   "also": [
+    "swa-fa"
+   ],
+   "url": "https://content-v2.api.worksafe.vic.gov.au/sites/default/files/2021-11/ISBN-Compliance-code-first-aid-in-the-workplace-2021-11.pdf"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Plumbed eyewash stations and safety showers: activation",
+   "interval": "Every week",
+   "basis": "Standard",
+   "reference": "AS 4775-2007",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Self-contained units: check fluid regularly; refill after use",
+   "who": "Nominated person",
+   "jurisdiction_note": "Codes (VIC compliance code paras 153-156; model code s.3.3) require provision and refer to AS 4775 but set no test frequency.",
+   "source": "sm-4775",
+   "url": "https://blog.storemasta.com.au/how-keep-emergency-eyewash-shower-equipment-compliant",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS 4775."
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Eyewash stations and safety showers: inspection and test",
+   "interval": "Every 12 months",
+   "basis": "Standard",
+   "reference": "AS 4775-2007",
+   "applies_to": "Warehouse/factory",
+   "who": "Qualified technician",
+   "jurisdiction_note": "As above.",
+   "source": "sm-4775",
+   "url": "https://blog.storemasta.com.au/how-keep-emergency-eyewash-shower-equipment-compliant",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of AS 4775."
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Asbestos register review",
+   "interval": "At least every 5 years",
+   "basis": "Mandatory",
+   "reference": "VIC OHS Regs r.228(2), r.236(3), r.241, r.242; model WHS Reg 426 (with r.430)",
+   "applies_to": "All workplaces",
+   "trigger": "Keep current (changes of condition, removal, enclosure, sealing); review before demolition or refurbishment",
+   "who": "Person with management or control of the workplace",
+   "jurisdiction_note": "VIC: express 5-yearly review of the register. Model WHS: register reviewed when the asbestos management plan is reviewed (r.426), and the plan must be reviewed at least every 5 years (r.430(e)) - so 5-yearly in effect.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Asbestos management plan review",
+   "interval": "At least every 5 years",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 430",
+   "applies_to": "All workplaces",
+   "vic_basis": "Not applicable",
+   "trigger": "And when register/controls reviewed, asbestos disturbed/removed, plan inadequate, or HSR requests",
+   "who": "Person with management or control of the workplace",
+   "jurisdiction_note": "VIC: OHS Regs 2017 contain no asbestos management plan requirement.",
+   "source": "whs-cth",
+   "also": [
+    "nsw-asb"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Safety data sheet currency",
+   "interval": "Every 5 years (SDS must be reviewed by manufacturer/importer)",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 330; VIC OHS Regs r.146",
+   "applies_to": "All workplaces",
+   "trigger": "Obtain current SDS on supply; check SDS issue dates in your register",
+   "who": "Manufacturer/importer; workplace checks",
+   "jurisdiction_note": "Duty to review sits with manufacturer/importer; workplace duty is to hold a current SDS. Same 5-year period in VIC and model WHS.",
+   "source": "vic-ohsr",
+   "also": [
+    "qld-sds",
+    "wsv-sds"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Hazardous chemicals / hazardous substances register",
+   "interval": "Keep up to date (no fixed interval)",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 346; VIC OHS Regs r.162",
+   "applies_to": "All workplaces",
+   "trigger": "When products are added, removed or SDS revised",
+   "who": "PCBU / employer",
+   "jurisdiction_note": "VIC: 'register of hazardous substances' with product identifiers and SDS copies.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Audiometric (hearing) testing",
+   "interval": "Within 3 months of starting, then at least every 2 years",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 58; VIC OHS Regs r.37",
+   "applies_to": "All workplaces",
+   "trigger": "VIC: also when reasonably requested by HSR",
+   "who": "Competent audiometric tester",
+   "jurisdiction_note": "Applies where hearing protectors are provided/required to control noise above the exposure standard.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Noise control measures review",
+   "interval": "Trigger-based",
+   "basis": "Mandatory",
+   "reference": "VIC OHS Regs r.36; model WHS Reg 38",
+   "applies_to": "All workplaces",
+   "trigger": "Before changes likely to raise exposure; hearing loss found; notifiable incident; controls inadequate; HSR request",
+   "who": "Employer / PCBU",
+   "jurisdiction_note": "Same trigger model in both regimes.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Lead: biological (blood lead) monitoring",
+   "interval": "Before starting, 1 month after starting, then 6 months / 3 months / 6 weeks depending on last result",
+   "basis": "Mandatory",
+   "reference": "Model WHS Regs r.405, r.407; VIC OHS Regs r.196, r.198(1A)",
+   "applies_to": "Warehouse/factory",
+   "trigger": "Males and non-reproductive-capacity females: <10 ug/dL 6-monthly, 10-<20 3-monthly, >=20 6-weekly; females of reproductive capacity shorter intervals",
+   "who": "Registered medical practitioner",
+   "jurisdiction_note": "VIC r.198(1A) thresholds (from 2020) align with model WHS.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Air (atmospheric) monitoring for airborne contaminants",
+   "interval": "When it is uncertain whether the exposure standard is exceeded, or to determine risk to health",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 50; VIC OHS Regs r.166",
+   "applies_to": "All workplaces",
+   "who": "Occupational hygienist",
+   "jurisdiction_note": "Exposure standards become Workplace Exposure Limits (WEL) nationally on 1 December 2026. VIC only: 15 substances have a transition period to 1 December 2029 (OHS Amendment (Workplace Exposure Limits) Regulations 2026).",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth",
+    "wsv-wel"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Respirable crystalline silica: high-risk processing",
+   "interval": "Air monitoring per r.50 triggers; health monitoring for all workers doing high-risk processing",
+   "basis": "Mandatory",
+   "reference": "Model WHS Regs r.529CB, r.529CE, r.529D (engineered stone prohibition); VIC OHS Regs Part 4.5 (r.319M review of hazard control statement), r.169",
+   "applies_to": "Construction",
+   "trigger": "Notify regulator within 14 days if exposure standard exceeded; review silica risk control plan when controls revised",
+   "who": "Occupational hygienist; registered medical practitioner",
+   "jurisdiction_note": "No fixed monitoring interval is prescribed in either regime; health monitoring frequency set by the medical practitioner. VIC uses a 'crystalline silica hazard control statement'; model WHS uses a 'silica risk control plan' (or SWMS for HRCW).",
+   "source": "whs-cth",
+   "also": [
+    "wsv-silica"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Health monitoring for scheduled hazardous substances",
+   "interval": "Before exposure (baseline) and at intervals set by the medical practitioner",
+   "basis": "Mandatory",
+   "reference": "Model WHS Part 7.1 Div 6 & Schedule 14; VIC OHS Regs r.169 & Schedule 9",
+   "applies_to": "All workplaces",
+   "who": "Registered medical practitioner",
+   "jurisdiction_note": "Applies where exposure is reasonably likely to harm health.",
+   "source": "vic-ohsr",
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Cooling towers (VIC): inspection/servicing and heterotrophic colony count",
+   "interval": "Every month",
+   "basis": "Mandatory",
+   "reference": "Public Health and Wellbeing Regulations 2019 (Vic)",
+   "applies_to": "All workplaces",
+   "trigger": "Keep records 12 months",
+   "who": "Cooling tower service technician; NATA lab",
+   "jurisdiction_note": "VIC: Public Health and Wellbeing Act 2008 / Public Health and Wellbeing Regulations 2019 (regulation numbers not verified). Other states have separate public health legionella rules - not researched.",
+   "source": "vdh-ct",
+   "url": "https://health.vic.gov.au/water/cooling-tower-system-maintainance-requirements"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Cooling towers (VIC): Legionella sampling",
+   "interval": "Every 3 months",
+   "basis": "Mandatory",
+   "reference": "Public Health and Wellbeing Regulations 2019 (Vic)",
+   "applies_to": "All workplaces",
+   "trigger": "Notify department within 24 h on specified positive results",
+   "who": "NATA-accredited laboratory",
+   "jurisdiction_note": "VIC: Public Health and Wellbeing Act 2008 / Public Health and Wellbeing Regulations 2019 (regulation numbers not verified). Other states have separate public health legionella rules - not researched.",
+   "source": "vdh-ct",
+   "url": "https://health.vic.gov.au/water/cooling-tower-system-maintainance-requirements"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Cooling towers (VIC): clean and disinfect",
+   "interval": "At intervals not exceeding 6 months",
+   "basis": "Mandatory",
+   "reference": "Public Health and Wellbeing Regulations 2019 (Vic)",
+   "applies_to": "All workplaces",
+   "trigger": "Before first operation and after shutdown > 1 month",
+   "who": "Cooling tower service technician",
+   "jurisdiction_note": "VIC: Public Health and Wellbeing Act 2008 / Public Health and Wellbeing Regulations 2019 (regulation numbers not verified). Other states have separate public health legionella rules - not researched.",
+   "source": "vdh-ct",
+   "url": "https://health.vic.gov.au/water/cooling-tower-system-maintainance-requirements"
+  },
+  {
+   "group": "Health and hygiene",
+   "item": "Cooling towers (VIC): risk management plan review and independent audit",
+   "interval": "Every 12 months",
+   "basis": "Mandatory",
+   "reference": "Public Health and Wellbeing Regulations 2019 (Vic)",
+   "applies_to": "All workplaces",
+   "trigger": "Review also on major change; within 24 h after Legionella detection",
+   "who": "Owner; department-approved RMP auditor",
+   "jurisdiction_note": "VIC: Public Health and Wellbeing Act 2008 / Public Health and Wellbeing Regulations 2019 (regulation numbers not verified). Other states have separate public health legionella rules - not researched.",
+   "source": "vdh-ct-rev",
+   "also": [
+    "vdh-ct-aud"
+   ],
+   "url": "https://health.vic.gov.au/water/monitoring-and-review-cooling-tower-risk-management-plans-section-9"
+  },
+  {
+   "group": "Vehicles and traffic",
+   "item": "Fleet vehicle servicing",
+   "interval": "Per manufacturer's service schedule",
+   "basis": "Manufacturer",
+   "reference": "Manufacturer's service schedule",
+   "applies_to": "All workplaces",
+   "who": "Qualified mechanic",
+   "jurisdiction_note": "VIC light vehicles: roadworthy certificate needed on sale/transfer (current 30 days), no periodic roadworthy inspection located. Heavy vehicles: Heavy Vehicle National Law - not researched.",
+   "source": "vicroads-rwc",
+   "url": "https://www.vicroads.vic.gov.au/buy-sell-transfer/selling-car/selling-vehicle",
+   "confidence": "medium",
+   "confidence_note": "No periodic-inspection statement found on the VicRoads page; general road law not researched."
+  },
+  {
+   "group": "Vehicles and traffic",
+   "item": "Traffic management plan review (construction)",
+   "interval": "Regularly, after an incident, and when site conditions change",
+   "basis": "Good practice",
+   "reference": "SWA Traffic management: Guide for construction work; model WHS Reg 38",
+   "applies_to": "Construction",
+   "who": "Principal contractor / site manager",
+   "jurisdiction_note": "No fixed interval in any jurisdiction located. VIC: OHS Act s.21 general duty.",
+   "source": "swa-tmp",
+   "url": "https://www.safeworkaustralia.gov.au/sites/default/files/2021-04/Traffic%20management%20guide%20for%20construction.DOCX"
+  },
+  {
+   "group": "Management system",
+   "item": "Health and safety committee meetings",
+   "interval": "At least every 3 months",
+   "basis": "Mandatory",
+   "reference": "Model WHS Act s.78; OHS Act 2004 (Vic) s.72(4)",
+   "applies_to": "All workplaces",
+   "trigger": "And at any reasonable time at request of at least half the members",
+   "who": "Health and safety committee",
+   "jurisdiction_note": "Model WHS Act s.78 and VIC OHS Act 2004 s.72(4): at least once every 3 months, and whenever at least half the members ask.",
+   "source": "comcare-hsc",
+   "url": "https://www.comcare.gov.au/about/forms-pubs/docs/pubs/safety/participating-in-effective-health-safety-committees.pdf"
+  },
+  {
+   "group": "Management system",
+   "item": "SWMS review",
+   "interval": "When high-risk construction work changes, or controls are not adequate (incl. after an incident)",
+   "basis": "Mandatory",
+   "reference": "VIC OHS Regs r.328, r.329; model WHS Reg 302 (via r.38)",
+   "applies_to": "Construction",
+   "trigger": "Stop work if the SWMS is not followed; keep SWMS for the duration of the work",
+   "who": "Employer / PCBU with workers and HSR",
+   "jurisdiction_note": "Both regimes are trigger-based; no fixed review interval.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth",
+    "wsv-swms"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  },
+  {
+   "group": "Management system",
+   "item": "Risk control measure review (risk register)",
+   "interval": "Trigger-based",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 38; VIC OHS Regs hazard-specific review regs (e.g. r.36, r.121, r.164, r.326)",
+   "applies_to": "All workplaces",
+   "trigger": "Controls ineffective; before workplace change; new hazard; consultation indicates; HSR request",
+   "who": "PCBU / employer",
+   "jurisdiction_note": "VIC has review duties per hazard Part rather than one general regulation.",
+   "source": "whs-cth",
+   "also": [
+    "vic-ohsr"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Management system",
+   "item": "Workplace safety inspections",
+   "interval": "Not prescribed - set by risk assessment",
+   "basis": "Good practice",
+   "reference": "General duty: model WHS Act s.19; VIC OHS Act 2004 s.21",
+   "applies_to": "All workplaces",
+   "who": "Supervisor / HSR / safety officer",
+   "jurisdiction_note": "No regulation prescribes a general workplace-inspection frequency in any jurisdiction reviewed.",
+   "source": "vic-ohsr",
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018",
+   "confidence": "medium",
+   "confidence_note": "Absence of a prescribed interval inferred from regulation text reviewed; Acts not separately fetched."
+  },
+  {
+   "group": "Management system",
+   "item": "Internal OHS management system audit",
+   "interval": "At planned intervals (organisation sets the programme)",
+   "basis": "Standard",
+   "reference": "ISO 45001:2018 cl.9.2",
+   "applies_to": "All workplaces",
+   "who": "Competent internal auditor",
+   "jurisdiction_note": "Annual coverage of all clauses is common practice, not a requirement.",
+   "source": "ato-45001",
+   "url": "https://blog.auditortrainingonline.com/blog/iso-45001-clause-9-2",
+   "confidence": "medium",
+   "confidence_note": "Secondary summary of ISO 45001 wording."
+  },
+  {
+   "group": "Management system",
+   "item": "Management review",
+   "interval": "At planned intervals",
+   "basis": "Standard",
+   "reference": "ISO 45001:2018 cl.9.3",
+   "applies_to": "All workplaces",
+   "who": "Top management",
+   "jurisdiction_note": "Annual is common practice, not a requirement.",
+   "source": "ato-45001",
+   "url": "https://blog.auditortrainingonline.com/blog/iso-45001-clause-9-2",
+   "confidence": "medium",
+   "confidence_note": "Clause 9.3 wording not directly verified; standard uses 'planned intervals'."
+  },
+  {
+   "group": "Management system",
+   "item": "High risk work licence (e.g. forklift, crane, scaffolding, dogging, rigging)",
+   "interval": "Every 5 years",
+   "basis": "Mandatory",
+   "reference": "Model WHS Reg 92; VIC OHS Regs Part 3.6 & r.490 (renewal)",
+   "applies_to": "All workplaces",
+   "trigger": "VIC: renewal application within 12 months of expiry",
+   "who": "Licence holder",
+   "jurisdiction_note": "5-year term in VIC and the model WHS jurisdictions. VIC allows renewal up to 12 months after expiry; check your regulator for the renewal window.",
+   "source": "whs-cth",
+   "also": [
+    "wsv-hrw"
+   ],
+   "url": "https://www.legislation.gov.au/F2011L02664/latest/text"
+  },
+  {
+   "group": "Management system",
+   "item": "General construction induction card (white card)",
+   "interval": "No expiry - lapses after 2 consecutive years without construction work",
+   "basis": "Mandatory",
+   "reference": "VIC OHS Regs r.347, r.349; model WHS Regs r.316, r.317",
+   "applies_to": "Construction",
+   "trigger": "Redo induction training if lapsed",
+   "who": "Worker / employer",
+   "jurisdiction_note": "VIC: card is of unlimited duration but lapses (r.349). Model WHS: retraining required if trained > 2 years ago and no construction work in preceding 2 years.",
+   "source": "vic-ohsr",
+   "also": [
+    "whs-cth"
+   ],
+   "url": "https://www.legislation.vic.gov.au/in-force/statutory-rules/occupational-health-and-safety-regulations-2017/018"
+  }
+ ],
+ "gaps": [
+  "AS 1851-2012 full routine-service schedules (sprinkler weekly pump tests, detection 6-monthly/yearly tasks, hydrant/hose reel yearly tasks, fire door section number) not verified from primary text - all fire items are medium confidence.",
+  "AS/NZS 3760:2022 Table 4 not read directly; environment intervals rely on a secondary summary corroborated by SafeWork SA, WorkSafe QLD and SWA fact sheet. Confirm before publishing.",
+  "Ladders (AS/NZS 1892): no regulator or reliable summary of inspection frequency located - omitted.",
+  "Shackles, hooks and other rigging hardware: no periodic interval located (pre-use check only).",
+  "Pressure relief valves: AS 3788:2024 cl.4.6 referenced by WorkSafe Vic but interval not obtained; air receiver intervals cite AS/NZS 3788:2006 and may have changed in the 2024 edition.",
+  "Builders' hoists / AS 2550.7 specific inspection intervals not reviewed.",
+  "Victoria engineered stone prohibition date and current silica licensing position not verified (only the model WHS r.529D prohibition text was read).",
+  "Legionella/cooling tower rules outside Victoria (e.g. NSW Public Health Regulation 2022) not researched; VIC regulation numbers not captured.",
+  "Non-VIC building fire-safety statements (e.g. NSW annual fire safety statement, QLD occupier statement) not researched.",
+  "Heavy vehicle inspection (HVNL) and VIC roadworthy-certificate triggers beyond vehicle transfer not researched.",
+  "Induction refresher training and general training refreshers: no regulatory interval exists; not listed.",
+  "Confined space atmospheric testing (AS 2865) not covered.",
+  "WA-specific numbering: WA WHS (General) Regulations 2022 generally mirror model numbering (confirmed for r.235); other WA regulation numbers not individually checked.",
+  "QLD Electrical Safety Regulation 2013 sets its own legally binding test-and-tag/RCD intervals for non-construction work; only summarised in notes, not itemised."
+ ]
+}

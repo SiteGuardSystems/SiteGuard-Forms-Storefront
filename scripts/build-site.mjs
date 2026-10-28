@@ -18,6 +18,8 @@ import { fileURLToPath } from "node:url";
 import { esc, frontMatter, render, plain, PLACEHOLDER_RE } from "./lib/md.mjs";
 import { loadTrust, partnerStrip, reviewBadge, partnersBody } from "./lib/trust.mjs";
 import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
+import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBody, inspectionGroupBody, inspectionGroups, groupPath, icsFor, STATES, STATE_NAMES, statePath } from "./lib/planning.mjs";
+import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -31,6 +33,12 @@ let TRUST = { partners: [], reviews: {} };
 // scripts/lib/video.mjs). Nothing shows until it is filled in. server.js
 // reads the same file for the CSP, so restart after changing it.
 let VIDEO = null;
+// Planning calendar and inspection planner (data/planning-calendar.json,
+// data/inspection-planner.json; scripts/lib/planning.mjs). /planning/.
+let PLANNING = { cal: null, insp: null };
+// SiteGuard Education hub (data/education.json, identical to siteguard-website's;
+// scripts/lib/education.mjs). server.js reads it too, for the CSP.
+let EDU = null;
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
@@ -116,7 +124,7 @@ function footer() {
         <h2>Help</h2>
         <ul>
           <li><a href="/how-ordering-works/">How ordering works</a></li><li><a href="/faq/">Questions</a></li>
-          <li><a href="/contact/">Contact us</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="${APP_URL}/login">Subscriber sign in</a></li>
+          <li><a href="/contact/">Contact us</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="/planning/">Planning calendar</a></li><li><a href="/education/">SiteGuard Education</a></li><li><a href="${APP_URL}/login">Subscriber sign in</a></li>
         </ul>
         ${reviewBadge(TRUST, { compact: true })}
       </div>
@@ -290,6 +298,11 @@ async function build() {
   const vid = await loadVideo(ROOT);
   VIDEO = vid.video;
   for (const p of vid.problems) problems.push(`data: ${p}`);
+  PLANNING = await loadPlanning(ROOT);
+  const edu = await loadEducation(ROOT);
+  EDU = edu.edu;
+  for (const p of edu.problems) problems.push(`data: ${p}`);
+  for (const p of PLANNING.problems) problems.push(/open item/.test(p) ? p : `data: ${p}`);
   const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const titles = new Map(cat.documents.map((d) => [d.code, d.title]));
@@ -541,6 +554,75 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
 <section class="band"><div class="wrap prose">${faq.map(([q, a]) => `<h2 class="faq-q">${esc(q)}</h2><p>${esc(a)}</p>`).join("")}</div></section>`,
   });
 
+  // SiteGuard Education (same data and layout as siteguardsystems.com.au/education/)
+  if (EDU) {
+    const ed = (trail, h1, lede) => `<section class="page-head"><div class="wrap">${crumbs(trail)}<h1>${h1}</h1>${lede ? `<p class="lede">${lede}</p>` : ""}</div></section>`;
+    const TE = [["/education/", "SiteGuard Education"]];
+    page({
+      url: "/education/", preview, title: "SiteGuard Education: construction safety videos", trail: TE,
+      description: "SiteGuard Education videos for Australian construction: how-tos, toolbox talks and inductions to show your crews, also on YouTube.",
+      jsonld: [educationJsonLd(EDU, ORIGIN)].filter(Boolean),
+      body: `${ed(TE, "SiteGuard Education", "Practical HSEQ videos for Australian construction, to watch here or show your crews.")}
+${educationBody(EDU)}`,
+    });
+    for (const g of EDU.groups) {
+      const tg = [...TE, [seriesPath(g.slug), g.title]];
+      page({
+        url: seriesPath(g.slug), preview, title: `${g.title}: SiteGuard Education videos`, trail: tg,
+        description: `${g.title} from SiteGuard Education: ${(g.intro ?? "videos for Australian construction").replace(/\.$/, "")}.`,
+        jsonld: [educationJsonLd(EDU, ORIGIN, g.slug)].filter(Boolean),
+        body: `${ed(tg, g.title, "")}
+${seriesBody(EDU, g.slug)}`,
+      });
+    }
+  }
+
+  // Planning calendar (same data and layout as siteguardsystems.com.au/planning/)
+  {
+    const CTA = `<section class="band band-ink"><div class="wrap">
+  <h2>Registers and checklists for the work</h2>
+  <p class="lede">Inspection registers, test and tag records and plant checklists are part of the management-system packs.</p>
+  <div class="btn-row"><a class="btn btn-hivis" href="/management-systems/">See management systems</a></div>
+</div></section>`;
+    const ph = (trail, h1, lede) => `<section class="page-head"><div class="wrap">${crumbs(trail)}<h1>${h1}</h1>${lede ? `<p class="lede">${lede}</p>` : ""}</div></section>`;
+    const T = [["/planning/", "Planning calendar"]];
+    page({
+      url: "/planning/", preview, title: "Planning calendar: holidays, RDOs and the safety calendar", trail: T,
+      description: "Public holidays and building industry RDOs for every state, national safety initiatives and industry events, and an inspection and testing planner.",
+      body: `${ph(T, "Planning calendar", "Plan the year around public holidays, building industry RDOs and the safety calendar, and keep inspections and testing on schedule.")}
+${planningIndexBody(PLANNING)}
+${CTA}`,
+    });
+    for (const st of STATES) {
+      const tr = [...T, [statePath(st), STATE_NAMES[st]]];
+      page({
+        url: statePath(st), preview, title: `${STATE_NAMES[st]} public holidays and building industry RDOs`, trail: tr,
+        description: `${STATE_NAMES[st]} public holidays and building and construction industry RDO dates, with national safety initiatives and industry events. Add them to your calendar.`,
+        body: `${ph(tr, `${STATE_NAMES[st]} planning calendar`, `Public holidays, building industry rostered days off, safety initiatives and industry events for ${STATE_NAMES[st]}.`)}
+${planningStateBody(PLANNING, st)}
+${CTA}`,
+      });
+    }
+    const ti = [...T, ["/planning/inspections/", "Inspection and testing planner"]];
+    page({
+      url: "/planning/inspections/", preview, title: "Inspection and testing planner: how often, and on what basis", trail: ti,
+      description: "How often workplace equipment and systems are inspected and tested in Australia, with the Act, regulation, standard or code of practice behind each interval.",
+      body: `${ph(ti, "Inspection and testing planner", "How often common workplace items are inspected or tested, and whether that comes from the law, an Australian Standard, a code of practice or good practice.")}
+${inspectionsIndexBody(PLANNING)}
+${CTA}`,
+    });
+    for (const g of inspectionGroups(PLANNING.insp)) {
+      const tg = [...ti, [groupPath(g.slug), g.title]];
+      page({
+        url: groupPath(g.slug), preview, title: `${g.title}: inspection and testing intervals`, trail: tg,
+        description: `How often ${g.title.toLowerCase()} items are inspected and tested in Australia, with the regulation, standard or code of practice behind each interval and the Victorian differences.`,
+        body: `${ph(tg, `${g.title}: inspection and testing`, "")}
+${inspectionGroupBody(PLANNING, g.slug)}
+${CTA}`,
+      });
+    }
+  }
+
   // Contact
   page({
     url: "/contact/", preview, title: "Contact us", trail: [["/contact/", "Contact us"]],
@@ -673,11 +755,13 @@ async function main() {
     if (titles.has(p.title)) problems.push(`${p.url}: duplicate title with ${titles.get(p.title)}`);
     titles.set(p.title, p.url);
     for (const [, href] of p.html.matchAll(/href="(\/[^"#?]*)/g)) {
-      if (href.startsWith("/assets/")) continue;
+      if (href.startsWith("/assets/") || href.endsWith(".ics")) continue;
       if (!urls.has(href)) problems.push(`${p.url}: broken link ${href}`);
     }
     if (Buffer.byteLength(p.html) > 100_000) problems.push(`${p.url}: page is ${Math.round(Buffer.byteLength(p.html) / 1024)} KB (limit 100 KB)`);
   }
+  await mkdir(path.join(DIST, "planning"), { recursive: true });
+  for (const st of STATES) await writeFile(path.join(DIST, "planning", `siteguard-planning-${st.toLowerCase()}.ics`), icsFor(PLANNING, st, { origin: ORIGIN, brand: "SiteGuard FORMS" }));
   const indexable = pages.filter((p) => !p.url.endsWith(".html") && !p.url.startsWith("/order/") && p.url !== "/cart/");
   await writeFile(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

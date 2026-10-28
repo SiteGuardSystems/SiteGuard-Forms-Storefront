@@ -56,7 +56,7 @@ test("file: the browser's own player, with captions, and no CSP change", async (
   const { video, problems } = await loadVideo(await fixture(FILE));
   assert.deepEqual(problems, []);
   const html = introVideo(video, { heading: "See it" });
-  assert.match(html, /<video class="video-file" controls preload="none"/);
+  assert.match(html, /<video class="video-file" controls preload="metadata"/);
   assert.match(html, /<source src="\/assets\/video\/intro\.mp4" type="video\/mp4">/);
   assert.match(html, /<track kind="captions" src="\/assets\/video\/intro\.en\.vtt"/);
   assert.match(html, /<h2 id="intro-video-h">See it<\/h2>/);
@@ -81,6 +81,19 @@ test("an incomplete or unsafe entry is reported and not shown", async () => {
     const { video, problems } = await loadVideo(await fixture(v));
     assert.equal(video, null, JSON.stringify(v));
     assert.ok(problems.some((p) => re.test(p)), `${re}: ${problems.join("; ")}`);
+  }
+});
+
+test("channel link: shown under the video when set, checked as a YouTube channel", async () => {
+  const ch = { channel_url: "https://www.youtube.com/channel/UCegFXOpYr0-gWG0t0H4as1Q", channel_name: "SiteGuard Education" };
+  const { video, problems } = await loadVideo(await fixture({ ...FILE, ...ch }));
+  assert.deepEqual(problems, []);
+  assert.match(introVideo(video), /<a href="https:\/\/www\.youtube\.com\/channel\/UCegFXOpYr0-gWG0t0H4as1Q" rel="noopener">More videos on SiteGuard Education on YouTube<\/a>/);
+  assert.ok(!/video-channel/.test(introVideo((await loadVideo(await fixture(FILE))).video)));
+  for (const bad of [{ ...ch, channel_url: "https://evil.example/channel/x" }, { ...ch, channel_name: "" }]) {
+    const r = await loadVideo(await fixture({ ...FILE, ...bad }));
+    assert.equal(r.video, null);
+    assert.ok(r.problems.some((m) => /channel_/.test(m)), r.problems.join("; "));
   }
 });
 

@@ -25,6 +25,7 @@ const LOCAL_RE = (ext) => new RegExp(`^/assets/video/[a-z0-9][a-z0-9._-]*\\.(${e
 const POSTER_RE = LOCAL_RE("jpg|jpeg|png|webp");
 const MP4_RE = LOCAL_RE("mp4");
 const VTT_RE = LOCAL_RE("vtt");
+const CHANNEL_RE = /^https:\/\/(www\.)?youtube\.com\/(channel\/UC[A-Za-z0-9_-]{22}|@[A-Za-z0-9._-]{3,30})\/?$/;
 const DURATION_RE = /^PT(?:\d+H)?(?:\d+M)?(?:\d+S)?$/;
 
 /** Read and check one site's intro video. Returns { video, problems };
@@ -36,10 +37,43 @@ export async function loadVideo(root) {
     if (e.code !== "ENOENT") problems.push(`intro-video.json: ${e.message}`);
     return { video: null, problems };
   }
+  v = normalizeVideo(v);
   if (!v || !v.provider) return { video: null, problems };
-  const p = (m) => problems.push(`intro-video.json: ${m}`);
+  for (const m of checkVideo(v)) problems.push(`intro-video.json: ${m}`);
+  return { video: problems.length ? null : v, problems };
+}
+
+/** The 11-character video ID from any YouTube link: watch?v=, youtu.be/,
+ *  /shorts/, /embed/ or /live/. Null if it isn't a YouTube video link. */
+export function youtubeId(url) {
+  let u;
+  try { u = new URL(String(url ?? "").trim()); } catch { return null; }
+  const host = u.hostname.replace(/^(www|m|music)\./, "");
+  let id = null;
+  if (host === "youtu.be") id = u.pathname.slice(1).split("/")[0];
+  else if (host === "youtube.com" || host === "youtube-nocookie.com") {
+    id = u.searchParams.get("v") ?? (u.pathname.match(/^\/(shorts|embed|live|v)\/([^/?#]+)/) ?? [])[2] ?? null;
+  }
+  return id && YT_ID_RE.test(id) ? id : null;
+}
+
+/** Fill in provider and youtube_id from a pasted youtube_url, so an entry
+ *  can be just { youtube_url, title, description, upload_date }. A pasted
+ *  link always plays through YouTube, so plays count on the channel. */
+export function normalizeVideo(v) {
+  if (!v || typeof v !== "object") return v;
+  if (!v.youtube_url) return v;
+  const id = youtubeId(v.youtube_url);
+  return id ? { ...v, provider: "youtube", youtube_id: id } : { ...v, provider: v.provider || "youtube", youtube_id: "" };
+}
+
+/** Problems with one video entry (empty list when it's complete). Used for
+ *  data/intro-video.json and each video in data/education.json. */
+export function checkVideo(v) {
+  const problems = [];
+  const p = (m) => problems.push(m);
   if (!PROVIDERS.includes(v.provider)) p(`provider must be ${PROVIDERS.join(" or ")} (or empty for no video)`);
-  if (v.provider === "youtube" && !YT_ID_RE.test(v.youtube_id ?? "")) p("youtube_id must be the 11-character ID from the YouTube link (youtube.com/watch?v=ID)");
+  if (v.provider === "youtube" && !v.youtube_url && !YT_ID_RE.test(v.youtube_id ?? "")) p("youtube_id must be the 11-character ID from the YouTube link (youtube.com/watch?v=ID)");
   if (v.provider === "file" && !MP4_RE.test(v.file ?? "")) p("file must be an .mp4 in /assets/video/");
   if (v.provider === "file" && !v.poster) p("poster is required for a file video");
   if (v.poster && !POSTER_RE.test(v.poster)) p("poster must be an image in /assets/video/ (jpg, png or webp)");
@@ -48,7 +82,11 @@ export async function loadVideo(root) {
   if (!v.description || typeof v.description !== "string" || v.description.length > 300) p("description is required (up to 300 characters)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v.upload_date ?? "")) p("upload_date (YYYY-MM-DD, the day the video was published) is required");
   if (v.duration && !DURATION_RE.test(v.duration)) p('duration must be ISO 8601, e.g. "PT1M45S"');
-  return { video: problems.length ? null : v, problems };
+  if (v.youtube_url && !youtubeId(v.youtube_url)) p("youtube_url isn't a YouTube video link (paste the link from the video's Share button)");
+  if (v.download_url && !/^(https:\/\/[^\s"<>]+|\/assets\/video\/[a-z0-9][a-z0-9._-]*\.mp4)$/.test(v.download_url)) p("download_url must be an https:// address or an .mp4 in /assets/video/");
+  if (v.channel_url && !CHANNEL_RE.test(v.channel_url)) p("channel_url must be a youtube.com channel address (https://www.youtube.com/channel/... or /@handle)");
+  if (v.channel_url && !v.channel_name) p("channel_name is required with channel_url");
+  return problems;
 }
 
 const posterOf = (v) => v.poster || (v.provider === "youtube" ? `https://i.ytimg.com/vi/${v.youtube_id}/hqdefault.jpg` : "");
@@ -62,11 +100,11 @@ export function videoCsp(video) {
   return out;
 }
 
-/** Add the video's sources to a CSP string ("a 'self'; b 'self'; ..."). */
-export function withVideoCsp(csp, video) {
-  const extra = videoCsp(video);
+/** Add sources ({ frame, img }) to a CSP string ("a 'self'; b 'self'; ..."). */
+export function withCspSources(csp, extra) {
   let out = csp;
   const add = (dir, srcs) => {
+    srcs = (srcs ?? []).filter((x) => !new RegExp(`(^|;\\s*)${dir}\\s[^;]*${x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`).test(out));
     if (!srcs.length) return;
     const re = new RegExp(`(^|;\\s*)(${dir}\\s[^;]*)`);
     out = re.test(out) ? out.replace(re, (_, pre, d) => `${pre}${d} ${srcs.join(" ")}`) : `${out}; ${dir} 'self' ${srcs.join(" ")}`;
@@ -76,27 +114,33 @@ export function withVideoCsp(csp, video) {
   return out;
 }
 
+/** Add the video's sources to a CSP string. */
+export const withVideoCsp = (csp, video) => withCspSources(csp, videoCsp(video));
+
+/** The player alone: YouTube poster-and-play, or the browser's own player. */
+export function videoPlayer(v) {
+  const poster = posterOf(v);
+  if (v.provider === "youtube") {
+    const watch = `https://www.youtube.com/watch?v=${v.youtube_id}`;
+    return `<a class="video-facade" href="${esc(watch)}" rel="noopener" data-yt="${esc(v.youtube_id)}" data-yt-title="${esc(v.title)}">
+    <img src="${esc(poster)}" alt="" width="1280" height="720" loading="lazy" decoding="async">
+    <span class="video-play" aria-hidden="true"></span><span class="visually-hidden">Play video: ${esc(v.title)}</span></a>`;
+  }
+  return `<video class="video-file" controls preload="metadata" playsinline poster="${esc(poster)}" width="1280" height="720" aria-label="${esc(v.title)}">
+    <source src="${esc(v.file)}" type="video/mp4">
+    ${v.captions ? `<track kind="captions" src="${esc(v.captions)}" srclang="en" label="English" default>` : ""}
+    <a href="${esc(v.file)}">Download the video</a></video>`;
+}
+
 /** The landing-page section. Empty string when there is no video. */
 export function introVideo(video, { heading = "See how it works" } = {}) {
   if (!video) return "";
   const v = video;
-  const poster = posterOf(v);
-  let player;
-  if (v.provider === "youtube") {
-    const watch = `https://www.youtube.com/watch?v=${v.youtube_id}`;
-    player = `<a class="video-facade" href="${esc(watch)}" rel="noopener" data-yt="${esc(v.youtube_id)}" data-yt-title="${esc(v.title)}">
-    <img src="${esc(poster)}" alt="" width="1280" height="720" loading="lazy" decoding="async">
-    <span class="video-play" aria-hidden="true"></span><span class="visually-hidden">Play video: ${esc(v.title)}</span></a>`;
-  } else {
-    player = `<video class="video-file" controls preload="none" playsinline poster="${esc(poster)}" width="1280" height="720">
-    <source src="${esc(v.file)}" type="video/mp4">
-    ${v.captions ? `<track kind="captions" src="${esc(v.captions)}" srclang="en" label="English" default>` : ""}
-    <a href="${esc(v.file)}">Download the video</a></video>`;
-  }
   return `<section class="band intro-video" aria-labelledby="intro-video-h"><div class="wrap">
   <h2 id="intro-video-h">${esc(v.heading || heading)}</h2>
-  <div class="video-frame">${player}</div>
+  <div class="video-frame">${videoPlayer(v)}</div>
   <p class="video-caption">${esc(v.description)}</p>
+  ${v.channel_url ? `<p class="video-channel"><a href="${esc(v.channel_url)}" rel="noopener">More videos on ${esc(v.channel_name)} on YouTube</a></p>` : ""}
 </div></section>`;
 }
 
