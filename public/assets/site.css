@@ -287,3 +287,4 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 .video-facade:hover .video-play, .video-facade:focus-visible .video-play { transform: scale(1.08); }
 .video-facade:focus-visible { outline: 3px solid var(--hivis); outline-offset: -3px; }
 .video-caption { max-width: var(--measure); margin-top: 0.75rem; color: var(--ink-2); }
+.video-channel { margin-top: 0.35rem; font-weight: 600; }

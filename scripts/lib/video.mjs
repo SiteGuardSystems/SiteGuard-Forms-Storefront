@@ -25,6 +25,7 @@ const LOCAL_RE = (ext) => new RegExp(`^/assets/video/[a-z0-9][a-z0-9._-]*\\.(${e
 const POSTER_RE = LOCAL_RE("jpg|jpeg|png|webp");
 const MP4_RE = LOCAL_RE("mp4");
 const VTT_RE = LOCAL_RE("vtt");
+const CHANNEL_RE = /^https:\/\/(www\.)?youtube\.com\/(channel\/UC[A-Za-z0-9_-]{22}|@[A-Za-z0-9._-]{3,30})\/?$/;
 const DURATION_RE = /^PT(?:\d+H)?(?:\d+M)?(?:\d+S)?$/;
 
 /** Read and check one site's intro video. Returns { video, problems };
@@ -48,6 +49,8 @@ export async function loadVideo(root) {
   if (!v.description || typeof v.description !== "string" || v.description.length > 300) p("description is required (up to 300 characters)");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(v.upload_date ?? "")) p("upload_date (YYYY-MM-DD, the day the video was published) is required");
   if (v.duration && !DURATION_RE.test(v.duration)) p('duration must be ISO 8601, e.g. "PT1M45S"');
+  if (v.channel_url && !CHANNEL_RE.test(v.channel_url)) p("channel_url must be a youtube.com channel address (https://www.youtube.com/channel/... or /@handle)");
+  if (v.channel_url && !v.channel_name) p("channel_name is required with channel_url");
   return { video: problems.length ? null : v, problems };
 }
 
@@ -97,6 +100,7 @@ export function introVideo(video, { heading = "See how it works" } = {}) {
   <h2 id="intro-video-h">${esc(v.heading || heading)}</h2>
   <div class="video-frame">${player}</div>
   <p class="video-caption">${esc(v.description)}</p>
+  ${v.channel_url ? `<p class="video-channel"><a href="${esc(v.channel_url)}" rel="noopener">More videos on ${esc(v.channel_name)} on YouTube</a></p>` : ""}
 </div></section>`;
 }
 

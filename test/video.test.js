@@ -84,6 +84,19 @@ test("an incomplete or unsafe entry is reported and not shown", async () => {
   }
 });
 
+test("channel link: shown under the video when set, checked as a YouTube channel", async () => {
+  const ch = { channel_url: "https://www.youtube.com/channel/UCegFXOpYr0-gWG0t0H4as1Q", channel_name: "SiteGuard Education" };
+  const { video, problems } = await loadVideo(await fixture({ ...FILE, ...ch }));
+  assert.deepEqual(problems, []);
+  assert.match(introVideo(video), /<a href="https:\/\/www\.youtube\.com\/channel\/UCegFXOpYr0-gWG0t0H4as1Q" rel="noopener">More videos on SiteGuard Education on YouTube<\/a>/);
+  assert.ok(!/video-channel/.test(introVideo((await loadVideo(await fixture(FILE))).video)));
+  for (const bad of [{ ...ch, channel_url: "https://evil.example/channel/x" }, { ...ch, channel_name: "" }]) {
+    const r = await loadVideo(await fixture({ ...FILE, ...bad }));
+    assert.equal(r.video, null);
+    assert.ok(r.problems.some((m) => /channel_/.test(m)), r.problems.join("; "));
+  }
+});
+
 test("titles are escaped", async () => {
   const { video } = await loadVideo(await fixture({ ...YT, title: 'A "quote" <b>' }));
   const html = introVideo(video);
