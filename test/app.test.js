@@ -3,7 +3,8 @@ import { mkdtemp, readFile, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
-import { createApp } from "../lib/create-app.js";
+import { createApp, CSP } from "../lib/create-app.js";
+import { withVideoCsp } from "../scripts/lib/video.mjs";
 
 /** A small catalogue in the shape Hseq-Dev docs/build_catalogue.py writes. */
 function sampleCatalogue(over = {}) {
@@ -133,6 +134,7 @@ async function withApp(opts, fn) {
     orderIntakeApiKey: opts.orderIntakeApiKey ?? "test-intake-key",
     fetchImpl: opts.fetchImpl ?? makeFakeFetch(),
     beta: opts.beta ?? false,
+    ...(opts.csp ? { csp: opts.csp } : {}),
   });
   const server = app.listen(0);
   await new Promise((resolve) => server.once("listening", resolve));
@@ -161,6 +163,16 @@ describe("headers and health", () => {
       assert.equal(res.headers.get("x-powered-by"), null);
       const body = await res.json();
       assert.equal(body.catalogue.on_sale, 2);
+    });
+  });
+  test("the intro video's CSP sources are served when passed in, and not otherwise", async () => {
+    await withApp({}, async ({ base }) => {
+      assert.ok(!/youtube/.test((await fetch(`${base}/api/health`)).headers.get("content-security-policy")));
+    });
+    await withApp({ csp: withVideoCsp(CSP, { provider: "youtube", youtube_id: "dQw4w9WgXcQ" }) }, async ({ base }) => {
+      const csp = (await fetch(`${base}/api/health`)).headers.get("content-security-policy");
+      assert.match(csp, /frame-src 'self' https:\/\/www\.youtube-nocookie\.com/);
+      assert.match(csp, /frame-ancestors 'none'/);
     });
   });
   test("unknown API routes are JSON 404s", async () => {

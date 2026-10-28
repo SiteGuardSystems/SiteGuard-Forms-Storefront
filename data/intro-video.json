@@ -1,0 +1,13 @@
+{
+  "note": "Landing-page introduction video (scripts/lib/video.mjs). Leave provider empty for no video. provider \"youtube\": set youtube_id (the 11 characters after watch?v= in the YouTube link); poster is optional (YouTube's thumbnail is used without one). provider \"file\": put the MP4 (under 25 MiB) and a poster image in assets/video/ and set file and poster. title, description and upload_date (the day it was published) are required either way; captions (.vtt in assets/video/) and duration (e.g. PT1M45S) are optional. heading overrides the section heading. Rebuild after a change; the storefront also needs a restart.",
+  "provider": "",
+  "youtube_id": "",
+  "file": "",
+  "poster": "",
+  "captions": "",
+  "heading": "",
+  "title": "",
+  "description": "",
+  "upload_date": "",
+  "duration": ""
+}

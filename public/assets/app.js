@@ -199,4 +199,22 @@
   });
 
   renderCount();
+  // Intro video (scripts/lib/video.mjs): the YouTube player loads only when
+  // someone presses play. Without JavaScript the poster is a link to YouTube.
+  document.querySelectorAll("[data-yt]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("data-yt");
+      if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
+      e.preventDefault();
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&modestbranding=1";
+      f.title = a.getAttribute("data-yt-title") || "Video";
+      f.width = "1280"; f.height = "720";
+      f.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture; fullscreen");
+      f.setAttribute("allowfullscreen", "");
+      f.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      a.parentNode.replaceChild(f, a);
+      f.focus();
+    });
+  });
 })();
