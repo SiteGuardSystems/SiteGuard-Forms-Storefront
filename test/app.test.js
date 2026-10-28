@@ -419,6 +419,36 @@ describe("POST /api/lead", () => {
       assert.match(mailer.sent[0].subject, /Sam/);
     });
   });
+  test("a partner application keeps its partner fields and referral code, and says so in the email", async () => {
+    const mailer = makeFakeMailer();
+    await withApp({ mailer, leadNotificationEmailTo: "dan@example.com" }, async ({ base, varDir }) => {
+      const res = await post(base, "/api/lead", { source: "systems", name: "Pat", email: "pat@broker.example", company: "Pat Brokers",
+        need: "We insure builders", enquiry_type: "partner", partner_kind: "referral", partner_url: "https://broker.example", ref: "ACME-01" });
+      assert.equal(res.status, 200);
+      const lead = JSON.parse((await readFile(path.join(varDir, "leads.jsonl"), "utf8")).trim());
+      assert.equal(lead.enquiry_type, "partner");
+      assert.equal(lead.partner_kind, "referral");
+      assert.equal(lead.partner_url, "https://broker.example");
+      assert.equal(lead.ref, "ACME-01");
+      assert.match(mailer.sent[0].subject, /^Website enquiry — Partner application — Pat/);
+      assert.match(mailer.sent[0].text, /^New enquiry from siteguardsystems\.com\.au/);
+      assert.match(mailer.sent[0].text, /Referral code: ACME-01/);
+      assert.match(mailer.sent[0].text, /Enquiry type: Partner application/);
+    });
+  });
+  test("bad partner fields and referral codes are dropped, an ordinary enquiry keeps its referral code", async () => {
+    await withApp({}, async ({ base, varDir }) => {
+      await post(base, "/api/lead", { name: "A", email: "a@b.co", need: "x", enquiry_type: "sponsor", partner_url: "javascript:alert(1)",
+        partner_kind: "boss", ref: "bad code!" });
+      await post(base, "/api/lead", { name: "B", email: "b@b.co", need: "x", ref: "ACME" });
+      const [a, b] = (await readFile(path.join(varDir, "leads.jsonl"), "utf8")).trim().split("\n").map((l) => JSON.parse(l));
+      assert.equal(a.enquiry_type, "enquiry");
+      assert.equal(a.ref, "");
+      assert.equal(a.partner_url, undefined);
+      assert.equal(a.partner_kind, undefined);
+      assert.equal(b.ref, "ACME");
+    });
+  });
   test("the honeypot keeps nothing but answers ok", async () => {
     await withApp({}, async ({ base, varDir }) => {
       const res = await post(base, "/api/lead", { name: "Bot", email: "bot@example.com", website: "http://spam" });

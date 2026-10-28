@@ -34,6 +34,15 @@ npm run build:production && sudo systemctl restart siteguard-forms-storefront
 `--preview` lists every pack for layout review. A preview build shows a
 banner, is not indexed, refuses payment, and `build:production` refuses it.
 
+## Partners, affiliates and Google reviews
+
+Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/trust.test.js` are identical in both repos.
+
+- `data/partners.json` (entries with `"sites"` including `"forms"`) and `data/google-reviews.json`, written by the CRM (siteguard-ai `partners export-sites`) or by hand. Nothing shows until there's real data.
+- A partner strip above the footer (not on the cart or order pages), `/partners/` with the partner enquiry form, and the Google review badge in the footer, on `/contact/` and on `/partners/`.
+- `/api/lead` takes four more optional fields: `enquiry_type` (`partner` or `enquiry`), `ref` (referral code from a `?ref=` link), `partner_url` and `partner_kind`. Anything invalid is dropped. Leads land in `leads.jsonl`; the notification email adds "Enquiry type", "Partner kind", "Partner website" and "Referral code" lines, which the CRM's inbox triage reads.
+- `npm run build -- --sample-partners` previews with fictional sample listings; `build:production` refuses it.
+
 ## How buying works
 
 * **Buy outright:** cart → `/api/checkout` (prices re-read from the catalogue,
