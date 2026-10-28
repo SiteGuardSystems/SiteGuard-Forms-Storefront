@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-28T03:33:59+00:00",
+ "generated_at": "2026-10-28T05:33:23+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,7 +9,7 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "61e9eed5b5e74246",
+ "library_digest": "b4cff76eb4a58096",
  "release": {
   "library_codes": 841,
   "released": 814,
