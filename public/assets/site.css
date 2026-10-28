@@ -288,3 +288,86 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 .video-facade:focus-visible { outline: 3px solid var(--hivis); outline-offset: -3px; }
 .video-caption { max-width: var(--measure); margin-top: 0.75rem; color: var(--ink-2); }
 .video-channel { margin-top: 0.35rem; font-weight: 600; }
+
+/* Planning calendar and inspection planner (scripts/lib/planning.mjs) */
+.plan-jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-bottom: 1.5rem; font-weight: 600; }
+.plan-filter { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; margin: 1.25rem 0 1.5rem; padding: 1rem 1.1rem; background: var(--site); border: 1px solid var(--rule); }
+.band-grey .plan-filter { background: var(--paper); }
+.plan-ctl { display: grid; gap: 0.35rem; font-weight: 600; border: 0; padding: 0; margin: 0; }
+.plan-ctl select { font: inherit; font-weight: 400; padding: 0.45rem 0.6rem; border: 1px solid var(--rule-strong); background: var(--paper); min-width: 16rem; max-width: 100%; }
+.plan-ctl legend { font-weight: 600; margin-bottom: 0.35rem; padding: 0; }
+.plan-check { display: inline-flex; align-items: center; gap: 0.35rem; margin-right: 1rem; font-weight: 400; }
+.plan-month { margin-top: 2rem; }
+.plan-month h3 { border-bottom: 2px solid var(--ink); padding-bottom: 0.35rem; margin-bottom: 0; }
+.plan-events { list-style: none; margin: 0; padding: 0; }
+.plan-event { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
+.plan-event[hidden], .plan-empty[hidden], .plan-group[hidden], .plan-table tr[hidden] { display: none; }
+.plan-when time { display: grid; justify-items: center; padding: 0.35rem 0; border: 1px solid var(--rule-strong); background: var(--paper); }
+.plan-day { font: 700 1.6rem/1 var(--f-cond); }
+.plan-wd { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.plan-tbc { display: block; font-size: 0.8rem; line-height: 1.2; color: var(--muted); text-align: center; padding: 0.35rem 0; border: 1px dashed var(--rule-strong); }
+.plan-what p { margin: 0; }
+.plan-title { font-weight: 600; }
+.plan-badge { display: inline-block; margin-left: 0.35rem; padding: 0.05rem 0.45rem; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--rule-strong); background: var(--site); vertical-align: 0.1em; white-space: nowrap; }
+.cat-public-holiday .plan-badge { background: var(--hivis-wash); border-color: var(--hivis); }
+.cat-rdo .plan-badge { background: var(--ink); color: #fff; border-color: var(--ink); }
+.cat-initiative .plan-badge { background: var(--ok-wash); border-color: var(--ok); }
+.plan-meta, .plan-note { font-size: 0.92rem; color: var(--ink-2); }
+.plan-note { margin-top: 0.15rem !important; }
+.plan-empty { color: var(--muted); padding: 0.75rem 0; margin: 0; }
+.plan-fine { margin-top: 1.5rem; max-width: var(--measure); }
+.plan-ics { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.plan-key { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.6rem 1.5rem; margin: 0 0 1.5rem; }
+.plan-key div { display: grid; gap: 0.25rem; align-content: start; justify-items: start; }
+.plan-key dd { margin: 0; font-size: 0.92rem; color: var(--ink-2); }
+.plan-basis { display: inline-block; padding: 0.05rem 0.45rem; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--rule-strong); white-space: nowrap; }
+.basis-mandatory { background: var(--ink); color: #fff; border-color: var(--ink); }
+.basis-standard { background: var(--hivis-wash); border-color: var(--hivis); }
+.basis-code-of-practice { background: var(--ok-wash); border-color: var(--ok); }
+.plan-group { margin-top: 2rem; }
+.plan-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+.plan-table th, .plan-table td { text-align: left; vertical-align: top; padding: 0.6rem 0.6rem 0.6rem 0; border-bottom: 1px solid var(--rule); }
+.plan-table thead th { border-bottom: 2px solid var(--ink); font-size: 0.85rem; white-space: nowrap; }
+.plan-table tbody th { font-weight: 600; width: 22%; }
+.plan-table td:nth-child(2) { width: 15%; }
+.plan-who, .plan-trigger { display: block; font-weight: 400; font-size: 0.85rem; color: var(--muted); margin-top: 0.15rem; }
+@media (max-width: 760px) {
+  .plan-table thead { display: none; }
+  .plan-table, .plan-table tbody, .plan-table tr, .plan-table th, .plan-table td { display: block; width: auto !important; }
+  .plan-table tr { padding: 0.75rem 0; border-bottom: 1px solid var(--rule); }
+  .plan-table th, .plan-table td { border: 0; padding: 0.15rem 0; }
+  .plan-table td::before { content: attr(data-label) ": "; font-weight: 600; color: var(--ink); }
+  .plan-table td:empty { display: none; }
+  .plan-ctl select { min-width: 0; width: 100%; }
+}
+.edu-grid { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr)); gap: 2rem; }
+.edu-card h3 { margin: 0.9rem 0 0.3rem; }
+.edu-card p { margin: 0; color: var(--ink-2); }
+.plan-states ul { list-style: none; padding: 0; margin: 1rem 0 1.25rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.plan-states a { display: inline-block; padding: 0.45rem 0.8rem; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font: 600 1.02rem/1 var(--f-cond); }
+.plan-states a:hover { background: var(--hivis-wash); }
+.plan-states a[aria-current="page"] { background: var(--ink); color: #fff; }
+.plan-alt { margin-top: 1.5rem; }
+.plan-sub { margin-top: 2.5rem; }
+.plan-filter fieldset.plan-ctl { display: block; }
+.plan-event { padding: 0.6rem 0; gap: 0.85rem; grid-template-columns: 3.6rem minmax(0, 1fr); }
+.plan-when time { padding: 0.25rem 0; }
+.plan-day { font-size: 1.35rem; }
+.plan-meta, .plan-note { font-size: 0.88rem; }
+.plan-what .plan-meta + .plan-meta { margin-top: 0.1rem; }
+.plan-sources li { margin-bottom: 0.5rem; }
+.plan-bj { display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.25rem; }
+.plan-bj-l { font-size: 0.78rem; color: var(--muted); min-width: 4.6rem; }
+.plan-refs { display: block; font-size: 0.85rem; margin-top: 0.2rem; }
+.plan-conf { display: block; font-size: 0.8rem; color: var(--hivis-deep); margin-top: 0.2rem; }
+.plan-notes { margin-top: 0.35rem; font-weight: 400; }
+.plan-notes summary { cursor: pointer; font-size: 0.85rem; color: var(--hivis-deep); }
+.plan-notes p { font-size: 0.85rem; color: var(--ink-2); margin: 0.35rem 0 0; }
+.plan-table tbody th { width: 30%; }
+.plan-table td:nth-child(3) { width: 14rem; }
+.plan-sections { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 0.75rem; }
+.plan-sections a { display: grid; gap: 0.2rem; padding: 1rem 1.1rem; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+.plan-sections a:hover { background: var(--hivis-wash); }
+.plan-sections b { font: 600 1.3rem/1.1 var(--f-cond); }
+.plan-sections span { font-size: 0.9rem; color: var(--muted); }
+.basis-regulator-guidance { background: #EEF2F8; border-color: #5B6F8F; }

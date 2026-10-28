@@ -217,4 +217,41 @@
       f.focus();
     });
   });
+  // Planning calendar (scripts/lib/planning.mjs): category and workplace
+  // filters. Without JavaScript every entry shows.
+  (function () {
+    var today = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll("[data-plan-filter]").forEach(function (f) { f.addEventListener("submit", function (e) { e.preventDefault(); }); });
+    var list = document.querySelector("[data-plan-list]");
+    var cats = document.querySelectorAll("[data-plan-cat]");
+    function run() {
+      var on = {};
+      cats.forEach(function (c) { on[c.value] = c.checked; });
+      list.querySelectorAll(".plan-month").forEach(function (m) {
+        var shown = 0;
+        m.querySelectorAll(".plan-event").forEach(function (li) {
+          var t = li.querySelector("time");
+          var past = t && t.getAttribute("datetime") < today && !li.querySelector(".plan-range");
+          var ok = !past && on[li.getAttribute("data-cat")] !== false;
+          li.hidden = !ok; if (ok) shown++;
+        });
+        m.querySelector(".plan-empty").hidden = shown > 0;
+      });
+    }
+    if (list) { cats.forEach(function (c) { c.addEventListener("change", run); }); run(); }
+    var applies = document.querySelector("[data-plan-applies]");
+    function runApplies() {
+      var v = applies.value;
+      document.querySelectorAll(".plan-group").forEach(function (g) {
+        var shown = 0;
+        g.querySelectorAll("tbody tr").forEach(function (tr) {
+          var a = tr.getAttribute("data-applies");
+          var ok = !v || a === v || a === "All workplaces";
+          tr.hidden = !ok; if (ok) shown++;
+        });
+        g.hidden = shown === 0;
+      });
+    }
+    if (applies) { applies.addEventListener("change", runApplies); runApplies(); }
+  })();
 })();

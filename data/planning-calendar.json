@@ -1,0 +1,2708 @@
+{
+ "note": "Planning calendar (scripts/lib/planning.mjs). Every entry cites a source; re-check against the sources at least every 6 months and update checked. Keep identical in siteguard-website and SiteGuard-Forms-Storefront.",
+ "checked": "2026-10-28",
+ "sources": [
+  {
+   "id": "fw-2026",
+   "publisher": "Fair Work Ombudsman",
+   "title": "2026 public holidays",
+   "url": "https://www.fairwork.gov.au/employment-conditions/public-holidays/2026-public-holidays"
+  },
+  {
+   "id": "fw-2027",
+   "publisher": "Fair Work Ombudsman",
+   "title": "2027 public holidays",
+   "url": "https://www.fairwork.gov.au/employment-conditions/public-holidays/2027-public-holidays"
+  },
+  {
+   "id": "vic-ph",
+   "publisher": "Business Victoria",
+   "title": "Public holidays in Victoria for 2027",
+   "url": "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027"
+  },
+  {
+   "id": "nsw-ph",
+   "publisher": "NSW Government (NSW Industrial Relations)",
+   "title": "NSW public holidays",
+   "url": "https://www.nsw.gov.au/about-nsw/public-holidays"
+  },
+  {
+   "id": "qld-ph",
+   "publisher": "Queensland Government",
+   "title": "Public holidays",
+   "url": "https://www.qld.gov.au/recreation/travel/holidays/public"
+  },
+  {
+   "id": "sa-ph",
+   "publisher": "SafeWork SA",
+   "title": "Public holidays",
+   "url": "https://www.safework.sa.gov.au/resources/public-holidays"
+  },
+  {
+   "id": "wa-ph",
+   "publisher": "WA Government",
+   "title": "Public holidays in Western Australia",
+   "url": "https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia"
+  },
+  {
+   "id": "tas-ph",
+   "publisher": "WorkSafe Tasmania",
+   "title": "Public holidays (statutory holidays)",
+   "url": "https://www.worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays"
+  },
+  {
+   "id": "act-ph",
+   "publisher": "ACT Government (CMTEDD)",
+   "title": "Public holidays, school terms and daylight savings",
+   "url": "https://www.cmtedd.act.gov.au/communication/holidays"
+  },
+  {
+   "id": "nt-ph",
+   "publisher": "NT Government",
+   "title": "NT public and regional holidays",
+   "url": "https://nt.gov.au/employ/for-employees-in-nt/nt-public-holidays"
+  },
+  {
+   "id": "tas-easter-news",
+   "publisher": "Pulse Tasmania",
+   "title": "Tasmania a step from Easter Sunday public holiday after upper house vote",
+   "url": "https://pulsetasmania.com.au/news/tasmania-a-step-from-easter-sunday-public-holiday-after-upper-house-vote/"
+  },
+  {
+   "id": "cfmeu-vic-index",
+   "publisher": "CFMEU Victoria (Construction & General)",
+   "title": "RDO Calendars (index page)",
+   "url": "https://vic.cfmeu.org/rdo-calendars/"
+  },
+  {
+   "id": "cfmeu-vic-on-2026",
+   "publisher": "CFMEU Victoria",
+   "title": "2026 Victoria On-Site 36hr RDO calendar (ICS; PDF https://vic.cfmeu.org/wp-content/uploads/2025/10/36hr_Onsite_RDO-Calendar_A4_26.pdf)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2025/11/36hr-onsite-rdo-calendar.ics",
+   "note": "On-site calendar (36-hour week), for sites on agreements that adopt it. 24 Dec and 29 to 31 Dec 2026 shown as annual leave."
+  },
+  {
+   "id": "cfmeu-vic-off-2026",
+   "publisher": "CFMEU Victoria",
+   "title": "2026 Victoria Off-Site 38hr RDO calendar (ICS; PDF https://vic.cfmeu.org/wp-content/uploads/2025/10/38hr_Offsite_RDO-Calendar_A4_26.pdf)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2025/11/38hr-offsite-rdo-calendar.ics",
+   "note": "Off-site calendar (38-hour week). 24 Dec and 29 to 31 Dec 2026 shown as annual leave."
+  },
+  {
+   "id": "cfmeu-vic-on-2027",
+   "publisher": "CFMEU Victoria",
+   "title": "2027 Victoria On-Site RDO calendar (PDF; ICS https://vic.cfmeu.org/wp-content/uploads/2026/10/CFMEU-RDO-2027-ONSITE.ics)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2026/10/CFMEU-RDO-A4-Calendar-2027-ONSITE_Digital.pdf",
+   "note": "On-site calendar (36-hour week), for sites on agreements that adopt it. Annual leave shown 4 to 8 Jan and 29 to 31 Dec 2027."
+  },
+  {
+   "id": "cfmeu-vic-off-2027",
+   "publisher": "CFMEU Victoria",
+   "title": "2027 Victoria Off-Site RDO calendar (PDF; ICS https://vic.cfmeu.org/wp-content/uploads/2026/10/CFMEU-RDO-2027-OFFSITE.ics)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2026/10/CFMEU-RDO-A4-Calendar-2027-OFFSITE_Digital.pdf",
+   "note": "Off-site calendar (38-hour week). Some days are shown as paid leave rather than RDOs."
+  },
+  {
+   "id": "cfmeu-tas-2026",
+   "publisher": "CFMEU Victoria (Vic-Tas branch)",
+   "title": "Tassie 2026 On-Site RDO calendar (PDF)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2025/10/Tassie_RDO-Calendar_A4_26.pdf"
+  },
+  {
+   "id": "cfmeu-tas-2027",
+   "publisher": "CFMEU Victoria (Vic-Tas branch)",
+   "title": "Tassie 2027 On-Site RDO calendar (PDF)",
+   "url": "https://vic.cfmeu.org/wp-content/uploads/2026/10/CFMEU-RDO-A4-Calendar-2027-TASSIE_Digital.pdf",
+   "note": "On-site calendar. Annual leave shown 29 to 31 Dec 2027."
+  },
+  {
+   "id": "cfmeu-qnt-2026",
+   "publisher": "CFMEU Queensland & NT",
+   "title": "QLD RDOs & Public Holidays 2026 (pocket calendar PDF); index https://qnt.cfmeu.org/rdo-calendar/",
+   "url": "https://qnt.cfmeu.org/wp-content/uploads/2025/09/2026-pocket-Print.pdf",
+   "note": "Industry RDOs, plus RDOs that apply on sites under the union enterprise agreement (EBA)."
+  },
+  {
+   "id": "cfmeu-qnt-2027",
+   "publisher": "CFMEU Queensland & NT",
+   "title": "QLD RDOs & Public Holidays 2027 (PDF); index https://qnt.cfmeu.org/rdo-calendar/",
+   "url": "https://qnt.cfmeu.org/wp-content/uploads/2026/10/RDO_Calendar_2027.pdf",
+   "note": "Industry RDOs, plus RDOs that apply on sites under the union enterprise agreement (EBA)."
+  },
+  {
+   "id": "cfmeu-nsw-2026",
+   "publisher": "CFMEU NSW (Construction)",
+   "title": "NSW RDOs & Public Holidays 2026 (PDF)",
+   "url": "https://nsw.cfmeu.org/wp-content/uploads/2025/11/CFMEU_2026-calendar.pdf"
+  },
+  {
+   "id": "mba-act-2026",
+   "publisher": "Master Builders ACT",
+   "title": "2026 38 Hour Week RDO Calendar (PDF)",
+   "url": "https://mba.org.au/wp-content/uploads/2025/10/2026-RDO-Calendar-4.pdf",
+   "note": "Guide calendar under the Building and Construction General On-Site Award 2020; RDO timing is by agreement."
+  },
+  {
+   "id": "rcp-sa-2026",
+   "publisher": "RCP Australia Pty Ltd (industry RDOs sourced from CFMEU)",
+   "title": "SA 2026 Construction Industry Planner (PDF)",
+   "url": "https://www.rcp.net.au/rcp19/wp-content/uploads/2026/01/SA-RCP-2026_Construction_Calendar.pdf",
+   "note": "Secondary source: RCP Australia construction planner, which says its industry RDOs come from the union calendar. No primary SA calendar was found; check with your employer."
+  },
+  {
+   "id": "mbawa-2026",
+   "publisher": "Master Builders Association of WA (hosted on mbawa.com)",
+   "title": "2026 Public Holidays and RDOs (PDF)",
+   "url": "https://www.mbawa.com/wp-content/uploads/2025/10/2026-Public-Holidays-RDO-Calendar.pdf",
+   "note": "Master Builders WA award list. The union agreement calendar for WA shows different dates; check which applies to your site."
+  },
+  {
+   "id": "cfmeu-wa-2026",
+   "publisher": "CFMEU WA",
+   "title": "RDO Calendar 2026 (PNG); page https://wa.cfmeu.org/rdo-calendar/",
+   "url": "https://wa.cfmeu.org/wp-content/uploads/2025/11/CFMEU-WA-10285-RDO-CAL-2026-A2-HR-scaled.png",
+   "note": "Union agreement (EBA) calendar; shutdown days 23 Dec and 29 to 31 Dec 2026. Differs from the Master Builders WA award list."
+  },
+  {
+   "id": "swa_nswm",
+   "publisher": "Safe Work Australia",
+   "title": "About National Safe Work Month",
+   "url": "https://www.safeworkaustralia.gov.au/national-safe-work-month/about"
+  },
+  {
+   "id": "wsv_hsm",
+   "publisher": "WorkSafe Victoria",
+   "title": "Expert advice and guidance on offer for Health and Safety Month",
+   "url": "https://www.worksafe.vic.gov.au/news/2026-09/expert-advice-and-guidance-offer-health-and-safety-month"
+  },
+  {
+   "id": "wsv_awards",
+   "publisher": "WorkSafe Victoria",
+   "title": "WorkSafe Awards",
+   "url": "https://www.worksafe.vic.gov.au/worksafe-awards"
+  },
+  {
+   "id": "wsq_swm",
+   "publisher": "WorkSafe Queensland",
+   "title": "Safe Work Month 2026",
+   "url": "https://www.worksafe.qld.gov.au/resources/campaigns/safe-work-month-2026"
+  },
+  {
+   "id": "wswa_events",
+   "publisher": "WorkSafe WA",
+   "title": "Upcoming events",
+   "url": "https://www.worksafe.wa.gov.au/events"
+  },
+  {
+   "id": "sasw_swm",
+   "publisher": "SafeWork SA",
+   "title": "Tick off your safety bucket list this October",
+   "url": "https://safework.sa.gov.au/resources/national-safework-month/news/tick-off-your-safety-bucket-list-this-october"
+  },
+  {
+   "id": "sasw_hsr",
+   "publisher": "SafeWork SA (Humanitix listing)",
+   "title": "2026 SafeWork HSR Forum",
+   "url": "https://events.humanitix.com/2026-safework-hsr-forum"
+  },
+  {
+   "id": "ilo_wd",
+   "publisher": "International Labour Organization",
+   "title": "World Day for Safety and Health at Work",
+   "url": "https://webapps.ilo.org/static/english/protection/safework/worldday/events.htm"
+  },
+  {
+   "id": "actu_iwmd",
+   "publisher": "ACTU",
+   "title": "International Workers Memorial Day - 28 April",
+   "url": "https://actu.org.au/event/international-workers-memorial-day"
+  },
+  {
+   "id": "wsact_iwmd",
+   "publisher": "WorkSafe ACT",
+   "title": "International Workers Memorial Day Ceremony 2026",
+   "url": "https://www.worksafe.act.gov.au/files/publications/media-releases/international-workers-memorial-day-ceremony-2026"
+  },
+  {
+   "id": "ruok_wiki",
+   "publisher": "Wikipedia",
+   "title": "R U OK?",
+   "url": "https://en.wikipedia.org/wiki/R_U_OK%3F"
+  },
+  {
+   "id": "mates_events",
+   "publisher": "MATES in Construction",
+   "title": "Join an Event",
+   "url": "https://mates.org.au/fundraising-events"
+  },
+  {
+   "id": "mates_ftf",
+   "publisher": "MATES in Construction",
+   "title": "Fly the Flag Week",
+   "url": "https://mates.org.au/article/fly-the-flag-week"
+  },
+  {
+   "id": "mhw_hfa",
+   "publisher": "Haemophilia Foundation Australia",
+   "title": "Men's Health Week 2026",
+   "url": "https://www.haemophilia.org.au/news/event/mens-health-week-2026/"
+  },
+  {
+   "id": "cca_nscaw",
+   "publisher": "Cancer Council Australia",
+   "title": "National Skin Cancer Action Week 2026",
+   "url": "https://www.cancer.org.au/nscaw2026"
+  },
+  {
+   "id": "assea_naac",
+   "publisher": "Asbestos and Silica Safety and Eradication Agency",
+   "title": "National Asbestos Awareness Campaigns",
+   "url": "https://www.asbestossafety.gov.au/our-work/national-asbestos-awareness-campaigns"
+  },
+  {
+   "id": "swnsw_naaw",
+   "publisher": "SafeWork NSW",
+   "title": "Stay safe and leave it to the experts this National Asbestos Awareness Week",
+   "url": "https://www.safework.nsw.gov.au/news/safework-media-releases/stay-safe-and-leave-it-to-the-experts-this-national-asbestos-awareness-week"
+  },
+  {
+   "id": "who_whd",
+   "publisher": "World Health Organization",
+   "title": "World Hearing Day",
+   "url": "https://www.who.int/campaigns/world-hearing-day"
+  },
+  {
+   "id": "nt_haw",
+   "publisher": "National Today",
+   "title": "Hearing Awareness Week",
+   "url": "https://nationaltoday.com/hearing-awareness-week/"
+  },
+  {
+   "id": "lfa_lham",
+   "publisher": "Lung Foundation Australia",
+   "title": "It's Lung Health Awareness Month",
+   "url": "https://lungfoundation.com.au/get-involved/its-lung-health-awareness-month/"
+  },
+  {
+   "id": "sa_nrsw",
+   "publisher": "Think Road Safety (SA Government)",
+   "title": "National Road Safety Week 2026",
+   "url": "https://www.thinkroadsafety.sa.gov.au/news?a=1609983"
+  },
+  {
+   "id": "movember_ad",
+   "publisher": "Awareness Days",
+   "title": "Movember - Men's Health Awareness Month",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/movember-mens-health-awareness-month"
+  },
+  {
+   "id": "dryjuly_wiki",
+   "publisher": "Wikipedia",
+   "title": "Dry July",
+   "url": "https://en.wikipedia.org/wiki/Dry_July"
+  },
+  {
+   "id": "wayahead_mhm",
+   "publisher": "WayAhead - Mental Health Association NSW",
+   "title": "Mental Health Month",
+   "url": "https://wayahead.org.au/mentalhealthmonth/"
+  },
+  {
+   "id": "wa_mhw",
+   "publisher": "WA Government",
+   "title": "WA Mental Health Week shines spotlight on resilience and wellbeing",
+   "url": "https://www.wa.gov.au/government/media-statements/Cook Labor Government/WA-Mental-Health-Week-shines-spotlight-on-resilience-and-wellbeing-20261004"
+  },
+  {
+   "id": "cqi_wqw",
+   "publisher": "CQI | IRCA",
+   "title": "How will you celebrate World Quality Week 2026?",
+   "url": "https://www.quality.org/how-will-you-celebrate-wqw-2026"
+  },
+  {
+   "id": "ad_wqd",
+   "publisher": "Awareness Days",
+   "title": "World Quality Day",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/world-quality-day/"
+  },
+  {
+   "id": "nawic_qld",
+   "publisher": "Queensland Government (Women)",
+   "title": "International Women's Day 2026 - NAWIC QLD",
+   "url": "https://www.women.qld.gov.au/news-events/events/international-women-day-2026-nawic-qld"
+  },
+  {
+   "id": "aihs_home",
+   "publisher": "Australian Institute of Health & Safety",
+   "title": "AIHS home / events listing",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "id": "nsca_gala",
+   "publisher": "NSCA Foundation",
+   "title": "National Safety Awards of Excellence - Attend the Gala",
+   "url": "https://www.nationalsafetyawards.com.au/attend_the_gala/"
+  },
+  {
+   "id": "nsca_conf",
+   "publisher": "NSCA Foundation",
+   "title": "National Safety Conference",
+   "url": "https://nationalsafetyconference.com.au"
+  },
+  {
+   "id": "sbe_2027",
+   "publisher": "Sydney Build Expo",
+   "title": "2027 press release",
+   "url": "https://www.sydneybuildexpo.com/sydney-build-blog/2027-pr1"
+  },
+  {
+   "id": "mcec_mbe",
+   "publisher": "Melbourne Convention and Exhibition Centre",
+   "title": "Melbourne Build Expo 2026",
+   "url": "https://www.mcec.com.au/whats-on/2026/11/melbourne-build-expo-2026"
+  },
+  {
+   "id": "mba_events",
+   "publisher": "Master Builders Australia",
+   "title": "Events",
+   "url": "https://www.masterbuilders.com.au/Events"
+  },
+  {
+   "id": "aioh_conf",
+   "publisher": "Australian Institute of Occupational Hygienists",
+   "title": "Annual Conference",
+   "url": "https://www.aioh.org.au/education/annual-conference/"
+  },
+  {
+   "id": "ba_fbq",
+   "publisher": "Build Australia",
+   "title": "Futurebuild Queensland",
+   "url": "https://www.buildaustralia.com.au/events/futurebuild-queensland/"
+  },
+  {
+   "id": "ba_fba",
+   "publisher": "Build Australia",
+   "title": "Futurebuild Australia",
+   "url": "https://www.buildaustralia.com.au/events/futurebuild-australia-2/"
+  },
+  {
+   "id": "tfd_whs_mel",
+   "publisher": "TradeFairDates (aggregator)",
+   "title": "Workplace Health & Safety Show Melbourne",
+   "url": "https://www.tradefairdates.com/Workplace-Health-und-Safety-Show-M10490/Melbourne.html"
+  },
+  {
+   "id": "ss_whs_syd",
+   "publisher": "Safety Solutions",
+   "title": "Workplace Health & Safety Show Sydney",
+   "url": "https://www.safetysolutions.net.au/events/workplace-health-safety-show-sydney-5149"
+  },
+  {
+   "id": "comcare_conf",
+   "publisher": "Comcare",
+   "title": "Comcare National Conference",
+   "url": "https://www.comcare.gov.au/conference"
+  },
+  {
+   "id": "hia_summit",
+   "publisher": "Housing Industry Association",
+   "title": "HIA Safety Summit headlines National Safe Work Month",
+   "url": "https://hia.com.au/our-industry/newsroom/work-health-and-safety/2026/10/hia-safety-summit-headlines-national-safe-work-month"
+  }
+ ],
+ "events": [
+  {
+   "title": "Movember",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "movember_ad",
+   "date": "2026-11-01",
+   "end": "2026-11-30",
+   "note": "Month-long men's health fundraiser covering mental health, suicide prevention and prostate and testicular cancer; site teams often take part.",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/movember-mens-health-awareness-month"
+  },
+  {
+   "date": "2026-11-02",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026"
+  },
+  {
+   "date": "2026-11-02",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2026",
+   "also": [
+    "cfmeu-vic-off-2026"
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "title": "Recreation Day",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: all parts of Tasmania that do not observe the Royal Hobart Regatta"
+  },
+  {
+   "date": "2026-11-03",
+   "title": "Melbourne Cup Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC"
+   ],
+   "source": "fw-2026",
+   "note": "Public holiday across Victoria, except where a non-metropolitan council has arranged an alternative local holiday."
+  },
+  {
+   "date": "2026-11-03",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026"
+  },
+  {
+   "date": "2026-11-04",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026"
+  },
+  {
+   "date": "2026-11-04",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2026",
+   "also": [
+    "cfmeu-vic-off-2026"
+   ]
+  },
+  {
+   "title": "AIHS South Australian Safety Breakfast",
+   "category": "event",
+   "states": [
+    "SA"
+   ],
+   "source": "aihs_home",
+   "date": "2026-11-05",
+   "location": "South Australia",
+   "note": "Morning networking and talks for SA safety professionals.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "title": "National Safety Awards of Excellence Gala Dinner",
+   "category": "event",
+   "states": [
+    "NSW"
+   ],
+   "source": "nsca_gala",
+   "date": "2026-11-05",
+   "location": "Shangri-La Sydney, The Rocks, Sydney NSW",
+   "note": "Awards night for national workplace safety programs and people, held in Sydney.",
+   "url": "https://www.nationalsafetyawards.com.au/attend_the_gala/"
+  },
+  {
+   "date": "2026-11-09",
+   "title": "RDO: fixed",
+   "category": "rdo",
+   "states": [
+    "NSW"
+   ],
+   "source": "cfmeu-nsw-2026"
+  },
+  {
+   "date": "2026-11-09",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "SA"
+   ],
+   "source": "rcp-sa-2026"
+  },
+  {
+   "date": "2026-11-09",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2026"
+  },
+  {
+   "title": "World Quality Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "cqi_wqw",
+   "date": "2026-11-09",
+   "end": "2026-11-13",
+   "location": "Online",
+   "note": "International week promoting quality management; 2026 theme is 'Quality: powering performance'.",
+   "url": "https://www.quality.org/how-will-you-celebrate-wqw-2026"
+  },
+  {
+   "title": "Australian Workplace Health & Safety Awards",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "aihs_home",
+   "date": "2026-11-12",
+   "end": "2026-11-13",
+   "location": "Sydney NSW",
+   "note": "AIHS national awards recognising safety professionals and organisations.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "title": "World Quality Day",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "ad_wqd",
+   "date": "2026-11-12",
+   "note": "Annual day, held on the second Thursday of November, to recognise quality work in organisations.",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/world-quality-day/"
+  },
+  {
+   "title": "National Skin Cancer Action Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "cca_nscaw",
+   "date": "2026-11-15",
+   "end": "2026-11-22",
+   "note": "Sun protection awareness week, relevant to outdoor construction crews heading into summer; 2026 theme is 'Sun safe habits last a lifetime'.",
+   "url": "https://www.cancer.org.au/nscaw2026"
+  },
+  {
+   "date": "2026-11-16",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2026"
+  },
+  {
+   "title": "AIHS WA Symposium",
+   "category": "event",
+   "states": [
+    "WA"
+   ],
+   "source": "aihs_home",
+   "date": "2026-11-20",
+   "location": "Western Australia",
+   "note": "Full-day safety symposium for WA practitioners.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "date": "2026-11-23",
+   "title": "RDO",
+   "category": "rdo",
+   "states": [
+    "NSW"
+   ],
+   "source": "cfmeu-nsw-2026"
+  },
+  {
+   "date": "2026-11-23",
+   "title": "RDO: 38-hour week (award)",
+   "category": "rdo",
+   "states": [
+    "ACT"
+   ],
+   "source": "mba-act-2026"
+  },
+  {
+   "date": "2026-11-23",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "SA"
+   ],
+   "source": "rcp-sa-2026"
+  },
+  {
+   "title": "Melbourne Build Expo",
+   "category": "event",
+   "states": [
+    "VIC"
+   ],
+   "source": "mcec_mbe",
+   "date": "2026-11-25",
+   "end": "2026-11-26",
+   "location": "Melbourne Convention and Exhibition Centre, South Wharf, Melbourne VIC",
+   "note": "Two-day Victorian construction trade expo.",
+   "url": "https://www.mcec.com.au/whats-on/2026/11/melbourne-build-expo-2026"
+  },
+  {
+   "title": "Master Builders Australia National Events Program 2026 (Conference and National Excellence Awards)",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "mba_events",
+   "date": "2026-11-26",
+   "end": "2026-11-27",
+   "location": "The Star Brisbane, Brisbane QLD",
+   "note": "Annual national program: welcome function, professional development conference and the national building awards.",
+   "url": "https://www.masterbuilders.com.au/Events"
+  },
+  {
+   "title": "AIHS ACT Safety Breakfast",
+   "category": "event",
+   "states": [
+    "ACT"
+   ],
+   "source": "aihs_home",
+   "date": "2026-11-27",
+   "location": "Canberra ACT",
+   "note": "Morning networking and talks for ACT safety professionals.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "date": "2026-11-27",
+   "title": "Devonport Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: municipal areas of Devonport, Kentish and Latrobe only"
+  },
+  {
+   "date": "2026-11-29",
+   "title": "Building industry picnic day",
+   "category": "rdo",
+   "states": [
+    "WA"
+   ],
+   "source": "cfmeu-wa-2026",
+   "note": "Marked for Sunday 29 Nov 2026 on the union calendar; not a gazetted public holiday."
+  },
+  {
+   "title": "AIOH 2026 Annual Conference",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "aioh_conf",
+   "date": "2026-11-30",
+   "end": "2026-12-02",
+   "location": "Brisbane Convention & Exhibition Centre, Brisbane QLD",
+   "note": "National occupational hygiene conference covering exposures such as silica, asbestos, noise and heat; continuing education sessions on 28-29 Nov.",
+   "url": "https://www.aioh.org.au/education/annual-conference/"
+  },
+  {
+   "date": "2026-11-30",
+   "title": "RDO: State Building Trades award",
+   "category": "rdo",
+   "states": [
+    "WA"
+   ],
+   "source": "mbawa-2026"
+  },
+  {
+   "title": "National Asbestos Awareness Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "swnsw_naaw",
+   "month": "2026-11",
+   "note": "Annual week on the risks of disturbing asbestos during renovation and demolition. Recent editions ran in the last week of November (24-30 Nov 2025; 25 Nov-1 Dec 2024); 2026 dates not yet published. Usually held in Late November; check the organiser for the date.",
+   "url": "https://www.safework.nsw.gov.au/news/safework-media-releases/stay-safe-and-leave-it-to-the-experts-this-national-asbestos-awareness-week"
+  },
+  {
+   "date": "2026-12-07",
+   "title": "Building industry picnic day",
+   "category": "rdo",
+   "states": [
+    "NSW"
+   ],
+   "source": "cfmeu-nsw-2026"
+  },
+  {
+   "date": "2026-12-07",
+   "title": "Building industry picnic day",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2026"
+  },
+  {
+   "date": "2026-12-07",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026"
+  },
+  {
+   "date": "2026-12-07",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2026"
+  },
+  {
+   "date": "2026-12-07",
+   "title": "RDO: union agreement calendar",
+   "category": "rdo",
+   "states": [
+    "WA"
+   ],
+   "source": "cfmeu-wa-2026"
+  },
+  {
+   "date": "2026-12-08",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "SA"
+   ],
+   "source": "rcp-sa-2026"
+  },
+  {
+   "date": "2026-12-08",
+   "title": "RDO: designated shutdown",
+   "category": "rdo",
+   "states": [
+    "NSW"
+   ],
+   "source": "cfmeu-nsw-2026",
+   "note": "Designated shutdown long weekend (public holiday and RDO)."
+  },
+  {
+   "date": "2026-12-21",
+   "title": "RDO: 38-hour week (award)",
+   "category": "rdo",
+   "states": [
+    "ACT"
+   ],
+   "source": "mba-act-2026"
+  },
+  {
+   "date": "2026-12-21",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026",
+   "end": "2026-12-24"
+  },
+  {
+   "date": "2026-12-23",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2026",
+   "also": [
+    "cfmeu-vic-off-2026"
+   ]
+  },
+  {
+   "date": "2026-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2026-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "QLD"
+   ],
+   "source": "qld-ph",
+   "note": "Part-day public holiday 6pm to midnight"
+  },
+  {
+   "date": "2026-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2026-12-24",
+   "title": "RDO: State Building Trades award",
+   "category": "rdo",
+   "states": [
+    "WA"
+   ],
+   "source": "mbawa-2026"
+  },
+  {
+   "date": "2026-12-24",
+   "title": "RDO: union agreement calendar",
+   "category": "rdo",
+   "states": [
+    "WA"
+   ],
+   "source": "cfmeu-wa-2026"
+  },
+  {
+   "date": "2026-12-25",
+   "title": "Christmas Day",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2026"
+  },
+  {
+   "date": "2026-12-26",
+   "title": "Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "WA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2026",
+   "note": "Falls on Saturday; additional day Mon 28 Dec. Not a holiday in TAS (TAS observes Boxing Day on Mon 28 Dec)"
+  },
+  {
+   "date": "2026-12-26",
+   "title": "Proclamation Day holiday",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "SA observes Proclamation Day on 26 Dec; additional day Mon 28 Dec"
+  },
+  {
+   "date": "2026-12-28",
+   "title": "Additional public holiday for Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "WA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2026",
+   "note": "Substitute because 26 Dec falls on a Saturday"
+  },
+  {
+   "date": "2026-12-28",
+   "title": "Additional public holiday for Proclamation Day",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph"
+  },
+  {
+   "date": "2026-12-28",
+   "title": "Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "TAS observes Boxing Day on the Monday when 26 Dec falls on a Saturday"
+  },
+  {
+   "date": "2026-12-29",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2026",
+   "end": "2026-12-31"
+  },
+  {
+   "date": "2026-12-29",
+   "title": "RDO: designated shutdown",
+   "category": "rdo",
+   "states": [
+    "NSW"
+   ],
+   "source": "cfmeu-nsw-2026",
+   "end": "2026-12-31",
+   "note": "Designated shutdown long weekend (public holiday and RDO)."
+  },
+  {
+   "date": "2026-12-31",
+   "title": "New Year's Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2026-12-31",
+   "title": "New Year's Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2027-01-01",
+   "title": "New Year's Day",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-01-04",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-01-06",
+   "title": "Devonport Cup (half day)",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional half day, Devonport municipal area; generally Tasmanian State Service only"
+  },
+  {
+   "date": "2027-01-11",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-01-12",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-01-25",
+   "title": "Paid leave day: off-site calendar",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-off-2027",
+   "note": "Shown as paid leave, not an RDO, on the 2027 off-site calendar."
+  },
+  {
+   "date": "2027-01-25",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-01-25",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-01-25",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-01-26",
+   "title": "Australia Day",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-02-08",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-02-08",
+   "title": "Royal Hobart Regatta",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: south of and including Oatlands and Swansea (excl. Bronte Park, Catagunya, Strathgordon, Tarraleah, Wayatinah, West Coast)"
+  },
+  {
+   "date": "2027-02-15",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-02-22",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-02-22",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-02-24",
+   "title": "Launceston Cup",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional; generally Tasmanian State Service only. All day in listed northern municipal areas; from 11am in Launceston city centre and specified suburbs"
+  },
+  {
+   "title": "AIHS New South Wales Symposium",
+   "category": "event",
+   "states": [
+    "NSW"
+   ],
+   "source": "aihs_home",
+   "date": "2027-02-25",
+   "location": "New South Wales",
+   "note": "State symposium for NSW health and safety practitioners.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "title": "WorkSafe Awards 2027 Presentation Dinner",
+   "category": "event",
+   "states": [
+    "VIC"
+   ],
+   "source": "wsv_awards",
+   "date": "2027-02-25",
+   "location": "Melbourne VIC (venue not yet published)",
+   "note": "Victoria's annual OHS and return-to-work awards; categories include HSR of the Year and psychosocial risk management.",
+   "url": "https://www.worksafe.vic.gov.au/worksafe-awards"
+  },
+  {
+   "date": "2027-03-01",
+   "title": "Labour Day",
+   "category": "public-holiday",
+   "states": [
+    "WA"
+   ],
+   "source": "wa-ph"
+  },
+  {
+   "date": "2027-03-02",
+   "title": "King Island Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: King Island only"
+  },
+  {
+   "title": "World Hearing Day",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "who_whd",
+   "date": "2027-03-03",
+   "note": "Annual day on hearing loss prevention; a prompt for noise and hearing protection checks on site.",
+   "url": "https://www.who.int/campaigns/world-hearing-day"
+  },
+  {
+   "date": "2027-03-08",
+   "title": "Adelaide Cup Day",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph"
+  },
+  {
+   "date": "2027-03-08",
+   "title": "Canberra Day",
+   "category": "public-holiday",
+   "states": [
+    "ACT"
+   ],
+   "source": "act-ph"
+  },
+  {
+   "date": "2027-03-08",
+   "title": "Eight Hours Day",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph"
+  },
+  {
+   "date": "2027-03-08",
+   "title": "Labour Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC"
+   ],
+   "source": "vic-ph"
+  },
+  {
+   "date": "2027-03-09",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "title": "Futurebuild Queensland",
+   "category": "event",
+   "states": [
+    "QLD"
+   ],
+   "source": "ba_fbq",
+   "date": "2027-03-10",
+   "end": "2027-03-11",
+   "location": "Brisbane Convention & Exhibition Centre, Brisbane QLD",
+   "note": "Building and construction trade show for Queensland.",
+   "url": "https://www.buildaustralia.com.au/events/futurebuild-queensland/"
+  },
+  {
+   "date": "2027-03-26",
+   "title": "Good Friday",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-03-27",
+   "title": "Easter Saturday",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "SA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027",
+   "note": "Named 'Saturday before Easter Sunday' (VIC) / 'The day after Good Friday' (QLD). Not a public holiday in WA or TAS"
+  },
+  {
+   "date": "2027-03-28",
+   "title": "Easter Sunday",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "SA",
+    "WA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027",
+   "note": "Not on the WorkSafe Tasmania 2027 list; a Tasmanian Easter Sunday holiday bill was progressing in Aug 2026 (see gaps)"
+  },
+  {
+   "date": "2027-03-29",
+   "title": "Easter Monday",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-03-30",
+   "title": "Easter Tuesday",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Generally Tasmanian Public Service only"
+  },
+  {
+   "date": "2027-03-30",
+   "title": "Paid leave day: off-site calendar",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-off-2027",
+   "note": "Shown as paid leave, not an RDO, on the 2027 off-site calendar."
+  },
+  {
+   "date": "2027-03-30",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-03-30",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-03-30",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-03-31",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027",
+   "end": "2027-04-02"
+  },
+  {
+   "date": "2027-03-31",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-03-31",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "Hearing Awareness Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "nt_haw",
+   "month": "2027-03",
+   "note": "Australian week built around World Hearing Day; third-party calendars list 1-7 March 2027 but no organiser confirmation found. Usually held in March; check the organiser for the date.",
+   "url": "https://nationaltoday.com/hearing-awareness-week/"
+  },
+  {
+   "title": "NAWIC International Women's Day events",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "nawic_qld",
+   "month": "2027-03",
+   "location": "Capital cities (per chapter)",
+   "note": "NAWIC state chapters hold International Women's Day functions for women in construction each March. Usually held in March; check the organiser for the date.",
+   "url": "https://www.women.qld.gov.au/news-events/events/international-women-day-2026-nawic-qld"
+  },
+  {
+   "title": "National asbestos awareness campaign - Easter DIY burst",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "assea_naac",
+   "month": "2027-03",
+   "note": "ASSEA has run an extra asbestos awareness push around Easter, when home renovation and DIY work peaks; 2027 timing not yet published. Usually held in March-April; check the organiser for the date.",
+   "url": "https://www.asbestossafety.gov.au/our-work/national-asbestos-awareness-campaigns"
+  },
+  {
+   "date": "2027-04-05",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-04-12",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-04-25",
+   "title": "Anzac Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "SA",
+    "WA",
+    "TAS"
+   ],
+   "source": "fw-2027",
+   "note": "Falls on Sunday. VIC, SA and TAS: observed on the day, no substitute. NSW and WA also list Mon 26 Apr additional day"
+  },
+  {
+   "date": "2027-04-26",
+   "title": "Additional day for Anzac Day",
+   "category": "public-holiday",
+   "states": [
+    "NSW",
+    "WA"
+   ],
+   "source": "fw-2027",
+   "note": "Listed as 'Additional Day' on the NSW Government page (unfootnoted) and Fair Work; WA Government lists Mon 26 Apr as additional Anzac Day holiday"
+  },
+  {
+   "date": "2027-04-26",
+   "title": "Anzac Day (observed Monday)",
+   "category": "public-holiday",
+   "states": [
+    "QLD",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027",
+   "note": "25 Apr falls on Sunday; holiday observed Monday in QLD, ACT and NT"
+  },
+  {
+   "date": "2027-04-26",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "title": "National Safety Conference",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "nsca_conf",
+   "date": "2027-04-27",
+   "end": "2027-04-29",
+   "location": "W Brisbane, Brisbane QLD",
+   "note": "NSCA Foundation's national WHS conference; registration and program not yet released.",
+   "url": "https://nationalsafetyconference.com.au"
+  },
+  {
+   "date": "2027-04-27",
+   "title": "Paid leave day: off-site calendar",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-off-2027",
+   "note": "Shown as paid leave, not an RDO, on the 2027 off-site calendar."
+  },
+  {
+   "date": "2027-04-27",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "International Workers' Memorial Day",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "actu_iwmd",
+   "date": "2027-04-28",
+   "location": "National (ceremonies in capital cities)",
+   "note": "Day to remember workers killed or injured at work, with ceremonies in most capital cities on 28 April.",
+   "url": "https://actu.org.au/event/international-workers-memorial-day"
+  },
+  {
+   "title": "Sydney Build Expo",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "sbe_2027",
+   "date": "2027-04-28",
+   "end": "2027-04-29",
+   "location": "ICC Sydney Exhibition Centre, Darling Harbour, Sydney NSW",
+   "note": "Large two-day construction expo with conference streams, including a Women in Construction networking program.",
+   "url": "https://www.sydneybuildexpo.com/sydney-build-blog/2027-pr1"
+  },
+  {
+   "title": "World Day for Safety and Health at Work",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "ilo_wd",
+   "date": "2027-04-28",
+   "note": "Annual ILO day on preventing workplace injury and illness, held on 28 April.",
+   "url": "https://webapps.ilo.org/static/english/protection/safework/worldday/events.htm"
+  },
+  {
+   "title": "International Workers' Memorial Day ceremony, National Workers Memorial",
+   "category": "event",
+   "states": [
+    "ACT"
+   ],
+   "source": "wsact_iwmd",
+   "month": "2027-04",
+   "location": "National Workers Memorial, Kings Park, Parkes, Canberra ACT",
+   "note": "Morning ceremony held on 28 April at the National Workers Memorial; 2027 details not yet published. Usually held in April; check the organiser for the date.",
+   "url": "https://www.worksafe.act.gov.au/files/publications/media-releases/international-workers-memorial-day-ceremony-2026"
+  },
+  {
+   "date": "2027-05-03",
+   "title": "Labour Day",
+   "category": "public-holiday",
+   "states": [
+    "QLD"
+   ],
+   "source": "qld-ph"
+  },
+  {
+   "date": "2027-05-03",
+   "title": "May Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph"
+  },
+  {
+   "date": "2027-05-07",
+   "title": "Agfest",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: Circular Head municipal area only"
+  },
+  {
+   "date": "2027-05-10",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-05-10",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-05-17",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-05-24",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "AIHS National Health & Safety Conference",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "aihs_home",
+   "date": "2027-05-25",
+   "end": "2027-05-27",
+   "location": "Location not yet announced",
+   "note": "The AIHS flagship national conference; save-the-date published, venue to follow.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "date": "2027-05-31",
+   "title": "Reconciliation Day",
+   "category": "public-holiday",
+   "states": [
+    "ACT"
+   ],
+   "source": "act-ph"
+  },
+  {
+   "title": "Lung Health Awareness Month",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "lfa_lham",
+   "month": "2027-05",
+   "note": "Month focusing on lung health, relevant to dust and silica exposure in construction. Usually held in May; check the organiser for the date.",
+   "url": "https://lungfoundation.com.au/get-involved/its-lung-health-awareness-month/"
+  },
+  {
+   "title": "National Road Safety Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "sa_nrsw",
+   "month": "2027-05",
+   "note": "Annual road safety week; useful for fleet, traffic management and driving-for-work messaging. 2026 ran 17-24 May. Usually held in May; check the organiser for the date.",
+   "url": "https://www.thinkroadsafety.sa.gov.au/news?a=1609983"
+  },
+  {
+   "date": "2027-06-07",
+   "title": "Western Australia Day",
+   "category": "public-holiday",
+   "states": [
+    "WA"
+   ],
+   "source": "wa-ph"
+  },
+  {
+   "date": "2027-06-14",
+   "title": "King's Birthday",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "SA",
+    "TAS",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-06-14",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-06-15",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-06-15",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "title": "Workplace Health & Safety Show Melbourne",
+   "category": "event",
+   "states": [
+    "VIC"
+   ],
+   "source": "tfd_whs_mel",
+   "date": "2027-06-23",
+   "end": "2027-06-24",
+   "location": "Melbourne Convention and Exhibition Centre, South Wharf, Melbourne VIC",
+   "note": "Free trade show and seminar program on WHS products and practice. Dates from a trade-fair aggregator, not the organiser's own page.",
+   "url": "https://www.tradefairdates.com/Workplace-Health-und-Safety-Show-M10490/Melbourne.html"
+  },
+  {
+   "date": "2027-06-28",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "Men's Health Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "mhw_hfa",
+   "month": "2027-06",
+   "note": "Mid-June week on men's physical and mental health; 2026 ran 15-21 June. Usually held in June; check the organiser for the date.",
+   "url": "https://www.haemophilia.org.au/news/event/mens-health-week-2026/"
+  },
+  {
+   "date": "2027-07-02",
+   "title": "Alice Springs Show Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Regional: applies only in the region celebrating its show (see NT show day regions map)"
+  },
+  {
+   "date": "2027-07-05",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-07-09",
+   "title": "Tennant Creek Show Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Regional: applies only in the region celebrating its show (see NT show day regions map)"
+  },
+  {
+   "date": "2027-07-12",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-07-16",
+   "title": "Katherine Show Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Regional: applies only in the region celebrating its show (see NT show day regions map)"
+  },
+  {
+   "date": "2027-07-19",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-07-23",
+   "title": "Darwin Show Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Regional: applies only in the region celebrating its show (see NT show day regions map)"
+  },
+  {
+   "date": "2027-07-26",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "Dry July",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "dryjuly_wiki",
+   "month": "2027-07",
+   "note": "Month-long alcohol-free fundraiser for people affected by cancer; sometimes used in site wellbeing programs. Usually held in July; check the organiser for the date.",
+   "url": "https://en.wikipedia.org/wiki/Dry_July"
+  },
+  {
+   "date": "2027-08-02",
+   "title": "Bank Holiday",
+   "category": "public-holiday",
+   "states": [
+    "NSW"
+   ],
+   "source": "nsw-ph",
+   "note": "NOT a general public holiday: banks/certain financial institutions close; normal working day for construction"
+  },
+  {
+   "date": "2027-08-02",
+   "title": "Picnic Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph"
+  },
+  {
+   "date": "2027-08-09",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-08-09",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-08-10",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-08-11",
+   "title": "Royal Queensland Show (Ekka)",
+   "category": "public-holiday",
+   "states": [
+    "QLD"
+   ],
+   "source": "qld-ph",
+   "note": "Brisbane area only. Other QLD regional show holidays are published separately and are not listed here"
+  },
+  {
+   "date": "2027-08-13",
+   "title": "Borroloola Show Day",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Regional: applies only in the region celebrating its show (see NT show day regions map)"
+  },
+  {
+   "date": "2027-08-16",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-08-23",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-09-06",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-09-06",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "title": "R U OK? Day",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "ruok_wiki",
+   "date": "2027-09-09",
+   "note": "National day, held on the second Thursday of September, encouraging people to check in on workmates.",
+   "url": "https://en.wikipedia.org/wiki/R_U_OK%3F"
+  },
+  {
+   "date": "2027-09-13",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-09-20",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "title": "Futurebuild Australia",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "ba_fba",
+   "date": "2027-09-22",
+   "end": "2027-09-23",
+   "location": "ICC Sydney, Sydney NSW",
+   "note": "National building, design and construction trade show in Sydney.",
+   "url": "https://www.buildaustralia.com.au/events/futurebuild-australia-2/"
+  },
+  {
+   "date": "2027-09-27",
+   "title": "King's Birthday",
+   "category": "public-holiday",
+   "states": [
+    "WA"
+   ],
+   "source": "wa-ph",
+   "note": "Some regional WA areas observe on a different date; 2027 regional dates not yet listed on WA Government page"
+  },
+  {
+   "title": "Comcare National Conference",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "comcare_conf",
+   "month": "2027-09",
+   "location": "Canberra ACT (2026 venue: National Convention Centre)",
+   "note": "Commonwealth WHS and workers' compensation conference; 2026 ran 14-16 Sep in Canberra. 2027 not yet announced. Usually held in September; check the organiser for the date.",
+   "url": "https://www.comcare.gov.au/conference"
+  },
+  {
+   "title": "MATES in Construction Fly the Flag Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "mates_ftf",
+   "month": "2027-09",
+   "note": "Week where sites fly the MATES flag to promote suicide prevention in construction; usually the week of R U OK? Day (8-12 Sep 2025; from 7 Sep 2026). Usually held in September; check the organiser for the date.",
+   "url": "https://mates.org.au/article/fly-the-flag-week"
+  },
+  {
+   "date": "2027-10-01",
+   "title": "Burnie Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: Burnie, Waratah-Wynyard and West Coast municipal areas"
+  },
+  {
+   "date": "2027-10-01",
+   "title": "Friday before AFL Grand Final (date TBC)",
+   "category": "public-holiday",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "note": "SUBJECT TO CONFIRMATION: Business Victoria lists the 2027 date as 'to be confirmed' pending the AFL schedule (typically last Friday in September). The CFMEU Vic 2027 calendars mark Fri 1 Oct 2027 as a public holiday; not gazetted as of 28 Oct 2026"
+  },
+  {
+   "date": "2027-10-04",
+   "title": "King's Birthday",
+   "category": "public-holiday",
+   "states": [
+    "QLD"
+   ],
+   "source": "qld-ph"
+  },
+  {
+   "date": "2027-10-04",
+   "title": "Labour Day",
+   "category": "public-holiday",
+   "states": [
+    "NSW",
+    "SA",
+    "ACT"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-10-04",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-10-05",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-10-07",
+   "title": "Royal Launceston Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: Break O'Day, Dorset, George Town, Launceston, Meander Valley, Northern Midlands, West Tamar"
+  },
+  {
+   "date": "2027-10-15",
+   "title": "Flinders Island Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: Flinders Island only"
+  },
+  {
+   "date": "2027-10-18",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-10-21",
+   "title": "Royal Hobart Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: south of and including Oatlands and Swansea plus Bronte Park, Strathgordon, Tarraleah, Wayatinah; excludes West Coast"
+  },
+  {
+   "date": "2027-10-22",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "title": "HIA Safety Summit",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "hia_summit",
+   "month": "2027-10",
+   "location": "Location varies (Newcastle, Perth, Adelaide in past years)",
+   "note": "HIA's residential construction safety summit, held during Safe Work Month. Usually held in October; check the organiser for the date.",
+   "url": "https://hia.com.au/our-industry/newsroom/work-health-and-safety/2026/10/hia-safety-summit-headlines-national-safe-work-month"
+  },
+  {
+   "title": "Melbourne Build Expo",
+   "category": "event",
+   "states": [
+    "VIC"
+   ],
+   "source": "mcec_mbe",
+   "month": "2027-10",
+   "location": "Melbourne Convention and Exhibition Centre, Melbourne VIC",
+   "note": "Victorian construction expo (Oct 2025, Nov 2026); 2027 dates not yet published. Usually held in October-November; check the organiser for the date.",
+   "url": "https://www.mcec.com.au/whats-on/2026/11/melbourne-build-expo-2026"
+  },
+  {
+   "title": "Mental Health Month 2027 (NSW)",
+   "category": "initiative",
+   "states": [
+    "NSW"
+   ],
+   "source": "wayahead_mhm",
+   "month": "2027-10",
+   "location": "New South Wales",
+   "note": "NSW's October mental health awareness month. Usually held in October; check the organiser for the date.",
+   "url": "https://wayahead.org.au/mentalhealthmonth/"
+  },
+  {
+   "title": "National Safe Work Month",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "swa_nswm",
+   "month": "2027-10",
+   "note": "Annual October campaign for workplace health and safety; theme and weekly topics not yet released. Usually held in October; check the organiser for the date.",
+   "url": "https://www.safeworkaustralia.gov.au/national-safe-work-month/about"
+  },
+  {
+   "title": "SafeWork SA HSR Forum",
+   "category": "event",
+   "states": [
+    "SA"
+   ],
+   "source": "sasw_hsr",
+   "month": "2027-10",
+   "location": "Adelaide SA",
+   "note": "Annual forum for health and safety representatives (8 Oct 2026 at Morphettville). Usually held in October; check the organiser for the date.",
+   "url": "https://events.humanitix.com/2026-safework-hsr-forum"
+  },
+  {
+   "title": "SafeWork SA National Safe Work Month activities",
+   "category": "initiative",
+   "states": [
+    "SA"
+   ],
+   "source": "sasw_swm",
+   "month": "2027-10",
+   "location": "South Australia",
+   "note": "SafeWork SA's October program supporting National Safe Work Month. Usually held in October; check the organiser for the date.",
+   "url": "https://safework.sa.gov.au/resources/national-safework-month/news/tick-off-your-safety-bucket-list-this-october"
+  },
+  {
+   "title": "WA Mental Health Week",
+   "category": "initiative",
+   "states": [
+    "WA"
+   ],
+   "source": "wa_mhw",
+   "month": "2027-10",
+   "location": "Western Australia",
+   "note": "WA mental health week in early October (4-11 Oct in 2026). Usually held in October; check the organiser for the date.",
+   "url": "https://www.wa.gov.au/government/media-statements/Cook Labor Government/WA-Mental-Health-Week-shines-spotlight-on-resilience-and-wellbeing-20261004"
+  },
+  {
+   "title": "WorkSafe Queensland Safe Work Month",
+   "category": "initiative",
+   "states": [
+    "QLD"
+   ],
+   "source": "wsq_swm",
+   "month": "2027-10",
+   "location": "Queensland",
+   "note": "Queensland's October program of WHS events and resources. Usually held in October; check the organiser for the date.",
+   "url": "https://www.worksafe.qld.gov.au/resources/campaigns/safe-work-month-2026"
+  },
+  {
+   "title": "WorkSafe Queensland Work Well Conference Brisbane",
+   "category": "event",
+   "states": [
+    "QLD"
+   ],
+   "source": "wsq_swm",
+   "month": "2027-10",
+   "location": "Brisbane QLD",
+   "note": "Full-day flagship WHS conference held during Safe Work Month (7 Oct in 2026). Usually held in October; check the organiser for the date.",
+   "url": "https://www.worksafe.qld.gov.au/resources/campaigns/safe-work-month-2026"
+  },
+  {
+   "title": "WorkSafe Victoria Health and Safety Month",
+   "category": "initiative",
+   "states": [
+    "VIC"
+   ],
+   "source": "wsv_hsm",
+   "month": "2027-10",
+   "location": "Victoria (in-person and online)",
+   "note": "Free in-person events across Victoria and webinars through October. Usually held in October; check the organiser for the date.",
+   "url": "https://www.worksafe.vic.gov.au/news/2026-09/expert-advice-and-guidance-offer-health-and-safety-month"
+  },
+  {
+   "title": "WorkSafe WA Safe Work Month",
+   "category": "initiative",
+   "states": [
+    "WA"
+   ],
+   "source": "wswa_events",
+   "month": "2027-10",
+   "location": "Western Australia",
+   "note": "WA's October Safe Work Month activities and webinars. Usually held in October; check the organiser for the date.",
+   "url": "https://www.worksafe.wa.gov.au/events"
+  },
+  {
+   "title": "Workplace Health & Safety Show Sydney",
+   "category": "event",
+   "states": [
+    "NSW"
+   ],
+   "source": "ss_whs_syd",
+   "month": "2027-10",
+   "location": "ICC Sydney, Sydney NSW",
+   "note": "Sydney edition of the WHS trade show (21-22 Oct in 2026). Usually held in October; check the organiser for the date.",
+   "url": "https://www.safetysolutions.net.au/events/workplace-health-safety-show-sydney-5149"
+  },
+  {
+   "date": "2027-11-01",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-11-01",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-11-01",
+   "title": "Recreation Day",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: areas of Tasmania not observing the Royal Hobart Regatta"
+  },
+  {
+   "date": "2027-11-02",
+   "title": "Melbourne Cup Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC"
+   ],
+   "source": "vic-ph",
+   "note": "Public holiday across Victoria, except where a non-metropolitan council has arranged an alternative local holiday."
+  },
+  {
+   "date": "2027-11-02",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027",
+   "end": "2027-11-03"
+  },
+  {
+   "date": "2027-11-03",
+   "title": "Paid leave day: off-site calendar",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-off-2027",
+   "note": "Shown as paid leave, not an RDO, on the 2027 off-site calendar."
+  },
+  {
+   "date": "2027-11-03",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-11-15",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-11-22",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-11-26",
+   "title": "Devonport Show",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph",
+   "note": "Regional: Devonport, Kentish and Latrobe municipal areas"
+  },
+  {
+   "title": "Australian Workplace Health & Safety Awards",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "aihs_home",
+   "month": "2027-11",
+   "location": "Location not yet announced",
+   "note": "AIHS national safety awards (Sydney, 12-13 Nov in 2026). Usually held in November; check the organiser for the date.",
+   "url": "https://aihs.org.au/"
+  },
+  {
+   "title": "Master Builders Australia National Conference and Excellence Awards",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "mba_events",
+   "month": "2027-11",
+   "location": "Location not yet announced",
+   "note": "Annual national conference and building awards (Brisbane, late Nov in 2026). Usually held in November; check the organiser for the date.",
+   "url": "https://www.masterbuilders.com.au/Events"
+  },
+  {
+   "title": "Movember",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "movember_ad",
+   "month": "2027-11",
+   "note": "Men's health fundraiser running through November. Usually held in November; check the organiser for the date.",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/movember-mens-health-awareness-month"
+  },
+  {
+   "title": "National Asbestos Awareness Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "swnsw_naaw",
+   "month": "2027-11",
+   "note": "Annual asbestos awareness week, normally the last week of November. Usually held in November; check the organiser for the date.",
+   "url": "https://www.safework.nsw.gov.au/news/safework-media-releases/stay-safe-and-leave-it-to-the-experts-this-national-asbestos-awareness-week"
+  },
+  {
+   "title": "National Safety Awards of Excellence",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "nsca_gala",
+   "month": "2027-11",
+   "location": "Sydney NSW",
+   "note": "Annual national safety awards gala (5 Nov in 2026). Usually held in November; check the organiser for the date.",
+   "url": "https://www.nationalsafetyawards.com.au/attend_the_gala/"
+  },
+  {
+   "title": "National Skin Cancer Action Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "cca_nscaw",
+   "month": "2027-11",
+   "note": "Annual sun-safety week ahead of summer. Usually held in November; check the organiser for the date.",
+   "url": "https://www.cancer.org.au/nscaw2026"
+  },
+  {
+   "title": "World Quality Day",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "ad_wqd",
+   "month": "2027-11",
+   "note": "Held on the second Thursday of November (11 Nov 2027 if the pattern holds). Usually held in November; check the organiser for the date.",
+   "url": "https://www.awarenessdays.com/awareness-days-calendar/world-quality-day/"
+  },
+  {
+   "title": "World Quality Week",
+   "category": "initiative",
+   "states": [
+    "ALL"
+   ],
+   "source": "cqi_wqw",
+   "month": "2027-11",
+   "location": "Online",
+   "note": "International quality week, usually the second week of November. Usually held in November; check the organiser for the date.",
+   "url": "https://www.quality.org/how-will-you-celebrate-wqw-2026"
+  },
+  {
+   "date": "2027-12-06",
+   "title": "Building industry picnic day",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027"
+  },
+  {
+   "date": "2027-12-06",
+   "title": "RDO: industry",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027"
+  },
+  {
+   "date": "2027-12-21",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027",
+   "end": "2027-12-24"
+  },
+  {
+   "date": "2027-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2027-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "QLD"
+   ],
+   "source": "qld-ph",
+   "note": "Part-day public holiday 6pm to midnight"
+  },
+  {
+   "date": "2027-12-24",
+   "title": "Christmas Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2027-12-24",
+   "title": "RDO: on-site",
+   "category": "rdo",
+   "states": [
+    "TAS"
+   ],
+   "source": "cfmeu-tas-2027"
+  },
+  {
+   "date": "2027-12-24",
+   "title": "RDO: on-site and off-site",
+   "category": "rdo",
+   "states": [
+    "VIC"
+   ],
+   "source": "cfmeu-vic-on-2027",
+   "also": [
+    "cfmeu-vic-off-2027"
+   ]
+  },
+  {
+   "date": "2027-12-25",
+   "title": "Christmas Day",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027",
+   "note": "Falls on Saturday; additional day Mon 27 Dec. WorkSafe Tasmania's table shows only the Mon 27 Dec substitute for TAS (its rule text says both days apply)"
+  },
+  {
+   "date": "2027-12-26",
+   "title": "Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "WA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027",
+   "note": "Falls on Sunday; additional day Tue 28 Dec. TAS observes Boxing Day on Tue 28 Dec"
+  },
+  {
+   "date": "2027-12-26",
+   "title": "Proclamation Day holiday / Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "Additional day Tue 28 Dec"
+  },
+  {
+   "date": "2027-12-27",
+   "title": "Additional public holiday for Christmas Day",
+   "category": "public-holiday",
+   "states": [
+    "ALL"
+   ],
+   "source": "fw-2027",
+   "note": "Substitute because 25 Dec falls on a Saturday"
+  },
+  {
+   "date": "2027-12-28",
+   "title": "Additional public holiday for Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "VIC",
+    "NSW",
+    "QLD",
+    "WA",
+    "ACT",
+    "NT"
+   ],
+   "source": "fw-2027"
+  },
+  {
+   "date": "2027-12-28",
+   "title": "Additional public holiday for Proclamation Day",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph"
+  },
+  {
+   "date": "2027-12-28",
+   "title": "Boxing Day",
+   "category": "public-holiday",
+   "states": [
+    "TAS"
+   ],
+   "source": "tas-ph"
+  },
+  {
+   "date": "2027-12-29",
+   "title": "RDO: agreement (EBA)",
+   "category": "rdo",
+   "states": [
+    "QLD"
+   ],
+   "source": "cfmeu-qnt-2027",
+   "end": "2027-12-31"
+  },
+  {
+   "date": "2027-12-31",
+   "title": "New Year's Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "NT"
+   ],
+   "source": "nt-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "date": "2027-12-31",
+   "title": "New Year's Eve (part-day)",
+   "category": "public-holiday",
+   "states": [
+    "SA"
+   ],
+   "source": "sa-ph",
+   "note": "Part-day public holiday 7pm to midnight"
+  },
+  {
+   "title": "AIOH 2027 Annual Conference",
+   "category": "event",
+   "states": [
+    "ALL"
+   ],
+   "source": "aioh_conf",
+   "month": "2027-12",
+   "location": "Location not yet announced",
+   "note": "National occupational hygiene conference, usually late Nov/early Dec. Usually held in December; check the organiser for the date.",
+   "url": "https://www.aioh.org.au/education/annual-conference/"
+  }
+ ],
+ "gaps": [
+  "RDO 2027 calendar for NSW not found (CFMEU NSW site has 2025 and 2026 only) as of 28 Oct 2026",
+  "RDO 2027 calendar for WA not yet published (CFMEU WA site shows 2026 only; no 2027 Master Builders WA list found) as of 28 Oct 2026",
+  "RDO 2027 calendar for SA not found; SA 2026 RDOs come only from a secondary source (RCP Australia planner citing CFMEU); no primary CFMEU SA or Master Builders SA calendar located (SA Business Chamber sheet is members-only)",
+  "RDO 2027 calendar for ACT not found (Master Builders ACT 2026 guide only); no CFMEU ACT calendar located",
+  "NT: no NT-specific building RDO calendar found. CFMEU QLD/NT branch calendars are headed 'QLD RDOs' (they mark NT-only public holidays); RDO dates have been applied to QLD only",
+  "Ai Group 2026 36hr/38hr building RDO calendars are members-only; not used",
+  "VIC AFL Grand Final Friday 2027 not confirmed by Business Victoria (TBC pending AFL schedule); 1 Oct 2027 date is from CFMEU Vic calendar only",
+  "VIC regional Melbourne Cup substitute holidays (non-metro councils) not listed",
+  "QLD regional show holidays (other than Ekka) for Nov 2026-2027 not collected; published on a separate QLD Government page",
+  "NSW local public holidays (regional) not listed on NSW Government page; not collected",
+  "WA regional King's Birthday dates for 2027 not yet listed on WA Government page",
+  "TAS: Statutory Holidays Amendment Bill 2026 (Easter Sunday public holiday) passed Legislative Council second reading 18 Aug 2026, expected from Easter 2027; Royal Assent not verified and WorkSafe Tasmania page does not yet list Easter Sunday 28 Mar 2027 - excluded from events",
+  "TAS: separate Statutory Holidays Amendment (Central Coast Municipality) Bill 2026 (agreed show-equivalent day from 1 Jan 2027) is an unpassed bill - not included",
+  "TAS 2026 CFMEU calendar does not mark Recreation Day (2 Nov 2026) - calendar appears Hobart/Regatta-area oriented",
+  "NSW 'Additional Day' Mon 26 Apr 2027 is listed by NSW Government and Fair Work but unexplained by the NSW page's own FAQ; confirm before relying on it",
+  "Electrical contracting (NECA/ETU Victoria) RDO calendars exist for 2026/2027 but are out of scope (building and construction); not included",
+  "RDO dates were read visually from calendar graphics (NSW, ACT, SA, TAS, QLD, WA CFMEU) or from ICS files (VIC); VIC ICS cross-checked against PDFs",
+  "Easter Sunday 2026 and other holidays before 1 Nov 2026 are out of window and excluded",
+  "National Asbestos Awareness Week 2026: ASSEA has not published the 2026 dates on pages checked; past two years ran in the last week of November. Entered as to be confirmed.",
+  "R U OK? Day 2027 (9 Sep) taken from Wikipedia's listing and matches the second-Thursday rule; not confirmed on ruok.org.au.",
+  "Workplace Health & Safety Show Melbourne 2027 (23-24 Jun) is from a trade-fair aggregator (TradeFairDates), not National Media's own site.",
+  "Hearing Awareness Week: no Australian organiser confirmed; 1-7 Mar 2027 seen only on a third-party calendar. World Hearing Day (WHO, 3 Mar) used as the firm date.",
+  "AIHS National Health & Safety Conference 2027: dates confirmed (25-27 May) but venue/city not yet announced.",
+  "Futurebuild Queensland and Futurebuild Australia dates come from Build Australia's event listings; the organiser is not named on those pages.",
+  "DesignBUILD (Melbourne) and Australian Construction Week: no 2027 edition found; DesignBUILD appears discontinued or folded into other shows.",
+  "Safety Connect (NSCA): no current edition found; NSCA now runs the National Safety Conference (27-29 Apr 2027, Brisbane).",
+  "CMSHE, WHS Leaders' Summit, ASQ/AOQ quality conferences: no Australian 2027 dates found.",
+  "Big 4 / state Master Builders conferences (e.g. MBV, MBNSW): not researched individually; only the Master Builders Australia national program is included.",
+  "SafeWork NSW: no dated 2027 campaign or awards found; summer heat guidance is issued as media releases with no fixed campaign dates.",
+  "WorkSafe Tasmania, NT WorkSafe and WorkSafe ACT Safe Work Month programs not researched separately; covered by the national Safe Work Month entry.",
+  "WA Work Health and Safety Excellence Awards: annual, but ceremony date and venue not published on pages checked.",
+  "No dated national falls-prevention or steel-erection campaign with a real Australian organiser was found.",
+  "World Mental Health Day (10 Oct) and International Women's Day (8 Mar) are fixed dates but no organiser page was fetched, so they are not listed separately."
+ ]
+}

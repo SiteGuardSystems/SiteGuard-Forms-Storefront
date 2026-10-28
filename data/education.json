@@ -1,0 +1,46 @@
+{
+  "note": "SiteGuard Education videos shown on /education/ (scripts/lib/education.mjs). Add videos to a group; each uses the same fields as data/intro-video.json (provider youtube with youtube_id, or file with an MP4 and poster in assets/video/). A group with no videos isn't shown. Rebuild after a change.",
+  "channel_name": "SiteGuard Education",
+  "channel_url": "https://www.youtube.com/channel/UCegFXOpYr0-gWG0t0H4as1Q",
+  "groups": [
+    {
+      "title": "About SiteGuard",
+      "intro": "Who we are and how SiteGuard Systems and SiteGuard FORMS work.",
+      "videos": [
+        {
+          "provider": "file",
+          "title": "SiteGuard Systems: HSEQ systems built by someone who's run sites",
+          "description": "A 98-second introduction to SiteGuard Systems: HSEQ systems that fit your business, support at audit time, and documents your crews will use.",
+          "upload_date": "2026-10-28",
+          "duration": "PT1M38S",
+          "file": "/assets/video/systems-intro.mp4",
+          "poster": "/assets/video/systems-intro.jpg"
+        },
+        {
+          "provider": "file",
+          "title": "SiteGuard FORMS: controlled HSEQ documents built by site people",
+          "description": "A 95-second introduction to SiteGuard FORMS: controlled documents with your details filled in, reviewed and kept current.",
+          "upload_date": "2026-10-28",
+          "duration": "PT1M35S",
+          "file": "/assets/video/forms-intro.mp4",
+          "poster": "/assets/video/forms-intro.jpg"
+        }
+      ]
+    },
+    {
+      "title": "How-tos",
+      "intro": "Short walk-throughs of the documents and the systems behind them.",
+      "videos": []
+    },
+    {
+      "title": "Toolbox talks",
+      "intro": "Ready-to-run toolbox talks for site crews.",
+      "videos": []
+    },
+    {
+      "title": "Inductions",
+      "intro": "Site and workplace induction videos.",
+      "videos": []
+    }
+  ]
+}

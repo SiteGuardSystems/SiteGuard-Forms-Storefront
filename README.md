@@ -55,6 +55,15 @@ Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/tr
 
 The storefront server reads the same file for its CSP: restart it after a change (`sudo systemctl restart siteguard-forms-storefront`).
 
+## Planning calendar and SiteGuard Education
+
+`scripts/lib/planning.mjs` and `scripts/lib/education.mjs` are the same in both SiteGuard sites, and so are their data files (copy any change to both repos).
+
+- **Planning calendar** (`data/planning-calendar.json`): public holidays and building industry RDOs per state, plus national safety initiatives and industry events. Every entry cites a source; entries without an announced date carry a `month` and show as "Date to be confirmed". Pages: `/planning/` (choose a state; national safety calendar), `/planning/<state>/` (with a subscribable `.ics` file per state) and `/planning/inspections/`.
+- **Inspection and testing planner** (`data/inspection-planner.json`): interval, basis (Mandatory, Standard, Code of practice, Manufacturer, Good practice), reference and state notes for each item.
+- Both files carry a `checked` date. A production build fails once it's more than 200 days old: re-check the entries against their sources (RDO calendars and 2027 dates are released through the year), then update `checked`.
+- **SiteGuard Education** (`data/education.json`): `/education/`, grouped videos (same fields as `intro-video.json`) and the YouTube channel button. A group with no videos isn't shown.
+
 ## How buying works
 
 * **Buy outright:** cart → `/api/checkout` (prices re-read from the catalogue,
