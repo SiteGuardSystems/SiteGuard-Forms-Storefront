@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-26T03:53:41+00:00",
+ "generated_at": "2026-10-28T01:44:44+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,13 +9,13 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "996e017d1ad79833",
+ "library_digest": "f26d9143fabb66e6",
  "release": {
   "library_codes": 841,
-  "released": 808,
+  "released": 811,
   "not_released_reasons": {
    "held (OFSC, Rule 20)": 27,
-   "did not pass the library gate": 6
+   "did not pass the library gate": 3
   }
  },
  "facts": {
@@ -38,7 +38,7 @@
   "trade-packs": 390,
   "builder-packs": 2390,
   "management-systems": 349,
-  "specialist-packs": 390,
+  "specialist-packs": 349,
   "consultants": null
  },
  "trade_counts": [
@@ -9449,12 +9449,11 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 4
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -10375,12 +10374,11 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 4
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -10688,12 +10686,11 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": null,
    "blocked_reasons": {
-    "did not pass the library gate": 4
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -10844,15 +10841,10 @@
     "monthly": 95
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "ISM-FRM-GEN-002"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "did not pass the library gate": 1
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "addon:business-continuity",
@@ -11787,15 +11779,10 @@
     "monthly": 60
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-053"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "did not pass the library gate": 1
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "addon:toolbox-sop",
@@ -13015,13 +13002,11 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -13828,13 +13813,11 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -14641,15 +14624,13 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 1,
    "seats_included": 1,
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -15456,15 +15437,13 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 3,
    "seats_included": 1,
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -16271,15 +16250,13 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 10,
    "seats_included": 2,
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -17086,15 +17063,13 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": 25,
    "seats_included": 3,
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -17901,15 +17876,13 @@
    "blocked": [
     "ENV-FRM-GEN-003",
     "ENV-FRM-GEN-004",
-    "ENV-FRM-GEN-005",
-    "ISM-FRM-GEN-002",
-    "SAF-FRM-GEN-053"
+    "ENV-FRM-GEN-005"
    ],
    "problem": "white-label and client limit not built",
    "client_limit": null,
    "seats_included": 5,
    "blocked_reasons": {
-    "did not pass the library gate": 5
+    "did not pass the library gate": 3
    },
    "show": false
   },
@@ -19686,8 +19659,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "IMS-POL-GEN-201",
@@ -19746,8 +19719,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "ISM-FRM-GEN-003",
@@ -22586,8 +22559,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "did not pass the library gate"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-054",
