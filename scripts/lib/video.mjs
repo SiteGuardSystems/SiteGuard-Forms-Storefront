@@ -88,7 +88,7 @@ export function introVideo(video, { heading = "See how it works" } = {}) {
     <img src="${esc(poster)}" alt="" width="1280" height="720" loading="lazy" decoding="async">
     <span class="video-play" aria-hidden="true"></span><span class="visually-hidden">Play video: ${esc(v.title)}</span></a>`;
   } else {
-    player = `<video class="video-file" controls preload="none" playsinline poster="${esc(poster)}" width="1280" height="720">
+    player = `<video class="video-file" controls preload="metadata" playsinline poster="${esc(poster)}" width="1280" height="720">
     <source src="${esc(v.file)}" type="video/mp4">
     ${v.captions ? `<track kind="captions" src="${esc(v.captions)}" srclang="en" label="English" default>` : ""}
     <a href="${esc(v.file)}">Download the video</a></video>`;

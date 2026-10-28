@@ -56,7 +56,7 @@ test("file: the browser's own player, with captions, and no CSP change", async (
   const { video, problems } = await loadVideo(await fixture(FILE));
   assert.deepEqual(problems, []);
   const html = introVideo(video, { heading: "See it" });
-  assert.match(html, /<video class="video-file" controls preload="none"/);
+  assert.match(html, /<video class="video-file" controls preload="metadata"/);
   assert.match(html, /<source src="\/assets\/video\/intro\.mp4" type="video\/mp4">/);
   assert.match(html, /<track kind="captions" src="\/assets\/video\/intro\.en\.vtt"/);
   assert.match(html, /<h2 id="intro-video-h">See it<\/h2>/);
