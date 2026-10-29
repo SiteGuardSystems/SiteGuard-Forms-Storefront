@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-29T16:45:18+00:00",
+ "generated_at": "2026-10-29T17:14:03+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -12,12 +12,10 @@
  "library_digest": "7fb1656b75a4add8",
  "release": {
   "library_codes": 841,
-  "released": 806,
+  "released": 813,
   "not_released_reasons": {
    "held (OFSC, Rule 20)": 27,
-   "mastered at Rev04; library is at Rev07": 6,
-   "not Live IR (HELD-TOKEN (<<SITE_NAME>> not wired in FORMS))": 1,
-   "mastered at Rev04; library is at Rev06": 1
+   "not Live IR (HELD-TOKEN (<<SITE_NAME>> not wired in FORMS))": 1
   }
  },
  "facts": {
@@ -9446,22 +9444,10 @@
     "monthly": 910
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "builder:domestic-system",
@@ -10375,21 +10361,9 @@
     "monthly": 765
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -10691,22 +10665,10 @@
     "monthly": 335
    },
    "subscription_only": false,
-   "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "sellable": true,
+   "blocked": [],
    "problem": null,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
-   "show": false
+   "show": true
   },
   {
    "id": "addon:governance",
@@ -12983,20 +12945,8 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -13798,20 +13748,8 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -14613,22 +14551,10 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "white-label and client limit not built",
    "client_limit": 1,
    "seats_included": 1,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -15430,22 +15356,10 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "white-label and client limit not built",
    "client_limit": 3,
    "seats_included": 1,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -16247,22 +16161,10 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "white-label and client limit not built",
    "client_limit": 10,
    "seats_included": 2,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -17064,22 +16966,10 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "white-label and client limit not built",
    "client_limit": 25,
    "seats_included": 3,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -17881,22 +17771,10 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [
-    "SAF-FRM-GEN-055",
-    "SAF-FRM-GEN-254",
-    "SAF-FRM-GEN-259",
-    "SAF-FRM-GEN-262",
-    "SAF-FRM-GEN-265",
-    "SAF-FRM-GEN-266",
-    "SAF-FRM-GEN-270"
-   ],
+   "blocked": [],
    "problem": "white-label and client limit not built",
    "client_limit": null,
    "seats_included": 5,
-   "blocked_reasons": {
-    "mastered at Rev04; library is at Rev07": 6,
-    "mastered at Rev04; library is at Rev06": 1
-   },
    "show": false
   },
   {
@@ -22582,8 +22460,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-056",
@@ -22662,8 +22540,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-257",
@@ -22692,8 +22570,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev06"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-260",
@@ -22712,8 +22590,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-263",
@@ -22742,8 +22620,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-266",
@@ -22752,8 +22630,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-267",
@@ -22792,8 +22670,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": false,
-   "reason": "mastered at Rev04; library is at Rev07"
+   "sellable": true,
+   "reason": ""
   },
   {
    "code": "SAF-FRM-GEN-301",
