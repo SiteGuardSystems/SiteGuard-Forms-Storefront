@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-28T05:33:23+00:00",
+ "generated_at": "2026-10-29T16:45:18+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,19 +9,22 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "b4cff76eb4a58096",
+ "library_digest": "7fb1656b75a4add8",
  "release": {
   "library_codes": 841,
-  "released": 814,
+  "released": 806,
   "not_released_reasons": {
-   "held (OFSC, Rule 20)": 27
+   "held (OFSC, Rule 20)": 27,
+   "mastered at Rev04; library is at Rev07": 6,
+   "not Live IR (HELD-TOKEN (<<SITE_NAME>> not wired in FORMS))": 1,
+   "mastered at Rev04; library is at Rev06": 1
   }
  },
  "facts": {
-  "documents": 781,
+  "documents": 780,
   "documents_rounded": "780+",
   "by_family": {
-   "Form": 227,
+   "Form": 226,
    "SWMS": 215,
    "ITP": 123,
    "Register": 112,
@@ -37,7 +40,7 @@
   "trade-packs": 390,
   "builder-packs": 2390,
   "management-systems": 349,
-  "specialist-packs": 349,
+  "specialist-packs": 390,
   "consultants": null
  },
  "trade_counts": [
@@ -9115,7 +9118,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -9421,14 +9423,14 @@
     "SAF-SWMS-WP-008",
     "SAF-SWMS-WP-009"
    ],
-   "count": 614,
+   "count": 613,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 39,
     "Policy": 12,
     "Register": 75,
-    "Form": 150
+    "Form": 149
    },
    "includes": [
     "215 SWMS",
@@ -9436,7 +9438,7 @@
     "39 plans",
     "12 policies",
     "75 registers",
-    "150 forms"
+    "149 forms"
    ],
    "prices": {
     "one_off": 5490,
@@ -9444,10 +9446,22 @@
     "monthly": 910
    },
    "subscription_only": false,
-   "sellable": true,
-   "blocked": [],
+   "sellable": false,
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": null,
-   "show": true
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
+   "show": false
   },
   {
    "id": "builder:domestic-system",
@@ -10033,7 +10047,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -10339,14 +10352,14 @@
     "SAF-SWMS-WP-008",
     "SAF-SWMS-WP-009"
    ],
-   "count": 608,
+   "count": 607,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 39,
     "Policy": 6,
     "Register": 75,
-    "Form": 150
+    "Form": 149
    },
    "includes": [
     "215 SWMS",
@@ -10354,7 +10367,7 @@
     "39 plans",
     "6 policies",
     "75 registers",
-    "150 forms"
+    "149 forms"
    ],
    "prices": {
     "one_off": 4499,
@@ -10362,9 +10375,21 @@
     "monthly": 765
    },
    "subscription_only": false,
-   "sellable": true,
-   "blocked": [],
+   "sellable": false,
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": null,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -10557,7 +10582,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -10648,18 +10672,18 @@
     "SAF-REG-PSY-002",
     "SAF-REG-TRD-001"
    ],
-   "count": 270,
+   "count": 269,
    "counts": {
     "Plan": 39,
     "Policy": 6,
     "Register": 75,
-    "Form": 150
+    "Form": 149
    },
    "includes": [
     "39 plans",
     "6 policies",
     "75 registers",
-    "150 forms"
+    "149 forms"
    ],
    "prices": {
     "one_off": 1990,
@@ -10667,10 +10691,22 @@
     "monthly": 335
    },
    "subscription_only": false,
-   "sellable": true,
-   "blocked": [],
+   "sellable": false,
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": null,
-   "show": true
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
+   "show": false
   },
   {
    "id": "addon:governance",
@@ -11719,48 +11755,19 @@
    "group": "specialist-packs",
    "name": "Labour Hire Compliance Pack",
    "summary": "Labour hire placement, induction and fitness-for-work documents for hosts and providers.",
-   "listed": true,
+   "listed": false,
    "trade": null,
    "level": null,
    "sort": 101,
-   "documents": [
-    "IMS-FRM-GEN-301",
-    "IMS-FRM-GEN-302",
-    "IMS-FRM-GEN-303",
-    "IMS-REG-GEN-301",
-    "SAF-FRM-GEN-001",
-    "SAF-FRM-GEN-002",
-    "SAF-FRM-GEN-005",
-    "SAF-FRM-GEN-053",
-    "SAF-POL-GEN-202"
-   ],
-   "count": 9,
-   "counts": {
-    "Policy": 1,
-    "Register": 1,
-    "Form": 7
-   },
-   "includes": [
-    "Labour Hire Licence Compliance Checklist",
-    "Host Employer WHS Consultation & Coordination Agreement",
-    "Labour Hire Placement Risk Assessment",
-    "Labour Hire Worker Placement Register",
-    "Worker Site Induction",
-    "Contractor Trade Induction",
-    "Induction Acknowledgement Declaration",
-    "Fitness for Work Declaration",
-    "Fitness for Work Policy"
-   ],
-   "prices": {
-    "one_off": 349,
-    "annual": 649,
-    "monthly": 60
-   },
+   "documents": [],
+   "counts": {},
+   "includes": [],
+   "prices": null,
    "subscription_only": false,
-   "sellable": true,
+   "sellable": false,
    "blocked": [],
-   "problem": null,
-   "show": true
+   "problem": "addon:labour-hire: 1 of 9 documents not mastered yet (SAF-FRM-GEN-053)",
+   "show": false
   },
   {
    "id": "addon:toolbox-sop",
@@ -12635,7 +12642,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -12953,14 +12959,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -12968,7 +12974,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -12977,8 +12983,20 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -13439,7 +13457,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -13757,14 +13774,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -13772,7 +13789,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -13781,8 +13798,20 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "retired Pricing Rev03 (18 Oct 2026) -- superseded by the client-band consultant plans",
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -14243,7 +14272,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -14561,14 +14589,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -14576,7 +14604,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -14585,10 +14613,22 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "white-label and client limit not built",
    "client_limit": 1,
    "seats_included": 1,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -15049,7 +15089,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -15367,14 +15406,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -15382,7 +15421,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -15391,10 +15430,22 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "white-label and client limit not built",
    "client_limit": 3,
    "seats_included": 1,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -15855,7 +15906,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -16173,14 +16223,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -16188,7 +16238,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -16197,10 +16247,22 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "white-label and client limit not built",
    "client_limit": 10,
    "seats_included": 2,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -16661,7 +16723,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -16979,14 +17040,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -16994,7 +17055,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -17003,10 +17064,22 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "white-label and client limit not built",
    "client_limit": 25,
    "seats_included": 3,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -17467,7 +17540,6 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
-    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -17785,14 +17857,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 765,
+   "count": 764,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 217
+    "Form": 216
    },
    "includes": [
     "215 SWMS",
@@ -17800,7 +17872,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "217 forms"
+    "216 forms"
    ],
    "prices": {
     "one_off": null,
@@ -17809,10 +17881,22 @@
    },
    "subscription_only": true,
    "sellable": false,
-   "blocked": [],
+   "blocked": [
+    "SAF-FRM-GEN-055",
+    "SAF-FRM-GEN-254",
+    "SAF-FRM-GEN-259",
+    "SAF-FRM-GEN-262",
+    "SAF-FRM-GEN-265",
+    "SAF-FRM-GEN-266",
+    "SAF-FRM-GEN-270"
+   ],
    "problem": "white-label and client limit not built",
    "client_limit": null,
    "seats_included": 5,
+   "blocked_reasons": {
+    "mastered at Rev04; library is at Rev07": 6,
+    "mastered at Rev04; library is at Rev06": 1
+   },
    "show": false
   },
   {
@@ -22482,16 +22566,6 @@
    "reason": ""
   },
   {
-   "code": "SAF-FRM-GEN-053",
-   "title": "Fitness for Work Declaration",
-   "family": "Form",
-   "trade": null,
-   "trade_name": null,
-   "price": 49,
-   "sellable": true,
-   "reason": ""
-  },
-  {
    "code": "SAF-FRM-GEN-054",
    "title": "Permit to Work General",
    "family": "Form",
@@ -22508,8 +22582,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-056",
@@ -22588,8 +22662,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-257",
@@ -22618,8 +22692,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev06"
   },
   {
    "code": "SAF-FRM-GEN-260",
@@ -22638,8 +22712,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-263",
@@ -22668,8 +22742,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-266",
@@ -22678,8 +22752,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-267",
@@ -22718,8 +22792,8 @@
    "trade": null,
    "trade_name": null,
    "price": 49,
-   "sellable": true,
-   "reason": ""
+   "sellable": false,
+   "reason": "mastered at Rev04; library is at Rev07"
   },
   {
    "code": "SAF-FRM-GEN-301",
