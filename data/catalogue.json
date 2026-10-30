@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-29T17:14:03+00:00",
+ "generated_at": "2026-10-30T02:28:28+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -39,7 +39,7 @@
   "builder-packs": 2390,
   "management-systems": 349,
   "specialist-packs": 390,
-  "consultants": null
+  "consultants": 3990
  },
  "trade_counts": [
   {
@@ -14550,12 +14550,12 @@
     "monthly": 380
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
+   "problem": null,
    "client_limit": 1,
    "seats_included": 1,
-   "show": false
+   "show": true
   },
   {
    "id": "consultant:3",
@@ -15355,12 +15355,12 @@
     "monthly": 720
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
+   "problem": null,
    "client_limit": 3,
    "seats_included": 1,
-   "show": false
+   "show": true
   },
   {
    "id": "consultant:10",
@@ -16160,12 +16160,12 @@
     "monthly": 1245
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
+   "problem": null,
    "client_limit": 10,
    "seats_included": 2,
-   "show": false
+   "show": true
   },
   {
    "id": "consultant:25",
@@ -16965,12 +16965,12 @@
     "monthly": 1915
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
+   "problem": null,
    "client_limit": 25,
    "seats_included": 3,
-   "show": false
+   "show": true
   },
   {
    "id": "consultant:unlimited",
@@ -17770,12 +17770,12 @@
     "monthly": 2875
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
+   "problem": null,
    "client_limit": null,
    "seats_included": 5,
-   "show": false
+   "show": true
   },
   {
    "id": "consultant:seat",
@@ -17796,10 +17796,10 @@
     "monthly": 95
    },
    "subscription_only": true,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "white-label and client limit not built",
-   "show": false
+   "problem": null,
+   "show": true
   }
  ],
  "documents": [
