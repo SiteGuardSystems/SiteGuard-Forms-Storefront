@@ -55,6 +55,12 @@ test("marketing pages carry none of the banned words", () => {
 test("only packs the catalogue puts on show appear, at the catalogue's price", () => {
   const all = pages.map((p) => p.html).join("\n");
   for (const p of cat.packs) {
+    // The extra consultant seat is never bought on its own: the consultants page states its price
+    // in the "Plans and users" text, beside the plans (build-site.mjs, extraSeat).
+    if (p.id === "consultant:seat") {
+      if (p.show && p.prices) assert.ok(all.includes("Extra users are"), "consultant seat price line missing");
+      continue;
+    }
     const onPage = all.includes(`data-add-pack="${p.id}"`) || all.includes(`pack=${encodeURIComponent(p.id)}&`);
     assert.equal(onPage, Boolean(p.show && p.prices), p.id);
     if (onPage && p.prices.one_off) {
