@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-10-30T02:28:28+00:00",
+ "generated_at": "2026-10-30T03:23:25+00:00",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,20 +9,19 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "7fb1656b75a4add8",
+ "library_digest": "5b62f85d0c2c1801",
  "release": {
   "library_codes": 841,
-  "released": 813,
+  "released": 814,
   "not_released_reasons": {
-   "held (OFSC, Rule 20)": 27,
-   "not Live IR (HELD-TOKEN (<<SITE_NAME>> not wired in FORMS))": 1
+   "held (OFSC, Rule 20)": 27
   }
  },
  "facts": {
-  "documents": 780,
+  "documents": 781,
   "documents_rounded": "780+",
   "by_family": {
-   "Form": 226,
+   "Form": 227,
    "SWMS": 215,
    "ITP": 123,
    "Register": 112,
@@ -38,7 +37,7 @@
   "trade-packs": 390,
   "builder-packs": 2390,
   "management-systems": 349,
-  "specialist-packs": 390,
+  "specialist-packs": 349,
   "consultants": 3990
  },
  "trade_counts": [
@@ -9116,6 +9115,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -9421,14 +9421,14 @@
     "SAF-SWMS-WP-008",
     "SAF-SWMS-WP-009"
    ],
-   "count": 613,
+   "count": 614,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 39,
     "Policy": 12,
     "Register": 75,
-    "Form": 149
+    "Form": 150
    },
    "includes": [
     "215 SWMS",
@@ -9436,7 +9436,7 @@
     "39 plans",
     "12 policies",
     "75 registers",
-    "149 forms"
+    "150 forms"
    ],
    "prices": {
     "one_off": 5490,
@@ -10033,6 +10033,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -10338,14 +10339,14 @@
     "SAF-SWMS-WP-008",
     "SAF-SWMS-WP-009"
    ],
-   "count": 607,
+   "count": 608,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 39,
     "Policy": 6,
     "Register": 75,
-    "Form": 149
+    "Form": 150
    },
    "includes": [
     "215 SWMS",
@@ -10353,7 +10354,7 @@
     "39 plans",
     "6 policies",
     "75 registers",
-    "149 forms"
+    "150 forms"
    ],
    "prices": {
     "one_off": 4499,
@@ -10556,6 +10557,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -10646,18 +10648,18 @@
     "SAF-REG-PSY-002",
     "SAF-REG-TRD-001"
    ],
-   "count": 269,
+   "count": 270,
    "counts": {
     "Plan": 39,
     "Policy": 6,
     "Register": 75,
-    "Form": 149
+    "Form": 150
    },
    "includes": [
     "39 plans",
     "6 policies",
     "75 registers",
-    "149 forms"
+    "150 forms"
    ],
    "prices": {
     "one_off": 1990,
@@ -11717,19 +11719,48 @@
    "group": "specialist-packs",
    "name": "Labour Hire Compliance Pack",
    "summary": "Labour hire placement, induction and fitness-for-work documents for hosts and providers.",
-   "listed": false,
+   "listed": true,
    "trade": null,
    "level": null,
    "sort": 101,
-   "documents": [],
-   "counts": {},
-   "includes": [],
-   "prices": null,
+   "documents": [
+    "IMS-FRM-GEN-301",
+    "IMS-FRM-GEN-302",
+    "IMS-FRM-GEN-303",
+    "IMS-REG-GEN-301",
+    "SAF-FRM-GEN-001",
+    "SAF-FRM-GEN-002",
+    "SAF-FRM-GEN-005",
+    "SAF-FRM-GEN-053",
+    "SAF-POL-GEN-202"
+   ],
+   "count": 9,
+   "counts": {
+    "Policy": 1,
+    "Register": 1,
+    "Form": 7
+   },
+   "includes": [
+    "Labour Hire Licence Compliance Checklist",
+    "Host Employer WHS Consultation & Coordination Agreement",
+    "Labour Hire Placement Risk Assessment",
+    "Labour Hire Worker Placement Register",
+    "Worker Site Induction",
+    "Contractor Trade Induction",
+    "Induction Acknowledgement Declaration",
+    "Fitness for Work Declaration",
+    "Fitness for Work Policy"
+   ],
+   "prices": {
+    "one_off": 349,
+    "annual": 649,
+    "monthly": 60
+   },
    "subscription_only": false,
-   "sellable": false,
+   "sellable": true,
    "blocked": [],
-   "problem": "addon:labour-hire: 1 of 9 documents not mastered yet (SAF-FRM-GEN-053)",
-   "show": false
+   "problem": null,
+   "show": true
   },
   {
    "id": "addon:toolbox-sop",
@@ -12604,6 +12635,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -12921,14 +12953,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -12936,7 +12968,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -13407,6 +13439,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -13724,14 +13757,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -13739,7 +13772,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -14210,6 +14243,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -14527,14 +14561,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -14542,7 +14576,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -15015,6 +15049,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -15332,14 +15367,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -15347,7 +15382,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -15820,6 +15855,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -16137,14 +16173,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -16152,7 +16188,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -16625,6 +16661,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -16942,14 +16979,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -16957,7 +16994,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -17430,6 +17467,7 @@
     "SAF-FRM-GEN-048",
     "SAF-FRM-GEN-049",
     "SAF-FRM-GEN-051",
+    "SAF-FRM-GEN-053",
     "SAF-FRM-GEN-054",
     "SAF-FRM-GEN-055",
     "SAF-FRM-GEN-056",
@@ -17747,14 +17785,14 @@
     "SUS-REG-GEN-002",
     "SUS-REG-GEN-003"
    ],
-   "count": 764,
+   "count": 765,
    "counts": {
     "SWMS": 215,
     "ITP": 123,
     "Plan": 76,
     "Policy": 23,
     "Register": 111,
-    "Form": 216
+    "Form": 217
    },
    "includes": [
     "215 SWMS",
@@ -17762,7 +17800,7 @@
     "76 plans",
     "23 policies",
     "111 registers",
-    "216 forms"
+    "217 forms"
    ],
    "prices": {
     "one_off": null,
@@ -22436,6 +22474,16 @@
   {
    "code": "SAF-FRM-GEN-051",
    "title": "Emergency Drill & Exercise Record",
+   "family": "Form",
+   "trade": null,
+   "trade_name": null,
+   "price": 49,
+   "sellable": true,
+   "reason": ""
+  },
+  {
+   "code": "SAF-FRM-GEN-053",
+   "title": "Fitness for Work Declaration",
    "family": "Form",
    "trade": null,
    "trade_name": null,
