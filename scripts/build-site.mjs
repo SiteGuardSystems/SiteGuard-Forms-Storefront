@@ -337,9 +337,15 @@ async function build() {
   const titles = new Map(cat.documents.map((d) => [d.code, d.title]));
   for (const p of cat.packs) for (const c of p.documents) if (!titles.has(c)) titles.set(c, c);
   const shown = cat.packs.filter((p) => p.show && p.prices);
-  const inGroup = (g) => shown.filter((p) => p.group === g);
+  // A pack tied to a trade belongs to that trade's range: the catalogue files
+  // every trade's compliance pack under trade-packs, specialist trades too.
+  const tradeGroup = new Map(cat.trades.map((t) => [t.code, t.group]));
+  const groupOf = (p) => (p.trade && tradeGroup.get(p.trade)) || p.group;
+  const inGroup = (g) => shown.filter((p) => groupOf(p) === g);
   CONSULTANTS_ON = inGroup("consultants").some((p) => p.id !== "consultant:seat");
-  const trades = cat.trades.map((t) => ({ ...t, packs: shown.filter((p) => p.trade === t.code) })).filter((t) => t.packs.length);
+  // Each trade's packs in the catalogue's order: the level rungs, then any other
+  // pack for the trade the catalogue lists (e.g. its compliance pack).
+  const trades = cat.trades.map((t) => ({ ...t, packs: shown.filter((p) => p.trade === t.code).sort((a, b) => a.sort - b.sort) })).filter((t) => t.packs.length);
   const f = cat.facts;
   const preview = cat.preview;
   // The shop's own numbers count what can be bought here (every listed
@@ -423,10 +429,10 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
     const meta = GROUPS[g];
     const gTrades = trades.filter((t) => t.group === g);
     const rows = gTrades.map((t) => {
-      const heavy = t.packs.at(-1);
+      const heavy = t.packs.filter((p) => p.level).at(-1) ?? t.packs.at(-1);
       const swms = (heavy.includes.find((x) => / SWMS$/.test(x) && !/core/.test(x)) ?? "").replace(/ SWMS$/, " SWMS");
       return `<div class="register-row"><div><h3><a href="${meta.path}${t.slug}/">${esc(t.name)}</a></h3>
-        <p>${esc(t.packs.map((p) => LEVEL_LABEL[p.level]).join(", "))}${swms ? `. ${esc(swms.replace(t.name + " ", ""))} for the trade.` : ""}</p></div>
+        <p>${esc(t.packs.map((p) => rungLabel(p, t, true)).join(", "))}${swms ? `. ${esc(swms.replace(t.name + " ", ""))} for the trade.` : ""}</p></div>
         <p class="from">From ${money(fromOf(t.packs))}<span>outright, ex GST</span></p>
         <a class="btn btn-small" href="${meta.path}${t.slug}/">Choose a level</a></div>`;
     }).join("");
@@ -445,7 +451,7 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
   <h1>${esc(t.name)} packs</h1>
   <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS and the core site SWMS.</p></div></section>
 <section class="band"><div class="wrap">
-  <div class="rungs">${t.packs.map((p) => packArticle(p, cat, titles, LEVEL_LABEL[p.level])).join("")}</div>
+  <div class="rungs">${t.packs.map((p) => packArticle(p, cat, titles, rungLabel(p, t))).join("")}</div>
   <p class="small mt">Buying outright: the documents are filled with the business and project details you enter at checkout and emailed to you. Subscribing: sign in, add your logo and projects, and generate the documents whenever you need them. <a href="/how-ordering-works/">How ordering works</a>.</p>
 </div></section>`,
       });
@@ -737,6 +743,12 @@ ${partnersBody(TRUST, { source: "forms", endpoint: "", brand: "SiteGuard" })}`,
 }
 
 const LEVEL_LABEL = { "domestic": "Domestic", "light-commercial": "Light Commercial", "heavy-commercial": "Heavy Commercial" };
+/** A trade pack's heading: its level, or for a pack with no level (a trade's
+ *  compliance pack) the catalogue's name, without the trade name when short. */
+function rungLabel(p, t, short = false) {
+  if (LEVEL_LABEL[p.level]) return LEVEL_LABEL[p.level];
+  return short && p.name.startsWith(`${t.name} `) ? p.name.slice(t.name.length + 1) : p.name;
+}
 
 const legalCache = new Map();
 async function legal(file) {
