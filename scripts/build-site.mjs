@@ -9,8 +9,9 @@
 // The public DCR extract pinned in dcr.lock (vendored, scripts/lib/dcr.mjs) is
 // loaded and verified first: the build fails on a hash mismatch, and on any code
 // the catalogue shows or sells that isn't a live public page-A code (retired,
-// superseded, not public, or unknown). Titles that differ from the DCR, and a catalogue without a DCR stamp,
-// are warnings for now. The DCR never decides what is sold or its price.
+// superseded, not public, or unknown), on a title that differs from the DCR, and
+// on a catalogue without the dcr.lock stamp. The DCR never decides what is sold
+// or its price.
 //
 //   node scripts/build-site.mjs               # build; warns about open items
 //   node scripts/build-site.mjs --production  # fails on a preview catalogue,
@@ -26,7 +27,7 @@ import { loadTrust, partnerStrip, reviewBadge, partnersBody } from "./lib/trust.
 import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
 import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBody, inspectionGroupBody, inspectionGroups, groupPath, icsFor, STATES, STATE_NAMES, statePath } from "./lib/planning.mjs";
 import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
-import { loadPinned, checkCatalogue, rev2, titlePolicy } from "./lib/dcr.mjs";
+import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -86,8 +87,7 @@ const money = (n) => "$" + Number(n).toLocaleString("en-AU");
 let CONSULTANTS_ON = false;
 const problems = [];
 const pages = [];
-// DCR warnings (titles, stamp): reported, never blocking -- not even in a
-// production build -- until the catalogue takes titles from the DCR.
+// DCR warnings (a retired code neither shown nor sold): reported, never blocking.
 const dcrWarnings = [];
 let DCR_PIN = null;
 
@@ -817,8 +817,7 @@ ${indexable.map((p) => `  <url><loc>${ORIGIN}${p.url}</loc></url>`).join("\n")}
   const byKind = new Map();
   for (const f of dcrWarnings) byKind.set(f.kind, [...(byKind.get(f.kind) ?? []), f]);
   for (const [kind, list] of byKind) {
-    const extra = kind === "title_mismatch" ? ` (title policy: ${titlePolicy()}; npm run dcr-check lists them all)` : "";
-    console.log(`  warn : DCR [${kind}] ${list.length}${extra}`);
+    console.log(`  warn : DCR [${kind}] ${list.length} (npm run dcr-check lists them all)`);
     for (const f of list.slice(0, 3)) console.log(`         ${f.message}`);
   }
   if (blocking.length) {
