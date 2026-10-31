@@ -6,6 +6,12 @@
 //                            by scripts/sync-legal.mjs (the one legal source)
 // Nothing about a product or a price is written by hand in this file.
 //
+// The public DCR extract pinned in dcr.lock (vendored, scripts/lib/dcr.mjs) is
+// loaded and verified first: the build fails on a hash mismatch, and on any code
+// the catalogue shows or sells that isn't a live public page-A code (retired,
+// superseded, not public, or unknown). Titles that differ from the DCR, and a catalogue without a DCR stamp,
+// are warnings for now. The DCR never decides what is sold or its price.
+//
 //   node scripts/build-site.mjs               # build; warns about open items
 //   node scripts/build-site.mjs --production  # fails on a preview catalogue,
 //                                              # open [placeholders] in a legal
@@ -20,6 +26,7 @@ import { loadTrust, partnerStrip, reviewBadge, partnersBody } from "./lib/trust.
 import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
 import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBody, inspectionGroupBody, inspectionGroups, groupPath, icsFor, STATES, STATE_NAMES, statePath } from "./lib/planning.mjs";
 import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
+import { loadPinned, checkCatalogue, rev2, titlePolicy } from "./lib/dcr.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -79,6 +86,27 @@ const money = (n) => "$" + Number(n).toLocaleString("en-AU");
 let CONSULTANTS_ON = false;
 const problems = [];
 const pages = [];
+// DCR warnings (titles, stamp): reported, never blocking -- not even in a
+// production build -- until the catalogue takes titles from the DCR.
+const dcrWarnings = [];
+let DCR_PIN = null;
+
+/** Loads and verifies the pinned DCR, then checks the catalogue against it. */
+async function checkDcr(cat) {
+  let pinned;
+  try {
+    pinned = await loadPinned(ROOT);
+  } catch (e) {
+    console.error(`DCR: the public extract pinned in dcr.lock does not verify: ${e.message}`);
+    console.error("Fix vendor/siteguard-dcr or dcr.lock (see README, \"DCR\"). The build stops here.");
+    process.exit(1);
+  }
+  DCR_PIN = { revision: pinned.dcr.revision, sha256: pinned.dcr.sourceSha256, public_sha256: pinned.dcr.sha256 };
+  for (const f of checkCatalogue(cat, pinned)) {
+    if (f.severity === "error") problems.push(`DCR: [${f.kind}] ${f.message}`);
+    else dcrWarnings.push(f);
+  }
+}
 
 // -- layout --------------------------------------------------------------------
 
@@ -304,6 +332,7 @@ async function build() {
   for (const p of edu.problems) problems.push(`data: ${p}`);
   for (const p of PLANNING.problems) problems.push(/open item/.test(p) ? p : `data: ${p}`);
   const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
+  await checkDcr(cat);
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const titles = new Map(cat.documents.map((d) => [d.code, d.title]));
   for (const p of cat.packs) for (const c of p.documents) if (!titles.has(c)) titles.set(c, c);
@@ -778,11 +807,20 @@ ${indexable.map((p) => `  <url><loc>${ORIGIN}${p.url}</loc></url>`).join("\n")}
   await writeFile(path.join(DIST, "build-info.json"), JSON.stringify({
     built_at: new Date().toISOString(), catalogue_generated_at: cat.generated_at, preview: cat.preview, beta: BETA,
     pricing_revision: cat.pricing_revision, pages: pages.length,
+    dcr_revision: DCR_PIN?.revision ?? null, dcr_sha256: DCR_PIN?.sha256 ?? null, dcr_public_sha256: DCR_PIN?.public_sha256 ?? null,
   }, null, 1));
 
   console.log(`Built ${pages.length} pages into dist/${cat.preview ? " (PREVIEW catalogue)" : ""}`);
   const blocking = problems.filter((p) => PRODUCTION || !/open item/.test(p) && !/PREVIEW/.test(p));
   for (const p of problems) console.log(`  ${blocking.includes(p) ? "ERROR" : "note "}: ${p}`);
+  if (DCR_PIN) console.log(`  DCR Rev${rev2(DCR_PIN.revision)} public extract verified (sha256 ${DCR_PIN.public_sha256}; from dcr.json ${DCR_PIN.sha256})`);
+  const byKind = new Map();
+  for (const f of dcrWarnings) byKind.set(f.kind, [...(byKind.get(f.kind) ?? []), f]);
+  for (const [kind, list] of byKind) {
+    const extra = kind === "title_mismatch" ? ` (title policy: ${titlePolicy()}; npm run dcr-check lists them all)` : "";
+    console.log(`  warn : DCR [${kind}] ${list.length}${extra}`);
+    for (const f of list.slice(0, 3)) console.log(`         ${f.message}`);
+  }
   if (blocking.length) {
     console.error(`${blocking.length} problem(s) must be fixed${PRODUCTION ? " before a production build" : ""}.`);
     process.exit(1);

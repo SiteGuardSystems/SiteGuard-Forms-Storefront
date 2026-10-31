@@ -13,8 +13,21 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - name: Build and unit tests (banned words, links, prices, page size)
+      - name: Build and unit tests (banned words, links, prices, page size, DCR gate)
         run: npm test
+      # T07 (DCR single-truth brief 2.7): the public page-A DCR extract pinned in
+      # dcr.lock (vendored, no network or secrets) against data/, content/ and the
+      # site's code. Fails on a hash mismatch, a code that isn't a live public
+      # DCR code where it's shown or sold, or a catalogue stamped with another
+      # revision. Titles and a missing stamp are warnings for now. Exceptions:
+      # dcr.allowlist.json, each with a reason.
+      - name: dcr-check
+        run: |
+          rc=0
+          npm run --silent dcr-check > dcr-check.txt || rc=$?
+          cat dcr-check.txt
+          { echo '### dcr-check'; echo '```'; grep -v '^WARNING \[title_mismatch\]' dcr-check.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
       - name: Browser end-to-end
         run: |
           npx playwright install --with-deps chromium

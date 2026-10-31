@@ -34,6 +34,20 @@ npm run build:production && sudo systemctl restart siteguard-forms-storefront
 `--preview` lists every pack for layout review. A preview build shows a
 banner, is not indexed, refuses payment, and `build:production` refuses it.
 
+## DCR (the controlled document register)
+
+This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-dcr's **public page-A extract** (now Rev23, `public/rev23/dcr-public.json`) by sha256, and records the sha256 of the full release it was made from. The extract is vendored under `vendor/siteguard-dcr/public/` and marked `-text`, so git never changes its bytes. It holds page A, external, non-reserved rows only, with these fields: code, title, family, revision, lifecycle status, kept code, package family and bundle. The reader is `scripts/lib/dcr.mjs`. It needs no network, deploy key or proprietary client.
+
+- **The build** verifies the extract first and **stops on a hash mismatch**. It then fails if the catalogue shows or sells a code that isn't a live public code, i.e. a code that is retired, superseded, not public or unknown.
+- **Titles** that differ from the DCR, and a catalogue with no `dcr_revision` / `dcr_sha256` stamp, are **warnings** for now. When Hseq-Dev `build_catalogue.py` takes titles from the DCR, set `TITLE_POLICY = "fail"` in `scripts/lib/dcr.mjs`. A stamp that differs from `dcr.lock` already fails. The stamp's `dcr_sha256` is the full release's hash, `dcr.lock` `source_dcr_sha256`.
+- The DCR never decides what is sold or its price: that is still `catalogue.json` (`packages.py`).
+- **CI** runs `npm run dcr-check` (`scripts/dcr-check.mjs`) over `data/`, `content/` and the site's code. Real drift goes in `dcr.allowlist.json` with a reason; never edit product data to pass.
+
+**Bumping the lock** (one PR per new DCR revision):
+1. Copy `public/revNN/{dcr-public.json,dcr-public.sha256}` from siteguard-dcr into `vendor/siteguard-dcr/public/revNN/`.
+2. Set `dcr.lock` `revision`, `path`, `sha256` and `source_dcr_sha256` (the extract's `meta.source_dcr_sha256`).
+3. Re-check `dcr.allowlist.json` and set its `dcr_revision`.
+
 ## Partners, affiliates and Google reviews
 
 Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/trust.test.js` are identical in both repos.

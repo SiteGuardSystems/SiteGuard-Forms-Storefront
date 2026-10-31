@@ -1,0 +1,10 @@
+{
+ "repo": "SiteGuardSystems/siteguard-dcr",
+ "kind": "public-extract",
+ "revision": 23,
+ "path": "public/rev23/dcr-public.json",
+ "sha256": "ee1287fab6a10715edd66cc9e8088a114fea59843db7baec8e74b289a6f8e9cf",
+ "source_dcr_sha256": "8a8db29c7753ded334f8170bb20b1029fe94e414667e027bc10ffc0e0670a7af",
+ "source": "siteguard-dcr PR #6 (branch public-extract, commit c1bf8d15f46506de41609dd50fad90547c7e724c): public/rev23, made by tools/make_public_extract.py from releases/rev23/dcr.json (tag dcr-rev23)",
+ "vendored_at": "vendor/siteguard-dcr/public/rev23/dcr-public.json"
+}
