@@ -1,6 +1,8 @@
 {
  "schema": 1,
- "generated_at": "2026-10-30T03:23:25+00:00",
+ "generated_at": "2026-10-31T01:54:39+00:00",
+ "dcr_revision": 23,
+ "dcr_sha256": "8a8db29c7753ded334f8170bb20b1029fe94e414667e027bc10ffc0e0670a7af",
  "preview": false,
  "pricing_revision": "Rev03 -- 2026-10-18",
  "pricing_status": "G2 approved by Dan, 18 Oct 2026 (\"pricing changes rev 3 yes\") -- PRD-001's Founder-approval gate is cleared for this price list. Not yet published or live: still needs the Storefront/Website/FORMS rollout and Stripe test-mode wiring.",
@@ -9,7 +11,7 @@
  "monthly_premium": 1.15,
  "review_cycle": "6-monthly",
  "ofsc_held": true,
- "library_digest": "5b62f85d0c2c1801",
+ "library_digest": "adc7bb7820b5ccd5",
  "release": {
   "library_codes": 841,
   "released": 814,
@@ -11742,11 +11744,11 @@
    },
    "includes": [
     "Labour Hire Licence Compliance Checklist",
-    "Host Employer WHS Consultation & Coordination Agreement",
+    "Host Employer WHS Consultation and Coordination Agreement",
     "Labour Hire Placement Risk Assessment",
     "Labour Hire Worker Placement Register",
     "Worker Site Induction",
-    "Contractor Trade Induction",
+    "Contractor / Trade Induction",
     "Induction Acknowledgement Declaration",
     "Fitness for Work Declaration",
     "Fitness for Work Policy"
@@ -11781,7 +11783,7 @@
    },
    "includes": [
     "Toolbox Talk Library Index",
-    "Safe Operating Procedure SOP Library Index"
+    "Safe Operating Procedure (SOP) Library Index"
    ],
    "prices": {
     "one_off": null,
@@ -17843,7 +17845,7 @@
  "documents": [
   {
    "code": "AUD-FRM-GEN-006",
-   "title": "Audit Plan Individual Audit",
+   "title": "Audit Plan - Individual Audit",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -17883,7 +17885,7 @@
   },
   {
    "code": "AUD-FRM-GEN-010",
-   "title": "Audit Observation & Evidence Record",
+   "title": "Audit Observation and Evidence Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -17903,7 +17905,7 @@
   },
   {
    "code": "AUD-FRM-GEN-012",
-   "title": "Corrective Action Follow Up Record Audit",
+   "title": "Corrective Action Follow-Up Record - Audit",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -17953,7 +17955,7 @@
   },
   {
    "code": "AUD-PLN-GEN-004",
-   "title": "Audit Methodology & Procedure",
+   "title": "Audit Methodology and Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -17963,7 +17965,7 @@
   },
   {
    "code": "AUD-REG-GEN-003",
-   "title": "Auditor Competency & Qualification Register",
+   "title": "Auditor Competency and Qualification Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18003,7 +18005,7 @@
   },
   {
    "code": "BCM-FRM-GEN-002",
-   "title": "Critical Services & Dependencies Assessment",
+   "title": "Critical Services and Dependencies Assessment",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18023,7 +18025,7 @@
   },
   {
    "code": "BCM-FRM-GEN-004",
-   "title": "BCP Test & Exercise Record",
+   "title": "BCP Test and Exercise Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18043,7 +18045,7 @@
   },
   {
    "code": "BCM-FRM-GEN-006",
-   "title": "Post Incident BCM Review Record",
+   "title": "Post-Incident BCM Review Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18113,7 +18115,7 @@
   },
   {
    "code": "BCM-PLN-GEN-006",
-   "title": "Emergency Contact & Escalation Directory",
+   "title": "Emergency Contact and Escalation Directory",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18133,7 +18135,7 @@
   },
   {
    "code": "BCM-REG-GEN-001",
-   "title": "Critical Services & Dependencies Register",
+   "title": "Critical Services and Dependencies Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18143,7 +18145,7 @@
   },
   {
    "code": "BCM-REG-GEN-002",
-   "title": "BCP Test & Exercise Schedule",
+   "title": "BCP Test and Exercise Schedule",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18243,7 +18245,7 @@
   },
   {
    "code": "ENR-PLN-GEN-003",
-   "title": "Energy Baseline & Performance Indicators Plan",
+   "title": "Energy Baseline and Performance Indicators Plan",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18253,7 +18255,7 @@
   },
   {
    "code": "ENR-PLN-GEN-004",
-   "title": "Energy Monitoring & Measurement Plan",
+   "title": "Energy Monitoring and Measurement Plan",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18383,7 +18385,7 @@
   },
   {
    "code": "ENV-FRM-GEN-007",
-   "title": "Environmental Incident Near Miss Report",
+   "title": "Environmental Incident / Near Miss Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18393,7 +18395,7 @@
   },
   {
    "code": "ENV-FRM-GEN-009",
-   "title": "Environmental Risk Assessment Task Activity",
+   "title": "Environmental Risk Assessment (Task/Activity)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18413,7 +18415,7 @@
   },
   {
    "code": "ENV-FRM-GEN-011",
-   "title": "Dangerous Goods Chemical Storage Inspection",
+   "title": "Dangerous Goods / Chemical Storage Inspection",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18423,7 +18425,7 @@
   },
   {
    "code": "ENV-FRM-GEN-013",
-   "title": "Heritage Archaeological Unexpected Finds Report",
+   "title": "Heritage / Archaeological Unexpected Finds Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18433,7 +18435,7 @@
   },
   {
    "code": "ENV-FRM-GEN-014",
-   "title": "Flora Fauna Interaction Protection Record",
+   "title": "Flora/Fauna Interaction / Protection Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18443,7 +18445,7 @@
   },
   {
    "code": "ENV-FRM-GEN-015",
-   "title": "Waste Transport Docket Capture Record",
+   "title": "Waste Transport / Docket Capture Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18453,7 +18455,7 @@
   },
   {
    "code": "ENV-FRM-GEN-016",
-   "title": "Resource Use Tracking Log Fuel Water Energy",
+   "title": "Resource Use Tracking Log (Fuel/Water/Energy)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18463,7 +18465,7 @@
   },
   {
    "code": "ENV-FRM-GEN-017",
-   "title": "Environmental Training Toolbox Record Environment",
+   "title": "Environmental Training / Toolbox Record (Environment)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18523,7 +18525,7 @@
   },
   {
    "code": "ENV-FRM-GEN-023",
-   "title": "Carbon & Emissions Calculation Worksheet",
+   "title": "Carbon and Emissions Calculation Worksheet",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18533,7 +18535,7 @@
   },
   {
    "code": "ENV-FRM-GEN-251",
-   "title": "Environmental Aspect & Impact Risk Assessment",
+   "title": "Environmental Aspect and Impact Risk Assessment",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18543,7 +18545,7 @@
   },
   {
    "code": "ENV-FRM-GEN-252",
-   "title": "Spill Report & Response Record",
+   "title": "Spill Report and Response Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18583,7 +18585,7 @@
   },
   {
    "code": "ENV-FRM-GEN-256",
-   "title": "Lawful Place & Disposal Verification Record",
+   "title": "Lawful Place and Disposal Verification Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18593,7 +18595,7 @@
   },
   {
    "code": "ENV-FRM-GEN-257",
-   "title": "Contaminated Soil & Unexpected Finds Record",
+   "title": "Contaminated Soil and Unexpected Finds Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18603,7 +18605,7 @@
   },
   {
    "code": "ENV-FRM-GEN-258",
-   "title": "Dewatering Discharge Inspection & Approval Record",
+   "title": "Dewatering Discharge Inspection and Approval Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18613,7 +18615,7 @@
   },
   {
    "code": "ENV-FRM-GEN-259",
-   "title": "Weather Event & Erosion Control Readiness Checklist",
+   "title": "Weather Event and Erosion Control Readiness Checklist",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18633,7 +18635,7 @@
   },
   {
    "code": "ENV-FRM-GEN-261",
-   "title": "Sensitive Receptor & Community Interface Checklist",
+   "title": "Sensitive Receptor and Community Interface Checklist",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18653,7 +18655,7 @@
   },
   {
    "code": "ENV-PLN-GEN-002",
-   "title": "Environmental Objectives Targets & Programs",
+   "title": "Environmental Objectives, Targets & Programs (Site/Project)",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18663,7 +18665,7 @@
   },
   {
    "code": "ENV-PLN-GEN-003",
-   "title": "Environmental Emergency Response Arrangements",
+   "title": "Environmental Emergency Response Arrangements (Spills/Leaks)",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18683,7 +18685,7 @@
   },
   {
    "code": "ENV-PLN-GEN-201",
-   "title": "Pollution Prevention & GED Compliance Procedure",
+   "title": "Pollution Prevention and GED Compliance Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18693,7 +18695,7 @@
   },
   {
    "code": "ENV-PLN-GEN-202",
-   "title": "Spill Prevention & Response Procedure",
+   "title": "Spill Prevention and Response Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18703,7 +18705,7 @@
   },
   {
    "code": "ENV-PLN-GEN-203",
-   "title": "Waste Classification & Disposal Procedure",
+   "title": "Waste Classification and Disposal Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18713,7 +18715,7 @@
   },
   {
    "code": "ENV-PLN-GEN-204",
-   "title": "Air Dust Noise & Vibration Management Plan",
+   "title": "Air, Dust, Noise and Vibration Management Plan",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18723,7 +18725,7 @@
   },
   {
    "code": "ENV-PLN-GEN-205",
-   "title": "Contaminated Soil & Unexpected Finds Procedure",
+   "title": "Contaminated Soil and Unexpected Finds Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18733,7 +18735,7 @@
   },
   {
    "code": "ENV-PLN-GEN-206",
-   "title": "Dewatering & Discharge Management Procedure",
+   "title": "Dewatering and Discharge Management Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18743,7 +18745,7 @@
   },
   {
    "code": "ENV-PLN-GEN-207",
-   "title": "Environmental Incident Notification & Escalation Procedure",
+   "title": "Environmental Incident Notification and Escalation Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -18853,7 +18855,7 @@
   },
   {
    "code": "ENV-REG-GEN-009",
-   "title": "Environmental Controls Register",
+   "title": "Environmental Controls Register (ESCP, noise, dust etc.)",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18873,7 +18875,7 @@
   },
   {
    "code": "ENV-REG-GEN-013",
-   "title": "Resource Consumption Register",
+   "title": "Resource Consumption Register (Fuel/Water/Energy)",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18883,7 +18885,7 @@
   },
   {
    "code": "ENV-REG-GEN-014",
-   "title": "GHG Emissions Register",
+   "title": "GHG / Emissions Register (optional where required)",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18903,7 +18905,7 @@
   },
   {
    "code": "ENV-REG-GEN-202",
-   "title": "Priority Waste & Controlled Waste Tracking Register",
+   "title": "Priority Waste and Controlled Waste Tracking Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18913,7 +18915,7 @@
   },
   {
    "code": "ENV-REG-GEN-203",
-   "title": "Environmental Complaint & Community Interface Register",
+   "title": "Environmental Complaint and Community Interface Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -18943,7 +18945,7 @@
   },
   {
    "code": "GOV-FRM-ABR-001",
-   "title": "Gifts & Hospitality Declaration Form",
+   "title": "Gifts and Hospitality Declaration Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -18983,7 +18985,7 @@
   },
   {
    "code": "GOV-FRM-ABR-005",
-   "title": "Anti Bribery Risk Assessment Form",
+   "title": "Anti-Bribery Risk Assessment Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19003,7 +19005,7 @@
   },
   {
    "code": "GOV-FRM-CLM-001",
-   "title": "GHG Data Collection Form Scope 1",
+   "title": "GHG Data Collection Form - Scope 1",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19013,7 +19015,7 @@
   },
   {
    "code": "GOV-FRM-CLM-002",
-   "title": "GHG Data Collection Form Scope 2",
+   "title": "GHG Data Collection Form - Scope 2",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19023,7 +19025,7 @@
   },
   {
    "code": "GOV-FRM-CLM-003",
-   "title": "GHG Data Collection Form Scope 3",
+   "title": "GHG Data Collection Form - Scope 3",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19093,7 +19095,7 @@
   },
   {
    "code": "GOV-FRM-MSL-005",
-   "title": "Modern Slavery Statement Template",
+   "title": "Modern Slavery Statement - Template",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19113,7 +19115,7 @@
   },
   {
    "code": "GOV-FRM-PRV-002",
-   "title": "Consent & Data Collection Declaration",
+   "title": "Consent and Data Collection Declaration",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19123,7 +19125,7 @@
   },
   {
    "code": "GOV-FRM-PRV-003",
-   "title": "Individual Access & Correction Request Form",
+   "title": "Individual Access and Correction Request Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19143,7 +19145,7 @@
   },
   {
    "code": "GOV-FRM-PRV-005",
-   "title": "Data Breach Assessment & Notification Form",
+   "title": "Data Breach Assessment and Notification Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19163,7 +19165,7 @@
   },
   {
    "code": "GOV-FRM-PRV-007",
-   "title": "Data Retention & Disposal Record",
+   "title": "Data Retention and Disposal Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19173,7 +19175,7 @@
   },
   {
    "code": "GOV-PLN-ABR-001",
-   "title": "Anti Bribery Management System Framework",
+   "title": "Anti-Bribery Management System Framework",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -19263,7 +19265,7 @@
   },
   {
    "code": "GOV-PLN-PRV-003",
-   "title": "Data Retention & Disposal Procedure",
+   "title": "Data Retention and Disposal Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -19273,7 +19275,7 @@
   },
   {
    "code": "GOV-POL-ABR-001",
-   "title": "Anti Bribery & Corruption Policy",
+   "title": "Anti-Bribery and Corruption Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19303,7 +19305,7 @@
   },
   {
    "code": "GOV-POL-ABR-004",
-   "title": "Gifts & Hospitality Policy",
+   "title": "Gifts and Hospitality Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19333,7 +19335,7 @@
   },
   {
    "code": "GOV-REG-ABR-001",
-   "title": "Gifts & Hospitality Register",
+   "title": "Gifts and Hospitality Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -19373,7 +19375,7 @@
   },
   {
    "code": "GOV-REG-CLM-001",
-   "title": "GHG Emissions Register  Scope 1 & 2",
+   "title": "GHG Emissions Register - Scope 1 and 2",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -19383,7 +19385,7 @@
   },
   {
    "code": "GOV-REG-CLM-002",
-   "title": "GHG Emissions Register  Scope 3",
+   "title": "GHG Emissions Register - Scope 3",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -19423,7 +19425,7 @@
   },
   {
    "code": "GOV-REG-MSL-002",
-   "title": "Supplier Declaration & Due Diligence Register",
+   "title": "Supplier Declaration and Due Diligence Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -19473,7 +19475,7 @@
   },
   {
    "code": "IMS-FRM-GEN-251",
-   "title": "Workplace Grievance & Complaint Form",
+   "title": "Workplace Grievance and Complaint Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19493,7 +19495,7 @@
   },
   {
    "code": "IMS-FRM-GEN-253",
-   "title": "Disciplinary & Performance Action Record",
+   "title": "Disciplinary and Performance Action Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19513,7 +19515,7 @@
   },
   {
    "code": "IMS-FRM-GEN-255",
-   "title": "Trade & Contractor Compliance Matrix",
+   "title": "Trade and Contractor Compliance Matrix",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19523,7 +19525,7 @@
   },
   {
    "code": "IMS-FRM-GEN-256",
-   "title": "Supplier & Subcontractor Onboarding Checklist",
+   "title": "Supplier and Subcontractor Onboarding Checklist",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19553,7 +19555,7 @@
   },
   {
    "code": "IMS-FRM-GEN-302",
-   "title": "Host Employer WHS Consultation & Coordination Agreement",
+   "title": "Host Employer WHS Consultation and Coordination Agreement",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19583,7 +19585,7 @@
   },
   {
    "code": "IMS-PLN-GEN-202",
-   "title": "Consultation & Communication Procedure",
+   "title": "Consultation and Communication Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -19603,7 +19605,7 @@
   },
   {
    "code": "IMS-POL-GEN-202",
-   "title": "Workplace Behaviour Bullying Harassment & Sexual Harassment Policy",
+   "title": "Workplace Behaviour, Bullying, Harassment and Sexual Harassment Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19613,7 +19615,7 @@
   },
   {
    "code": "IMS-POL-GEN-203",
-   "title": "Equal Employment Opportunity & Anti Discrimination Policy",
+   "title": "Equal Employment Opportunity and Anti-Discrimination Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19643,7 +19645,7 @@
   },
   {
    "code": "ISM-FRM-GEN-002",
-   "title": "Access Request & Approval Form",
+   "title": "Access Request and Approval Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19653,7 +19655,7 @@
   },
   {
    "code": "ISM-FRM-GEN-003",
-   "title": "Access Review & Revocation Record",
+   "title": "Access Review and Revocation Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19693,7 +19695,7 @@
   },
   {
    "code": "ISM-FRM-GEN-008",
-   "title": "Change Management Information Security Impact Assessment",
+   "title": "Change Management - Information Security Impact Assessment",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19713,7 +19715,7 @@
   },
   {
    "code": "ISM-FRM-GEN-010",
-   "title": "Statement of Applicability Working Document",
+   "title": "Statement of Applicability - Working Document",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19733,7 +19735,7 @@
   },
   {
    "code": "ISM-FRM-GEN-012",
-   "title": "Device & Media Disposal Record",
+   "title": "Device and Media Disposal Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -19783,7 +19785,7 @@
   },
   {
    "code": "ISM-PLN-GEN-005",
-   "title": "Information Security Awareness & Training Program",
+   "title": "Information Security Awareness and Training Program",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -19843,7 +19845,7 @@
   },
   {
    "code": "ISM-POL-GEN-005",
-   "title": "Password & Authentication Policy",
+   "title": "Password and Authentication Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19853,7 +19855,7 @@
   },
   {
    "code": "ISM-POL-GEN-006",
-   "title": "Remote Work & Mobile Device Security Policy",
+   "title": "Remote Work and Mobile Device Security Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19863,7 +19865,7 @@
   },
   {
    "code": "ISM-POL-GEN-007",
-   "title": "Cryptography & Encryption Policy",
+   "title": "Cryptography and Encryption Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -19903,7 +19905,7 @@
   },
   {
    "code": "ISM-REG-GEN-005",
-   "title": "Approved Supplier & Third Party Register Information Security",
+   "title": "Approved Supplier and Third Party Register - IS",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -19973,7 +19975,7 @@
   },
   {
    "code": "QUA-FRM-GEN-006",
-   "title": "Pre Handover Inspection",
+   "title": "Pre-Handover Inspection",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20003,7 +20005,7 @@
   },
   {
    "code": "QUA-FRM-GEN-009",
-   "title": "Product Material Substitution Request",
+   "title": "Product / Material Substitution Request",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20013,7 +20015,7 @@
   },
   {
    "code": "QUA-FRM-GEN-010",
-   "title": "Shop Drawing Design Submittal Register Entry",
+   "title": "Shop Drawing / Design Submittal Register Entry",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20023,7 +20025,7 @@
   },
   {
    "code": "QUA-FRM-GEN-011",
-   "title": "Calibration Verification Check Record",
+   "title": "Calibration / Verification Check Record (tools/equipment)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20033,7 +20035,7 @@
   },
   {
    "code": "QUA-FRM-GEN-012",
-   "title": "Lot Batch Traceability Record",
+   "title": "Lot / Batch Traceability Record (where applicable)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20053,7 +20055,7 @@
   },
   {
    "code": "QUA-FRM-GEN-014",
-   "title": "Test Result Capture Sheet generic",
+   "title": "Test Result Capture Sheet (generic)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20063,7 +20065,7 @@
   },
   {
    "code": "QUA-FRM-GEN-015",
-   "title": "Quality Surveillance Walk Checklist",
+   "title": "Quality Surveillance / Walk Checklist",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20083,7 +20085,7 @@
   },
   {
    "code": "QUA-FRM-GEN-020",
-   "title": "Non Conformance Report",
+   "title": "Non-Conformance Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20103,7 +20105,7 @@
   },
   {
    "code": "QUA-FRM-GEN-022",
-   "title": "Corrective Preventative Action Quality",
+   "title": "Corrective & Preventative Action (Quality)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20113,7 +20115,7 @@
   },
   {
    "code": "QUA-FRM-GEN-023",
-   "title": "Lessons Learned Record Quality",
+   "title": "Lessons Learned Record (Quality)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20133,7 +20135,7 @@
   },
   {
    "code": "QUA-FRM-GEN-025",
-   "title": "Shop Drawing Review & Return Record",
+   "title": "Shop Drawing Review and Return Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20163,7 +20165,7 @@
   },
   {
    "code": "QUA-FRM-GEN-028",
-   "title": "Paint DFT & Coating Record Sheet",
+   "title": "Paint DFT and Coating Record Sheet",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20173,7 +20175,7 @@
   },
   {
    "code": "QUA-FRM-GEN-029",
-   "title": "Quality Alert & Stop Work Notice",
+   "title": "Quality Alert and Stop Work Notice",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20183,7 +20185,7 @@
   },
   {
    "code": "QUA-FRM-GEN-030",
-   "title": "Client Satisfaction Survey & Feedback Form",
+   "title": "Client Satisfaction Survey and Feedback Form",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20193,7 +20195,7 @@
   },
   {
    "code": "QUA-FRM-GEN-251",
-   "title": "Material Approval Request Technical Submittal",
+   "title": "Material Approval Request / Technical Submittal",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20213,7 +20215,7 @@
   },
   {
    "code": "QUA-FRM-GEN-253",
-   "title": "Hold Point Notification & Release Request",
+   "title": "Hold Point Notification and Release Request",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20223,7 +20225,7 @@
   },
   {
    "code": "QUA-FRM-GEN-254",
-   "title": "Sample & Benchmark Approval Record",
+   "title": "Sample and Benchmark Approval Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20243,7 +20245,7 @@
   },
   {
    "code": "QUA-FRM-GEN-256",
-   "title": "Practical Completion Punch List & Snag List",
+   "title": "Practical Completion Punch List and Snag List",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20253,7 +20255,7 @@
   },
   {
    "code": "QUA-FRM-GEN-257",
-   "title": "Mock Up & Benchmark Inspection Record",
+   "title": "Mock-Up and Benchmark Inspection Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20273,7 +20275,7 @@
   },
   {
    "code": "QUA-FRM-GEN-301",
-   "title": "Site Diary & Daily Report",
+   "title": "Site Diary and Daily Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20283,7 +20285,7 @@
   },
   {
    "code": "QUA-FRM-GEN-302",
-   "title": "Mandatory Inspection Notification Record Building Surveyor",
+   "title": "Mandatory Inspection Notification Record (Building Surveyor)",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -20323,7 +20325,7 @@
   },
   {
    "code": "QUA-ITP-CARP-003",
-   "title": "Joinery FitOut Installation ITP",
+   "title": "Joinery & Fit-Out Installation ITP",
    "family": "ITP",
    "trade": "CARP",
    "trade_name": "Carpentry",
@@ -20333,7 +20335,7 @@
   },
   {
    "code": "QUA-ITP-CARP-004",
-   "title": "Doors Frames & Hardware ITP",
+   "title": "Doors, Frames & Hardware ITP",
    "family": "ITP",
    "trade": "CARP",
    "trade_name": "Carpentry",
@@ -20343,7 +20345,7 @@
   },
   {
    "code": "QUA-ITP-CARP-005",
-   "title": "Final FitOut Inspection ITP",
+   "title": "Final Fit-Out Inspection ITP",
    "family": "ITP",
    "trade": "CARP",
    "trade_name": "Carpentry",
@@ -20353,7 +20355,7 @@
   },
   {
    "code": "QUA-ITP-CARP-006",
-   "title": "Balustrade & Handrail Installation ITP",
+   "title": "Balustrade and Handrail Installation ITP",
    "family": "ITP",
    "trade": "CARP",
    "trade_name": "Carpentry",
@@ -20393,7 +20395,7 @@
   },
   {
    "code": "QUA-ITP-CIV-004",
-   "title": "Shoring Benching & Battering ITP",
+   "title": "Shoring, Benching & Battering ITP",
    "family": "ITP",
    "trade": "CIV",
    "trade_name": "Civil Works",
@@ -20483,7 +20485,7 @@
   },
   {
    "code": "QUA-ITP-CIV-013",
-   "title": "Road Pavement & Asphalt ITP",
+   "title": "Road Pavement and Asphalt ITP",
    "family": "ITP",
    "trade": "CIV",
    "trade_name": "Civil Works",
@@ -20493,7 +20495,7 @@
   },
   {
    "code": "QUA-ITP-CIV-014",
-   "title": "Kerb & Channel ITP",
+   "title": "Kerb and Channel ITP",
    "family": "ITP",
    "trade": "CIV",
    "trade_name": "Civil Works",
@@ -20573,7 +20575,7 @@
   },
   {
    "code": "QUA-ITP-CONC-004",
-   "title": "PrePour Inspection ITP",
+   "title": "Pre-Pour Inspection ITP",
    "family": "ITP",
    "trade": "CONC",
    "trade_name": "Concrete",
@@ -20603,7 +20605,7 @@
   },
   {
    "code": "QUA-ITP-CONC-007",
-   "title": "Post Tensioning Works ITP",
+   "title": "Post-Tensioning Works ITP",
    "family": "ITP",
    "trade": "CONC",
    "trade_name": "Concrete",
@@ -20673,7 +20675,7 @@
   },
   {
    "code": "QUA-ITP-ELEC-001",
-   "title": "Electrical Rough In ITP",
+   "title": "Electrical Rough-In ITP",
    "family": "ITP",
    "trade": "ELEC",
    "trade_name": "Electrical",
@@ -20683,7 +20685,7 @@
   },
   {
    "code": "QUA-ITP-ELEC-002",
-   "title": "Electrical Fit Off ITP",
+   "title": "Electrical Fit-Off ITP",
    "family": "ITP",
    "trade": "ELEC",
    "trade_name": "Electrical",
@@ -20713,7 +20715,7 @@
   },
   {
    "code": "QUA-ITP-ELEC-005",
-   "title": "As Built & Compliance Documentation ITP",
+   "title": "As-Built & Compliance Documentation ITP",
    "family": "ITP",
    "trade": "ELEC",
    "trade_name": "Electrical",
@@ -20763,7 +20765,7 @@
   },
   {
    "code": "QUA-ITP-FACA-005",
-   "title": "Cladding Removal & Replacement ITP",
+   "title": "Cladding Removal and Replacement ITP",
    "family": "ITP",
    "trade": "FACA",
    "trade_name": "Facade & Cladding",
@@ -20783,7 +20785,7 @@
   },
   {
    "code": "QUA-ITP-FDN-002",
-   "title": "Bored Pier & Pad Footing ITP",
+   "title": "Bored Pier and Pad Footing ITP",
    "family": "ITP",
    "trade": "FDN",
    "trade_name": "Foundations & Piling",
@@ -20793,7 +20795,7 @@
   },
   {
    "code": "QUA-ITP-FDN-003",
-   "title": "Slab on Ground & Waffle Pod ITP",
+   "title": "Slab on Ground and Waffle Pod ITP",
    "family": "ITP",
    "trade": "FDN",
    "trade_name": "Foundations & Piling",
@@ -20893,7 +20895,7 @@
   },
   {
    "code": "QUA-ITP-GLAZ-003",
-   "title": "Glazing Sealant & Weatherproofing ITP",
+   "title": "Glazing Sealant and Weatherproofing ITP",
    "family": "ITP",
    "trade": "GLAZ",
    "trade_name": "Glazing",
@@ -20903,7 +20905,7 @@
   },
   {
    "code": "QUA-ITP-GLAZ-004",
-   "title": "Facade Glazing Completion & Inspection ITP",
+   "title": "Facade Glazing Completion and Inspection ITP",
    "family": "ITP",
    "trade": "GLAZ",
    "trade_name": "Glazing",
@@ -20973,7 +20975,7 @@
   },
   {
    "code": "QUA-ITP-LIFT-001",
-   "title": "Lift Shaft Preparation & Setout ITP",
+   "title": "Lift Shaft Preparation and Setout ITP",
    "family": "ITP",
    "trade": "LIFT",
    "trade_name": "Lifts & Vertical Transport",
@@ -20993,7 +20995,7 @@
   },
   {
    "code": "QUA-ITP-LIFT-003",
-   "title": "Lift Testing & Commissioning ITP",
+   "title": "Lift Testing and Commissioning ITP",
    "family": "ITP",
    "trade": "LIFT",
    "trade_name": "Lifts & Vertical Transport",
@@ -21003,7 +21005,7 @@
   },
   {
    "code": "QUA-ITP-LIFT-004",
-   "title": "Lift Certification & Handover ITP",
+   "title": "Lift Certification and Handover ITP",
    "family": "ITP",
    "trade": "LIFT",
    "trade_name": "Lifts & Vertical Transport",
@@ -21013,7 +21015,7 @@
   },
   {
    "code": "QUA-ITP-MAS-001",
-   "title": "Masonry Setout & Foundation Preparation ITP",
+   "title": "Masonry Setout and Foundation Preparation ITP",
    "family": "ITP",
    "trade": "MAS",
    "trade_name": "Masonry",
@@ -21023,7 +21025,7 @@
   },
   {
    "code": "QUA-ITP-MAS-002",
-   "title": "Brickwork & Blockwork Construction ITP",
+   "title": "Brickwork and Blockwork Construction ITP",
    "family": "ITP",
    "trade": "MAS",
    "trade_name": "Masonry",
@@ -21043,7 +21045,7 @@
   },
   {
    "code": "QUA-ITP-MAS-004",
-   "title": "Masonry Completion & Tolerance Inspection ITP",
+   "title": "Masonry Completion and Tolerance Inspection ITP",
    "family": "ITP",
    "trade": "MAS",
    "trade_name": "Masonry",
@@ -21083,7 +21085,7 @@
   },
   {
    "code": "QUA-ITP-MECH-004",
-   "title": "Testing Adjusting & Balancing ITP",
+   "title": "Testing, Adjusting & Balancing ITP",
    "family": "ITP",
    "trade": "MECH",
    "trade_name": "Mechanical Services",
@@ -21143,7 +21145,7 @@
   },
   {
    "code": "QUA-ITP-PFP-001",
-   "title": "Fire Stopping & Service Penetrations ITP",
+   "title": "Fire Stopping and Service Penetrations ITP",
    "family": "ITP",
    "trade": "PFP",
    "trade_name": "Passive Fire Protection",
@@ -21153,7 +21155,7 @@
   },
   {
    "code": "QUA-ITP-PFP-002",
-   "title": "Fire Rated Door Installation ITP",
+   "title": "Fire-Rated Door Installation ITP",
    "family": "ITP",
    "trade": "PFP",
    "trade_name": "Passive Fire Protection",
@@ -21163,7 +21165,7 @@
   },
   {
    "code": "QUA-ITP-PFP-003",
-   "title": "Passive Fire Completion & Certification ITP",
+   "title": "Passive Fire Completion and Certification ITP",
    "family": "ITP",
    "trade": "PFP",
    "trade_name": "Passive Fire Protection",
@@ -21203,7 +21205,7 @@
   },
   {
    "code": "QUA-ITP-PLAS-004",
-   "title": "Finishing Stopping & Sanding ITP",
+   "title": "Finishing, Stopping & Sanding ITP",
    "family": "ITP",
    "trade": "PLAS",
    "trade_name": "Plastering & Linings",
@@ -21243,7 +21245,7 @@
   },
   {
    "code": "QUA-ITP-PLMB-001",
-   "title": "In Ground Plumbing ITP",
+   "title": "In-Ground Plumbing ITP",
    "family": "ITP",
    "trade": "PLMB",
    "trade_name": "Plumbing & Hydraulics",
@@ -21253,7 +21255,7 @@
   },
   {
    "code": "QUA-ITP-PLMB-002",
-   "title": "Rough In Plumbing ITP",
+   "title": "Rough-In Plumbing ITP",
    "family": "ITP",
    "trade": "PLMB",
    "trade_name": "Plumbing & Hydraulics",
@@ -21263,7 +21265,7 @@
   },
   {
    "code": "QUA-ITP-PLMB-003",
-   "title": "Fit Off Plumbing ITP",
+   "title": "Fit-Off Plumbing ITP",
    "family": "ITP",
    "trade": "PLMB",
    "trade_name": "Plumbing & Hydraulics",
@@ -21303,7 +21305,7 @@
   },
   {
    "code": "QUA-ITP-ROOF-002",
-   "title": "Roof Plumbing Gutters & Downpipes ITP",
+   "title": "Roof Plumbing, Gutters and Downpipes ITP",
    "family": "ITP",
    "trade": "ROOF",
    "trade_name": "Roofing",
@@ -21313,7 +21315,7 @@
   },
   {
    "code": "QUA-ITP-ROOF-003",
-   "title": "Sarking Insulation & Roof Underlay ITP",
+   "title": "Sarking, Insulation and Roof Underlay ITP",
    "family": "ITP",
    "trade": "ROOF",
    "trade_name": "Roofing",
@@ -21323,7 +21325,7 @@
   },
   {
    "code": "QUA-ITP-ROOF-004",
-   "title": "Roof Completion & Watertightness Inspection ITP",
+   "title": "Roof Completion and Watertightness Inspection ITP",
    "family": "ITP",
    "trade": "ROOF",
    "trade_name": "Roofing",
@@ -21343,7 +21345,7 @@
   },
   {
    "code": "QUA-ITP-RWH-002",
-   "title": "Tank & Filtration Installation ITP",
+   "title": "Tank and Filtration Installation ITP",
    "family": "ITP",
    "trade": "RWH",
    "trade_name": "Rainwater Harvesting",
@@ -21353,7 +21355,7 @@
   },
   {
    "code": "QUA-ITP-RWH-003",
-   "title": "Rainwater System Testing & Commissioning ITP",
+   "title": "Rainwater System Testing and Commissioning ITP",
    "family": "ITP",
    "trade": "RWH",
    "trade_name": "Rainwater Harvesting",
@@ -21453,7 +21455,7 @@
   },
   {
    "code": "QUA-ITP-TILE-002",
-   "title": "Floor & Wall Tile Installation ITP",
+   "title": "Floor and Wall Tile Installation ITP",
    "family": "ITP",
    "trade": "TILE",
    "trade_name": "Tiling",
@@ -21463,7 +21465,7 @@
   },
   {
    "code": "QUA-ITP-TILE-003",
-   "title": "Tiling Grout & Sealant Application ITP",
+   "title": "Tiling Grout and Sealant Application ITP",
    "family": "ITP",
    "trade": "TILE",
    "trade_name": "Tiling",
@@ -21473,7 +21475,7 @@
   },
   {
    "code": "QUA-ITP-TILE-004",
-   "title": "Tiling Completion & Finish Inspection ITP",
+   "title": "Tiling Completion and Finish Inspection ITP",
    "family": "ITP",
    "trade": "TILE",
    "trade_name": "Tiling",
@@ -21533,7 +21535,7 @@
   },
   {
    "code": "QUA-PLN-GEN-001",
-   "title": "Quality Objectives Targets & Programs",
+   "title": "Quality Objectives, Targets & Programs (Project)",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21543,7 +21545,7 @@
   },
   {
    "code": "QUA-PLN-GEN-002",
-   "title": "Inspection & Test Planning Methodology",
+   "title": "Inspection & Test Planning Methodology (ITP Ruleset)",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21563,7 +21565,7 @@
   },
   {
    "code": "QUA-PLN-GEN-201",
-   "title": "Material & Product Compliance & Approval Procedure",
+   "title": "Material and Product Compliance and Approval Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21573,7 +21575,7 @@
   },
   {
    "code": "QUA-PLN-GEN-202",
-   "title": "Inspection Test Hold Point & Witness Point Procedure",
+   "title": "Inspection, Test, Hold Point and Witness Point Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21583,7 +21585,7 @@
   },
   {
    "code": "QUA-PLN-GEN-203",
-   "title": "Lot & Batch Traceability Procedure",
+   "title": "Lot and Batch Traceability Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21593,7 +21595,7 @@
   },
   {
    "code": "QUA-PLN-GEN-204",
-   "title": "Defect Management & Rectification Procedure",
+   "title": "Defect Management and Rectification Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21603,7 +21605,7 @@
   },
   {
    "code": "QUA-PLN-GEN-205",
-   "title": "Commissioning & Handover Procedure",
+   "title": "Commissioning and Handover Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21613,7 +21615,7 @@
   },
   {
    "code": "QUA-PLN-GEN-206",
-   "title": "Calibration & Verification Procedure",
+   "title": "Calibration and Verification Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21623,7 +21625,7 @@
   },
   {
    "code": "QUA-PLN-GEN-207",
-   "title": "Supplier & Subcontractor Quality Assurance Procedure",
+   "title": "Supplier and Subcontractor Quality Assurance Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -21703,7 +21705,7 @@
   },
   {
    "code": "QUA-REG-GEN-006",
-   "title": "Approved Suppliers Subcontractors Register",
+   "title": "Approved Suppliers / Subcontractors Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21713,7 +21715,7 @@
   },
   {
    "code": "QUA-REG-GEN-007",
-   "title": "Submittals Register",
+   "title": "Submittals Register (Drawings, Samples, Technical Data)",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21723,7 +21725,7 @@
   },
   {
    "code": "QUA-REG-GEN-008",
-   "title": "Calibration Verification Register",
+   "title": "Calibration / Verification Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21733,7 +21735,7 @@
   },
   {
    "code": "QUA-REG-GEN-009",
-   "title": "Test Results Register",
+   "title": "Test Results Register (by system / asset)",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21783,7 +21785,7 @@
   },
   {
    "code": "QUA-REG-GEN-203",
-   "title": "Lot Batch Traceability Register",
+   "title": "Lot / Batch Traceability Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21803,7 +21805,7 @@
   },
   {
    "code": "QUA-REG-GEN-205",
-   "title": "Handover Dossier & MDR Index",
+   "title": "Handover Dossier and MDR Index",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21813,7 +21815,7 @@
   },
   {
    "code": "QUA-REG-GEN-206",
-   "title": "Supplier Non Conformance & Vendor Corrective Action Register",
+   "title": "Supplier Non-Conformance and Vendor Corrective Action Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21823,7 +21825,7 @@
   },
   {
    "code": "QUA-REG-GEN-207",
-   "title": "ITP Matrix by Trade or Package",
+   "title": "ITP Matrix by Trade / Package",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21833,7 +21835,7 @@
   },
   {
    "code": "QUA-REG-GEN-208",
-   "title": "Inspection & Test Evidence Index",
+   "title": "Inspection and Test Evidence Index",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21843,7 +21845,7 @@
   },
   {
    "code": "QUA-REG-GEN-209",
-   "title": "Commissioning & Witness Sign off Matrix",
+   "title": "Commissioning and Witness Sign-off Matrix",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21863,7 +21865,7 @@
   },
   {
    "code": "QUA-REG-GEN-301",
-   "title": "Request for Information RFI Register",
+   "title": "Request for Information (RFI) Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -21913,7 +21915,7 @@
   },
   {
    "code": "RSK-FRM-GEN-001",
-   "title": "Risk Assessment Form Generic",
+   "title": "Risk Assessment Form - Generic",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -21923,7 +21925,7 @@
   },
   {
    "code": "RSK-FRM-GEN-002",
-   "title": "Bow Tie Analysis Template",
+   "title": "Bow-Tie Analysis Template",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -21993,7 +21995,7 @@
   },
   {
    "code": "RSK-PLN-GEN-002",
-   "title": "Risk Appetite & Tolerance Statement",
+   "title": "Risk Appetite and Tolerance Statement",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22053,7 +22055,7 @@
   },
   {
    "code": "RSK-REG-GEN-004",
-   "title": "Project Risk Register Template",
+   "title": "Project Risk Register - Template",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -22073,7 +22075,7 @@
   },
   {
    "code": "SAF-FRM-GEN-002",
-   "title": "Contractor Trade Induction",
+   "title": "Contractor / Trade Induction",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22093,7 +22095,7 @@
   },
   {
    "code": "SAF-FRM-GEN-004",
-   "title": "Online Remote Induction",
+   "title": "Online / Remote Induction",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22133,7 +22135,7 @@
   },
   {
    "code": "SAF-FRM-GEN-008",
-   "title": "High Risk Plant Induction",
+   "title": "High-Risk Plant Induction",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22233,7 +22235,7 @@
   },
   {
    "code": "SAF-FRM-GEN-018",
-   "title": "Pre Start Meeting Record",
+   "title": "Pre-Start Meeting Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22283,7 +22285,7 @@
   },
   {
    "code": "SAF-FRM-GEN-025",
-   "title": "High Risk Task Verification",
+   "title": "High-Risk Task Verification",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22313,7 +22315,7 @@
   },
   {
    "code": "SAF-FRM-GEN-030",
-   "title": "Hazard Near Miss Report",
+   "title": "Hazard / Near Miss Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22403,7 +22405,7 @@
   },
   {
    "code": "SAF-FRM-GEN-043",
-   "title": "Remote & Isolated Work Risk Assessment",
+   "title": "Remote / Isolated Work Risk Assessment",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22453,7 +22455,7 @@
   },
   {
    "code": "SAF-FRM-GEN-048",
-   "title": "Mental Health Incident & Hazard Notification",
+   "title": "Mental Health Incident / Hazard Notification",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22473,7 +22475,7 @@
   },
   {
    "code": "SAF-FRM-GEN-051",
-   "title": "Emergency Drill & Exercise Record",
+   "title": "Emergency Drill and Exercise Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22493,7 +22495,7 @@
   },
   {
    "code": "SAF-FRM-GEN-054",
-   "title": "Permit to Work General",
+   "title": "Permit to Work - General",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22503,7 +22505,7 @@
   },
   {
    "code": "SAF-FRM-GEN-055",
-   "title": "Permit to Work Hot Works",
+   "title": "Permit to Work - Hot Works",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22513,7 +22515,7 @@
   },
   {
    "code": "SAF-FRM-GEN-056",
-   "title": "Permit to Work Confined Space",
+   "title": "Permit to Work - Confined Space",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22523,7 +22525,7 @@
   },
   {
    "code": "SAF-FRM-GEN-057",
-   "title": "Permit to Work Electrical Isolation & LOTO",
+   "title": "Permit to Work - Electrical Isolation and LOTO",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22563,7 +22565,7 @@
   },
   {
    "code": "SAF-FRM-GEN-252",
-   "title": "Suitable Duties & Suitable Employment Offer Record",
+   "title": "Suitable Duties and Suitable Employment Offer Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22583,7 +22585,7 @@
   },
   {
    "code": "SAF-FRM-GEN-254",
-   "title": "Pre Task Risk Assessment & JSEA",
+   "title": "Pre-Task Risk Assessment / JSEA",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22593,7 +22595,7 @@
   },
   {
    "code": "SAF-FRM-GEN-257",
-   "title": "Isolation & Lockout Tagout Permit",
+   "title": "Isolation / Lockout Tagout Permit",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22603,7 +22605,7 @@
   },
   {
    "code": "SAF-FRM-GEN-258",
-   "title": "Excavation Penetration & Services Permit",
+   "title": "Excavation, Penetration and Services Permit",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22613,7 +22615,7 @@
   },
   {
    "code": "SAF-FRM-GEN-259",
-   "title": "Work at Heights Permit & Verification Record",
+   "title": "Work at Heights Permit and Verification Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22623,7 +22625,7 @@
   },
   {
    "code": "SAF-FRM-GEN-260",
-   "title": "Lift Plan & Critical Lift Permit",
+   "title": "Lift Plan and Critical Lift Permit",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22633,7 +22635,7 @@
   },
   {
    "code": "SAF-FRM-GEN-262",
-   "title": "Silica Hazard Control Statement & HRCSW Control Record",
+   "title": "Silica Hazard Control Statement and HRCSW Control Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22643,7 +22645,7 @@
   },
   {
    "code": "SAF-FRM-GEN-263",
-   "title": "Respiratory Protection Fit Test & Issue Record",
+   "title": "Respiratory Protection Fit Test and Issue Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22653,7 +22655,7 @@
   },
   {
    "code": "SAF-FRM-GEN-264",
-   "title": "Asbestos Discovery & Disturbance Report",
+   "title": "Asbestos Discovery and Disturbance Report",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22673,7 +22675,7 @@
   },
   {
    "code": "SAF-FRM-GEN-266",
-   "title": "Daily Pre Start & Coordination Record",
+   "title": "Daily Pre-Start and Coordination Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22693,7 +22695,7 @@
   },
   {
    "code": "SAF-FRM-GEN-268",
-   "title": "Services & Utility Verification Record",
+   "title": "Services and Utility Verification Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22703,7 +22705,7 @@
   },
   {
    "code": "SAF-FRM-GEN-269",
-   "title": "Temporary Works Inspection & Approval Record",
+   "title": "Temporary Works Inspection and Approval Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22713,7 +22715,7 @@
   },
   {
    "code": "SAF-FRM-GEN-270",
-   "title": "High Risk Construction Work SWMS Review & Verification Record",
+   "title": "High-Risk Construction Work SWMS Review and Verification Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22723,7 +22725,7 @@
   },
   {
    "code": "SAF-FRM-GEN-301",
-   "title": "Scaffold Inspection & Handover Record",
+   "title": "Scaffold Inspection and Handover Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22773,7 +22775,7 @@
   },
   {
    "code": "SAF-FRM-GEN-306",
-   "title": "Verification of Competency VOC Assessment",
+   "title": "Verification of Competency (VOC) Assessment",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22793,7 +22795,7 @@
   },
   {
    "code": "SAF-FRM-GEN-308",
-   "title": "Drug & Alcohol Testing Record",
+   "title": "Drug and Alcohol Testing Record",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22813,7 +22815,7 @@
   },
   {
    "code": "SAF-FRM-GEN-310",
-   "title": "Public Protection & Site Perimeter Inspection",
+   "title": "Public Protection and Site Perimeter Inspection",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22833,7 +22835,7 @@
   },
   {
    "code": "SAF-FRM-PSY-002",
-   "title": "Return to Work Psychosocial Support Plan",
+   "title": "Return to Work - Psychosocial Support Plan",
    "family": "Form",
    "trade": null,
    "trade_name": null,
@@ -22903,7 +22905,7 @@
   },
   {
    "code": "SAF-PLN-GEN-205",
-   "title": "Crystalline Silica & Respirable Dust Management Procedure",
+   "title": "Crystalline Silica and Respirable Dust Management Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22913,7 +22915,7 @@
   },
   {
    "code": "SAF-PLN-GEN-206",
-   "title": "Traffic & Mobile Plant Interaction Management Plan",
+   "title": "Traffic and Mobile Plant Interaction Management Plan",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22923,7 +22925,7 @@
   },
   {
    "code": "SAF-PLN-GEN-207",
-   "title": "Safety Risk Management & Task Risk Assessment Procedure",
+   "title": "Safety Risk Management and Task Risk Assessment Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22943,7 +22945,7 @@
   },
   {
    "code": "SAF-PLN-GEN-302",
-   "title": "Heat Extreme Weather & UV Exposure Procedure",
+   "title": "Heat, Extreme Weather and UV Exposure Procedure",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22973,7 +22975,7 @@
   },
   {
    "code": "SAF-PLN-PSY-002",
-   "title": "Psychosocial Monitoring & Review Program",
+   "title": "Psychosocial Monitoring and Review Program",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -22983,7 +22985,7 @@
   },
   {
    "code": "SAF-PLN-PSY-003",
-   "title": "Psychosocial Risk Communication & Consultation Plan",
+   "title": "Psychosocial Risk Communication and Consultation Plan",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -23033,7 +23035,7 @@
   },
   {
    "code": "SAF-POL-GEN-203",
-   "title": "Drug Alcohol Policy",
+   "title": "Drug & Alcohol Policy",
    "family": "Policy",
    "trade": null,
    "trade_name": null,
@@ -23093,7 +23095,7 @@
   },
   {
    "code": "SAF-REG-GEN-006",
-   "title": "High Risk Work Licence Register",
+   "title": "High-Risk Work Licence Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -23203,7 +23205,7 @@
   },
   {
    "code": "SAF-REG-GEN-017",
-   "title": "Post Tensioning Prop Torque Register",
+   "title": "Post-Tensioning / Prop Torque Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -23283,7 +23285,7 @@
   },
   {
    "code": "SAF-REG-GEN-201",
-   "title": "Emergency Wardens First Aiders Register",
+   "title": "Emergency Wardens / First Aiders Register",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -23313,7 +23315,7 @@
   },
   {
    "code": "SAF-REG-GEN-204",
-   "title": "Licence VOC & Training Matrix",
+   "title": "Licence, VOC and Training Matrix",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -23343,7 +23345,7 @@
   },
   {
    "code": "SAF-REG-GEN-302",
-   "title": "Safe Operating Procedure SOP Library Index",
+   "title": "Safe Operating Procedure (SOP) Library Index",
    "family": "Register",
    "trade": null,
    "trade_name": null,
@@ -23403,7 +23405,7 @@
   },
   {
    "code": "SAF-SWMS-CARP-003",
-   "title": "Fit Out & Joinery Installation",
+   "title": "Fit Out and Joinery Installation",
    "family": "SWMS",
    "trade": "CARP",
    "trade_name": "Carpentry",
@@ -24073,7 +24075,7 @@
   },
   {
    "code": "SAF-SWMS-FACA-006",
-   "title": "Combustible Cladding Removal & Rectification",
+   "title": "Combustible Cladding Removal and Rectification",
    "family": "SWMS",
    "trade": "FACA",
    "trade_name": "Facade & Cladding",
@@ -24093,7 +24095,7 @@
   },
   {
    "code": "SAF-SWMS-FDN-002",
-   "title": "Bored Pier Drilling & Excavation",
+   "title": "Bored Pier Drilling and Excavation",
    "family": "SWMS",
    "trade": "FDN",
    "trade_name": "Foundations & Piling",
@@ -24123,7 +24125,7 @@
   },
   {
    "code": "SAF-SWMS-FENC-003",
-   "title": "Post Hole Boring & Fence Footings",
+   "title": "Post Hole Boring and Fence Footings",
    "family": "SWMS",
    "trade": "FENC",
    "trade_name": "Fencing",
@@ -24203,7 +24205,7 @@
   },
   {
    "code": "SAF-SWMS-FIN-008",
-   "title": "Floor Sanding & Polishing",
+   "title": "Floor Sanding and Polishing",
    "family": "SWMS",
    "trade": "FIN",
    "trade_name": "Interior Finishes",
@@ -24443,7 +24445,7 @@
   },
   {
    "code": "SAF-SWMS-GEN-019",
-   "title": "Working in Contaminated Soil & Unexpected Finds",
+   "title": "Working in Contaminated Soil and Unexpected Finds",
    "family": "SWMS",
    "trade": null,
    "trade_name": null,
@@ -24773,7 +24775,7 @@
   },
   {
    "code": "SAF-SWMS-LAND-005",
-   "title": "Termite Treatment & Barrier Installation",
+   "title": "Termite Treatment and Barrier Installation",
    "family": "SWMS",
    "trade": "LAND",
    "trade_name": "Landscaping & External Works",
@@ -24793,7 +24795,7 @@
   },
   {
    "code": "SAF-SWMS-LIFT-002",
-   "title": "Lift Shaft Work & Landing Edge Protection",
+   "title": "Lift Shaft Work and Landing Edge Protection",
    "family": "SWMS",
    "trade": "LIFT",
    "trade_name": "Lifts & Vertical Transport",
@@ -24803,7 +24805,7 @@
   },
   {
    "code": "SAF-SWMS-MAS-001",
-   "title": "Bricklaying & Masonry Works",
+   "title": "Bricklaying and Masonry Works",
    "family": "SWMS",
    "trade": "MAS",
    "trade_name": "Masonry",
@@ -24913,7 +24915,7 @@
   },
   {
    "code": "SAF-SWMS-PAINT-003",
-   "title": "Hazardous Substances Paints & Solvents",
+   "title": "Hazardous Substances Paints and Solvents",
    "family": "SWMS",
    "trade": "PAINT",
    "trade_name": "Painting",
@@ -24933,7 +24935,7 @@
   },
   {
    "code": "SAF-SWMS-PFP-001",
-   "title": "Fire Stopping & Penetration Sealing",
+   "title": "Fire Stopping and Penetration Sealing",
    "family": "SWMS",
    "trade": "PFP",
    "trade_name": "Passive Fire Protection",
@@ -24943,7 +24945,7 @@
   },
   {
    "code": "SAF-SWMS-PFP-002",
-   "title": "Fire Collar & Fire Damper Installation",
+   "title": "Fire Collar and Fire Damper Installation",
    "family": "SWMS",
    "trade": "PFP",
    "trade_name": "Passive Fire Protection",
@@ -25393,7 +25395,7 @@
   },
   {
    "code": "SAF-SWMS-SERV-016",
-   "title": "Solar Panel & Rooftop PV System Installation",
+   "title": "Solar Panel and Rooftop PV System Installation",
    "family": "SWMS",
    "trade": "SERV",
    "trade_name": "Building Services",
@@ -25603,7 +25605,7 @@
   },
   {
    "code": "SUS-PLN-GEN-003",
-   "title": "Sustainable Procurement Objectives & Targets",
+   "title": "Sustainable Procurement Objectives and Targets",
    "family": "Plan",
    "trade": null,
    "trade_name": null,
@@ -25623,7 +25625,7 @@
   },
   {
    "code": "SUS-REG-GEN-001",
-   "title": "Preferred Supplier Register Sustainability Rated",
+   "title": "Preferred Supplier Register - Sustainability Rated",
    "family": "Register",
    "trade": null,
    "trade_name": null,
