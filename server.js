@@ -95,9 +95,11 @@ if (!parkOrder) {
   console.warn("PARK_ORDER_HOST/USER/SSH_KEY_PATH not set — orders are recorded but documents aren't auto-retrieved for review.");
 }
 
-// Unreleased packs can be test-bought end to end only with a TEST key and
-// this flag; ignored with a live key (see create-app.js).
-const ALLOW_UNRELEASED_CHECKOUT = process.env.ALLOW_UNRELEASED_CHECKOUT === "1";
+// ALLOW_UNRELEASED_CHECKOUT was removed (T07, 31 Oct 2026): nothing the
+// catalogue marks not sellable can be bought, with any key. Say so if it's still set.
+if (process.env.ALLOW_UNRELEASED_CHECKOUT) {
+  console.warn("ALLOW_UNRELEASED_CHECKOUT is no longer supported and is ignored: only catalogue.json `sellable` decides what can be bought.");
+}
 // Stripe Tax adds GST at checkout (prices are ex GST). Needs Stripe Tax set
 // up in the Stripe dashboard first; STRIPE_AUTOMATIC_TAX=off disables it.
 const STRIPE_AUTOMATIC_TAX = process.env.STRIPE_AUTOMATIC_TAX !== "off";
@@ -124,7 +126,6 @@ const app = createApp({
   stripeTestMode,
   stripeWebhookSecret,
   stripeAutomaticTax: STRIPE_AUTOMATIC_TAX,
-  allowUnreleasedCheckout: ALLOW_UNRELEASED_CHECKOUT,
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,

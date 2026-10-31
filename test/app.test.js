@@ -125,6 +125,7 @@ async function withApp(opts, fn) {
     stripeTestMode: opts.stripeTestMode ?? false,
     stripeWebhookSecret: opts.stripeWebhookSecret ?? null,
     stripeAutomaticTax: opts.stripeAutomaticTax ?? true,
+    // Passed through to prove createApp ignores the removed override (T07).
     allowUnreleasedCheckout: opts.allowUnreleasedCheckout ?? false,
     publicOrigin: "http://localhost:4300",
     mailer: opts.mailer ?? { configured: false, send: async () => ({ ok: false, reason: "unconfigured" }) },
@@ -305,13 +306,22 @@ describe("POST /api/checkout", () => {
       assert.equal((await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }])).status, 409);
     });
   });
-  test("unreleased packs can be test-bought only with a TEST key and the flag", async () => {
-    await withApp({ stripe: makeFakeStripe(), stripeTestMode: true, allowUnreleasedCheckout: true }, async ({ base }) => {
-      assert.equal((await checkout(base, [{ packageId: "subcontractor:CIV:domestic" }])).status, 200);
-    });
-    await withApp({ stripe: makeFakeStripe(), stripeTestMode: false, allowUnreleasedCheckout: true }, async ({ base }) => {
-      assert.equal((await checkout(base, [{ packageId: "subcontractor:CIV:domestic" }])).status, 409);
-    });
+  test("nothing unreleased is sold in any mode: the canSellUnreleased override is gone (T07)", async () => {
+    // The old switch (ALLOW_UNRELEASED_CHECKOUT=1 + a TEST key) let these through.
+    for (const stripeTestMode of [true, false]) {
+      const stripe = makeFakeStripe();
+      await withApp({ stripe, stripeTestMode, allowUnreleasedCheckout: true }, async ({ base }) => {
+        assert.equal((await checkout(base, [{ packageId: "subcontractor:CIV:domestic" }])).status, 409, "unreleased pack");
+        assert.equal((await checkout(base, [{ documentCode: "SAF-SWMS-CIV-001" }])).status, 409, "unreleased document");
+        // Released items still sell exactly as before.
+        assert.equal((await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }])).status, 200, "released pack");
+        assert.equal((await checkout(base, [{ documentCode: "SAF-SWMS-CARP-001" }])).status, 200, "released document");
+      });
+      assert.equal(stripe.calls.length, 2, "Stripe saw only the two released items");
+      await withApp({ stripe: makeFakeStripe(), stripeTestMode, allowUnreleasedCheckout: true, catalog: sampleCatalogue({ preview: true }) }, async ({ base }) => {
+        assert.equal((await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }])).status, 409, "preview catalogue");
+      });
+    }
   });
   test("502 without crashing when Stripe rejects the session", async () => {
     const stripe = makeFakeStripe();
