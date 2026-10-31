@@ -118,7 +118,7 @@
     form.querySelector("button[type=submit]").disabled = true;
     fetch("/api/checkout", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart: cart, acceptedTerms: true, termsVersion: form.termsVersion.value }),
+      body: JSON.stringify({ cart: cart, acceptedTerms: true, termsVersion: form.termsVersion.value, siteName: form.siteName ? form.siteName.value : "" }),
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
       .then(function (res) {
         if (res.ok && res.body.url) { window.location.href = res.body.url; return; }

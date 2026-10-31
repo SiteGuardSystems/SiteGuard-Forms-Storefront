@@ -72,8 +72,10 @@ try {
   await page.click('button[type="submit"]');
   assert.match(await page.locator("[data-status]").textContent(), /Tick the box/);
   await page.check('input[name="accept"]');
+  await page.fill('input[name="siteName"]', "Riverside Apartments Stage 2");
   await Promise.all([page.waitForURL(`${base}/order/success/`), page.click('button[type="submit"]')]);
   assert.equal(calls.length, 1);
+  assert.equal(calls[0].metadata.siteName, "Riverside Apartments Stage 2", "the cart page sends the optional site name");
   assert.equal(calls[0].line_items.length, 2);
   assert.equal(calls[0].line_items[0].price_data.unit_amount, cat.packs.find((p) => p.id === "subcontractor:CARP:domestic").prices.one_off * 100);
   assert.match(await page.locator("[data-cart-count]").first().textContent(), /\(0\)/);

@@ -91,6 +91,13 @@ test("the cart asks for the checkout notice tick box", () => {
   assert.match(cart, /Terms of Sale/);
 });
 
+test("the cart offers an optional, length-limited site name field", () => {
+  const cart = pages.find((p) => p.f === "cart/index.html").html;
+  assert.match(cart, /<label for="cart-site-name">Site name \(optional\)<\/label>/);
+  assert.match(cart, /<input id="cart-site-name" name="siteName" type="text" maxlength="100"/);
+  assert.doesNotMatch(cart, /name="siteName"[^>]*required/);
+});
+
 test("sitemap lists the shop pages and no cart or order pages", async () => {
   const sm = await readFile(path.join(DIST, "sitemap.xml"), "utf8");
   assert.match(sm, /<loc>https:\/\/[^<]+\/trade-packs\/<\/loc>/);

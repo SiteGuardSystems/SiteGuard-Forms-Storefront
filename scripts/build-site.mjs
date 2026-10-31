@@ -655,11 +655,14 @@ ${partnersBody(TRUST, { source: "forms", endpoint: "", brand: "SiteGuard" })}`,
   <div data-cart-view><p>Your cart is empty. <a href="/trade-packs/">Browse trade packs</a>.</p></div>
   <form class="form form-wide" data-checkout-form hidden>
     ${render(noticeBody, { linkMap: {} })}
+    <label for="cart-site-name">Site name (optional)</label>
+    <input id="cart-site-name" name="siteName" type="text" maxlength="100" autocomplete="off" aria-describedby="cart-site-name-hint">
+    <p class="small" id="cart-site-name-hint">Printed in the Site Name field on your documents, for example "Riverside Apartments Stage 2". Leave it blank to write it in by hand.</p>
     <label class="check"><input type="checkbox" name="accept" aria-required="true"> <span>I have read and accept the <a href="/legal/terms-of-sale/">Terms of Sale</a> and the <a href="/legal/document-use-disclaimer/">Document Use Disclaimer</a>.</span></label>
     <input type="hidden" name="termsVersion" value="${esc(`SG-LEGAL-02 v${(await legal("terms-of-sale.md")).meta.version}; SG-LEGAL-01 v${(await legal("disclaimer.md")).meta.version}`)}">
     <p class="form-status" data-status aria-live="polite"></p>
     <div class="btn-row"><button class="btn btn-hivis" type="submit">Go to secure checkout</button></div>
-    <p class="small">You'll enter your business name and project address on the next page. Subscriptions are set up from each package's "Subscribe" button.</p>
+    <p class="small">You'll enter your business name and project address on the next page. The site name above is optional. Subscriptions are set up from each package's "Subscribe" button.</p>
   </form>
 </div></section>`,
   });
