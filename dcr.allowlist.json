@@ -1,6 +1,6 @@
 {
  "dcr_revision": 23,
- "note": "dcr-check allow-list (T07; brief 2.7). Each exception names a finding kind, the file and the exact codes, with the reason it is accepted for now. scripts/dcr-check.mjs fails on any error not listed here, and on any listed code that no longer produces its finding (a stale entry would hide a regression). Re-check every entry whenever dcr.lock moves, then set dcr_revision. Never change product data to pass. On Rev23 nothing needs an exception: the 221 catalogue title differences are warnings under TITLE_POLICY \"warn\" (scripts/lib/dcr.mjs) until Hseq-Dev build_catalogue.py takes titles from the DCR.",
+ "note": "dcr-check allow-list (T07; brief 2.7). Each exception names a finding kind, the file and the exact codes, with the reason it is accepted for now. scripts/dcr-check.mjs fails on any error not listed here, and on any listed code that no longer produces its finding (a stale entry would hide a regression). Re-check every entry whenever dcr.lock moves, then set dcr_revision. Never change product data to pass. On Rev23 nothing needs an exception: the catalogue takes its titles from the DCR (Hseq-Dev #42) and title differences fail.",
  "excluded_paths": [
   {
    "path_prefix": "test/",

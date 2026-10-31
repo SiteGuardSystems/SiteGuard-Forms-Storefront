@@ -3,18 +3,25 @@
 // the Storefront twin of SiteGuard-Forms server/dcr-check.ts, against the PUBLIC
 // page-A extract this public repo pins). Read-only: no network, no secrets.
 //
-// Fails when:
-//   hash           the vendored extract doesn't hash to dcr.lock (or its sidecar),
-//                  or names another revision or source dcr.json
-//   unknown_code   a document code in data/, content/ or the site's own code and
-//                  copy is not a public page-A code in the pinned extract (full
-//                  "SG-F-" codes, and bare library codes such as SAF-SWMS-CARP-001)
-//   not_eligible   catalogue.json shows or sells a retired or superseded code
-//   stamp_mismatch catalogue.json's dcr_revision / dcr_sha256 differ from dcr.lock
-//   title_mismatch a title differs from the DCR title -- a WARNING while
-//                  TITLE_POLICY (scripts/lib/dcr.mjs) is "warn"
-// Warnings only: not_stamped, retired_reference (a retired code neither shown
-// nor sold, or named outside the catalogue).
+// Fails when (brief 2.7):
+//   hash            the vendored extract doesn't hash to dcr.lock (or its sidecar),
+//                   or names another revision or source dcr.json
+//   unknown_code    a document code in data/, content/ or the site's own code and
+//                   copy is not a public page-A code in the pinned extract (full
+//                   "SG-F-" codes, and bare library codes such as SAF-SWMS-CARP-001).
+//                   The extract holds no reserved, page-B or internal row, so a
+//                   reserved code shown anywhere public fails here.
+//   not_eligible    catalogue.json shows or sells a retired or superseded code
+//   title_mismatch  a title next to a code differs from the DCR title
+//   stamp_mismatch  catalogue.json's dcr_revision / dcr_sha256 differ from dcr.lock
+//   not_stamped     catalogue.json carries no DCR stamp
+//   generated_drift catalogue.json breaks a rule its generator always follows, i.e.
+//                   it was edited by hand (scripts/lib/dcr.mjs checkGenerated)
+// Warning only: retired_reference (a retired code neither shown nor sold, or
+// named outside the catalogue).
+// Not checked: whether dcr.lock is more than one revision behind the latest
+// published one (a warning in brief 2.7). This check runs with no network, so it
+// can't see siteguard-dcr; the lock moves by the bump PR (README, "DCR").
 //
 // Justified exceptions live in dcr.allowlist.json, each with a reason. An entry
 // that no longer matches a finding fails the check (a stale entry would hide a
@@ -26,7 +33,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { checkCatalogue, defaultPaths, fullCode, isEligible, loadPinned, normTitle, rev2 } from "./lib/dcr.mjs";
+import { checkCatalogue, checkGenerated, defaultPaths, fullCode, isEligible, loadPinned, normTitle, rev2 } from "./lib/dcr.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const CATALOGUE_REL = "data/catalogue.json";
@@ -119,6 +126,7 @@ export function runDcrCheck({ root = ROOT, lockPath, vendorDir, allowlistPath } 
         let cat;
         try { cat = JSON.parse(readFileSync(full, "utf8")); } catch (e) { add("unknown_code", "error", file, null, `does not parse: ${e.message}`); continue; }
         for (const f of checkCatalogue(cat, pinned)) findings.push({ ...f, file });
+        for (const f of checkGenerated(cat)) findings.push({ ...f, file });
         continue;
       }
       const text = readFileSync(full, "utf8");

@@ -9,8 +9,9 @@
 //
 // The extract holds only page A, external, non-reserved rows with whitelisted
 // fields (product_code, title, family, current_rev, lifecycle_status,
-// retired_to, package_family, bundle). So a code that isn't in it is either
-// unknown to the DCR or not public; either way the storefront must not show it.
+// retired_to, package_family, bundle). So a code that isn't in it is unknown
+// to the DCR, reserved, page B or internal; whichever it is, the storefront
+// must not show it, and the check fails it as unknown_code.
 //
 // READ-ONLY. Used by scripts/build-site.mjs (the build fails when the extract
 // doesn't verify, or when the catalogue shows or sells a code the extract
@@ -24,18 +25,6 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 export const PUBLIC_SCHEMA_VERSION = "public-1.0";
-
-/**
- * Titles: "warn now, fail later". A catalogue title that differs from the DCR
- * title is a warning until Hseq-Dev build_catalogue.py takes titles from the
- * DCR (in flight). Then set this to "fail". DCR_TITLES=fail|warn overrides it.
- */
-export const TITLE_POLICY = "warn";
-
-export function titlePolicy(env = process.env) {
-  const v = (env.DCR_TITLES ?? "").trim().toLowerCase();
-  return v === "fail" || v === "warn" ? v : TITLE_POLICY;
-}
 
 export const rev2 = (n) => String(n).padStart(2, "0");
 const HEX64 = /^[0-9a-f]{64}$/;
@@ -152,15 +141,18 @@ export function shownCodes(cat) {
 /**
  * Checks one catalogue against the pinned extract. Returns findings
  * { kind, severity: "error"|"warning", code, message }. Kinds:
- *   unknown_code      a code isn't in the public extract (unknown, or not public)   error
- *   not_eligible      a code shown or sold is retired or superseded                  error
- *   retired_reference a code neither shown nor sold is retired or superseded         warning
- *   title_mismatch    a document title differs from the DCR title                   titlePolicy()
+ *   unknown_code      a code isn't in the public extract (unknown, reserved,
+ *                     page B or internal)                                       error
+ *   not_eligible      a code shown or sold is retired or superseded              error
+ *   retired_reference a code neither shown nor sold is retired or superseded     warning
+ *   title_mismatch    a document title differs from the DCR title               error
  *   stamp_mismatch    dcr_revision / dcr_sha256 differ from dcr.lock, or only one is present  error
- *   not_stamped       no dcr_revision / dcr_sha256 stamp (Hseq-Dev PR #41 adds it)              warning
+ *   not_stamped       no dcr_revision / dcr_sha256 stamp                         error
  * The catalogue stamp names the FULL release (dcr_sha256 = dcr.lock source_dcr_sha256).
+ * Titles and the stamp fail since Hseq-Dev build_catalogue.py takes titles from
+ * the pinned DCR and stamps its output (Hseq-Dev #41, #42; catalogue in #26).
  */
-export function checkCatalogue(cat, { dcr, lock }, { titles = titlePolicy() } = {}) {
+export function checkCatalogue(cat, { dcr, lock }) {
   const findings = [];
   const add = (kind, severity, code, message) => findings.push({ kind, severity, code, message });
   const R = `DCR Rev${rev2(dcr.revision)}`;
@@ -170,7 +162,7 @@ export function checkCatalogue(cat, { dcr, lock }, { titles = titlePolicy() } = 
   const sRev = cat.dcr_revision ?? nested.revision;
   const sSha = cat.dcr_sha256 ?? nested.sha256;
   if (sRev === undefined && sSha === undefined) {
-    add("not_stamped", "warning", null, `catalogue.json carries no dcr_revision / dcr_sha256 stamp (Hseq-Dev build_catalogue.py adds it, PR #41); dcr.lock pins Rev${rev2(lock.revision)}`);
+    add("not_stamped", "error", null, `catalogue.json carries no dcr_revision / dcr_sha256 stamp (Hseq-Dev build_catalogue.py writes it); dcr.lock pins Rev${rev2(lock.revision)}`);
   } else {
     if (sRev === undefined || sSha === undefined) add("stamp_mismatch", "error", null, "catalogue.json stamp is incomplete: it needs both dcr_revision and dcr_sha256");
     if (sRev !== undefined && Number(sRev) !== lock.revision) add("stamp_mismatch", "error", null, `catalogue.json is stamped DCR Rev${sRev}; dcr.lock pins Rev${rev2(lock.revision)}`);
@@ -184,7 +176,7 @@ export function checkCatalogue(cat, { dcr, lock }, { titles = titlePolicy() } = 
     const row = dcr.byCode(c);
     const where = shown.has(c) ? ` (${shown.get(c)})` : "";
     if (!row) {
-      add("unknown_code", "error", fullCode(c), `${c} is not a public page-A code in ${R}${where}`);
+      add("unknown_code", "error", fullCode(c), `${c} is not a public page-A code in ${R} (unknown, reserved, page B or internal)${where}`);
     } else if (!isEligible(row)) {
       const msg = `${c} is ${row.lifecycle_status ?? "not live"} in ${R}${row.retired_to ? `; kept code ${row.retired_to}` : ""}`;
       if (shown.has(c)) add("not_eligible", "error", row.product_code, `${msg}: refusing to show or sell it${where}`);
@@ -196,8 +188,51 @@ export function checkCatalogue(cat, { dcr, lock }, { titles = titlePolicy() } = 
   for (const d of cat.documents ?? []) {
     const row = dcr.byCode(d.code);
     if (row?.title && typeof d.title === "string" && normTitle(d.title) !== normTitle(row.title)) {
-      add("title_mismatch", titles === "fail" ? "error" : "warning", row.product_code, `${d.code}: catalogue says "${d.title}", ${R} says "${row.title}"`);
+      add("title_mismatch", "error", row.product_code, `${d.code}: catalogue says "${d.title}", ${R} says "${row.title}"`);
     }
+  }
+  return findings;
+}
+
+/**
+ * catalogue.json is generated (Hseq-Dev docs/build_catalogue.py) and never
+ * edited by hand (brief 2.5). The generator writes no content seal, so this
+ * checks the rules it always follows; a hand edit to sellable, listed, show,
+ * a pack's members or counts, or one document's price breaks at least one:
+ *   - document codes are unique; every document has the one single-document
+ *     price; a document is sellable exactly when it has no not-sold reason;
+ *   - a pack's count is its member count, its counts add up to it, and it
+ *     lists no member twice;
+ *   - a pack's blocked list is exactly its members that aren't sellable
+ *     documents, and a pack with members is sellable exactly when none is
+ *     blocked and it has no problem;
+ *   - show = listed && (sellable || preview).
+ * It cannot see a pack price changed by hand: prices live only in Hseq-Dev
+ * packages.py, which this public repo does not hold.
+ * Findings: { kind: "generated_drift", severity: "error", code, message }.
+ */
+export function checkGenerated(cat) {
+  const findings = [];
+  const add = (code, message) => findings.push({ kind: "generated_drift", severity: "error", code, message });
+  const docs = new Map();
+  for (const d of cat.documents ?? []) {
+    if (docs.has(d.code)) add(fullCode(d.code), `document ${d.code} is listed twice`);
+    docs.set(d.code, d);
+    if (d.sellable !== (String(d.reason ?? "") === "")) add(fullCode(d.code), `document ${d.code}: sellable is ${d.sellable} but its reason is ${JSON.stringify(d.reason ?? "")}`);
+  }
+  const prices = [...new Set((cat.documents ?? []).map((d) => d.price))];
+  if (prices.length > 1) add(null, `documents carry ${prices.length} different single-document prices (${prices.join(", ")}); the generator gives every document the same price`);
+  for (const p of cat.packs ?? []) {
+    const members = p.documents ?? [];
+    if (new Set(members).size !== members.length) add(null, `pack ${p.id} lists a document twice`);
+    if (p.count !== members.length) add(null, `pack ${p.id}: count ${p.count}, but it lists ${members.length} documents`);
+    if (p.counts && Object.values(p.counts).reduce((a, b) => a + b, 0) !== members.length) add(null, `pack ${p.id}: counts ${JSON.stringify(p.counts)} do not add up to its ${members.length} documents`);
+    if (p.show !== !!(p.listed && (p.sellable || cat.preview))) add(null, `pack ${p.id}: show is ${p.show}, but listed is ${p.listed} and sellable is ${p.sellable}`);
+    if (!members.length) continue;
+    const blocked = members.filter((c) => !docs.get(c)?.sellable);
+    if (JSON.stringify(p.blocked ?? []) !== JSON.stringify(blocked)) add(null, `pack ${p.id}: blocked lists ${(p.blocked ?? []).length} documents, but ${blocked.length} of its members aren't sellable documents`);
+    const sellable = !blocked.length && !p.problem;
+    if (p.sellable !== sellable) add(null, `pack ${p.id}: sellable is ${p.sellable}, but ${blocked.length ? `${blocked.length} member(s) aren't sellable` : p.problem ? `it has a problem (${p.problem})` : "every member is sellable and it has no problem"}`);
   }
   return findings;
 }

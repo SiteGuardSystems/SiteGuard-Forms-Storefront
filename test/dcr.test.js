@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { checkCatalogue, fullCode, isEligible, loadPinned, normTitle, readLock, shownCodes } from "../scripts/lib/dcr.mjs";
+import { checkCatalogue, checkGenerated, fullCode, isEligible, loadPinned, normTitle, readLock, shownCodes } from "../scripts/lib/dcr.mjs";
 import { runDcrCheck } from "../scripts/dcr-check.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -89,26 +89,70 @@ describe("catalogue against the DCR", () => {
     ]) assert.deepEqual(kinds(checkCatalogue(cat, pinned), "error"), ["unknown_code"]);
   });
 
-  test("titles: warn now, fail when the policy says so", () => {
+  test("a title that differs from the DCR fails; dash, quote and spacing typography doesn't", () => {
     const cat = catalogue({ documents: [{ code: bare(live), title: `${live.title} (old)`, sellable: true }] });
-    assert.deepEqual(kinds(checkCatalogue(cat, pinned), "warning"), ["title_mismatch"]);
-    assert.deepEqual(kinds(checkCatalogue(cat, pinned, { titles: "fail" }), "error"), ["title_mismatch"]);
+    assert.deepEqual(kinds(checkCatalogue(cat, pinned), "error"), ["title_mismatch"]);
+    assert.deepEqual(checkCatalogue(catalogue({ documents: [{ code: bare(live), title: `  ${live.title.toUpperCase()} `, sellable: true }] }), pinned), []);
     assert.equal(normTitle("Pre–Start  Meeting"), normTitle("pre - start meeting"));
   });
 
-  test("stamp: equal to the lock passes, different or partial fails, none warns", () => {
+  test("stamp: equal to the lock passes; different, partial or missing fails", () => {
     assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_revision: 22 }), pinned), "error"), ["stamp_mismatch"]);
     // the stamp names the full dcr.json, not the public extract
     assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_sha256: LOCK.sha256 }), pinned), "error"), ["stamp_mismatch"]);
     assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_sha256: undefined }), pinned), "error"), ["stamp_mismatch"]);
-    assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_revision: undefined, dcr_sha256: undefined }), pinned)), ["not_stamped"]);
+    assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_revision: undefined, dcr_sha256: undefined }), pinned), "error"), ["not_stamped"]);
   });
 
-  test("the committed catalogue has no error against Rev23", async () => {
+  test("the committed catalogue has no finding against Rev23 and is as generated", async () => {
     const cat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
-    assert.deepEqual(checkCatalogue(cat, pinned).filter((f) => f.severity === "error"), []);
+    assert.deepEqual(checkCatalogue(cat, pinned), []);
+    assert.deepEqual(checkGenerated(cat), []);
     assert.ok(shownCodes(cat).size > 0);
     assert.equal(fullCode("SAF-SWMS-CARP-001"), "SG-F-SAF-SWMS-CARP-001");
+  });
+});
+
+describe("catalogue.json as generated (hand edits fail)", () => {
+  const committed = JSON.parse(execFileSync("git", ["show", "HEAD:data/catalogue.json"], { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 }));
+  const fresh = () => structuredClone(committed);
+  const drift = (cat) => checkGenerated(cat).map((f) => f.message);
+
+  test("each kind of hand edit is caught", () => {
+    const listed = (cat) => cat.packs.find((p) => p.show && p.documents.length > 1);
+    const unlisted = (cat) => cat.packs.find((p) => !p.listed && p.sellable);
+    const notSold = (cat) => cat.packs.find((p) => p.problem && p.documents.length);
+    const edits = {
+      "an unlisted pack shown": (c) => { unlisted(c).show = true; },
+      "a pack with a problem made sellable": (c) => { notSold(c).sellable = true; },
+      "a member added to a pack": (c) => { const p = listed(c); p.documents.push(c.documents.find((d) => !p.documents.includes(d.code)).code); },
+      "a member removed from a pack": (c) => { listed(c).documents.pop(); },
+      "a document made unsellable": (c) => { c.documents.find((d) => d.code === listed(c).documents[0]).sellable = false; },
+      "one document price changed": (c) => { c.documents[0].price += 1; },
+      "a document listed twice": (c) => { c.documents.push({ ...c.documents[0] }); },
+    };
+    for (const [what, edit] of Object.entries(edits)) {
+      const cat = fresh();
+      edit(cat);
+      assert.ok(drift(cat).length > 0, `not caught: ${what}`);
+      assert.ok(checkGenerated(cat).every((f) => f.kind === "generated_drift" && f.severity === "error"));
+    }
+  });
+
+  test("dcr-check fails a hand-edited catalogue", async () => {
+    const dir = await mkdtemp(path.join(tmpdir(), "dcr-t07-gen-"));
+    try {
+      await cp(path.join(ROOT, "dcr.lock"), path.join(dir, "dcr.lock"));
+      await cp(path.join(ROOT, "dcr.allowlist.json"), path.join(dir, "dcr.allowlist.json"));
+      const cat = fresh();
+      cat.packs.find((p) => !p.listed && p.sellable).show = true;
+      await cp(path.join(ROOT, "data"), path.join(dir, "data"), { recursive: true });
+      await writeFile(path.join(dir, "data/catalogue.json"), JSON.stringify(cat, null, 1));
+      const r = runDcrCheck({ root: dir, vendorDir: path.join(ROOT, "vendor/siteguard-dcr") });
+      assert.deepEqual([...new Set(r.errors.map((f) => f.kind))], ["generated_drift"]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });
 
