@@ -5,6 +5,7 @@ import path from "node:path";
 import { describe, test } from "node:test";
 import { createApp, CSP } from "../lib/create-app.js";
 import { withVideoCsp } from "../scripts/lib/video.mjs";
+import { normaliseSiteName, SITE_NAME_MAX } from "../lib/site-name.js";
 
 /** A small catalogue in the shape Hseq-Dev docs/build_catalogue.py writes. */
 function sampleCatalogue(over = {}) {
@@ -232,6 +233,29 @@ describe("POST /api/checkout", () => {
       assert.equal(call.success_url, "http://localhost:4300/order/success/");
     });
   });
+  test("the optional site name rides in the session metadata, as plain text, and only when given", async () => {
+    const stripe = makeFakeStripe();
+    await withApp({ stripe }, async ({ base }) => {
+      await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { siteName: "  <b>Riverside</b>   Stage 2 " });
+      assert.equal(stripe.calls[0].metadata.siteName, "Riverside Stage 2");
+      await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { siteName: "x".repeat(600) });
+      assert.equal(stripe.calls[1].metadata.siteName.length, SITE_NAME_MAX, "clipped within Stripe's 500-character metadata limit");
+      for (const siteName of [undefined, "", "   ", 42, "<br/>"]) {
+        const res = await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { siteName });
+        assert.equal(res.status, 200, `checkout goes ahead with siteName ${JSON.stringify(siteName)}`);
+        assert.ok(!("siteName" in stripe.calls.at(-1).metadata), "no site name: no metadata key");
+      }
+      // still exactly Stripe's three custom fields
+      assert.equal(stripe.calls[0].custom_fields.length, 3);
+    });
+  });
+  test("site name cleaning: plain text, collapsed, clipped, never refused", () => {
+    assert.equal(normaliseSiteName("<script>alert(1)</script>Site"), "alert(1) Site");
+    assert.equal(normaliseSiteName("Lot 5 > Stage 2 <"), "Lot 5 Stage 2");
+    assert.equal(normaliseSiteName("Line1\r\nLine2\u0000"), "Line1 Line2");
+    assert.equal(normaliseSiteName("Smith & Sons"), "Smith & Sons", "& stays text; it is escaped where printed");
+    for (const v of [undefined, null, "", "  ", 7, {}]) assert.equal(normaliseSiteName(v), null);
+  });
   test("Stripe Tax can be switched off", async () => {
     const stripe = makeFakeStripe();
     await withApp({ stripe, stripeAutomaticTax: false }, async ({ base }) => {
@@ -387,6 +411,48 @@ describe("POST /api/webhook/stripe", () => {
       const r = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_y");
       assert.equal(r.status, 500);
       assert.equal(mailer.sent.length, 0);
+    });
+  });
+  test("the site name reaches the FORMS intake as siteName, and both emails, escaped", async () => {
+    const stripe = makeFakeStripe();
+    const fetchImpl = makeFakeFetch();
+    const mailer = makeFakeMailer();
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl, mailer, adminNotificationEmail: "dan@example.com" }, async ({ base, varDir }) => {
+      await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }, { documentCode: "SAF-SWMS-CARP-001" }],
+        { siteName: "Smith & Sons <i>\"Depot\"</i>" });
+      const metadata = { ...stripe.calls[0].metadata, termsVersion: "SG-LEGAL-02 v0.1" };
+      const res = await completeOrder(base, stripe, null, "evt_site", { session: { metadata } });
+      assert.equal(res.status, 200);
+      const bodies = fetchImpl.calls.map((c) => JSON.parse(c.init.body));
+      assert.deepEqual(bodies.map((b) => b.siteName), ['Smith & Sons "Depot"', 'Smith & Sons "Depot"'], "every line carries it");
+      const [receipt, admin] = mailer.sent;
+      assert.match(receipt.html, /Smith &amp; Sons &quot;Depot&quot;<br\/>1 Example St, Melbourne/);
+      assert.match(admin.html, /<strong>Site name:<\/strong> Smith &amp; Sons &quot;Depot&quot;/);
+      assert.match(admin.text, /Site name: Smith & Sons "Depot"/);
+      assert.ok(!/<i>/.test(receipt.html + admin.html), "no markup from the buyer survives");
+      const orders = (await readFile(path.join(varDir, "orders.jsonl"), "utf8")).trim().split("\n").map(JSON.parse);
+      assert.equal(orders[0].siteName, 'Smith & Sons "Depot"');
+    });
+  });
+  test("the site name is optional: without it the intake gets no siteName and the emails no Site name line", async () => {
+    const stripe = makeFakeStripe();
+    const fetchImpl = makeFakeFetch();
+    const mailer = makeFakeMailer();
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl, mailer, adminNotificationEmail: "dan@example.com" }, async ({ base }) => {
+      const res = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }], "evt_nosite");
+      assert.equal(res.status, 200);
+      const body = JSON.parse(fetchImpl.calls[0].init.body);
+      assert.ok(!("siteName" in body), "siteName left out, not sent blank");
+      assert.ok(!/Site name/.test(mailer.sent.map((m) => m.html + m.text).join("")));
+    });
+  });
+  test("a site name set outside the cart page is cleaned again before the intake", async () => {
+    const stripe = makeFakeStripe();
+    const fetchImpl = makeFakeFetch();
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl }, async ({ base }) => {
+      await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }]);
+      await completeOrder(base, stripe, null, "evt_raw", { session: { metadata: { siteName: "<img src=x onerror=alert(1)>Yard 3" } } });
+      assert.equal(JSON.parse(fetchImpl.calls[0].init.body).siteName, "Yard 3");
     });
   });
   test("a bad signature is rejected, and alerts Dan once", async () => {
