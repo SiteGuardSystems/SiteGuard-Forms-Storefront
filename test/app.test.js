@@ -595,7 +595,13 @@ describe("POST /api/lead: Register interest (app-interest)", () => {
       assert.match(mailer.sent[0].text, /^New enquiry from siteguardsystems\.com\.au/);
       assert.match(mailer.sent[0].text, /Enquiry type: App interest/);
       assert.match(mailer.sent[0].text, /Interest: SiteGuard Audit/);
-      assert.match(mailer.sent[0].text, /Consent basis: express/);
+      assert.match(mailer.sent[0].text, /^Consent basis: express$/m);
+      assert.match(mailer.sent[0].text, /^Consent method: website form$/m);
+      assert.match(mailer.sent[0].text, /^Consent wording: Email me about the launch and founding places\.$/m);
+      assert.match(mailer.sent[0].text, /^Consent source: https:\/\/www\.siteguardsystems\.com\.au\/register-interest\/$/m);
+      assert.match(mailer.sent[0].text, new RegExp(`^Consent at: ${lead.consent_at.replace(/[.]/g, "\\.")}$`, "m"));
+      assert.match(mailer.sent[0].text, /^Interest: SiteGuard Audit$/m);
+      assert.match(mailer.sent[0].text, /^Trade or business: Consultant$/m);
     });
   });
   test("no box ticked is an enquiry basis with no wording; a bad interest becomes both; other types keep no consent fields", async () => {
@@ -606,6 +612,12 @@ describe("POST /api/lead: Register interest (app-interest)", () => {
       assert.equal(a.interest, "both");
       assert.equal(a.consent_basis, "enquiry");
       assert.equal(a.consent_wording, "");
+      const { leadNotificationEmail } = await import("../lib/mailer.js");
+      const t = leadNotificationEmail(a).text;
+      assert.match(t, /^Consent basis: enquiry$/m);
+      assert.match(t, /^Consent method: website form$/m);
+      assert.ok(!/^Consent wording:/m.test(t), "no wording without express consent");
+      assert.match(t, /^Consent at: \d{4}-/m);
       assert.equal(b.enquiry_type, "enquiry");
       assert.equal(b.interest, undefined);
       assert.equal(b.consent_basis, undefined);
