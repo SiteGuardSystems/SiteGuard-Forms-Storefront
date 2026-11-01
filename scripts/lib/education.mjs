@@ -11,6 +11,10 @@
 // YouTube link (youtube_url) with a title, description and the date it was
 // published. Under each video: Watch on YouTube, Copy link (for a toolbox
 // talk or an induction) and, when download_url is set, Download.
+//
+// Optional "modules" on a video (e.g. ["audit", "safety"]) tags it to product
+// module pages; relatedVideos() gives those pages a "Related videos" band.
+// Each site decides which module slugs it has; unknown tags are ignored.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { esc } from "./md.mjs";
@@ -41,6 +45,7 @@ export async function loadEducation(root) {
     for (const [vi, raw] of (g.videos ?? []).entries()) {
       const v = normalizeVideo(raw);
       const p = checkVideo(v);
+      if (v.modules !== undefined && (!Array.isArray(v.modules) || v.modules.some((m) => !SLUG_RE.test(String(m))))) p.push("modules must be a list of module slugs (lower-case letters, digits and dashes)");
       for (const m of p) problems.push(`${where} video #${vi + 1}${raw?.title ? ` (${raw.title})` : ""}: ${m}`);
       if (!p.length) videos.push(v);
     }
@@ -123,4 +128,21 @@ export function educationJsonLd(edu, origin, slug = null) {
   const items = vids.map((v, i) => ({ "@type": "ListItem", position: i + 1, item: videoJsonLd(v, origin) }));
   for (const it of items) delete it.item["@context"];
   return { "@context": "https://schema.org", "@type": "ItemList", name: `${edu.channel_name} videos`, itemListElement: items };
+}
+
+/** Every video tagged with this module, newest first. */
+export function videosForModule(edu, module) {
+  const vids = (edu?.groups ?? []).flatMap((g) => g.videos.filter((v) => (v.modules ?? []).includes(module)));
+  return vids.sort((a, b) => String(b.upload_date).localeCompare(String(a.upload_date)));
+}
+
+/** "Related videos" band for a module page, or "" when no video is tagged with it. */
+export function relatedVideos(edu, module, { max = 4, heading = "Related videos" } = {}) {
+  const vids = videosForModule(edu, module).slice(0, max);
+  if (!vids.length) return "";
+  return `<section class="band band-grey edu-related"><div class="wrap">
+  <h2>${esc(heading)}</h2>
+  <ul class="edu-grid">${vids.map(card).join("")}</ul>
+  <p><a href="/education/">More on SiteGuard Education</a></p>
+</div></section>`;
 }
