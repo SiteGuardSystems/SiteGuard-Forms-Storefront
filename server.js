@@ -24,6 +24,7 @@ process.on("uncaughtException", (err) => {
 });
 import Stripe from "stripe";
 import { createApp, CSP } from "./lib/create-app.js";
+import { appGates } from "./lib/engine-origins.js";
 import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs";
 import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
@@ -107,6 +108,12 @@ const STRIPE_AUTOMATIC_TAX = process.env.STRIPE_AUTOMATIC_TAX !== "off";
 const LEAD_ALLOWED_ORIGINS = (process.env.LEAD_ALLOWED_ORIGINS ??
   "https://www.siteguardsystems.com.au,https://siteguardsystems.com.au").split(",").map((s) => s.trim()).filter(Boolean);
 
+// WP-S9: sites that may start a checkout here (and be sent back to after
+// Stripe), besides this one. Defaults to the /api/lead list.
+const CHECKOUT_ALLOWED_ORIGINS = process.env.CHECKOUT_ALLOWED_ORIGINS
+  ? process.env.CHECKOUT_ALLOWED_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean)
+  : LEAD_ALLOWED_ORIGINS;
+
 // Beta (browse only, no orders): data/site-mode.json, shared with the site build.
 let SITE_MODE = {};
 try { SITE_MODE = JSON.parse(readFileSync(path.join(__dirname, "data", "site-mode.json"), "utf8")); } catch { SITE_MODE = {}; }
@@ -146,6 +153,12 @@ const app = createApp({
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
   leadNotificationEmailTo: process.env.LEAD_NOTIFICATION_EMAIL ?? ADMIN_NOTIFICATION_EMAIL,
   leadAllowedOrigins: LEAD_ALLOWED_ORIGINS,
+  // WP-S9: the Systems site checks out here too (CORS, returnOrigin allowlist).
+  checkoutAllowedOrigins: CHECKOUT_ALLOWED_ORIGINS,
+  // WP-S10: founding sells only while app_status is "presale", subscriptions only when "live".
+  appStatus: SITE_MODE.app_status ?? "coming_soon",
+  // P7: subscriptions also need the platform to say the app is live.
+  appLaunchUrl: process.env.APP_LAUNCH_URL || undefined,
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
@@ -159,6 +172,11 @@ const app = createApp({
 
 app.listen(PORT, HOST, () => {
   console.log(`siteguard-forms-storefront listening on http://${HOST}:${PORT}`);
+  console.log(`Checkout engine: also for ${CHECKOUT_ALLOWED_ORIGINS.join(", ") || "no other site"}; app_status ${SITE_MODE.app_status ?? "coming_soon"}`);
+  try {
+    const g = appGates(JSON.parse(readFileSync(path.join(__dirname, "data", "app-billing.json"), "utf8")), SITE_MODE.app_status ?? "coming_soon");
+    for (const d of g.disagreements) console.warn(`App billing gates disagree (both must say yes to sell): ${d}`);
+  } catch (e) { console.warn(`App billing gates not checked: ${e.message}`); }
   if (!stripe) {
     console.log("Stripe: NOT configured — checkout returns 501");
   } else if (stripeTestMode) {
