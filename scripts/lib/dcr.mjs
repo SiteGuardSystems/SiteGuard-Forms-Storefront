@@ -227,7 +227,15 @@ export function checkGenerated(cat) {
     if (new Set(members).size !== members.length) add(null, `pack ${p.id} lists a document twice`);
     if (p.count !== members.length) add(null, `pack ${p.id}: count ${p.count}, but it lists ${members.length} documents`);
     if (p.counts && Object.values(p.counts).reduce((a, b) => a + b, 0) !== members.length) add(null, `pack ${p.id}: counts ${JSON.stringify(p.counts)} do not add up to its ${members.length} documents`);
-    if (p.show !== !!(p.listed && (p.sellable || cat.preview))) add(null, `pack ${p.id}: show is ${p.show}, but listed is ${p.listed} and sellable is ${p.sellable}`);
+    // Pricing Rev06 (Hseq-Dev build_catalogue.py): a pack can be bought only when
+    // it is sellable AND its launch_wave is in price_table.purchasable_waves, and
+    // only a purchasable pack is shown. Older catalogues carry no purchasable.
+    if ("purchasable" in p) {
+      const waves = cat.price_table?.purchasable_waves;
+      const purchasable = !!p.sellable && (Array.isArray(waves) ? waves.includes(p.launch_wave) : true);
+      if (p.purchasable !== purchasable) add(null, `pack ${p.id}: purchasable is ${p.purchasable}, but sellable is ${p.sellable} and launch_wave is ${p.launch_wave}`);
+      if (p.show !== !!(p.listed && (p.purchasable || cat.preview))) add(null, `pack ${p.id}: show is ${p.show}, but listed is ${p.listed} and purchasable is ${p.purchasable}`);
+    } else if (p.show !== !!(p.listed && (p.sellable || cat.preview))) add(null, `pack ${p.id}: show is ${p.show}, but listed is ${p.listed} and sellable is ${p.sellable}`);
     if (!members.length) continue;
     const blocked = members.filter((c) => !docs.get(c)?.sellable);
     if (JSON.stringify(p.blocked ?? []) !== JSON.stringify(blocked)) add(null, `pack ${p.id}: blocked lists ${(p.blocked ?? []).length} documents, but ${blocked.length} of its members aren't sellable documents`);
