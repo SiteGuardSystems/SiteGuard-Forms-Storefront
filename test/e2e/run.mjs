@@ -80,6 +80,18 @@ try {
   assert.equal(calls[0].line_items[0].price_data.unit_amount, cat.packs.find((p) => p.id === "subcontractor:CARP:domestic").prices.one_off * 100);
   assert.match(await page.locator("[data-cart-count]").first().textContent(), /\(0\)/);
 
+  // A pack outside the purchasable launch waves (Pricing Rev06 "later") can't be bought,
+  // even when this test puts it on show.
+  const later = cat.packs.find((p) => p.listed && p.purchasable === false && p.group === "specialist-packs" && !p.trade && p.prices?.one_off);
+  if (later) {
+    await page.goto(`${base}/specialist-packs/`);
+    assert.equal(await page.locator(`[data-add-pack="${later.id}"]`).getAttribute("aria-disabled"), "true", `${later.id} is disabled`);
+    assert.ok(await page.locator(`#${later.id.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`).getByText("Not yet available to buy.").isVisible());
+    const st = (await fetch(`${base}/api/checkout`, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart: [{ packageId: later.id }], acceptedTerms: true }) })).status;
+    assert.equal(st, 409, "the server refuses a later-wave pack");
+  }
+
   // Subscribe links go to the FORMS app signup with the pack and cadence.
   await page.goto(`${base}/trade-packs/carpentry/`);
   const href = await page.locator('a:has-text("Subscribe yearly")').first().getAttribute("href");
@@ -95,7 +107,7 @@ try {
 
   // Phone width: no sideways scroll on the main pages.
   const phone = await browser.newPage({ viewport: { width: 360, height: 780 } });
-  for (const p of ["/", "/trade-packs/", "/trade-packs/carpentry/", "/builder-packs/", "/documents/", "/cart/", "/legal/privacy/"]) {
+  for (const p of ["/", "/trade-packs/", "/trade-packs/carpentry/", "/builder-packs/", "/subscriptions/", "/documents/", "/cart/", "/legal/privacy/"]) {
     await phone.goto(base + p);
     const over = await phone.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     assert.ok(over <= 0, `${p} scrolls sideways by ${over}px at 360px`);

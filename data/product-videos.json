@@ -1,0 +1,41 @@
+{
+  "note": "FORMS product videos on the pack pages (scripts/lib/product-videos.mjs). One entry per video, keyed by its slot: trade (trade pack pages), builder (builder packs), high-risk (specialist packs), subscription (subscriptions page). Until a video is published leave youtube_url empty: a preview build shows a placeholder in its slot, a production build shows nothing. To publish one, paste its YouTube link as youtube_url and set upload_date (YYYY-MM-DD, the day it went up); title and description are already filled in; duration (e.g. PT1M30S) is optional. Rebuild after a change; the storefront also needs a restart (its CSP opens youtube-nocookie.com for these videos).",
+  "videos": [
+    {
+      "id": "PRD-001",
+      "slot": "trade",
+      "heading": "Your trade's documents in five minutes",
+      "title": "SiteGuard FORMS: your trade's documents in five minutes",
+      "description": "Pick your pack, enter your project details, export the PDFs, and get the revised documents after every 6-monthly review.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "id": "PRD-002",
+      "slot": "builder",
+      "heading": "SiteGuard FORMS for builders",
+      "title": "SiteGuard FORMS for builders: domestic and commercial builder packs",
+      "description": "How the domestic and commercial builder packs work: every trade's SWMS, the plans and the management-system documents for the whole site.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "id": "PRD-003",
+      "slot": "high-risk",
+      "heading": "SiteGuard FORMS for high risk trades",
+      "title": "SiteGuard FORMS for high risk trades: HRCW SWMS for the head contractor",
+      "description": "High risk construction work SWMS written for the head contractor's review: what is in them and how to fill them for your project.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "id": "PRD-004",
+      "slot": "subscription",
+      "heading": "How a FORMS subscription works",
+      "title": "SiteGuard FORMS subscription: your projects, kept current",
+      "description": "Set up your projects on your account, generate the documents for each, and get the revisions pushed to you after each 6-monthly review.",
+      "youtube_url": "",
+      "upload_date": ""
+    }
+  ]
+}

@@ -28,6 +28,7 @@ import { loadVideo, introVideo, videoJsonLd } from "./lib/video.mjs";
 import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBody, inspectionGroupBody, inspectionGroups, groupPath, icsFor, STATES, STATE_NAMES, statePath } from "./lib/planning.mjs";
 import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
 import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
+import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -47,21 +48,43 @@ let PLANNING = { cal: null, insp: null };
 // SiteGuard Education hub (data/education.json, identical to siteguard-website's;
 // scripts/lib/education.mjs). server.js reads it too, for the CSP.
 let EDU = null;
+// FORMS product videos on the pack pages (data/product-videos.json;
+// scripts/lib/product-videos.mjs). Placeholders until each is published.
+let PRODUCT_VIDEOS = null;
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
 const SITE_MODE = JSON.parse(await readFile(SITE_MODE_PATH, "utf8").catch(() => "{}"));
 const BETA = SITE_MODE.beta === true;
+// The SiteGuard App and Audit stage (data/site-mode.json app_status, the same
+// field and values as siteguard-website: "coming_soon", "presale", "live";
+// separate from beta, which is FORMS ordering). The founding-offer panel shows
+// only while it is "presale" (from March 2027, on Dan's go). App modules open
+// June 2027.
+export const APP_STATUSES = ["coming_soon", "presale", "live"];
+const APP_STATUS = SITE_MODE.app_status ?? "coming_soon";
+const FOUNDING = APP_STATUS === "presale";
+// Optional same-origin endpoint answering {"remaining": n} (the founding API,
+// rollout P2); until it exists the panel says "the first 20 places" (static).
+const FOUNDING_PLACES_API = SITE_MODE.founding_places_api ?? "";
+export const FOUNDING_PLACES = 20;
 
 const ORIGIN = (process.env.SITE_ORIGIN ?? "https://www.siteguardforms.com.au").replace(/\/$/, "");
 const APP_URL = (process.env.FORMS_APP_URL ?? "https://app.siteguardforms.com.au").replace(/\/$/, "");
 const SYSTEMS_URL = (process.env.SYSTEMS_URL ?? "https://www.siteguardsystems.com.au").replace(/\/$/, "");
+// The founding-offer page lives on the Systems site (rollout P4).
+const FOUNDING_URL = `${SYSTEMS_URL}/app/founding-offer/`;
 
 // Words the marketing pages must never use (websites brief Rev02, WP5). The
 // legal pages are exempt: they are solicitor-controlled and use some of these
 // words to say what SiteGuard does NOT claim.
-export const BANNED = /\b(compliant|certified|endorsed|guarantee[sd]?|4801|coming soon|rolling out|in progress|quarterly)\b/gi;
+export const BANNED = /\b(compliant|certified|endorsed|guarantee[sd]?|4801|coming soon|rolling out|in progress|quarterly|money[- ]back)\b/gi;
 const BANNED_ALLOWED = [/Certified Lead Auditor/gi];
+// Gated products and markets (rebaseline, 31 Oct 2026): never listed, priced or
+// teased on a customer page. "Core Management System" is a FORMS pack name, not
+// the gated CORE product, so CORE counts only in capitals and not before
+// "Management System".
+export const GATED = /\bSiteGuard AI\b|\brobotics?\b|\bNew Zealand\b|\boverseas markets?\b|\binternational markets?\b|\bCORE\b(?! Management System)/g;
 
 const LEGAL_PAGES = [
   { file: "terms-of-sale.md", slug: "terms-of-sale", nav: "Terms of Sale" },
@@ -82,6 +105,8 @@ const GROUPS = {
 };
 
 const money = (n) => "$" + Number(n).toLocaleString("en-AU");
+// Customer-facing prices are A$ ex GST and say "+GST" (rebaseline standing rules).
+const exGst = (n, per = "") => `${money(n)}<small> +GST${per}</small>`;
 // Set in build(): the consultants page, its nav links and its mentions appear
 // only when a consultant plan is on sale (no "coming soon").
 let CONSULTANTS_ON = false;
@@ -158,7 +183,7 @@ function footer() {
       </div>
       <div><h2>Legal</h2><ul>${legal}</ul></div>
     </div>
-    <p class="footer-base">Documents are templates. The business using them must review and adapt each one to its own work and site. Prices exclude GST.<br>© ${new Date().getFullYear()} SiteGuard Systems · ABN 36 765 797 871</p>
+    <p class="footer-base">Documents are templates. The business using them must review and adapt each one to its own work and site. Prices are in A$ and exclude GST (+GST).<br>© ${new Date().getFullYear()} SiteGuard Systems · ABN 36 765 797 871</p>
   </div>
 </footer>`;
 }
@@ -251,22 +276,36 @@ function docList(p, titles) {
   return `<details class="doclist"><summary>See all ${rows.length} documents</summary><ol>${items}</ol></details>`;
 }
 
+/** Prices for one pack: the annual subscription (the default and best value)
+ *  beside the one-off purchase, then monthly. Prices are A$ ex GST from the
+ *  catalogue (Hseq-Dev docs/packages.py, which reads
+ *  docs/pricing/forms_price_table.json, Pricing Rev06). A pack outside the
+ *  purchasable launch waves is never buyable here. */
 function priceBlock(p, cat) {
-  const onSale = !cat.preview && !BETA && p.sellable;
+  const onSale = !cat.preview && !BETA && p.sellable && p.purchasable !== false;
   const disabled = onSale ? "" : ' aria-disabled="true" data-preview-disabled="1"';
-  const buy = p.prices.one_off
-    ? `<p class="price-line"><span class="label">Buy outright</span><span class="amount">${money(p.prices.one_off)}</span></p>
-       <button type="button" class="btn btn-hivis btn-small" data-add-pack="${esc(p.id)}" data-name="${esc(p.name)}" data-price="${p.prices.one_off}"${disabled}>Add to cart</button>`
-    : "";
-  const sub = `<p class="price-line"><span class="label">Subscription</span><span class="amount">${money(p.prices.annual)}<small> a year</small></span></p>
-     <p class="price-line"><span class="label">or monthly</span><span class="amount">${money(p.prices.monthly)}<small> a month</small></span></p>
-     <div class="btn-row">
-       <a class="btn btn-small" href="${esc(subscribeHref(p, "annual"))}"${onSale ? "" : ' aria-disabled="true" data-preview-disabled="1"'}>Subscribe yearly</a>
-       <a class="btn btn-small" href="${esc(subscribeHref(p, "monthly"))}"${onSale ? "" : ' aria-disabled="true" data-preview-disabled="1"'}>Subscribe monthly</a>
+  const monthlyExtra = p.prices.monthly * 12 - p.prices.annual;
+  const annual = `<div class="price-opt price-opt-best">
+       <p class="price-tag">Best value</p>
+       <p class="price-head">Annual subscription</p>
+       <p class="amount">${exGst(p.prices.annual, " a year")}</p>
+       <p class="price-note">Unlimited projects. Revised documents after every 6-monthly review.</p>
+       <a class="btn btn-hivis btn-small" href="${esc(subscribeHref(p, "annual"))}"${disabled}>Subscribe yearly</a>
      </div>`;
+  const oneOff = p.prices.one_off
+    ? `<div class="price-opt">
+       <p class="price-tag price-tag-plain">Pay once</p>
+       <p class="price-head">One-off purchase</p>
+       <p class="amount">${exGst(p.prices.one_off)}</p>
+       <p class="price-note">The current revision, filled with your details and emailed as PDFs.</p>
+       <button type="button" class="btn btn-small" data-add-pack="${esc(p.id)}" data-name="${esc(p.name)}" data-price="${p.prices.one_off}"${disabled}>Add to cart</button>
+     </div>`
+    : "";
   return `<div class="prices">
-    <div class="choice">${buy}${buy ? '<hr class="sep">' : ""}${sub}</div>
-    <p class="gst">Prices exclude GST.${p.subscription_only ? " Available by subscription only." : ""}</p>
+    <div class="price-pair">${annual}${oneOff}</div>
+    <p class="price-monthly">Or monthly: ${exGst(p.prices.monthly, " a month")}${monthlyExtra > 0 ? `, ${money(monthlyExtra)} more over a year` : ""}. <a href="${esc(subscribeHref(p, "monthly"))}"${disabled}>Subscribe monthly</a></p>
+    ${p.purchasable === false ? '<p class="gst"><strong>Not yet available to buy.</strong></p>' : ""}
+    <p class="gst">Prices in A$, excluding GST. GST is added at checkout.${p.subscription_only ? " Available by subscription only." : ""}</p>
   </div>`;
 }
 
@@ -284,18 +323,18 @@ function packArticle(p, cat, titles, heading) {
  *  document list is shown once, under the table. */
 function consultantPlans(plans, cat, titles) {
   if (!plans.length) return "";
-  const onSale = (p) => !cat.preview && !BETA && p.sellable;
+  const onSale = (p) => !cat.preview && !BETA && p.sellable && p.purchasable !== false;
   const dis = (p) => onSale(p) ? "" : ' aria-disabled="true" data-preview-disabled="1"';
   const rows = plans.map((p) => `<tr id="${esc(packSlug(p.id))}">
       <th scope="row">${esc(p.name)}</th>
       <td>${p.client_limit == null ? "No limit" : p.client_limit === 1 ? "1" : `Up to ${p.client_limit}`}</td>
       <td>${p.seats_included ?? ""}</td>
-      <td class="num">${money(p.prices.annual)}<small> a year</small><br><span class="small">or ${money(p.prices.monthly)} a month</span></td>
+      <td class="num">${exGst(p.prices.annual, " a year")}<br><span class="small">or ${money(p.prices.monthly)} +GST a month</span></td>
       <td><div class="btn-row"><a class="btn btn-small" href="${esc(subscribeHref(p, "annual"))}"${dis(p)}>Yearly</a><a class="btn btn-small" href="${esc(subscribeHref(p, "monthly"))}"${dis(p)}>Monthly</a></div></td>
     </tr>`).join("");
   const lib = plans.at(-1);
   return `<div class="table-scroll"><table class="doc-table plan-table"><thead><tr><th scope="col">Plan</th><th scope="col">Clients a year</th><th scope="col">Users included</th><th scope="col">Price</th><th scope="col"><span class="hp">Subscribe</span></th></tr></thead><tbody>${rows}</tbody></table></div>
-  <p class="gst">Prices exclude GST. Available by subscription only.</p>
+  <p class="gst">Prices in A$, excluding GST. Available by subscription only.</p>
   <h2 class="mt-lg">The library on every plan</h2>
   <ul>${lib.includes.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
   ${docList(lib, titles)}`;
@@ -317,6 +356,47 @@ function emptyState(what) {
   <p><a class="btn btn-small" href="/contact/">Contact us</a></p></div>`;
 }
 
+/** What a pack is and how it works, under the packs on every pack page:
+ *  contents (codes and titles from SiteGuard's controlled document register),
+ *  project details in, PDFs out, revisions after each 6-monthly review. */
+function packHow() {
+  return `<section class="band band-grey" aria-labelledby="pack-how-h"><div class="wrap">
+  <h2 id="pack-how-h">How a pack works</h2>
+  <ol class="steps steps-row">
+    <li><h3>What's in it</h3><p>The documents listed in each pack above, by code and title as they stand in SiteGuard's controlled document register. Every document carries its reference, revision and date.</p></li>
+    <li><h3>Your project details in</h3><p>Enter your business and project details once: at checkout for a one-off purchase, or for each project in your account when you subscribe.</p></li>
+    <li><h3>PDFs out</h3><p>Every document in the pack is filled with those details and emailed to you as PDFs, ready for you to review and adapt to your work and site.</p></li>
+    <li><h3>Kept current</h3><p>The whole library has a legislative review every 6 months. Subscribers get the revised documents pushed to their account after each review.</p></li>
+  </ol>
+</div></section>`;
+}
+
+/** The founding-offer panel (home and subscriptions pages). Shown only while
+ *  data/site-mode.json app_status is "presale". Wording per Pricing Rev06 and
+ *  the business plan rebaseline: refunds are "a refund of the unused
+ *  prepayment". The places count is static ("the first 20 places") until the
+ *  founding API (rollout P2) exists: set founding_places_api and app.js shows
+ *  the live count in [data-founding-places]. */
+function foundingPanel() {
+  if (!FOUNDING) return "";
+  const api = /^\/[A-Za-z0-9/_-]*$/.test(FOUNDING_PLACES_API) ? FOUNDING_PLACES_API : "";
+  return `<section class="band founding" aria-labelledby="founding-h" data-founding-panel><div class="wrap">
+  <div class="founding-card">
+    <p class="price-tag">Founding offer</p>
+    <h2 id="founding-h">The SiteGuard app opens in June 2027. Founding places are open now.</h2>
+    <p class="founding-places" data-founding-places data-total="${FOUNDING_PLACES}"${api ? ` data-api="${esc(api)}"` : ""}>For the first ${FOUNDING_PLACES} places.</p>
+    <ul>
+      <li><strong>15% off your first year,</strong> paid annually up front.</li>
+      <li><strong>Access from June 2027,</strong> when the app opens.</li>
+      <li><strong>The matching FORMS pack free from March 2027,</strong> so your documents are ready before then.</li>
+      <li><strong>If June moves:</strong> a free month for each month of delay, or a refund of the unused prepayment on request.</li>
+    </ul>
+    <p><a class="btn btn-hivis" href="${FOUNDING_URL}">See the founding offer</a></p>
+    <p class="small">Prices on the founding page are in A$ and exclude GST. The full terms are on the founding page.</p>
+  </div>
+</div></section>`;
+}
+
 // -- pages ---------------------------------------------------------------------
 
 async function build() {
@@ -327,6 +407,10 @@ async function build() {
   VIDEO = vid.video;
   for (const p of vid.problems) problems.push(`data: ${p}`);
   PLANNING = await loadPlanning(ROOT);
+  PRODUCT_VIDEOS = await loadProductVideos(ROOT);
+  for (const p of PRODUCT_VIDEOS.problems) problems.push(`data: ${p}`);
+  if (!APP_STATUSES.includes(APP_STATUS)) problems.push(`data: site-mode.json app_status must be one of ${APP_STATUSES.join(", ")} (it is ${JSON.stringify(APP_STATUS)})`);
+  if (FOUNDING_PLACES_API && !/^\/[A-Za-z0-9/_-]*$/.test(FOUNDING_PLACES_API)) problems.push("data: site-mode.json founding_places_api must be a same-origin path such as /api/founding/places");
   const edu = await loadEducation(ROOT);
   EDU = edu.edu;
   for (const p of edu.problems) problems.push(`data: ${p}`);
@@ -363,13 +447,13 @@ async function build() {
     const blurb = {
       "trade-packs": "SWMS, safety plans and ITPs for one trade, at Domestic, Light Commercial or Heavy Commercial level.",
       "builder-packs": "Every trade's SWMS for a builder running the whole site, up to a full management system.",
-      "management-systems": "Safety, quality and environmental systems, plus governance, information security, continuity and more.",
-      "specialist-packs": "Fencing, passive fire, solar and EV, foundations, facade and cladding, high risk work and labour hire.",
+      "management-systems": "The Core Management System: safety, quality and environmental management system documents aligned to the ISO standards.",
+      "specialist-packs": "Fencing, passive fire, solar and EV, foundations, and facade and cladding.",
       "consultants": "Prepare documents for your own clients under your brand or theirs. Plans by number of clients.",
     }[g];
     if (g === "consultants") packs = packs.filter((p) => p.id !== "consultant:seat");
     return `<div class="register-row"><div><h3><a href="${meta.path}">${meta.title}</a></h3><p>${blurb}</p></div>
-      <p class="from">From ${money(from)}<span>${packs.length} ${packs.length === 1 ? "package" : "packages"}</span></p>
+      <p class="from">From ${money(from)}<small> +GST</small><span>${packs.length} ${packs.length === 1 ? "package" : "packages"}</span></p>
       <a class="btn btn-small" href="${meta.path}">View ${meta.title.toLowerCase()}</a></div>`;
   }).join("");
   page({
@@ -391,14 +475,15 @@ async function build() {
   </dl>` : ""}
 </div></section>
 ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
+${foundingPanel()}
 <section class="band band-grey"><div class="wrap">
   <h2>Choose a range</h2>
   ${ranges ? `<div class="register">${ranges}</div>` : emptyState("packages")}
 </div></section>
 <section class="band"><div class="wrap cols">
   <div><h2>${CONSULTANTS_ON ? "Three" : "Two"} ways to buy</h2>
+    <p><strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.</p>
     <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details and emailed to you as PDFs.</p>
-    <p><strong>Subscribe.</strong> Yearly or monthly. Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. When the library is reviewed every 6 months, your documents are updated.</p>
     ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}
   </div>
   <div><h2>What every document carries</h2>
@@ -427,13 +512,13 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
       const swms = (heavy.includes.find((x) => / SWMS$/.test(x) && !/core/.test(x)) ?? "").replace(/ SWMS$/, " SWMS");
       return `<div class="register-row"><div><h3><a href="${meta.path}${t.slug}/">${esc(t.name)}</a></h3>
         <p>${esc(t.packs.map((p) => LEVEL_LABEL[p.level]).join(", "))}${swms ? `. ${esc(swms.replace(t.name + " ", ""))} for the trade.` : ""}</p></div>
-        <p class="from">From ${money(fromOf(t.packs))}<span>outright, ex GST</span></p>
+        <p class="from">From ${money(fromOf(t.packs))}<small> +GST</small><span>one-off purchase</span></p>
         <a class="btn btn-small" href="${meta.path}${t.slug}/">Choose a level</a></div>`;
     }).join("");
     const addons = g === "specialist-packs" ? inGroup(g).filter((p) => !p.trade) : [];
     const intro = g === "trade-packs"
       ? "Pick your trade, then the level of work. Each level adds what head contractors ask for at that scale."
-      : "Packs for specialist trades and work types, plus the high risk construction work SWMS and labour hire compliance.";
+      : "Packs for specialist trades and work types, at Domestic, Light Commercial or Heavy Commercial level.";
     for (const t of gTrades) {
       const url = `${meta.path}${t.slug}/`;
       page({
@@ -447,18 +532,21 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
 <section class="band"><div class="wrap">
   <div class="rungs">${t.packs.map((p) => packArticle(p, cat, titles, LEVEL_LABEL[p.level])).join("")}</div>
   <p class="small mt">Buying outright: the documents are filled with the business and project details you enter at checkout and emailed to you. Subscribing: sign in, add your logo and projects, and generate the documents whenever you need them. <a href="/how-ordering-works/">How ordering works</a>.</p>
-</div></section>`,
+</div></section>
+${productVideo(PRODUCT_VIDEOS, g === "specialist-packs" ? "high-risk" : "trade", { production: PRODUCTION })}
+${packHow()}`,
       });
     }
     page({
       url: meta.path, preview, title: meta.title,
-      description: g === "trade-packs" ? "SWMS, safety plans and ITPs for your trade, at Domestic, Light Commercial or Heavy Commercial level." : "Specialist trade packs, high risk construction work SWMS and labour hire compliance documents.",
+      description: g === "trade-packs" ? "SWMS, safety plans and ITPs for your trade, at Domestic, Light Commercial or Heavy Commercial level." : "SWMS, safety plans and ITPs for specialist trades: fencing, passive fire, solar and EV, foundations, and facade and cladding.",
       trail: [[meta.path, meta.title]],
       body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title]])}<h1>${meta.title}</h1><p class="lede">${intro}</p></div></section>
 <section class="band"><div class="wrap">
   ${rows ? `<div class="register">${rows}</div>` : (addons.length ? "" : emptyState(meta.title.toLowerCase()))}
   ${addons.length ? `<h2 class="mt-lg">Other specialist packs</h2><div class="rungs">${addons.map((p) => packArticle(p, cat, titles)).join("")}</div>` : ""}
-</div></section>`,
+</div></section>
+${productVideo(PRODUCT_VIDEOS, g === "specialist-packs" ? "high-risk" : "trade", { production: PRODUCTION })}`,
       jsonld: addons.map((p) => productLd(p, meta.path)),
     });
   }
@@ -489,7 +577,7 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
       url: meta.path, preview, title: meta.title, trail: [[meta.path, meta.title]],
       description: groupIntro[g], jsonld: packs.map((p) => productLd(p, meta.path)),
       body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title]])}<h1>${meta.title}</h1><p class="lede">${groupIntro[g]}</p></div></section>
-<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs, cat, titles) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p, cat, titles)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${extra}`,
+<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs, cat, titles) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p, cat, titles)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${g === "builder-packs" ? productVideo(PRODUCT_VIDEOS, "builder", { production: PRODUCTION }) : ""}${g !== "consultants" && packs.length ? packHow() : ""}${extra}`,
     });
   }
 
@@ -501,9 +589,9 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
   const docPrice = cat.documents[0]?.price ?? null;
   page({
     url: "/documents/", preview, title: "Single documents", trail: [["/documents/", "Single documents"]],
-    description: `Buy one document at a time: SWMS, ITPs, plans, policies, forms and registers${docPrice ? `, ${money(docPrice)} each` : ""}.`,
+    description: `Buy one document at a time: SWMS, ITPs, plans, policies, forms and registers${docPrice ? `, ${money(docPrice)} +GST each` : ""}.`,
     body: `<section class="page-head"><div class="wrap">${crumbs([["/documents/", "Single documents"]])}<h1>Single documents</h1>
-  <p class="lede">Need one document, not a pack? ${docPrice ? `Each document is ${money(docPrice)} plus GST, bought outright.` : ""} A pack is better value once you need more than a few.</p></div></section>
+  <p class="lede">Need one document, not a pack? ${docPrice ? `Each document is ${money(docPrice)} +GST, bought outright.` : ""} A pack is better value once you need more than a few.</p></div></section>
 <section class="band"><div class="wrap">
   <form class="filters" data-doc-filters role="search" aria-label="Filter documents">
     <label>Search<input type="search" name="q" placeholder="Code or title" autocomplete="off"></label>
@@ -526,20 +614,22 @@ ${introVideo(VIDEO, { heading: "See how SiteGuard FORMS works" })}
     url: "/subscriptions/", preview, title: "Subscriptions", trail: [["/subscriptions/", "Subscriptions"]],
     description: "Subscribe to any package yearly or monthly: unlimited use, your logo and projects, and documents updated after every 6-monthly legislative review.",
     body: `<section class="page-head"><div class="wrap">${crumbs([["/subscriptions/", "Subscriptions"]])}<h1>Subscriptions</h1>
-  <p class="lede">Every package is available on subscription, and most can also be bought outright. A subscription keeps your documents current and lets you generate them for every project.</p></div></section>
+  <p class="lede">Every package is available on an annual subscription, our default and best value, and most can also be bought outright. A subscription keeps your documents current and lets you generate them for every project.</p></div></section>
+${foundingPanel()}
 <section class="band"><div class="wrap cols">
   <div><h2>What you get</h2><ul>
     <li><strong>Unlimited use.</strong> No limit on projects or how often you generate documents.</li>
     <li><strong>Your branding, included.</strong> Upload your logo once and it goes on every document, at no extra cost.</li>
     <li><strong>Project details filled in.</strong> Set up each project and the documents are generated with its details, as PDFs, emailed to you.</li>
-    <li><strong>Kept current.</strong> The library is reviewed against legislative change every 6 months, and your documents are updated.</li>
+    <li><strong>Kept current.</strong> The library is reviewed against legislative change every 6 months, and the revised documents are pushed to your account after each review.</li>
   </ul></div>
   <div><h2>Billing</h2>
-    <p>Pay yearly, or monthly at a higher annualised rate (the monthly price is the yearly price plus 15%, spread over 12 months). Prices exclude GST; GST is added at checkout.</p>
+    <p><strong>Annual billing is the default and the best value.</strong> Each pack page shows the annual price beside the one-off price. You can pay monthly instead, at a higher annualised rate (the yearly price plus 15%, spread over 12 months and rounded). Prices are in A$ and exclude GST (+GST); GST is added at checkout.</p>
     <p>Subscriptions renew automatically. Cancel at any time from your account; cancellation takes effect at the end of the period you've paid for. See the <a href="/legal/terms-of-sale/">Terms of Sale</a> and <a href="/legal/refunds/">Refunds and cancellations</a>.</p>
     <p><a class="btn btn-hivis" href="/trade-packs/">Choose a package</a></p>
     <p class="small">Already subscribed? <a href="${APP_URL}/login">Sign in</a>.</p></div>
-</div></section>`,
+</div></section>
+${productVideo(PRODUCT_VIDEOS, "subscription", { production: PRODUCTION })}`,
   });
 
   // How ordering works
@@ -783,6 +873,8 @@ async function main() {
       for (const re of BANNED_ALLOWED) text = text.replace(re, "");
       const hits = text.match(BANNED);
       if (hits) problems.push(`${p.url}: banned wording: ${[...new Set(hits)].join(", ")}`);
+      const gated = text.match(GATED);
+      if (gated) problems.push(`${p.url}: names a gated product or market: ${[...new Set(gated)].join(", ")}`);
     }
     if (titles.has(p.title)) problems.push(`${p.url}: duplicate title with ${titles.get(p.title)}`);
     titles.set(p.title, p.url);
