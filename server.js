@@ -118,6 +118,17 @@ for (const p of INTRO_VIDEO.problems) console.warn(`Intro video not shown: ${p}`
 const EDUCATION = await loadEducation(__dirname);
 for (const p of EDUCATION.problems) console.warn(`Education page: ${p}`);
 
+// App billing and the founding offer (docs/FOUNDING_OFFER.md). The Stripe
+// objects come from scripts/sync-app-stripe.mjs, one mapping file per mode.
+const APP_BILLING_STRIPE_PATH = path.join(__dirname, "data",
+  `app-billing-stripe.${stripeSecretKey && !stripeTestMode ? "live" : "test"}.json`);
+if (stripeSecretKey && !stripeTestMode) {
+  console.warn("App billing / founding: LIVE key. Founding checkout stays unavailable until data/app-billing-stripe.live.json exists (Dan's go only).");
+}
+if (!process.env.FOUNDING_ADMIN_TOKEN) {
+  console.warn("FOUNDING_ADMIN_TOKEN not set: the founding admin routes (sales export, refunds) answer 404.");
+}
+
 const app = createApp({
   catalogPath: path.join(__dirname, "data", "catalogue.json"),
   varDir: VAR_DIR,
@@ -136,6 +147,9 @@ const app = createApp({
   parkOrder,
   beta: SITE_MODE.beta === true,
   csp: withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)),
+  appBillingPath: path.join(__dirname, "data", "app-billing.json"),
+  appBillingStripePath: APP_BILLING_STRIPE_PATH,
+  foundingAdminToken: process.env.FOUNDING_ADMIN_TOKEN || undefined,
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 
