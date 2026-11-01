@@ -19,6 +19,13 @@ a price, change `packages.py` and re-run the generator.
 IR, passed the library gate and has been mastered at its current revision.
 Nothing is quoted. OFSC documents and the ISO / OFSC rungs are never listed.
 
+**Launch waves (Pricing Rev06):** each pack carries `launch_wave` and `purchasable`. Only a sellable pack in `price_table.purchasable_waves` (`mar-2027`) is shown or can be bought; `later` packs are hidden and `/api/checkout` refuses them. Prices show as A$ "+GST": the annual subscription (the default, marked best value) beside the one-off price, then monthly.
+
+## March 2027 launch: site mode, founding offer, product videos
+
+- `data/site-mode.json` `beta` is FORMS ordering (unchanged). `app_status` is the SiteGuard app's stage: `prelaunch` (now), `presale` (from March 2027, on Dan's go) or `live` (June 2027). While it is `presale`, a founding-offer panel shows on the home and subscriptions pages and links to the founding page on the Systems site (`/app/founding-offer/`). It says "the first 20 places" until `founding_places_api` is set to a same-origin path answering `{"remaining": n}`; then `app.js` shows the live count.
+- `data/product-videos.json` (`scripts/lib/product-videos.mjs`): the FORMS product videos on the pack pages (trade, builder, high-risk and subscription slots). Paste a YouTube link as `youtube_url` and set `upload_date` to publish one. Until then a preview build shows a placeholder and a production build shows nothing. `server.js` opens the CSP for them.
+
 ## Update the catalogue (after a re-gate or a mastering batch)
 
 ```bash

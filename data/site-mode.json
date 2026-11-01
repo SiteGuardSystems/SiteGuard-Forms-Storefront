@@ -1,4 +1,7 @@
 {
   "beta": true,
-  "note": "Dan, 22 Oct 2026: FORMS stays in beta (browse only, no orders) on legal advice while a settlement is pending. Set beta to false, rebuild and restart to open orders."
+  "note": "Dan, 22 Oct 2026: FORMS stays in beta (browse only, no orders) on legal advice while a settlement is pending. Set beta to false, rebuild and restart to open orders.",
+  "app_status": "prelaunch",
+  "founding_places_api": "",
+  "app_note": "app_status is the SiteGuard app's stage, separate from beta (which is FORMS ordering): \"prelaunch\" (nothing about the founding offer shows), \"presale\" (the founding-offer panel shows on the home and subscriptions pages, linking to the founding page on siteguardsystems.com.au; from March 2027, on Dan's go) or \"live\" (app modules open, June 2027; the panel is hidden). founding_places_api: leave empty to show the static \"first 20 places\"; set it to a same-origin path (e.g. /api/founding/places) answering {\"remaining\": n} to show the live count once the founding API exists. Rebuild after a change."
 }

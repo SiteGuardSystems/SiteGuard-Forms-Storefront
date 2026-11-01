@@ -4,7 +4,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { BANNED } from "../scripts/build-site.mjs";
+import { BANNED, GATED } from "../scripts/build-site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
@@ -143,4 +143,57 @@ test("no intro video until data/intro-video.json sets one", async () => {
   if (video.provider) return;
   const home = pages.find((p) => p.f === "index.html").html;
   assert.ok(!/intro-video/.test(home));
+});
+
+// -- March 2027 launch (rollout P3) ------------------------------------------------
+
+test("pack prices: annual (best value) beside one-off, all +GST, from the catalogue", () => {
+  const all = pages.map((p) => p.html).join("\n");
+  for (const p of cat.packs.filter((x) => x.show && x.prices && x.group !== "consultants")) {
+    const i = all.indexOf(`data-add-pack="${p.id}"`);
+    assert.ok(i > 0, p.id);
+    const block = all.slice(all.lastIndexOf('<div class="prices">', i), i);
+    assert.match(block, /price-opt price-opt-best[\s\S]*Best value[\s\S]*Annual subscription/, p.id);
+    assert.ok(block.includes(`$${p.prices.annual.toLocaleString("en-AU")}<small> +GST a year</small>`), `${p.id} annual`);
+    assert.ok(block.includes(`$${p.prices.one_off.toLocaleString("en-AU")}<small> +GST</small>`), `${p.id} one-off`);
+    assert.ok(block.indexOf("Annual subscription") < block.indexOf("One-off purchase"), `${p.id}: annual comes first`);
+  }
+  // Only the purchasable launch wave ("mar-2027") is on show.
+  for (const p of cat.packs.filter((x) => x.show)) assert.equal(p.purchasable, true, p.id);
+});
+
+test("no founding-offer panel unless data/site-mode.json app_status is presale", async () => {
+  const mode = JSON.parse(await readFile(path.join(ROOT, "data/site-mode.json"), "utf8"));
+  const shown = pages.filter((p) => p.html.includes("data-founding-panel")).map((p) => p.f).sort();
+  assert.deepEqual(shown, mode.app_status === "presale" ? ["index.html", "subscriptions/index.html"] : []);
+});
+
+test("no gated product or market is named on a customer page", () => {
+  for (const { f, html } of pages) {
+    if (f.startsWith("legal/")) continue;
+    const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ");
+    assert.equal(text.match(GATED), null, f);
+  }
+  assert.equal("Core Management System".match(GATED), null, "the FORMS pack name is allowed");
+  assert.ok("SiteGuard CORE".match(GATED));
+});
+
+test("every pack page: what is in it, project details in, PDFs out, revisions after each 6-monthly review", () => {
+  for (const f of ["trade-packs/carpentry/index.html", "builder-packs/index.html", "management-systems/index.html"]) {
+    const html = pages.find((p) => p.f === f)?.html;
+    assert.ok(html, f);
+    assert.match(html, /How a pack works/, f);
+    assert.match(html, /Your project details in/, f);
+    assert.match(html, /PDFs out/, f);
+    assert.match(html, /revised documents pushed to their account after each review/, f);
+  }
+});
+
+test("FORMS product video slots sit on their pages (placeholders until published)", () => {
+  const slot = (f, s) => pages.find((p) => p.f === f)?.html.includes(`data-video-slot="${s}"`);
+  assert.ok(slot("trade-packs/index.html", "trade"));
+  assert.ok(slot("trade-packs/carpentry/index.html", "trade"));
+  assert.ok(slot("builder-packs/index.html", "builder"));
+  assert.ok(slot("specialist-packs/index.html", "high-risk"));
+  assert.ok(slot("subscriptions/index.html", "subscription"));
 });

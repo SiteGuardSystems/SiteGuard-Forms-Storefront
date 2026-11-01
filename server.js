@@ -26,6 +26,7 @@ import Stripe from "stripe";
 import { createApp, CSP } from "./lib/create-app.js";
 import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs";
 import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
+import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
 import { createMailer } from "./lib/mailer.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -117,6 +118,9 @@ const INTRO_VIDEO = await loadVideo(__dirname);
 for (const p of INTRO_VIDEO.problems) console.warn(`Intro video not shown: ${p}`);
 const EDUCATION = await loadEducation(__dirname);
 for (const p of EDUCATION.problems) console.warn(`Education page: ${p}`);
+// FORMS product videos on the pack pages (data/product-videos.json).
+const PRODUCT_VIDEOS = await loadProductVideos(__dirname);
+for (const p of PRODUCT_VIDEOS.problems) console.warn(`Product video: ${p}`);
 
 const app = createApp({
   catalogPath: path.join(__dirname, "data", "catalogue.json"),
@@ -135,7 +139,7 @@ const app = createApp({
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   parkOrder,
   beta: SITE_MODE.beta === true,
-  csp: withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)),
+  csp: withCspSources(withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)), productVideosCsp(PRODUCT_VIDEOS)),
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
 });
 
