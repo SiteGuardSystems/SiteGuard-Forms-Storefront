@@ -39,7 +39,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const CATALOGUE_REL = "data/catalogue.json";
 
 /** Where the check looks: the data, the copy, and the site's own code. */
-export const SCAN_ROOTS = ["data/", "content/", "scripts/", "lib/", "public/", "deploy/", "server.js", "README.md", "HARDENING.md"];
+// siteguard-website keeps its code in build.mjs and assets/ (the file is the same in both repos).
+export const SCAN_ROOTS = ["data/", "content/", "scripts/", "lib/", "public/", "assets/", "deploy/", "server.js", "build.mjs", "README.md", "HARDENING.md"];
 export const SCAN_EXTENSIONS = [".json", ".md", ".js", ".mjs", ".cjs", ".html", ".css", ".txt", ".sh", ".service"];
 
 /** A full product code, or a bare library code (the catalogue's form). A bare match
