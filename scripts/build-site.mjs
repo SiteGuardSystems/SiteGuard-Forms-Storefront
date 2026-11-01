@@ -346,7 +346,7 @@ ${foundingPanel()}
   // The shop: trade and specialist packs, builder packs, management systems,
   // consultants, single documents, subscriptions, how ordering works, FAQ.
   const shopOut = shopPages({
-    cat, model, base: "", origin: ORIGIN, appUrl: APP_URL, isoUrl: `${SYSTEMS_URL}/services/iso-ims/`, beta: BETA, crumbs,
+    cat, model, base: "", origin: ORIGIN, appUrl: APP_URL, isoUrl: `${SYSTEMS_URL}/consulting/iso-ims/`, beta: BETA, crumbs,
     video: (kind) => productVideo(PRODUCT_VIDEOS, kind, { production: PRODUCTION }), foundingPanel,
   });
   for (const spec of shopOut.pages) page(spec);
