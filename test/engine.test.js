@@ -60,7 +60,7 @@ function fakeStripe() {
   };
 }
 
-async function withEngine(fn, { appStatus = "presale", launch = { live: false }, config = {}, now = new Date("2027-03-10T00:00:00Z") } = {}) {
+async function withEngine(fn, { appStatus = "presale", launch = { live: false }, config = {}, now = new Date("2027-03-10T00:00:00Z"), beta = false } = {}) {
   const dir = await mkdtemp(path.join(tmpdir(), "engine-"));
   const cfg = { ...structuredClone(CONFIG), ...config };
   cfg.founding = { ...cfg.founding, sale_opens_at: "2027-03-01", ...(config.founding ?? {}) };
@@ -75,7 +75,7 @@ async function withEngine(fn, { appStatus = "presale", launch = { live: false },
     fetchImpl: async () => ({ ok: true, status: 201, json: async () => ({ id: "o1" }) }),
     orderIntakeUrl: "http://intake.test/api", orderIntakeApiKey: "k",
     appBillingPath: path.join(dir, "app-billing.json"), appBillingStripePath: path.join(dir, "map.json"),
-    now: () => now, trustProxy: true,
+    now: () => now, trustProxy: true, beta,
   });
   const server = app.listen(0);
   await new Promise((r) => server.once("listening", r));
@@ -101,6 +101,33 @@ const fromSystems = { Origin: SYSTEMS };
 const formsCart = { cart: [{ packageId: "builder:domestic" }], acceptedTerms: true, termsVersion: "SG-LEGAL-02 v0.4; SG-LEGAL-01 v0.4", returnOrigin: SYSTEMS, source_site: "systems" };
 
 describe("WP-S9: /api/checkout for two sites", () => {
+  // Dan, 1 Nov 2026 (#94): one beta switch, the engine is the real guard.
+  test("beta: a FORMS order from the Systems site (source_site systems) is refused, Stripe never called", async () => {
+    await withEngine(async ({ post, stripe }) => {
+      const r = await post("/api/checkout", formsCart, fromSystems);
+      assert.equal(r.status, 503);
+      assert.equal(r.headers.get("access-control-allow-origin"), SYSTEMS, "the refusal reaches the Systems site's cart");
+      assert.match((await r.json()).reason, /beta/);
+      const own = await post("/api/checkout", { ...formsCart, returnOrigin: undefined, source_site: undefined });
+      assert.equal(own.status, 503, "and from the FORMS site itself");
+      assert.equal(stripe.calls.sessions.length, 0);
+    }, { beta: true });
+  });
+
+  // Dan, 1 Nov 2026 (#96, Q1 narrowed): the cart is FORMS documents and packs only.
+  test("an app plan or a founding place in the cart is refused with a clear reason, in beta or not", async () => {
+    for (const beta of [false, true]) {
+      await withEngine(async ({ post, stripe }) => {
+        for (const line of [{ packageId: "app:trade:domestic" }, { productId: "app:audit:seat" }, { packageId: "founding:app:builder:domestic" }, { packageId: "builder:domestic", kind: "founding" }]) {
+          const r = await post("/api/checkout", { ...formsCart, cart: [{ packageId: "builder:domestic" }, line] }, fromSystems);
+          assert.equal(r.status, 400, JSON.stringify(line));
+          assert.match((await r.json()).reason, /own checkout.*FORMS documents and packs only/);
+        }
+        assert.equal(stripe.calls.sessions.length, 0);
+      }, { beta });
+    }
+  });
+
   test("a FORMS one-off from the Systems site: CORS, returned to the Systems site, source_site systems, fulfilled by the FORMS flow", async () => {
     await withEngine(async ({ post, preflight, webhook, stripe, varFile }) => {
       const pre = await preflight("/api/checkout", SYSTEMS);
@@ -187,16 +214,44 @@ describe("WP-S10: founding and app subscriptions through P2's routes", () => {
     });
   });
 
+  test("founding and app sales never start on (or return to) the storefront itself: it has no /founding/* or /app/* pages", async () => {
+    await withEngine(async ({ post }) => {
+      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+      assert.equal(r.status, 409);
+      const j = await r.json();
+      assert.equal(j.code, "sold_on_systems_site");
+      assert.match(j.url, /^https:\/\/www\.siteguardsystems\.com\.au\//);
+    });
+    await withEngine(async ({ post, stripe }) => {
+      const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: FORMS, source_site: "forms" });
+      assert.equal(r.status, 409);
+      assert.equal((await r.json()).code, "sold_on_systems_site");
+      assert.equal(stripe.calls.sessions.length, 0);
+    }, { appStatus: "live", launch: { live: true }, config: { app_subscriptions_open: true }, now: new Date("2027-06-02T00:00:00Z") });
+  });
+
+  test("decision #90: a Stripe price whose recorded amount isn't the price list's is never sold (re-run sync-app-stripe)", async () => {
+    await withEngine(async ({ post, stripe, dir }) => {
+      const stale = structuredClone(MAP);
+      stale.byProductId["app:trade:domestic"].amounts_cents_ex_gst = { annual: 235200, monthly: 21168 }; // the old to-the-cent figure
+      await writeFile(path.join(dir, "map.json"), JSON.stringify(stale));
+      const body = { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: SYSTEMS };
+      assert.equal((await post("/api/subscribe", { ...body, cadence: "monthly" }, fromSystems)).status, 503);
+      assert.equal(stripe.calls.sessions.length, 0);
+      assert.equal((await post("/api/subscribe", { ...body, cadence: "annual" }, fromSystems)).status, 200, "a matching amount still sells");
+    }, { appStatus: "live", launch: { live: true }, config: { app_subscriptions_open: true }, now: new Date("2027-06-02T00:00:00Z") });
+  });
+
   test("founding sells only while app_status is presale (and P2's window is open)", async () => {
     for (const appStatus of ["coming_soon", "live"]) {
       await withEngine(async ({ post }) => {
-        const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+        const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
         assert.equal(r.status, 409, appStatus);
         assert.equal((await r.json()).code, "FOUNDING_NOT_OPEN");
       }, { appStatus, launch: { live: true } });
     }
     await withEngine(async ({ post }) => {
-      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
       assert.equal(r.status, 409, "presale, but before P2's sale_opens_at");
       assert.match((await r.json()).reason, /open on 2027-03-01/);
     }, { now: new Date("2027-02-01T00:00:00Z") });
@@ -224,7 +279,7 @@ describe("WP-S10: founding and app subscriptions through P2's routes", () => {
     for (const [why, over] of [["app_status presale", { appStatus: "presale" }], ["platform not live", { launch: { live: false, reason: "x" } }],
       ["P2 switch off", { config: { app_subscriptions_open: false } }], ["before P2's go-live date", { now: new Date("2027-05-30T00:00:00Z") }]]) {
       await withEngine(async ({ post }) => {
-        const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS });
+        const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: SYSTEMS });
         assert.equal(r.status, 409, why);
         assert.equal((await r.json()).code, "APP_NOT_OPEN", why);
       }, { ...open, ...over });

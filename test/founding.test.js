@@ -13,6 +13,7 @@ import {
   validateAppBilling, getProduct, pricesFor, foundingAmountCents, addMonths, monthsBetween,
   delayCreditMonthsDue, unusedPrepaymentCents, matchingFormsPack, checkoutNotice,
 } from "../lib/app-billing.js";
+import { readAppCatalogue } from "../lib/app-prices.js";
 import { createFoundingLedger } from "../lib/founding-ledger.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -50,7 +51,9 @@ const STRIPE_MAP = {
 };
 
 describe("app prices (Pricing Rev06 workbook)", () => {
-  const cfg = validateAppBilling(structuredClone(CONFIG));
+  // Prices come from data/app-catalogue.json (Hseq-Dev, decision #90); the
+  // expected values below are still the workbook's own figures.
+  const cfg = validateAppBilling(structuredClone(CONFIG), readAppCatalogue());
   test("monthly list prices match Launch Line-up / Trade Packages / App Bundles / Levers", () => {
     assert.deepEqual(cfg.products.map((p) => p.monthly_aud), [196, 271, 496, 910, 1279, 1757, 75]);
     assert.equal(cfg.default_cadence, "annual");
@@ -59,9 +62,13 @@ describe("app prices (Pricing Rev06 workbook)", () => {
     assert.equal(cfg.cadences.six_monthly.loading, 0.03);
     assert.equal(cfg.app_go_live_date, "2027-06-01");
   });
-  test("cadence prices: annual = 12 x monthly; loadings on the shorter periods (cents, ex GST)", () => {
-    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:trade:domestic")), { annual: 235200, six_monthly: 121128, quarterly: 61740, monthly: 21168 });
-    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:heavy-commercial")), { annual: 2108400, six_monthly: 1085826, quarterly: 553455, monthly: 189756 });
+  test("cadence prices: annual = 12 x monthly; the workbook's whole-dollar loaded monthly price x months (cents, ex GST)", () => {
+    // Trade Domestic: 196 / 202 / 206 / 212 a month (was 211.68 to the cent before decision #90).
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:trade:domestic")), { annual: 235200, six_monthly: 121200, quarterly: 61800, monthly: 21200 });
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:heavy-commercial")), { annual: 2108400, six_monthly: 1086000, quarterly: 553500, monthly: 189800 });
+    // App Add-ons & Bands D: Builder Light Commercial 1279 / 1317 / 1343 / 1381 a month.
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:light-commercial")), { annual: 1534800, six_monthly: 790200, quarterly: 402900, monthly: 138100 });
+    assert.equal(pricesFor(cfg, getProduct(cfg, "app:audit:seat")).monthly, 8100); // App Add-ons & Bands A: A$81
     assert.equal(pricesFor(cfg, getProduct(cfg, "app:audit:seat")).annual, 90000);
   });
   test("founding price: 12 months less 15%", () => {
@@ -71,9 +78,9 @@ describe("app prices (Pricing Rev06 workbook)", () => {
   });
   test("gated products are refused by the config check", () => {
     const bad = structuredClone(CONFIG);
-    bad.products.push({ id: "app:core:documents", group: "core", name: "x", monthly_aud: 1, per: "account" });
+    bad.products.push({ id: "app:core:documents", group: "core", name: "x", per: "account" });
     bad.founding.forms_pack_grant["app:core:documents"] = { rule: "fixed", pack: "x" };
-    assert.throws(() => validateAppBilling(bad), /gated/);
+    assert.throws(() => validateAppBilling(bad, readAppCatalogue()), /gated/);
   });
   test("checkout notice carries the terms version and the price-rise clause, marked PENDING SOLICITOR", () => {
     const n = checkoutNotice(cfg, "founding");
@@ -232,7 +239,9 @@ async function withFoundingApp(fn, { config = openConfig(), now, appStatus = "pr
 }
 
 const TERMS = CONFIG.checkout_notice.terms_version;
-const buy = (post, over = {}, headers = {}) => post("/api/founding/checkout", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: TERMS, ...over }, headers);
+// Founding and app sales start on (and return to) the Systems site only.
+const SYSTEMS = "https://www.siteguardsystems.com.au";
+const buy = (post, over = {}, headers = {}) => post("/api/founding/checkout", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS, ...over }, headers);
 
 function completedEvent(session, over = {}) {
   return {
@@ -386,12 +395,12 @@ describe("founding checkout over HTTP", () => {
 
   test("app subscriptions stay closed until go-live and app_subscriptions_open", async () => {
     await withFoundingApp(async ({ post }) => {
-      const r = await post("/api/subscribe", { productId: "app:builder:domestic", acceptedTerms: true, termsVersion: TERMS });
+      const r = await post("/api/subscribe", { productId: "app:builder:domestic", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
       assert.equal(r.status, 409);
       assert.equal((await r.json()).code, "APP_NOT_OPEN");
     });
     await withFoundingApp(async ({ post, stripe }) => {
-      const r = await post("/api/subscribe", { productId: "app:audit:seat", quantity: 3, acceptedTerms: true, termsVersion: TERMS });
+      const r = await post("/api/subscribe", { productId: "app:audit:seat", quantity: 3, acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
       assert.equal(r.status, 200);
       const p = stripe.calls.sessions[0];
       assert.equal(p.mode, "subscription");

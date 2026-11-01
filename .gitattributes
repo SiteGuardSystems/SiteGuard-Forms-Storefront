@@ -1,3 +1,6 @@
 # Vendored public DCR extract (T07): hashed byte-for-byte against dcr.lock,
 # so git must never rewrite its line endings on checkout.
 vendor/siteguard-dcr/** -text
+
+# Pinned Hseq-Dev price tables: hashed against pricing.lock (decision #90).
+vendor/hseq-dev/** -text

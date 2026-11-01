@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source": "SiteGuard Packages and Pricing Rev06 (31 Oct 2026): Launch Line-up, Trade Packages, App Bundles, App Components, Levers; Solicitor Brief Pack Rev03 section E",
+  "source": "Not a price list (Dan's decision #90, 1 Nov 2026): every app price, loading and the founding discount come from data/app-catalogue.json (Hseq-Dev catalogue group \"app\", pinned in pricing.lock). This file keeps dates, founding rules, Stripe intervals, labels and notices. Pricing Rev06 (31 Oct 2026); Solicitor Brief Pack Rev03 section E",
   "pricing_revision": "Rev06",
   "currency": "AUD",
   "prices_exclude_gst": true,
@@ -8,24 +8,23 @@
   "app_subscriptions_open": false,
   "default_cadence": "annual",
   "cadences": {
-    "annual": { "months": 12, "loading": 0, "stripe_interval": "year", "stripe_interval_count": 1, "label": "Paid yearly" },
-    "six_monthly": { "months": 6, "loading": 0.03, "stripe_interval": "month", "stripe_interval_count": 6, "label": "Paid 6-monthly (+3%)" },
-    "quarterly": { "months": 3, "loading": 0.05, "stripe_interval": "month", "stripe_interval_count": 3, "label": "Paid quarterly (+5%)" },
-    "monthly": { "months": 1, "loading": 0.08, "stripe_interval": "month", "stripe_interval_count": 1, "label": "Paid monthly (+8%)" }
+    "annual": { "months": 12, "stripe_interval": "year", "stripe_interval_count": 1, "label": "Paid yearly" },
+    "six_monthly": { "months": 6, "stripe_interval": "month", "stripe_interval_count": 6, "label": "Paid 6-monthly (+3%)" },
+    "quarterly": { "months": 3, "stripe_interval": "month", "stripe_interval_count": 3, "label": "Paid quarterly (+5%)" },
+    "monthly": { "months": 1, "stripe_interval": "month", "stripe_interval_count": 1, "label": "Paid monthly (+8%)" }
   },
   "products": [
-    { "id": "app:trade:domestic", "group": "trade-package", "name": "SiteGuard App Trade Package: Domestic", "level": "domestic", "monthly_aud": 196, "per": "account", "needs_trade": true },
-    { "id": "app:trade:light-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Light Commercial", "level": "light-commercial", "monthly_aud": 271, "per": "account", "needs_trade": true },
-    { "id": "app:trade:heavy-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Heavy Commercial", "level": "heavy-commercial", "monthly_aud": 496, "per": "account", "needs_trade": true },
-    { "id": "app:builder:domestic", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Domestic", "level": "domestic", "monthly_aud": 910, "per": "account", "needs_trade": false },
-    { "id": "app:builder:light-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Light Commercial", "level": "light-commercial", "monthly_aud": 1279, "per": "account", "needs_trade": false },
-    { "id": "app:builder:heavy-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Heavy Commercial", "level": "heavy-commercial", "monthly_aud": 1757, "per": "account", "needs_trade": false },
-    { "id": "app:audit:seat", "group": "audit", "name": "SiteGuard Audit seat", "level": null, "monthly_aud": 75, "per": "seat", "needs_trade": false, "max_quantity": 50 }
+    { "id": "app:trade:domestic", "group": "trade-package", "name": "SiteGuard App Trade Package: Domestic", "level": "domestic", "per": "account", "needs_trade": true },
+    { "id": "app:trade:light-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Light Commercial", "level": "light-commercial", "per": "account", "needs_trade": true },
+    { "id": "app:trade:heavy-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Heavy Commercial", "level": "heavy-commercial", "per": "account", "needs_trade": true },
+    { "id": "app:builder:domestic", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Domestic", "level": "domestic", "per": "account", "needs_trade": false },
+    { "id": "app:builder:light-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Light Commercial", "level": "light-commercial", "per": "account", "needs_trade": false },
+    { "id": "app:builder:heavy-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Heavy Commercial", "level": "heavy-commercial", "per": "account", "needs_trade": false },
+    { "id": "app:audit:seat", "group": "audit", "name": "SiteGuard Audit seat", "level": null, "per": "seat", "needs_trade": false, "max_quantity": 50 }
   ],
   "founding": {
     "enabled": true,
     "places_total": 20,
-    "discount": 0.15,
     "term_months": 12,
     "sale_opens_at": "2027-03-01",
     "sale_closes_at": null,

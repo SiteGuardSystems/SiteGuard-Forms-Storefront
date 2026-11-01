@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-// Provisions the SiteGuard App's Stripe products and prices from
-// data/app-billing.json (Pricing Rev06): per product one recurring price per
-// billing cadence (annual default; 6-monthly +3%, quarterly +5%, monthly +8%)
-// and one one-time "founding" price (12 months less the founding discount).
+// Provisions the SiteGuard App's Stripe products and prices (Pricing Rev06):
+// per product one recurring price per billing cadence (annual default;
+// 6-monthly, quarterly and monthly at the workbook's whole-dollar loaded
+// prices) and one one-time "founding" price (12 months less the founding
+// discount). Every amount is read from data/app-catalogue.json (the Hseq-Dev
+// catalogue's group "app", Dan's decision #90) via lib/app-prices.js; nothing
+// is calculated here. `npm run app-price-list` prints the same list offline.
 // Every price is A$ ex GST with tax_behavior "exclusive": Stripe Tax adds GST.
 //
 // Idempotent and price-aware: a changed amount gets a new Price and the old
@@ -19,7 +22,8 @@ import Stripe from "stripe";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { validateAppBilling, pricesFor, foundingAmountCents, CADENCE_ORDER } from "../lib/app-billing.js";
+import { pricesFor, foundingAmountCents, CADENCE_ORDER } from "../lib/app-billing.js";
+import { loadAppBilling } from "../lib/app-prices.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const key = process.env.STRIPE_SECRET_KEY ?? "";
@@ -30,7 +34,7 @@ if (!testMode && !process.argv.includes("--confirm-live")) {
 }
 const arg = (f) => process.argv.includes(f);
 const stripe = new Stripe(key);
-const cfg = validateAppBilling(JSON.parse(readFileSync(path.join(ROOT, "data/app-billing.json"), "utf8")));
+const cfg = loadAppBilling();
 const outPath = path.join(ROOT, "data", `app-billing-stripe.${testMode ? "test" : "live"}.json`);
 const previous = existsSync(outPath) ? JSON.parse(readFileSync(outPath, "utf8")) : { byProductId: {}, byPriceId: {} };
 

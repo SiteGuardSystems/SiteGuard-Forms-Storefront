@@ -1,0 +1,520 @@
+{
+ "$comment": "Written by Hseq-Dev docs/build_catalogue.py --storefront from docs/pricing/app_price_table.json; do not edit by hand. A$ ex GST; customer-facing copy adds '+GST'.",
+ "schema": 1,
+ "app": {
+  "revision": "Rev06",
+  "currency": "AUD",
+  "prices_exclude_gst": true,
+  "launch_wave": "jun-2027",
+  "presale_from": "2027-03",
+  "opens": "2027-06",
+  "billing": {
+   "default_cadence": "annual",
+   "basis": "price_month is per month, paid annually up front; annual = price_month x 12",
+   "loading": {
+    "monthly": 0.08,
+    "quarterly": 0.05,
+    "six_monthly": 0.03
+   }
+  },
+  "multi_module_discount": {
+   "2": 0.1,
+   "3": 0.15,
+   "4+": 0.2
+  },
+  "founding": {
+   "places": 20,
+   "discount": 0.15,
+   "term_months": 12,
+   "price_lock_months": 12,
+   "payment": "annual, up front",
+   "delay": "one free month for each month of delay, or a refund of the unused prepayment on request",
+   "forms_pack_free_from": "2027-03"
+  },
+  "rounding": "Loaded per-month prices are whole dollars, ROUND(per month x (1 + loading), 0), as the workbook's cells (App Add-ons & Bands D: Builder Light Commercial 1317 / 1343 / 1381; AUDIT seat paid monthly 81). per_period = per_month x months; per_year = per_month x 12. Founding prepayment per unit (founding.prepay_cents) = the annual per_year x (1 - founding discount), to the cent: the workbook states the 15% rule, not a figure per product, and has no whole-dollar rule for it.",
+  "source": "Hseq-Dev docs/pricing/app_price_table.json via docs/packages.py"
+ },
+ "packs": [
+  {
+   "id": "app:trade:domestic",
+   "group": "app",
+   "kind": "trade-package",
+   "sort": 10,
+   "name": "Trade package: Domestic",
+   "summary": "Domestic trades, small builders' subbies",
+   "modules": [
+    "safety",
+    "quality",
+    "management"
+   ],
+   "components": "SAFETY Trade + QUALITY Trade + MANAGEMENT Lite",
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 196,
+    "annual": 2352,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 196,
+      "months": 12,
+      "per_period": 2352,
+      "per_year": 2352
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 202,
+      "months": 6,
+      "per_period": 1212,
+      "per_year": 2424
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 206,
+      "months": 3,
+      "per_period": 618,
+      "per_year": 2472
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 212,
+      "months": 1,
+      "per_period": 212,
+      "per_year": 2544
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 199920,
+    "base_month": 109,
+    "per_project_month": 29,
+    "reference_projects": 3
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "domestic"
+  },
+  {
+   "id": "app:trade:light-commercial",
+   "group": "app",
+   "kind": "trade-package",
+   "sort": 11,
+   "name": "Trade package: Light Commercial",
+   "summary": "Commercial trades on smaller jobs",
+   "modules": [
+    "safety",
+    "quality",
+    "environmental",
+    "management"
+   ],
+   "components": "SAFETY Trade + QUALITY Trade + ENVIRONMENTAL Essentials + MANAGEMENT Lite",
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 271,
+    "annual": 3252,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 271,
+      "months": 12,
+      "per_period": 3252,
+      "per_year": 3252
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 279,
+      "months": 6,
+      "per_period": 1674,
+      "per_year": 3348
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 285,
+      "months": 3,
+      "per_period": 855,
+      "per_year": 3420
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 293,
+      "months": 1,
+      "per_period": 293,
+      "per_year": 3516
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 276420,
+    "base_month": 154,
+    "per_project_month": 39,
+    "reference_projects": 3
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "light-commercial"
+  },
+  {
+   "id": "app:trade:heavy-commercial",
+   "group": "app",
+   "kind": "trade-package",
+   "sort": 12,
+   "name": "Trade package: Heavy Commercial",
+   "summary": "Trades on Tier 1 / Tier 2 sites",
+   "modules": [
+    "safety",
+    "quality",
+    "environmental",
+    "management"
+   ],
+   "components": "SAFETY Full (trade + Tier 1 OHS) + QUALITY Trade + ENVIRONMENTAL Essentials + MANAGEMENT Lite (+ Tier 1 contractor assurance)",
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 496,
+    "annual": 5952,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 496,
+      "months": 12,
+      "per_period": 5952,
+      "per_year": 5952
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 511,
+      "months": 6,
+      "per_period": 3066,
+      "per_year": 6132
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 521,
+      "months": 3,
+      "per_period": 1563,
+      "per_year": 6252
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 536,
+      "months": 1,
+      "per_period": 536,
+      "per_year": 6432
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 505920,
+    "base_month": 274,
+    "per_project_month": 74,
+    "reference_projects": 3
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "heavy-commercial"
+  },
+  {
+   "id": "app:builder:domestic",
+   "group": "app",
+   "kind": "builder-bundle",
+   "sort": 20,
+   "name": "Builder bundle: Domestic",
+   "summary": "Domestic builders",
+   "modules": [
+    "safety",
+    "quality",
+    "management"
+   ],
+   "components": [
+    "Quality Domestic",
+    "Safety Full",
+    "Management Lite"
+   ],
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 910,
+    "annual": 10920,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 910,
+      "months": 12,
+      "per_period": 10920,
+      "per_year": 10920
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 937,
+      "months": 6,
+      "per_period": 5622,
+      "per_year": 11244
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 956,
+      "months": 3,
+      "per_period": 2868,
+      "per_year": 11472
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 983,
+      "months": 1,
+      "per_period": 983,
+      "per_year": 11796
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 928200,
+    "base_month": 290.7,
+    "per_project_month": 77.35,
+    "reference_projects": 8
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "domestic"
+  },
+  {
+   "id": "app:builder:light-commercial",
+   "group": "app",
+   "kind": "builder-bundle",
+   "sort": 21,
+   "name": "Builder bundle: Light Commercial",
+   "summary": "Light commercial builders",
+   "modules": [
+    "safety",
+    "quality",
+    "environmental",
+    "management"
+   ],
+   "components": [
+    "Quality Commercial",
+    "Safety Full",
+    "Environmental Full",
+    "Management Full"
+   ],
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 1279,
+    "annual": 15348,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 1279,
+      "months": 12,
+      "per_period": 15348,
+      "per_year": 15348
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 1317,
+      "months": 6,
+      "per_period": 7902,
+      "per_year": 15804
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 1343,
+      "months": 3,
+      "per_period": 4029,
+      "per_year": 16116
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 1381,
+      "months": 1,
+      "per_period": 1381,
+      "per_year": 16572
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 1304580,
+    "base_month": 652.8,
+    "per_project_month": 208.8,
+    "reference_projects": 3
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "light-commercial"
+  },
+  {
+   "id": "app:builder:heavy-commercial",
+   "group": "app",
+   "kind": "builder-bundle",
+   "sort": 22,
+   "name": "Builder bundle: Heavy Commercial",
+   "summary": "Heavy commercial builders",
+   "modules": [
+    "safety",
+    "quality",
+    "environmental",
+    "management",
+    "audit"
+   ],
+   "components": [
+    "AUDIT seat",
+    "Quality Commercial",
+    "Safety Full",
+    "Environmental Full",
+    "Management Full"
+   ],
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 1757,
+    "annual": 21084,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 1757,
+      "months": 12,
+      "per_period": 21084,
+      "per_year": 21084
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 1810,
+      "months": 6,
+      "per_period": 10860,
+      "per_year": 21720
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 1845,
+      "months": 3,
+      "per_period": 5535,
+      "per_year": 22140
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 1898,
+      "months": 1,
+      "per_period": 1898,
+      "per_year": 22776
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 1792140,
+    "base_month": 712.8,
+    "per_project_month": 208.8,
+    "reference_projects": 5
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06",
+   "level": "heavy-commercial"
+  },
+  {
+   "id": "app:audit:seat",
+   "group": "app",
+   "kind": "audit-seat",
+   "sort": 30,
+   "name": "SiteGuard Audit seat",
+   "summary": "Per seat: unlimited clients and audits.",
+   "modules": [
+    "audit"
+   ],
+   "components": [
+    "AUDIT seat"
+   ],
+   "documents": [],
+   "count": 0,
+   "blocked": [],
+   "problem": null,
+   "listed": true,
+   "sellable": false,
+   "launch_wave": "jun-2027",
+   "purchasable": false,
+   "show": false,
+   "prices": null,
+   "app_prices": {
+    "per_month": 75,
+    "annual": 900,
+    "cadences": {
+     "annual": {
+      "loading": 0,
+      "per_month": 75,
+      "months": 12,
+      "per_period": 900,
+      "per_year": 900
+     },
+     "six_monthly": {
+      "loading": 0.03,
+      "per_month": 77,
+      "months": 6,
+      "per_period": 462,
+      "per_year": 924
+     },
+     "quarterly": {
+      "loading": 0.05,
+      "per_month": 79,
+      "months": 3,
+      "per_period": 237,
+      "per_year": 948
+     },
+     "monthly": {
+      "loading": 0.08,
+      "per_month": 81,
+      "months": 1,
+      "per_period": 81,
+      "per_year": 972
+     }
+    },
+    "founding_discount": 0.15,
+    "founding_prepay_cents": 76500,
+    "per_seat": true,
+    "ai_photo_checks_per_month": 1000,
+    "trial_days": 14
+   },
+   "presale_from": "2027-03",
+   "opens": "2027-06"
+  }
+ ]
+}
