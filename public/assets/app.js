@@ -254,6 +254,22 @@
     }
     if (applies) { applies.addEventListener("change", runApplies); runApplies(); }
   })();
+  // Founding-offer panel (build-site.mjs foundingPanel): the static text says
+  // "For the first 20 places." Once data/site-mode.json founding_places_api is
+  // set (the founding API, rollout P2), the live count replaces it. Any failure
+  // leaves the static text.
+  document.querySelectorAll("[data-founding-places][data-api]").forEach(function (el) {
+    var api = el.getAttribute("data-api"), total = Number(el.getAttribute("data-total")) || 20;
+    if (!/^\/[A-Za-z0-9\/_-]*$/.test(api) || !window.fetch) return;
+    fetch(api, { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        var n = j && Number(j.remaining);
+        if (!j || !isFinite(n) || n < 0 || n > total) return;
+        el.textContent = n === 0 ? "All " + total + " founding places are taken." : n + " of the first " + total + " places left.";
+      })
+      .catch(function () {});
+  });
   // SiteGuard Education: "Copy link" buttons (scripts/lib/education.mjs).
   document.querySelectorAll("[data-copy]").forEach(function (b) {
     b.addEventListener("click", function () {

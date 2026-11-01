@@ -149,3 +149,21 @@ STRIPE_SECRET_KEY=sk_test_... node scripts/sync-app-stripe.mjs --audit-gated
 STRIPE_SECRET_KEY=sk_test_... FORMS_STRIPE_MAP=<SiteGuard-Forms>/app/server/data/pack-catalog-stripe.test.json \
   node test/e2e/stripe-test-mode.mjs
 ```
+
+## Two sites, one engine (WP-S9 / WP-S10)
+
+`lib/engine-origins.js`. The storefront is the one checkout engine for siteguardforms.com.au and siteguardsystems.com.au.
+
+- **Origins.** `CHECKOUT_ALLOWED_ORIGINS` (default: `LEAD_ALLOWED_ORIGINS`, the Systems site's two origins) may call `/api/checkout`, `/api/founding/checkout` and `/api/subscribe` cross-origin (CORS on these routes; any other origin gets 403, preflight included).
+- **returnOrigin.** Each of the three routes takes an optional `returnOrigin`. It must be the storefront or an allowed origin, and on a cross-origin call it must be the caller's own origin; it defaults to the caller's origin. Stripe's `success_url` / `cancel_url` are built on it: `/order/success/`, `/order/cancelled/` (FORMS one-off); `/founding/success/?session_id={CHECKOUT_SESSION_ID}`, `/founding/cancelled/?session_id={CHECKOUT_SESSION_ID}` (founding); `/app/success/`, `/app/cancelled/` (subscriptions). The Systems site has all six pages.
+- **source_site.** `forms` or `systems`, worked out from the return origin (a `source_site` in the body must agree), written to every session's metadata (with `return_origin`), to `orders.jsonl` (`sourceSite`), the founding sale and `app-subscriptions.jsonl`.
+- **Gates (all must say yes; any one closes the sale):**
+
+  | Sale | Site (`data/site-mode.json` `app_status`) | P2 (`data/app-billing.json`) | Platform (P7) |
+  |---|---|---|---|
+  | Founding place | `presale` | founding window open (`sale_opens_at` to `sale_closes_at` / go-live) and places left | not asked |
+  | App subscription | `live` | `app_subscriptions_open` true (kept as an extra off-switch) and today >= `app_go_live_date` | `GET APP_LAUNCH_URL` (AUDIT API `/api/platform/launch`) answers 200 within 5 s with `appGoLive: true`; cached up to 5 minutes |
+
+  Where they disagree the sale stays closed and the disagreement is listed in `gate_disagreements` on `/api/founding/status` and `/api/app/prices`, and logged at start-up. `app_status` here and in siteguard-website's `data/site-mode.json` are switched together (same field, same values); the engine's copy is the one that decides.
+- **Webhook routing** (`classifySession`): the session's `metadata.kind` first, then line metadata (`packageId` / `documentCode`: FORMS one-off; `app_product_id` / `appPlan`: app plan; `cadence: founding`: founding). A session mixing FORMS and app lines goes to `orders-needing-review.jsonl` and is not fulfilled. App subscriptions are recorded in `app-subscriptions.jsonl` (`for_dan: true`) and logged; no email is sent.
+- **Webhook URL.** The route is `/api/webhook/stripe`. The Stripe test-mode endpoint must point there (not `/api/billing/webhook`).

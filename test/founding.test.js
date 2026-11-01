@@ -196,7 +196,8 @@ function makeFakeStripe() {
   };
 }
 
-async function withFoundingApp(fn, { config = openConfig(), now } = {}) {
+// WP-S10: app_status gates founding ("presale") and subscriptions ("live").
+async function withFoundingApp(fn, { config = openConfig(), now, appStatus = "presale", launch = { live: false } } = {}) {
   const dir = await mkdtemp(path.join(tmpdir(), "founding-app-"));
   const catalogPath = path.join(dir, "catalogue.json");
   const configPath = path.join(dir, "app-billing.json");
@@ -213,7 +214,7 @@ async function withFoundingApp(fn, { config = openConfig(), now } = {}) {
     mailer: { configured: false }, leadAllowedOrigins: ["https://www.siteguardsystems.com.au"],
     orderIntakeUrl: "http://intake.test/api/v3/storefront-orders", orderIntakeApiKey: "k",
     fetchImpl: async (url, init) => { intake.push(JSON.parse(init.body)); return { ok: true, status: 201, json: async () => ({ id: "o1" }) }; },
-    appBillingPath: configPath, appBillingStripePath: mapPath, foundingAdminToken: "admin-token-123",
+    appBillingPath: configPath, appBillingStripePath: mapPath, foundingAdminToken: "admin-token-123", appStatus, launchState: async () => launch,
     now: () => clock.t,
     trustProxy: true,
   });
@@ -396,7 +397,7 @@ describe("founding checkout over HTTP", () => {
       assert.equal(p.mode, "subscription");
       assert.deepEqual(p.line_items, [{ price: "price_app:audit:seat_annual", quantity: 3 }], "annual is the default");
       assert.equal(p.subscription_data.metadata.period_amount_cents_ex_gst, String(90000 * 3));
-    }, { config: openConfig({ app_subscriptions_open: true }), now: new Date("2027-06-02T00:00:00Z") });
+    }, { config: openConfig({ app_subscriptions_open: true }), now: new Date("2027-06-02T00:00:00Z"), appStatus: "live", launch: { live: true } });
   });
 
   test("admin routes are off without a token", async () => {
