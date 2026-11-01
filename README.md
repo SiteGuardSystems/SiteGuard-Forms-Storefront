@@ -55,6 +55,13 @@ This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-d
 2. Set `dcr.lock` `revision`, `path`, `sha256` and `source_dcr_sha256` (the extract's `meta.source_dcr_sha256`).
 3. Re-check `dcr.allowlist.json` and set its `dcr_revision`.
 
+## Shop and cart shared with siteguardsystems.com.au (WP-S8)
+
+The shop pages (trade, builder, management systems, specialist and consultant packs, single documents, subscriptions, how ordering works, questions) are built by `scripts/lib/shop.mjs`, the cart page and order pages by `scripts/lib/cart.mjs`, and the browser cart is `scripts/lib/cart-browser.js`. The same three files are in siteguard-website, which renders the same shop under `/forms/` from the same catalogue (canonical tags point here) and checks out through this server. Keep them identical in both repos.
+
+- `public/assets/app.js` is a template: the build splices the two parts of `cart-browser.js` in at its `//@@cart part 1` and `//@@cart part 2` lines.
+- `test/shop-snapshot.test.js` builds the site and compares every file with `test/fixtures/dist-snapshot.json` (made from a build before the extraction; build time, `.ics` DTSTAMP, the copyright year and CRLF are taken out). Regenerate the fixture (`node test/dist-snapshot.mjs <dist>`) only for an intended change to the built site, and say so in the PR.
+
 ## Partners, affiliates and Google reviews
 
 Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/trust.test.js` are identical in both repos.
@@ -86,6 +93,23 @@ The storefront server reads the same file for its CSP: restart it after a change
 - **SiteGuard Education** (`data/education.json`): `/education/` with a tab per series (About SiteGuard, How-tos, Toolbox talks, Inductions) and a page for each at `/education/<slug>/`. Every series shows from the start; one without videos says so and links the channel. To add a video, paste its YouTube link as `youtube_url` with `title`, `description` and `upload_date` (the file's `note` has the full list). Each video gets Watch on YouTube, Copy link and, with `download_url`, Download.
 
 ## How buying works
+
+Two kinds of checkout (Dan, 1 Nov 2026, #96: Q1 "everything from one cart" is
+narrowed to "everything sold on one site, two kinds of checkout"):
+
+* **The cart** is for SiteGuard FORMS documents and packs (one-off purchases)
+  only. `/api/checkout` refuses any `app:` plan or founding line with a 400 and
+  a reason pointing at the right checkout.
+* **SiteGuard App and Audit "Subscribe"** (`/api/subscribe`) and **"Reserve a
+  founding place"** (`/api/founding/checkout`) each go straight to their own
+  Stripe Checkout, never via the cart, each with its own terms to tick. Founding
+  places keep the 20-place limit; the app needs account setup.
+* **One beta switch** (Dan, 1 Nov 2026, #94): `data/site-mode.json` `beta` here is
+  the source of truth for both sites. While it is true, `/api/checkout` refuses
+  every FORMS order from either site (`source_site` forms or systems). The
+  Systems site vendors this file (`vendor/siteguard-forms-storefront/site-mode.json`,
+  pinned by `site-mode.lock`, with a CI drift check) and only mirrors it to hide
+  its buy buttons and cart. Turning beta off opens both sites together.
 
 * **Buy outright:** cart → `/api/checkout` (prices re-read from the catalogue,
   ex GST, `automatic_tax` adds GST) → Stripe Checkout (business name, project

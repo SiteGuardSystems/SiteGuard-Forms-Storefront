@@ -21,6 +21,7 @@ Each row of websites brief Rev02 WP5, and what proves it. "CI" means
 | Security headers | CSP (`default-src 'self'`, no inline script or style), HSTS, `frame-ancestors 'none'` / `X-Frame-Options`, Referrer-Policy, Permissions-Policy | `lib/create-app.js`; `test/app.test.js`; `test/build.test.js` (no inline script or style) |
 | Stripe | Webhook signature checked; events processed once; Stripe Tax on; test mode until Dan approves | `test/app.test.js` |
 | Abuse | Rate limits on `/api/checkout` (20 / 10 min) and `/api/lead` (5 / 10 min); honeypot field; JSON body limits; CORS on `/api/lead` for siteguardsystems.com.au only | `test/app.test.js` |
+| Two sites, one engine | `/api/checkout`, `/api/founding/checkout` and `/api/subscribe`: CORS for the Systems origins only (others 403); `returnOrigin` allowlist for the Stripe success and cancel URLs; `source_site` on every session; founding only in `presale`, subscriptions only in `live` with P2's and the platform's gates agreeing | `lib/engine-origins.js`; `test/engine.test.js` (CI) |
 | Secrets | None in the client bundle or the repo; `.env` ignored | static site has no keys; `.gitignore` |
 | Dependencies | `npm audit`: 0 high or critical | CI (`npm audit --omit=dev --audit-level=high`) |
 | Node | Pinned | `.nvmrc` (20), `engines` in `package.json` |

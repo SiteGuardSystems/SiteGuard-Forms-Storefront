@@ -1,0 +1,309 @@
+{
+  "mode": "test",
+  "pricing_revision": "Rev06",
+  "byProductId": {
+    "app:trade:domestic": {
+      "stripe_product_id": "prod_VXw5czSusNz6DB",
+      "name": "SiteGuard App Trade Package: Domestic",
+      "prices": {
+        "annual": "price_1UWqDJ2C0416cqMpKsbrhOEr",
+        "six_monthly": "price_1UWqDJ2C0416cqMpUnt9KP8r",
+        "quarterly": "price_1UWqDJ2C0416cqMpJw0ZGfkS",
+        "monthly": "price_1UWqDK2C0416cqMpjmbHGwJ3",
+        "founding": "price_1UWqDK2C0416cqMpkjfbaOUF"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 235200,
+        "six_monthly": 121128,
+        "quarterly": 61740,
+        "monthly": 21168,
+        "founding": 199920
+      }
+    },
+    "app:trade:light-commercial": {
+      "stripe_product_id": "prod_VXw5O7vYXmaXBn",
+      "name": "SiteGuard App Trade Package: Light Commercial",
+      "prices": {
+        "annual": "price_1UWqDM2C0416cqMppkYPL2FB",
+        "six_monthly": "price_1UWqDM2C0416cqMpLe76NsOJ",
+        "quarterly": "price_1UWqDN2C0416cqMpsYWl23ia",
+        "monthly": "price_1UWqDN2C0416cqMpJEriPkCe",
+        "founding": "price_1UWqDO2C0416cqMpeGvbgIFh"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 325200,
+        "six_monthly": 167478,
+        "quarterly": 85365,
+        "monthly": 29268,
+        "founding": 276420
+      }
+    },
+    "app:trade:heavy-commercial": {
+      "stripe_product_id": "prod_VXw5gBExREMQva",
+      "name": "SiteGuard App Trade Package: Heavy Commercial",
+      "prices": {
+        "annual": "price_1UWqDP2C0416cqMpBq7Hag5J",
+        "six_monthly": "price_1UWqDQ2C0416cqMpzoBbMORq",
+        "quarterly": "price_1UWqDQ2C0416cqMpRQ1AFqBl",
+        "monthly": "price_1UWqDR2C0416cqMpC3fAJqtQ",
+        "founding": "price_1UWqDR2C0416cqMpFBUNdlYV"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 595200,
+        "six_monthly": 306528,
+        "quarterly": 156240,
+        "monthly": 53568,
+        "founding": 505920
+      }
+    },
+    "app:builder:domestic": {
+      "stripe_product_id": "prod_VXw5ia930K2FVk",
+      "name": "SiteGuard App Builder Bundle: Domestic",
+      "prices": {
+        "annual": "price_1UWqDS2C0416cqMpwdxLfe5w",
+        "six_monthly": "price_1UWqDT2C0416cqMpP0cV0URd",
+        "quarterly": "price_1UWqDT2C0416cqMplAwUwMul",
+        "monthly": "price_1UWqDU2C0416cqMpo2Ry4TOz",
+        "founding": "price_1UWqDU2C0416cqMpGlXtruv1"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 1092000,
+        "six_monthly": 562380,
+        "quarterly": 286650,
+        "monthly": 98280,
+        "founding": 928200
+      }
+    },
+    "app:builder:light-commercial": {
+      "stripe_product_id": "prod_VXw5h1pAJt8h2n",
+      "name": "SiteGuard App Builder Bundle: Light Commercial",
+      "prices": {
+        "annual": "price_1UWqDV2C0416cqMpe0HMlD21",
+        "six_monthly": "price_1UWqDW2C0416cqMpmtcUkSxp",
+        "quarterly": "price_1UWqDW2C0416cqMpy3RxvMcS",
+        "monthly": "price_1UWqDX2C0416cqMpAoXICbCj",
+        "founding": "price_1UWqDX2C0416cqMpYHEGzcrk"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 1534800,
+        "six_monthly": 790422,
+        "quarterly": 402885,
+        "monthly": 138132,
+        "founding": 1304580
+      }
+    },
+    "app:builder:heavy-commercial": {
+      "stripe_product_id": "prod_VXw5nwWqi8EvaV",
+      "name": "SiteGuard App Builder Bundle: Heavy Commercial",
+      "prices": {
+        "annual": "price_1UWqDY2C0416cqMpLFuvM46o",
+        "six_monthly": "price_1UWqDY2C0416cqMpKDgNKyom",
+        "quarterly": "price_1UWqDZ2C0416cqMpU5yJiO44",
+        "monthly": "price_1UWqDZ2C0416cqMpl8lixOjN",
+        "founding": "price_1UWqDa2C0416cqMpBnhYzISX"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 2108400,
+        "six_monthly": 1085826,
+        "quarterly": 553455,
+        "monthly": 189756,
+        "founding": 1792140
+      }
+    },
+    "app:audit:seat": {
+      "stripe_product_id": "prod_VXw5XsKBXmrncQ",
+      "name": "SiteGuard Audit seat",
+      "prices": {
+        "annual": "price_1UWqDb2C0416cqMpshiJtQaJ",
+        "six_monthly": "price_1UWqDb2C0416cqMpZvIZzJrZ",
+        "quarterly": "price_1UWqDc2C0416cqMpXdyxmYNN",
+        "monthly": "price_1UWqDc2C0416cqMpotqu3ykA",
+        "founding": "price_1UWqDd2C0416cqMpWBcdgBSg"
+      },
+      "amounts_cents_ex_gst": {
+        "annual": 90000,
+        "six_monthly": 46350,
+        "quarterly": 23625,
+        "monthly": 8100,
+        "founding": 76500
+      }
+    }
+  },
+  "byPriceId": {
+    "price_1UWqDJ2C0416cqMpKsbrhOEr": {
+      "app_product_id": "app:trade:domestic",
+      "cadence": "annual",
+      "unit_amount": 235200
+    },
+    "price_1UWqDJ2C0416cqMpUnt9KP8r": {
+      "app_product_id": "app:trade:domestic",
+      "cadence": "six_monthly",
+      "unit_amount": 121128
+    },
+    "price_1UWqDJ2C0416cqMpJw0ZGfkS": {
+      "app_product_id": "app:trade:domestic",
+      "cadence": "quarterly",
+      "unit_amount": 61740
+    },
+    "price_1UWqDK2C0416cqMpjmbHGwJ3": {
+      "app_product_id": "app:trade:domestic",
+      "cadence": "monthly",
+      "unit_amount": 21168
+    },
+    "price_1UWqDK2C0416cqMpkjfbaOUF": {
+      "app_product_id": "app:trade:domestic",
+      "cadence": "founding",
+      "unit_amount": 199920
+    },
+    "price_1UWqDM2C0416cqMppkYPL2FB": {
+      "app_product_id": "app:trade:light-commercial",
+      "cadence": "annual",
+      "unit_amount": 325200
+    },
+    "price_1UWqDM2C0416cqMpLe76NsOJ": {
+      "app_product_id": "app:trade:light-commercial",
+      "cadence": "six_monthly",
+      "unit_amount": 167478
+    },
+    "price_1UWqDN2C0416cqMpsYWl23ia": {
+      "app_product_id": "app:trade:light-commercial",
+      "cadence": "quarterly",
+      "unit_amount": 85365
+    },
+    "price_1UWqDN2C0416cqMpJEriPkCe": {
+      "app_product_id": "app:trade:light-commercial",
+      "cadence": "monthly",
+      "unit_amount": 29268
+    },
+    "price_1UWqDO2C0416cqMpeGvbgIFh": {
+      "app_product_id": "app:trade:light-commercial",
+      "cadence": "founding",
+      "unit_amount": 276420
+    },
+    "price_1UWqDP2C0416cqMpBq7Hag5J": {
+      "app_product_id": "app:trade:heavy-commercial",
+      "cadence": "annual",
+      "unit_amount": 595200
+    },
+    "price_1UWqDQ2C0416cqMpzoBbMORq": {
+      "app_product_id": "app:trade:heavy-commercial",
+      "cadence": "six_monthly",
+      "unit_amount": 306528
+    },
+    "price_1UWqDQ2C0416cqMpRQ1AFqBl": {
+      "app_product_id": "app:trade:heavy-commercial",
+      "cadence": "quarterly",
+      "unit_amount": 156240
+    },
+    "price_1UWqDR2C0416cqMpC3fAJqtQ": {
+      "app_product_id": "app:trade:heavy-commercial",
+      "cadence": "monthly",
+      "unit_amount": 53568
+    },
+    "price_1UWqDR2C0416cqMpFBUNdlYV": {
+      "app_product_id": "app:trade:heavy-commercial",
+      "cadence": "founding",
+      "unit_amount": 505920
+    },
+    "price_1UWqDS2C0416cqMpwdxLfe5w": {
+      "app_product_id": "app:builder:domestic",
+      "cadence": "annual",
+      "unit_amount": 1092000
+    },
+    "price_1UWqDT2C0416cqMpP0cV0URd": {
+      "app_product_id": "app:builder:domestic",
+      "cadence": "six_monthly",
+      "unit_amount": 562380
+    },
+    "price_1UWqDT2C0416cqMplAwUwMul": {
+      "app_product_id": "app:builder:domestic",
+      "cadence": "quarterly",
+      "unit_amount": 286650
+    },
+    "price_1UWqDU2C0416cqMpo2Ry4TOz": {
+      "app_product_id": "app:builder:domestic",
+      "cadence": "monthly",
+      "unit_amount": 98280
+    },
+    "price_1UWqDU2C0416cqMpGlXtruv1": {
+      "app_product_id": "app:builder:domestic",
+      "cadence": "founding",
+      "unit_amount": 928200
+    },
+    "price_1UWqDV2C0416cqMpe0HMlD21": {
+      "app_product_id": "app:builder:light-commercial",
+      "cadence": "annual",
+      "unit_amount": 1534800
+    },
+    "price_1UWqDW2C0416cqMpmtcUkSxp": {
+      "app_product_id": "app:builder:light-commercial",
+      "cadence": "six_monthly",
+      "unit_amount": 790422
+    },
+    "price_1UWqDW2C0416cqMpy3RxvMcS": {
+      "app_product_id": "app:builder:light-commercial",
+      "cadence": "quarterly",
+      "unit_amount": 402885
+    },
+    "price_1UWqDX2C0416cqMpAoXICbCj": {
+      "app_product_id": "app:builder:light-commercial",
+      "cadence": "monthly",
+      "unit_amount": 138132
+    },
+    "price_1UWqDX2C0416cqMpYHEGzcrk": {
+      "app_product_id": "app:builder:light-commercial",
+      "cadence": "founding",
+      "unit_amount": 1304580
+    },
+    "price_1UWqDY2C0416cqMpLFuvM46o": {
+      "app_product_id": "app:builder:heavy-commercial",
+      "cadence": "annual",
+      "unit_amount": 2108400
+    },
+    "price_1UWqDY2C0416cqMpKDgNKyom": {
+      "app_product_id": "app:builder:heavy-commercial",
+      "cadence": "six_monthly",
+      "unit_amount": 1085826
+    },
+    "price_1UWqDZ2C0416cqMpU5yJiO44": {
+      "app_product_id": "app:builder:heavy-commercial",
+      "cadence": "quarterly",
+      "unit_amount": 553455
+    },
+    "price_1UWqDZ2C0416cqMpl8lixOjN": {
+      "app_product_id": "app:builder:heavy-commercial",
+      "cadence": "monthly",
+      "unit_amount": 189756
+    },
+    "price_1UWqDa2C0416cqMpBnhYzISX": {
+      "app_product_id": "app:builder:heavy-commercial",
+      "cadence": "founding",
+      "unit_amount": 1792140
+    },
+    "price_1UWqDb2C0416cqMpshiJtQaJ": {
+      "app_product_id": "app:audit:seat",
+      "cadence": "annual",
+      "unit_amount": 90000
+    },
+    "price_1UWqDb2C0416cqMpZvIZzJrZ": {
+      "app_product_id": "app:audit:seat",
+      "cadence": "six_monthly",
+      "unit_amount": 46350
+    },
+    "price_1UWqDc2C0416cqMpXdyxmYNN": {
+      "app_product_id": "app:audit:seat",
+      "cadence": "quarterly",
+      "unit_amount": 23625
+    },
+    "price_1UWqDc2C0416cqMpotqu3ykA": {
+      "app_product_id": "app:audit:seat",
+      "cadence": "monthly",
+      "unit_amount": 8100
+    },
+    "price_1UWqDd2C0416cqMpWBcdgBSg": {
+      "app_product_id": "app:audit:seat",
+      "cadence": "founding",
+      "unit_amount": 76500
+    }
+  }
+}

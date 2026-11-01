@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "source": "Not a price list (Dan's decision #90, 1 Nov 2026): every app price, loading and the founding discount come from data/app-catalogue.json (Hseq-Dev catalogue group \"app\", pinned in pricing.lock). This file keeps dates, founding rules, Stripe intervals, labels and notices. Pricing Rev06 (31 Oct 2026); Solicitor Brief Pack Rev03 section E",
+  "pricing_revision": "Rev06",
+  "currency": "AUD",
+  "prices_exclude_gst": true,
+  "app_go_live_date": "2027-06-01",
+  "app_subscriptions_open": false,
+  "default_cadence": "annual",
+  "cadences": {
+    "annual": { "months": 12, "stripe_interval": "year", "stripe_interval_count": 1, "label": "Paid yearly" },
+    "six_monthly": { "months": 6, "stripe_interval": "month", "stripe_interval_count": 6, "label": "Paid 6-monthly (+3%)" },
+    "quarterly": { "months": 3, "stripe_interval": "month", "stripe_interval_count": 3, "label": "Paid quarterly (+5%)" },
+    "monthly": { "months": 1, "stripe_interval": "month", "stripe_interval_count": 1, "label": "Paid monthly (+8%)" }
+  },
+  "products": [
+    { "id": "app:trade:domestic", "group": "trade-package", "name": "SiteGuard App Trade Package: Domestic", "level": "domestic", "per": "account", "needs_trade": true },
+    { "id": "app:trade:light-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Light Commercial", "level": "light-commercial", "per": "account", "needs_trade": true },
+    { "id": "app:trade:heavy-commercial", "group": "trade-package", "name": "SiteGuard App Trade Package: Heavy Commercial", "level": "heavy-commercial", "per": "account", "needs_trade": true },
+    { "id": "app:builder:domestic", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Domestic", "level": "domestic", "per": "account", "needs_trade": false },
+    { "id": "app:builder:light-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Light Commercial", "level": "light-commercial", "per": "account", "needs_trade": false },
+    { "id": "app:builder:heavy-commercial", "group": "builder-bundle", "name": "SiteGuard App Builder Bundle: Heavy Commercial", "level": "heavy-commercial", "per": "account", "needs_trade": false },
+    { "id": "app:audit:seat", "group": "audit", "name": "SiteGuard Audit seat", "level": null, "per": "seat", "needs_trade": false, "max_quantity": 50 }
+  ],
+  "founding": {
+    "enabled": true,
+    "places_total": 20,
+    "term_months": 12,
+    "sale_opens_at": "2027-03-01",
+    "sale_closes_at": null,
+    "reservation_minutes": 35,
+    "checkout_session_minutes": 30,
+    "refund_reopens_place": false,
+    "create_renewal_subscription": true,
+    "delay_credit": { "months_per_month_of_delay": 1, "part_month_rounds": "up" },
+    "long_stop_date": null,
+    "long_stop_note": "PLACEHOLDER: long-stop date to be advised by counsel (Solicitor Brief Rev03, question 28). Not enforced; when set, sales whose start passes it are flagged for Dan.",
+    "forms_pack_grant": {
+      "app:trade:domestic": { "rule": "trade_compliance", "note": "Trade Compliance pack for the buyer's trade (SWMS + ITPs; matches SAFETY Trade + QUALITY Trade). Workbook Trade Packages tab, 'Matching FORMS subscription' (mid band A$939)." },
+      "app:trade:light-commercial": { "rule": "trade_level", "level": "light-commercial", "note": "The buyer's trade pack at Light Commercial." },
+      "app:trade:heavy-commercial": { "rule": "trade_level", "level": "heavy-commercial", "note": "The buyer's trade pack at Heavy Commercial." },
+      "app:builder:domestic": { "rule": "fixed", "pack": "builder:domestic" },
+      "app:builder:light-commercial": { "rule": "fixed", "pack": "builder:light-commercial" },
+      "app:builder:heavy-commercial": { "rule": "fixed", "pack": "builder:heavy-commercial" },
+      "app:audit:seat": { "rule": "fixed", "pack": "addon:audit" }
+    }
+  },
+  "checkout_notice": {
+    "status": "PENDING SOLICITOR",
+    "terms_version": "SG-LEGAL-13 Founding Customer Offer Terms DRAFT (PENDING SOLICITOR)",
+    "price_rise_clause_version": "price-rise-clause DRAFT (PENDING SOLICITOR)",
+    "price_rise_clause_text": "PENDING SOLICITOR: Prices may rise once a year. We will give you notice before a rise applies, and you may cancel before it does. The founding price applies to your first 12 months only; after that the standard price applies.",
+    "founding_notice_text": "PENDING SOLICITOR: You pay 12 months up front now. Your 12 months start on the app go-live date, not today. If go-live moves, you get one free month for each month of delay, or on request a refund of the unused prepayment. Your matching FORMS pack is yours from today.",
+    "subscription_notice_text": "PENDING SOLICITOR: Plans renew automatically and we remind you before renewal. Prices are ex GST; GST is added at checkout."
+  }
+}
