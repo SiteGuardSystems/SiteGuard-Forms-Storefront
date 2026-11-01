@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { loadEducation, educationBody, seriesBody, educationCsp, educationJsonLd } from "../scripts/lib/education.mjs";
+import { loadEducation, educationBody, seriesBody, educationCsp, educationJsonLd, videosForModule, relatedVideos } from "../scripts/lib/education.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const V = { provider: "youtube", youtube_id: "dQw4w9WgXcQ", title: "How to read a SWMS", description: "A short how-to.", upload_date: "2026-11-01" };
@@ -55,4 +55,17 @@ test("this site's education.json is valid", async () => {
   const { edu, problems } = await loadEducation(ROOT);
   assert.deepEqual(problems, []);
   assert.ok(edu.groups.length > 0);
+});
+
+test("modules tag: Related videos on module pages, newest first; nothing when none is tagged; bad tags reported", async () => {
+  const old = { ...V, youtube_id: "aaaaaaaaaaa", title: "Old", upload_date: "2026-01-01", modules: ["audit"] };
+  const recent = { ...V, youtube_id: "bbbbbbbbbbb", title: "New", upload_date: "2026-12-01", modules: ["audit", "safety"] };
+  const { edu, problems } = await loadEducation(await fixture(D([G("How-tos", "how-tos", [old, V]), G("Toolbox talks", "toolbox-talks", [recent])])));
+  assert.deepEqual(problems, []);
+  assert.deepEqual(videosForModule(edu, "audit").map((v) => v.title), ["New", "Old"]);
+  assert.deepEqual(videosForModule(edu, "safety").map((v) => v.title), ["New"]);
+  assert.match(relatedVideos(edu, "audit"), /<h2>Related videos<\/h2>[\s\S]*data-yt="bbbbbbbbbbb"[\s\S]*data-yt="aaaaaaaaaaa"/);
+  assert.equal(relatedVideos(edu, "quality"), "");
+  const bad = await loadEducation(await fixture(D([G("How-tos", "how-tos", [{ ...V, modules: "audit" }])])));
+  assert.match(bad.problems.join(), /modules must be a list/);
 });
