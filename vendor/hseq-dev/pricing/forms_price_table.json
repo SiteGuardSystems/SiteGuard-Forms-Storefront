@@ -1,0 +1,122 @@
+{
+ "$comment": "SiteGuard FORMS price table. docs/packages.py reads this file; every FORMS price comes from here. Figures are copied from the workbook, not recalculated. A yearly price rise is a new revision of this file (new figures, new effective_from), not a code change. A$ ex GST; customer-facing copy adds '+GST'. Never put prices in the DCR.",
+ "revision": "Rev06",
+ "pricing_revision": "Rev06 -- 2026-10-31",
+ "source": "SiteGuard_Packages_and_Pricing_Rev06_31_Oct_2026.xlsx (OneDrive 00_CONTROL_REFERENCE/01_CONTROL_SPINE): tabs 'FORMS Rev04 Prices', 'FORMS New Packs (Rev23)', 'Launch Line-up', 'Levers'",
+ "status": "Pricing Rev06 (31 Oct 2026; workbook marked DRAFT for Dan). Launch price list for FORMS (March 2027). Not published or live: Stripe test-mode re-provisioning and the FORMS/Storefront/website copy follow (rollout P2/P3).",
+ "currency": "AUD",
+ "prices_exclude_gst": true,
+ "effective_from": "2027-03-01",
+ "price_review_clause": true,
+ "price_review": {
+  "frequency": "yearly",
+  "notice": "set in the Terms of Sale (solicitor brief pack Rev03); not set here",
+  "founding_price_carried_forward": false
+ },
+ "billing": {
+  "default_cadence": "annual",
+  "monthly_factor": 1.15,
+  "monthly_round_to_aud": 5,
+  "$comment": "Monthly = annual x monthly_factor / 12, rounded to the nearest monthly_round_to_aud (the Rev03 _monthly_from_annual rule, kept: the Levers tab keeps the 1.15 factor). The workbook's Monthly column rounds to the nearest A$1 instead; set monthly_round_to_aud to 1 to match it."
+ },
+ "launch_waves": ["mar-2027", "jun-2027", "later", "gated"],
+ "purchasable_waves": ["mar-2027"],
+ "consultant_plans_enabled": false,
+ "consultant_plans_disabled_reason": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+ "bands": {
+  "swms": [
+   {"max_docs": 21, "one_off": 479, "annual": 719},
+   {"max_docs": 30, "one_off": 539, "annual": 809},
+   {"max_docs": null, "one_off": 599, "annual": 899}
+  ],
+  "compliance": [
+   {"max_docs": 27, "one_off": 569, "annual": 849},
+   {"max_docs": 33, "one_off": 629, "annual": 939},
+   {"max_docs": null, "one_off": 689, "annual": 1049}
+  ],
+  "subcontractor_light_commercial": [
+   {"max_docs": 34, "one_off": 659, "annual": 989},
+   {"max_docs": 38, "one_off": 719, "annual": 1099},
+   {"max_docs": null, "one_off": 779, "annual": 1149}
+  ],
+  "subcontractor_heavy_commercial": [
+   {"max_docs": 38, "one_off": 929, "annual": 1399},
+   {"max_docs": 42, "one_off": 989, "annual": 1499},
+   {"max_docs": null, "one_off": 1119, "annual": 1699}
+  ]
+ },
+ "flat": {
+  "builder:domestic": {"one_off": 2199, "annual": 2749},
+  "builder:light-commercial": {"one_off": 2699, "annual": 3349},
+  "builder:heavy-commercial": {"one_off": 4049, "annual": 5049},
+  "subcontractor-system": {"one_off": 1799, "annual": 2249},
+  "subcontractor-system:flagged": {"one_off": 1949, "annual": 2449},
+  "addon:high-risk": {"one_off": 539, "annual": 809},
+  "addon:governance": {"one_off": 809, "annual": 1199},
+  "addon:info-security": {"one_off": 539, "annual": 809},
+  "addon:business-continuity": {"one_off": 449, "annual": 669},
+  "addon:energy": {"one_off": 399, "annual": 599},
+  "addon:audit": {"one_off": 399, "annual": 599},
+  "addon:risk": {"one_off": 399, "annual": 599},
+  "addon:sustainability": {"one_off": 309, "annual": 459},
+  "addon:labour-hire": {"one_off": 309, "annual": 459},
+  "addon:toolbox-sop": {"one_off": null, "annual": 269},
+  "single-document": {"one_off": 44, "annual": null}
+ },
+ "not_in_workbook": {
+  "$comment": "Unlisted / retired / held packs the workbook does not price. Carried unchanged from Rev03 so their pack ids still resolve; none is listed or purchasable.",
+  "subcontractor:*:iso-ofsc": {"one_off": 4499, "annual": 7999},
+  "builder:iso-ofsc": {"one_off": 9999, "annual": 10999},
+  "builder-system": {"one_off": 4499, "annual": 7999},
+  "builder:domestic-system": {"one_off": 2690, "annual": 4799},
+  "consultant:t1": {"one_off": null, "annual": 7999},
+  "consultant:t2": {"one_off": null, "annual": 11999}
+ },
+ "consultant_plans": {
+  "solo": {"name": "Consultant Solo", "client_limit": 1, "annual": 3599, "seats": 1},
+  "3": {"name": "Consultant 3", "client_limit": 3, "annual": 6749, "seats": 1},
+  "10": {"name": "Consultant 10", "client_limit": 10, "annual": 11699, "seats": 2},
+  "25": {"name": "Consultant 25", "client_limit": 25, "annual": 17999, "seats": 3},
+  "unlimited": {"name": "Consultant Unlimited", "client_limit": null, "annual": 26999, "seats": 5}
+ },
+ "consultant_seat_annual": 889,
+ "dcr_packs": {
+  "$comment": "Rev23 new packs ('FORMS New Packs (Rev23)'). Membership is the pinned DCR's Package Family; never listed or sold until every member is mastered (and endorsed where required).",
+  "ms-transition": {"one_off": 490, "annual": 849, "workbook_one_off": 369, "workbook_annual": 549, "$comment": "Dan, 1 Nov 2026 (Hseq-Dev e015a96) set A$490 / A$849, after the 31 Oct workbook's A$369 / A$549. Kept Dan's later figure; flagged for Dan."},
+  "project-delivery": {"one_off": 229, "annual": 339},
+  "ai-governance": {"one_off": 369, "annual": 549},
+  "design-information": {"one_off": 509, "annual": 759},
+  "contract-administration": {"one_off": 439, "annual": 659},
+  "asset-handover": {"one_off": 199, "annual": 299},
+  "project-controls-suite": {"one_off": 1149, "annual": 1699}
+ },
+ "launch_wave_rules": {
+  "$comment": "Product-level waves aligned to the DCR Rev24 DRAFT launch-wave map (P10, sheet 47_REV24_LAUNCH_WAVE_MAP, 1 Nov 2026). Conservative defaults flagged for Dan: Transition and AI Governance packs 'later' (workbook: Dec 2026 / Q2 2027 earliest, 'by wave'); HRCW, Audit/Risk and other specialist packs, Labour Hire and Toolbox 'later' (the DCR rows for Risk/Audit/Toolbox are jun-2027 through the app modules, not as FORMS packs); Design/Contract/Project Delivery 'later' (Dan to decide later vs gated). First match wins, in this order. '*' matches one pack-id segment. Only waves in purchasable_waves can be bought; 'gated' products (CORE, SiteGuard AI, robotics, NZ/overseas) are never listed, priced or quoted customer-facing.",
+  "rules": [
+   ["swms:*", "mar-2027"],
+   ["compliance:*", "mar-2027"],
+   ["subcontractor:*:domestic", "mar-2027"],
+   ["subcontractor:*:light-commercial", "mar-2027"],
+   ["subcontractor:*:heavy-commercial", "mar-2027"],
+   ["subcontractor:*:iso-ofsc", "later"],
+   ["builder:domestic", "mar-2027"],
+   ["builder:light-commercial", "mar-2027"],
+   ["builder:heavy-commercial", "mar-2027"],
+   ["builder:domestic-system", "later"],
+   ["builder:iso-ofsc", "later"],
+   ["builder-system", "later"],
+   ["subcontractor-system", "mar-2027"],
+   ["single-document", "mar-2027"],
+   ["addon:*", "later"],
+   ["consultant:*", "later"],
+   ["ms-transition", "later"],
+   ["ai-governance", "later"],
+   ["project-delivery", "later"],
+   ["design-information", "later"],
+   ["contract-administration", "later"],
+   ["asset-handover", "later"],
+   ["project-controls-suite", "later"]
+  ],
+  "default": "later"
+ }
+}

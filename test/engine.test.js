@@ -187,16 +187,44 @@ describe("WP-S10: founding and app subscriptions through P2's routes", () => {
     });
   });
 
+  test("founding and app sales never start on (or return to) the storefront itself: it has no /founding/* or /app/* pages", async () => {
+    await withEngine(async ({ post }) => {
+      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+      assert.equal(r.status, 409);
+      const j = await r.json();
+      assert.equal(j.code, "sold_on_systems_site");
+      assert.match(j.url, /^https:\/\/www\.siteguardsystems\.com\.au\//);
+    });
+    await withEngine(async ({ post, stripe }) => {
+      const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: FORMS, source_site: "forms" });
+      assert.equal(r.status, 409);
+      assert.equal((await r.json()).code, "sold_on_systems_site");
+      assert.equal(stripe.calls.sessions.length, 0);
+    }, { appStatus: "live", launch: { live: true }, config: { app_subscriptions_open: true }, now: new Date("2027-06-02T00:00:00Z") });
+  });
+
+  test("decision #90: a Stripe price whose recorded amount isn't the price list's is never sold (re-run sync-app-stripe)", async () => {
+    await withEngine(async ({ post, stripe, dir }) => {
+      const stale = structuredClone(MAP);
+      stale.byProductId["app:trade:domestic"].amounts_cents_ex_gst = { annual: 235200, monthly: 21168 }; // the old to-the-cent figure
+      await writeFile(path.join(dir, "map.json"), JSON.stringify(stale));
+      const body = { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: SYSTEMS };
+      assert.equal((await post("/api/subscribe", { ...body, cadence: "monthly" }, fromSystems)).status, 503);
+      assert.equal(stripe.calls.sessions.length, 0);
+      assert.equal((await post("/api/subscribe", { ...body, cadence: "annual" }, fromSystems)).status, 200, "a matching amount still sells");
+    }, { appStatus: "live", launch: { live: true }, config: { app_subscriptions_open: true }, now: new Date("2027-06-02T00:00:00Z") });
+  });
+
   test("founding sells only while app_status is presale (and P2's window is open)", async () => {
     for (const appStatus of ["coming_soon", "live"]) {
       await withEngine(async ({ post }) => {
-        const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+        const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
         assert.equal(r.status, 409, appStatus);
         assert.equal((await r.json()).code, "FOUNDING_NOT_OPEN");
       }, { appStatus, launch: { live: true } });
     }
     await withEngine(async ({ post }) => {
-      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS });
+      const r = await post("/api/founding/checkout", { productId: "app:audit:seat", acceptedTerms: true, termsVersion: TERMS, returnOrigin: SYSTEMS });
       assert.equal(r.status, 409, "presale, but before P2's sale_opens_at");
       assert.match((await r.json()).reason, /open on 2027-03-01/);
     }, { now: new Date("2027-02-01T00:00:00Z") });
@@ -224,7 +252,7 @@ describe("WP-S10: founding and app subscriptions through P2's routes", () => {
     for (const [why, over] of [["app_status presale", { appStatus: "presale" }], ["platform not live", { launch: { live: false, reason: "x" } }],
       ["P2 switch off", { config: { app_subscriptions_open: false } }], ["before P2's go-live date", { now: new Date("2027-05-30T00:00:00Z") }]]) {
       await withEngine(async ({ post }) => {
-        const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS });
+        const r = await post("/api/subscribe", { productId: "app:trade:domestic", trade: "CARP", acceptedTerms: true, termsVersion: SUB_TERMS, returnOrigin: SYSTEMS });
         assert.equal(r.status, 409, why);
         assert.equal((await r.json()).code, "APP_NOT_OPEN", why);
       }, { ...open, ...over });

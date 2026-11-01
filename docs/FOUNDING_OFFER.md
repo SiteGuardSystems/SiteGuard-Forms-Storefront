@@ -7,17 +7,46 @@ replaces it in `data/app-billing.json`.
 ## What it does
 
 - Sells the SiteGuard App line-up from Pricing Rev06 (A$ ex GST, GST added by
-  Stripe Tax at checkout):
+  Stripe Tax at checkout). Every figure is read from `data/app-catalogue.json`
+  (Dan's decision #90: one price source, Hseq-Dev `docs/packages.py`; see
+  "Prices" below), never calculated here. Per billing period, with the
+  workbook's whole-dollar loaded monthly prices:
 
   | Product id | A$ a month | Annual (default) | 6-monthly (+3%) | Quarterly (+5%) | Monthly (+8%) | Founding (12 months less 15%) |
   |---|---|---|---|---|---|---|
-  | `app:trade:domestic` | 196 | 2,352.00 | 1,211.28 | 617.40 | 211.68 | 1,999.20 |
-  | `app:trade:light-commercial` | 271 | 3,252.00 | 1,674.78 | 853.65 | 292.68 | 2,764.20 |
-  | `app:trade:heavy-commercial` | 496 | 5,952.00 | 3,065.28 | 1,562.40 | 535.68 | 5,059.20 |
-  | `app:builder:domestic` | 910 | 10,920.00 | 5,623.80 | 2,866.50 | 982.80 | 9,282.00 |
-  | `app:builder:light-commercial` | 1,279 | 15,348.00 | 7,904.22 | 4,028.85 | 1,381.32 | 13,045.80 |
-  | `app:builder:heavy-commercial` | 1,757 | 21,084.00 | 10,858.26 | 5,534.55 | 1,897.56 | 17,921.40 |
-  | `app:audit:seat` (per seat) | 75 | 900.00 | 463.50 | 236.25 | 81.00 | 765.00 |
+  | `app:trade:domestic` | 196 | 2,352 | 1,212 (202/mo) | 618 (206/mo) | 212 | 1,999.20 |
+  | `app:trade:light-commercial` | 271 | 3,252 | 1,674 (279/mo) | 855 (285/mo) | 293 | 2,764.20 |
+  | `app:trade:heavy-commercial` | 496 | 5,952 | 3,066 (511/mo) | 1,563 (521/mo) | 536 | 5,059.20 |
+  | `app:builder:domestic` | 910 | 10,920 | 5,622 (937/mo) | 2,868 (956/mo) | 983 | 9,282.00 |
+  | `app:builder:light-commercial` | 1,279 | 15,348 | 7,902 (1,317/mo) | 4,029 (1,343/mo) | 1,381 | 13,045.80 |
+  | `app:builder:heavy-commercial` | 1,757 | 21,084 | 10,860 (1,810/mo) | 5,535 (1,845/mo) | 1,898 | 17,921.40 |
+  | `app:audit:seat` (per seat) | 75 | 900 | 462 (77/mo) | 237 (79/mo) | 81 | 765.00 |
+
+  `npm run app-price-list` prints this list offline (no Stripe key) and names
+  any Stripe TEST price in `data/app-billing-stripe.test.json` recorded at
+  another amount. The checkout refuses such a price (503) until
+  `sync-app-stripe` is re-run with a TEST key.
+
+## Prices (decision #90)
+
+- `pricing.lock` pins Hseq-Dev's `docs/pricing/app_price_table.json` and
+  `forms_price_table.json` (sha256 of the LF form); the copies are in
+  `vendor/hseq-dev/pricing/`.
+- `data/app-catalogue.json` is the catalogue's group `"app"`, written by
+  Hseq-Dev (`docs/pricing/export_price_tables.py --storefront`, or
+  `build_catalogue.py --storefront`). `lib/app-prices.js` reads it.
+- `test/pricing-lock.test.js` fails if the pins, the app catalogue, the
+  Stripe price list or `data/catalogue.json`'s FORMS prices differ from the
+  pinned tables. Hseq-Dev's `tests/test_price_consumers.py` fails if this repo,
+  checked out beside it, pins an old table.
+- To change a price: Hseq-Dev `docs/pricing/README.md`.
+
+## Where sales start
+
+Founding places and app plans are sold on siteguardsystems.com.au only. This
+engine refuses (409 `sold_on_systems_site`) a founding or subscription
+checkout that would return to the storefront, which has no `/founding/*` or
+`/app/*` result pages; its founding panel links to the Systems site.
 
 - The founding offer: 20 places; 12 months of the chosen product paid up front
   at 15% off; the 12 months start on the app go-live date, not on payment; the
@@ -32,7 +61,9 @@ config that names one.
 
 | File | What |
 |---|---|
-| `data/app-billing.json` | Prices, cadences, go-live date, founding rules, FORMS-pack mapping, checkout notice text. The one place to change any of them. |
+| `data/app-billing.json` | Cadences (months, Stripe interval, label), go-live date, founding rules, FORMS-pack mapping, checkout notice text. No prices. |
+| `data/app-catalogue.json` | The prices: the Hseq-Dev catalogue's group `"app"` (generated; never edit). |
+| `pricing.lock`, `vendor/hseq-dev/pricing/` | The pinned Hseq-Dev price tables. |
 | `data/app-billing-stripe.test.json` | Stripe TEST product and price ids, written by `scripts/sync-app-stripe.mjs`. A live file only on Dan's go. |
 | `lib/app-billing.js` | Pure rules: prices, dates, delay credit, unused prepayment, FORMS-pack mapping, notice. |
 | `lib/founding-ledger.js` | The stock of 20, reservations and sale records (`var/founding/ledger.json`). |
@@ -48,10 +79,10 @@ config that names one.
 | `app_go_live_date` | App go-live, `YYYY-MM-DD` (default `2027-06-01`). Every founding sale's expected start. Moving it later applies the delay credit automatically. |
 | `app_subscriptions_open` | `false` until go-live. `/api/subscribe` also refuses before `app_go_live_date`. |
 | `default_cadence` | `annual`. |
-| `cadences.<name>.loading` | Monthly +8%, quarterly +5%, 6-monthly +3%, annual 0 (Levers tab). |
-| `products[]` | `id`, `name`, `monthly_aud`, `per` (account or seat), `needs_trade`. |
-| `founding.places_total` | 20. |
-| `founding.discount`, `founding.term_months` | 0.15 and 12. |
+| `cadences.<name>` | `months`, Stripe interval, label. The loading (monthly +8%, quarterly +5%, 6-monthly +3%) and the loaded price come from the app catalogue. |
+| `products[]` | `id`, `name`, `per` (account or seat), `needs_trade`. The price comes from the app catalogue. |
+| `founding.places_total` | 20 (must equal the app catalogue's). |
+| `founding.term_months` | 12 (must equal the app catalogue's). The 15% discount and each founding prepayment come from the app catalogue. |
 | `founding.sale_opens_at` | `2027-03-01`. Closed before it. |
 | `founding.sale_closes_at` | `null` = closes at `app_go_live_date`. |
 | `founding.reservation_minutes`, `checkout_session_minutes` | 35 and 30: a place is held for the Stripe session's life plus a margin. |
