@@ -55,6 +55,13 @@ This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-d
 2. Set `dcr.lock` `revision`, `path`, `sha256` and `source_dcr_sha256` (the extract's `meta.source_dcr_sha256`).
 3. Re-check `dcr.allowlist.json` and set its `dcr_revision`.
 
+## Shop and cart shared with siteguardsystems.com.au (WP-S8)
+
+The shop pages (trade, builder, management systems, specialist and consultant packs, single documents, subscriptions, how ordering works, questions) are built by `scripts/lib/shop.mjs`, the cart page and order pages by `scripts/lib/cart.mjs`, and the browser cart is `scripts/lib/cart-browser.js`. The same three files are in siteguard-website, which renders the same shop under `/forms/` from the same catalogue (canonical tags point here) and checks out through this server. Keep them identical in both repos.
+
+- `public/assets/app.js` is a template: the build splices the two parts of `cart-browser.js` in at its `//@@cart part 1` and `//@@cart part 2` lines.
+- `test/shop-snapshot.test.js` builds the site and compares every file with `test/fixtures/dist-snapshot.json` (made from a build before the extraction; build time, `.ics` DTSTAMP, the copyright year and CRLF are taken out). Regenerate the fixture (`node test/dist-snapshot.mjs <dist>`) only for an intended change to the built site, and say so in the PR.
+
 ## Partners, affiliates and Google reviews
 
 Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/trust.test.js` are identical in both repos.
