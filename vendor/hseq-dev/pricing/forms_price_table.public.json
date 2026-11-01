@@ -1,0 +1,108 @@
+{
+ "$comment": "Public view of Hseq-Dev docs/pricing/forms_price_table.json for a public repo (Dan's decision #90), written by docs/pricing/export_price_tables.py --website: only the figures the site shows or sells from. No internal codes, notes, held or unreleased pack prices. A$ ex GST.",
+ "revision": "Rev06",
+ "pricing_revision": "Rev06 -- 2026-10-31",
+ "effective_from": "2027-03-01",
+ "currency": "AUD",
+ "prices_exclude_gst": true,
+ "purchasable_waves": [
+  "mar-2027"
+ ],
+ "billing": {
+  "default_cadence": "annual",
+  "monthly_factor": 1.15,
+  "monthly_round_to_aud": 5
+ },
+ "bands": {
+  "swms": [
+   {
+    "max_docs": 21,
+    "one_off": 479,
+    "annual": 719
+   },
+   {
+    "max_docs": 30,
+    "one_off": 539,
+    "annual": 809
+   },
+   {
+    "max_docs": null,
+    "one_off": 599,
+    "annual": 899
+   }
+  ],
+  "compliance": [
+   {
+    "max_docs": 27,
+    "one_off": 569,
+    "annual": 849
+   },
+   {
+    "max_docs": 33,
+    "one_off": 629,
+    "annual": 939
+   },
+   {
+    "max_docs": null,
+    "one_off": 689,
+    "annual": 1049
+   }
+  ],
+  "subcontractor_light_commercial": [
+   {
+    "max_docs": 34,
+    "one_off": 659,
+    "annual": 989
+   },
+   {
+    "max_docs": 38,
+    "one_off": 719,
+    "annual": 1099
+   },
+   {
+    "max_docs": null,
+    "one_off": 779,
+    "annual": 1149
+   }
+  ],
+  "subcontractor_heavy_commercial": [
+   {
+    "max_docs": 38,
+    "one_off": 929,
+    "annual": 1399
+   },
+   {
+    "max_docs": 42,
+    "one_off": 989,
+    "annual": 1499
+   },
+   {
+    "max_docs": null,
+    "one_off": 1119,
+    "annual": 1699
+   }
+  ]
+ },
+ "flat": {
+  "builder:domestic": {
+   "one_off": 2199,
+   "annual": 2749
+  },
+  "builder:light-commercial": {
+   "one_off": 2699,
+   "annual": 3349
+  },
+  "builder:heavy-commercial": {
+   "one_off": 4049,
+   "annual": 5049
+  },
+  "subcontractor-system": {
+   "one_off": 1799,
+   "annual": 2249
+  },
+  "single-document": {
+   "one_off": 44,
+   "annual": null
+  }
+ }
+}
