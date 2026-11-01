@@ -274,6 +274,15 @@ describe("POST /api/checkout", () => {
       assert.equal(stripe.calls.length, 0);
     });
   });
+  test("a sellable pack in a later launch wave (purchasable false) can't be bought yet", async () => {
+    const stripe = makeFakeStripe();
+    const catalog = sampleCatalogue();
+    Object.assign(catalog.packs[0], { launch_wave: "later", purchasable: false, show: false });
+    await withApp({ stripe, catalog }, async ({ base }) => {
+      assert.equal((await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }])).status, 409);
+      assert.equal(stripe.calls.length, 0);
+    });
+  });
   test("one bad line fails the whole cart", async () => {
     const stripe = makeFakeStripe();
     await withApp({ stripe }, async ({ base }) => {

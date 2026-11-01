@@ -130,6 +130,10 @@ describe("catalogue.json as generated (hand edits fail)", () => {
       "a document made unsellable": (c) => { c.documents.find((d) => d.code === listed(c).documents[0]).sellable = false; },
       "one document price changed": (c) => { c.documents[0].price += 1; },
       "a document listed twice": (c) => { c.documents.push({ ...c.documents[0] }); },
+      // Pricing Rev06: only a sellable pack in a purchasable launch wave is shown.
+      "a later-wave pack shown": (c) => { const p = c.packs.find((x) => x.listed && x.sellable && x.purchasable === false); p.show = true; },
+      "a later-wave pack made purchasable": (c) => { const p = c.packs.find((x) => x.listed && x.sellable && x.purchasable === false); p.purchasable = true; p.show = true; },
+      "a March pack moved to a later wave": (c) => { c.packs.find((x) => x.show && x.purchasable).launch_wave = "later"; },
     };
     for (const [what, edit] of Object.entries(edits)) {
       const cat = fresh();
