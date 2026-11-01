@@ -60,7 +60,7 @@ function fakeStripe() {
   };
 }
 
-async function withEngine(fn, { appStatus = "presale", launch = { live: false }, config = {}, now = new Date("2027-03-10T00:00:00Z") } = {}) {
+async function withEngine(fn, { appStatus = "presale", launch = { live: false }, config = {}, now = new Date("2027-03-10T00:00:00Z"), beta = false } = {}) {
   const dir = await mkdtemp(path.join(tmpdir(), "engine-"));
   const cfg = { ...structuredClone(CONFIG), ...config };
   cfg.founding = { ...cfg.founding, sale_opens_at: "2027-03-01", ...(config.founding ?? {}) };
@@ -75,7 +75,7 @@ async function withEngine(fn, { appStatus = "presale", launch = { live: false },
     fetchImpl: async () => ({ ok: true, status: 201, json: async () => ({ id: "o1" }) }),
     orderIntakeUrl: "http://intake.test/api", orderIntakeApiKey: "k",
     appBillingPath: path.join(dir, "app-billing.json"), appBillingStripePath: path.join(dir, "map.json"),
-    now: () => now, trustProxy: true,
+    now: () => now, trustProxy: true, beta,
   });
   const server = app.listen(0);
   await new Promise((r) => server.once("listening", r));
@@ -101,6 +101,33 @@ const fromSystems = { Origin: SYSTEMS };
 const formsCart = { cart: [{ packageId: "builder:domestic" }], acceptedTerms: true, termsVersion: "SG-LEGAL-02 v0.4; SG-LEGAL-01 v0.4", returnOrigin: SYSTEMS, source_site: "systems" };
 
 describe("WP-S9: /api/checkout for two sites", () => {
+  // Dan, 1 Nov 2026 (#94): one beta switch, the engine is the real guard.
+  test("beta: a FORMS order from the Systems site (source_site systems) is refused, Stripe never called", async () => {
+    await withEngine(async ({ post, stripe }) => {
+      const r = await post("/api/checkout", formsCart, fromSystems);
+      assert.equal(r.status, 503);
+      assert.equal(r.headers.get("access-control-allow-origin"), SYSTEMS, "the refusal reaches the Systems site's cart");
+      assert.match((await r.json()).reason, /beta/);
+      const own = await post("/api/checkout", { ...formsCart, returnOrigin: undefined, source_site: undefined });
+      assert.equal(own.status, 503, "and from the FORMS site itself");
+      assert.equal(stripe.calls.sessions.length, 0);
+    }, { beta: true });
+  });
+
+  // Dan, 1 Nov 2026 (#96, Q1 narrowed): the cart is FORMS documents and packs only.
+  test("an app plan or a founding place in the cart is refused with a clear reason, in beta or not", async () => {
+    for (const beta of [false, true]) {
+      await withEngine(async ({ post, stripe }) => {
+        for (const line of [{ packageId: "app:trade:domestic" }, { productId: "app:audit:seat" }, { packageId: "founding:app:builder:domestic" }, { packageId: "builder:domestic", kind: "founding" }]) {
+          const r = await post("/api/checkout", { ...formsCart, cart: [{ packageId: "builder:domestic" }, line] }, fromSystems);
+          assert.equal(r.status, 400, JSON.stringify(line));
+          assert.match((await r.json()).reason, /own checkout.*FORMS documents and packs only/);
+        }
+        assert.equal(stripe.calls.sessions.length, 0);
+      }, { beta });
+    }
+  });
+
   test("a FORMS one-off from the Systems site: CORS, returned to the Systems site, source_site systems, fulfilled by the FORMS flow", async () => {
     await withEngine(async ({ post, preflight, webhook, stripe, varFile }) => {
       const pre = await preflight("/api/checkout", SYSTEMS);

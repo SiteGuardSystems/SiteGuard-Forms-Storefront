@@ -87,6 +87,23 @@ The storefront server reads the same file for its CSP: restart it after a change
 
 ## How buying works
 
+Two kinds of checkout (Dan, 1 Nov 2026, #96: Q1 "everything from one cart" is
+narrowed to "everything sold on one site, two kinds of checkout"):
+
+* **The cart** is for SiteGuard FORMS documents and packs (one-off purchases)
+  only. `/api/checkout` refuses any `app:` plan or founding line with a 400 and
+  a reason pointing at the right checkout.
+* **SiteGuard App and Audit "Subscribe"** (`/api/subscribe`) and **"Reserve a
+  founding place"** (`/api/founding/checkout`) each go straight to their own
+  Stripe Checkout, never via the cart, each with its own terms to tick. Founding
+  places keep the 20-place limit; the app needs account setup.
+* **One beta switch** (Dan, 1 Nov 2026, #94): `data/site-mode.json` `beta` here is
+  the source of truth for both sites. While it is true, `/api/checkout` refuses
+  every FORMS order from either site (`source_site` forms or systems). The
+  Systems site vendors this file (`vendor/siteguard-forms-storefront/site-mode.json`,
+  pinned by `site-mode.lock`, with a CI drift check) and only mirrors it to hide
+  its buy buttons and cart. Turning beta off opens both sites together.
+
 * **Buy outright:** cart → `/api/checkout` (prices re-read from the catalogue,
   ex GST, `automatic_tax` adds GST) → Stripe Checkout (business name, project
   address) → webhook → each line goes to SiteGuard-Forms'
