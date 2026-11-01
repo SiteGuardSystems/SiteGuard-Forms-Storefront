@@ -573,3 +573,42 @@ describe("POST /api/lead", () => {
     });
   });
 });
+
+describe("POST /api/lead: Register interest (app-interest)", () => {
+  test("keeps the interest, trade and consent basis (S077 fields) and says so in the email", async () => {
+    const mailer = makeFakeMailer();
+    await withApp({ mailer, leadNotificationEmailTo: "dan@example.com" }, async ({ base, varDir }) => {
+      const res = await post(base, "/api/lead", { source: "systems", name: "Kim", email: "kim@example.com", enquiry_type: "app-interest",
+        interest: "audit", trade: "Consultant", consent: "yes", consent_wording: "Email me about the launch and founding places.",
+        consent_source: "https://www.siteguardsystems.com.au/register-interest/" });
+      assert.equal(res.status, 200);
+      const lead = JSON.parse((await readFile(path.join(varDir, "leads.jsonl"), "utf8")).trim());
+      assert.equal(lead.enquiry_type, "app-interest");
+      assert.equal(lead.interest, "audit");
+      assert.equal(lead.trade, "Consultant");
+      assert.equal(lead.consent_basis, "express");
+      assert.equal(lead.consent_method, "website form");
+      assert.equal(lead.consent_wording, "Email me about the launch and founding places.");
+      assert.equal(lead.consent_source, "https://www.siteguardsystems.com.au/register-interest/");
+      assert.match(lead.consent_at, /^\d{4}-\d\d-\d\dT/);
+      assert.match(mailer.sent[0].subject, /^Website enquiry — Registered interest — Kim/);
+      assert.match(mailer.sent[0].text, /^New enquiry from siteguardsystems\.com\.au/);
+      assert.match(mailer.sent[0].text, /Enquiry type: App interest/);
+      assert.match(mailer.sent[0].text, /Interest: SiteGuard Audit/);
+      assert.match(mailer.sent[0].text, /Consent basis: express/);
+    });
+  });
+  test("no box ticked is an enquiry basis with no wording; a bad interest becomes both; other types keep no consent fields", async () => {
+    await withApp({}, async ({ base, varDir }) => {
+      await post(base, "/api/lead", { name: "A", email: "a@b.co", enquiry_type: "app-interest", interest: "core", consent_wording: "forged" });
+      await post(base, "/api/lead", { name: "B", email: "b@b.co", need: "x", interest: "app", consent: "yes" });
+      const [a, b] = (await readFile(path.join(varDir, "leads.jsonl"), "utf8")).trim().split("\n").map((l) => JSON.parse(l));
+      assert.equal(a.interest, "both");
+      assert.equal(a.consent_basis, "enquiry");
+      assert.equal(a.consent_wording, "");
+      assert.equal(b.enquiry_type, "enquiry");
+      assert.equal(b.interest, undefined);
+      assert.equal(b.consent_basis, undefined);
+    });
+  });
+});
