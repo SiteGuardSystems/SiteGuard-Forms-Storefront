@@ -56,11 +56,13 @@ let PRODUCT_VIDEOS = null;
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
 const SITE_MODE = JSON.parse(await readFile(SITE_MODE_PATH, "utf8").catch(() => "{}"));
 const BETA = SITE_MODE.beta === true;
-// The SiteGuard app's stage (data/site-mode.json app_status; separate from
-// beta, which is FORMS ordering). The founding-offer panel shows only while it
-// is "presale" (from March 2027, on Dan's go). App modules open June 2027.
-export const APP_STATUSES = ["prelaunch", "presale", "live"];
-const APP_STATUS = SITE_MODE.app_status ?? "prelaunch";
+// The SiteGuard App and Audit stage (data/site-mode.json app_status, the same
+// field and values as siteguard-website: "coming_soon", "presale", "live";
+// separate from beta, which is FORMS ordering). The founding-offer panel shows
+// only while it is "presale" (from March 2027, on Dan's go). App modules open
+// June 2027.
+export const APP_STATUSES = ["coming_soon", "presale", "live"];
+const APP_STATUS = SITE_MODE.app_status ?? "coming_soon";
 const FOUNDING = APP_STATUS === "presale";
 // Optional same-origin endpoint answering {"remaining": n} (the founding API,
 // rollout P2); until it exists the panel says "the first 20 places" (static).
