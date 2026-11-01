@@ -29,9 +29,12 @@ replaces it in `data/app-billing.json`.
 
 ## Prices (decision #90)
 
-- `pricing.lock` pins Hseq-Dev's `docs/pricing/app_price_table.json` and
-  `forms_price_table.json` (sha256 of the LF form); the copies are in
-  `vendor/hseq-dev/pricing/`.
+- This repo is public, so `pricing.lock` pins Hseq-Dev's PUBLIC VIEW of
+  `docs/pricing/app_price_table.json` and `forms_price_table.json`
+  (`vendor/hseq-dev/pricing/*.public.json`, from
+  `export_price_tables.py --storefront`; sha256 of each view and of its
+  source table), never the full tables (internal codes, held or unreleased
+  pack prices, notes).
 - `data/app-catalogue.json` is the catalogue's group `"app"`, written by
   Hseq-Dev (`docs/pricing/export_price_tables.py --storefront`, or
   `build_catalogue.py --storefront`). `lib/app-prices.js` reads it.
@@ -63,7 +66,7 @@ config that names one.
 |---|---|
 | `data/app-billing.json` | Cadences (months, Stripe interval, label), go-live date, founding rules, FORMS-pack mapping, checkout notice text. No prices. |
 | `data/app-catalogue.json` | The prices: the Hseq-Dev catalogue's group `"app"` (generated; never edit). |
-| `pricing.lock`, `vendor/hseq-dev/pricing/` | The pinned Hseq-Dev price tables. |
+| `pricing.lock`, `vendor/hseq-dev/pricing/*.public.json` | The pinned public view of the Hseq-Dev price tables. |
 | `data/app-billing-stripe.test.json` | Stripe TEST product and price ids, written by `scripts/sync-app-stripe.mjs`. A live file only on Dan's go. |
 | `lib/app-billing.js` | Pure rules: prices, dates, delay credit, unused prepayment, FORMS-pack mapping, notice. |
 | `lib/founding-ledger.js` | The stock of 20, reservations and sale records (`var/founding/ledger.json`). |

@@ -29,8 +29,7 @@
    "price_lock_months": 12,
    "payment": "annual, up front",
    "delay": "one free month for each month of delay, or a refund of the unused prepayment on request",
-   "forms_pack_free_from": "2027-03",
-   "$comment": "Launch Line-up says 'a full refund of the unused prepayment'; the brief and SG-LEGAL-13 heads of terms say 'a refund of the unused prepayment' (parked for Dan). Wording is PENDING SOLICITOR (SG-LEGAL-13, questions 27-30)."
+   "forms_pack_free_from": "2027-03"
   },
   "rounding": "Loaded per-month prices are whole dollars, ROUND(per month x (1 + loading), 0), as the workbook's cells (App Add-ons & Bands D: Builder Light Commercial 1317 / 1343 / 1381; AUDIT seat paid monthly 81). per_period = per_month x months; per_year = per_month x 12. Founding prepayment per unit (founding.prepay_cents) = the annual per_year x (1 - founding discount), to the cent: the workbook states the 15% rule, not a figure per product, and has no whole-dollar rule for it.",
   "source": "Hseq-Dev docs/pricing/app_price_table.json via docs/packages.py"
