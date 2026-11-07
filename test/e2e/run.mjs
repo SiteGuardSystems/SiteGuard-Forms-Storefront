@@ -41,8 +41,10 @@ const stripe = {
   checkout: { sessions: { create: async (p) => { calls.push(p); return { id: "cs_test_1", url: `http://127.0.0.1:${port}/order/success/` }; } } },
   webhooks: { constructEvent: (b) => JSON.parse(b) },
 };
+// FORMS switches: sales open for the purchase flow; subscriptions and consultant plans off.
+const OPEN = async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false });
 const app = createApp({ catalogPath: catPath, varDir: path.join(dir, "var"), publicDir: dist, stripe, stripeTestMode: true,
-  publicOrigin: "http://127.0.0.1", mailer: { configured: false }, leadAllowedOrigins: [] });
+  publicOrigin: "http://127.0.0.1", mailer: { configured: false }, leadAllowedOrigins: [], switches: OPEN });
 const server = app.listen(0);
 await new Promise((r) => server.once("listening", r));
 port = server.address().port;
@@ -92,10 +94,24 @@ try {
     assert.equal(st, 409, "the server refuses a later-wave pack");
   }
 
-  // Subscribe links go to the FORMS app signup with the pack and cadence.
+  // Subscriptions are off (S4): the Subscribe links stay hidden and "Coming
+  // soon: register interest" shows instead. The hidden links still go to the
+  // FORMS app signup with the pack and cadence, for when S4 is on.
   await page.goto(`${base}/trade-packs/carpentry/`);
+  await page.waitForLoadState("networkidle");
+  assert.ok(await page.locator('a:has-text("Coming soon: register interest")').first().isVisible(), "register interest shows");
+  assert.ok(!(await page.locator('a:has-text("Subscribe yearly")').first().isVisible()), "Subscribe yearly is hidden while S4 is off");
   const href = await page.locator('a:has-text("Subscribe yearly")').first().getAttribute("href");
   assert.match(href, /\/signup\?pack=subcontractor%3ACARP%3Adomestic&cadence=annual/);
+
+  // Register interest: an enquiry with the interest tag, not a sale.
+  await page.goto(`${base}/subscriptions/?interest=consultant_plans#register-interest`);
+  await page.waitForLoadState("networkidle");
+  assert.equal(await page.locator('#register-interest select[name="interest"]').inputValue(), "consultant_plans");
+  await page.fill('#register-interest input[name="name"]', "Test Person");
+  await page.fill('#register-interest input[name="email"]', "delivered@resend.dev");
+  await page.click('#register-interest button[type="submit"]');
+  await page.locator("#register-interest .form-status.ok").waitFor();
 
   // Enquiry form
   await page.goto(`${base}/contact/`);
@@ -118,7 +134,7 @@ try {
 
   // Beta build: banner shown, Add to cart disabled, and the server refuses checkout.
   const betaApp = createApp({ catalogPath: catPath, varDir: path.join(dir, "var-beta"), publicDir: betaDist, stripe, stripeTestMode: true,
-    publicOrigin: "http://127.0.0.1", mailer: { configured: false }, leadAllowedOrigins: [], beta: true });
+    publicOrigin: "http://127.0.0.1", mailer: { configured: false }, leadAllowedOrigins: [], beta: true, switches: OPEN });
   const betaServer = betaApp.listen(0);
   await new Promise((r) => betaServer.once("listening", r));
   const betaBase = `http://127.0.0.1:${betaServer.address().port}`;

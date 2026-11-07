@@ -25,6 +25,14 @@
 //   crumbs(trail)  the site's breadcrumb HTML
 //   video(kind)    a product video band, or "" (storefront: product-videos.mjs)
 //   foundingPanel()  the founding-offer panel, or ""
+//   leadEndpoint   where the register-interest form posts ("" = same-origin /api/lead)
+//
+// Go-live 7 Nov 2026 (brief Rev02, 5.2): FORMS subscriptions (switch S4) and
+// consultant plans (S5) are off. Their buttons show "Coming soon: register
+// interest" (an enquiry to /api/lead, tag forms-interest). The real buttons
+// are in the page but hidden; public/assets/app.js shows them only when the
+// storefront's /api/switches (read from FORMS) says the switch is on, so a
+// page that can't ask, or a switch that is off, keeps the interest button.
 import { esc } from "./md.mjs";
 
 export const LEVEL_LABEL = { "domestic": "Domestic", "light-commercial": "Light Commercial", "heavy-commercial": "Heavy Commercial" };
@@ -53,6 +61,38 @@ export const packSlug = (id) => id.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
 // Never "instant", "download now" or "minutes".
 export const DELIVERY_DAYS = 3;
 export const DELIVERY_LINE = `Delivered as PDFs by email within ${DELIVERY_DAYS} business days`;
+/** A pair of elements for one FORMS switch: `on` hidden until /api/switches
+ *  says the switch is on, `off` shown until then (fail closed). */
+export function switchPair(key, on, off, tag = "span", attrs = "") {
+  return `<${tag}${attrs} data-switch="${key}" data-when="on" hidden>${on}</${tag}><${tag}${attrs} data-switch="${key}" data-when="off">${off}</${tag}>`;
+}
+export const INTEREST_LABEL = "Coming soon: register interest";
+/** The register-interest link that stands in for a Subscribe button. */
+export function interestLink(base = "", cls = "btn btn-small", interest = "subscriptions") {
+  return `<a class="${cls}" href="${base}/subscriptions/?interest=${interest}#register-interest">${INTEREST_LABEL}</a>`;
+}
+
+/** The register-interest form for FORMS subscriptions and consultant plans
+ *  (posts to /api/lead as enquiry_type forms-interest; public/assets/app.js). */
+export function interestForm(endpoint = "") {
+  const wording = "Email me when SiteGuard FORMS subscriptions or consultant plans open.";
+  return `<form class="form" data-lead-form data-source="forms"${endpoint ? ` data-endpoint="${esc(endpoint)}"` : ""} method="post" action="/api/lead" novalidate>
+  <input type="hidden" name="source" value="forms">
+  <input type="hidden" name="enquiry_type" value="forms-interest">
+  <label>Your name<input name="name" autocomplete="name" required maxlength="200"></label>
+  <label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+  <label>Company<input name="company" autocomplete="organization" maxlength="200"></label>
+  <label>Phone<input type="tel" name="phone" autocomplete="tel" maxlength="40"></label>
+  <label>Interested in<select name="interest"><option value="subscriptions">Subscriptions</option><option value="consultant_plans">Consultant plans</option><option value="both">Both</option></select></label>
+  <label>Anything else? (optional)<textarea name="need" maxlength="2000"></textarea></label>
+  <label class="check"><input type="checkbox" name="consent" value="yes" data-consent-wording="${esc(wording)}"> <span>${esc(wording)}</span></label>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <p class="small">We use these details only to reply to you and, if you tick the box, to tell you when they open. <a href="/legal/privacy/">Privacy Policy</a>.</p>
+  <p class="form-status" data-status aria-live="polite"></p>
+  <div><button class="btn btn-hivis" type="submit">Register interest</button></div>
+</form>`;
+}
+
 /** The delivery line for a pack, the cart and the single-documents page. */
 export function deliveryNote(extra = "") {
   return `<p class="delivery-line"><strong>${DELIVERY_LINE}.</strong> The ${DELIVERY_DAYS} business days start when your details are in (a short form after payment).${extra ? ` ${extra}` : ""}</p>`;
@@ -121,7 +161,7 @@ export function packHow() {
     <li><h3>What's in it</h3><p>The documents listed in each pack above, by code and title as they stand in SiteGuard's controlled document register. Every document carries its reference, revision and date.</p></li>
     <li><h3>Your details in</h3><p>After payment, fill in a short form with your business and project details (the link is on the order page and in your order email).</p></li>
     <li><h3>PDFs out</h3><p>Every document in the pack is filled with those details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in, ready for you to review and adapt to your work and site.</p></li>
-    <li><h3>Kept current</h3><p>The whole library has a legislative review every 6 months. Subscribers get the revised documents pushed to their account after each review.</p></li>
+    <li><h3>Kept current</h3><p>The whole library has a legislative review every 6 months. A one-off pack is the revision current when it is prepared for you.</p></li>
   </ol>
 </div></section>`;
 }
@@ -182,7 +222,7 @@ export function shopPages(ctx) {
        <p class="price-head">Annual subscription</p>
        <p class="amount">${exGst(p.prices.annual, " a year")}</p>
        <p class="price-note">Unlimited projects. Revised documents after every 6-monthly review.</p>
-       <a class="btn btn-hivis btn-small" href="${esc(subscribeHref(p, "annual"))}"${disabled}>Subscribe yearly</a>
+       ${switchPair("subscriptions_open", `<a class="btn btn-hivis btn-small" href="${esc(subscribeHref(p, "annual"))}"${disabled}>Subscribe yearly</a>`, interestLink(base))}
      </div>`;
     const oneOff = p.prices.one_off
       ? `<div class="price-opt">
@@ -195,7 +235,7 @@ export function shopPages(ctx) {
       : "";
     return `<div class="prices">
     <div class="price-pair">${annual}${oneOff}</div>
-    <p class="price-monthly">Or monthly: ${exGst(p.prices.monthly, " a month")}${monthlyExtra > 0 ? `, ${money(monthlyExtra)} more over a year` : ""}. <a href="${esc(subscribeHref(p, "monthly"))}"${disabled}>Subscribe monthly</a></p>
+    <p class="price-monthly">Or monthly: ${exGst(p.prices.monthly, " a month")}${monthlyExtra > 0 ? `, ${money(monthlyExtra)} more over a year` : ""}.${switchPair("subscriptions_open", ` <a href="${esc(subscribeHref(p, "monthly"))}"${disabled}>Subscribe monthly</a>`, "")}</p>
     ${p.purchasable === false ? '<p class="gst"><strong>Not yet available to buy.</strong></p>' : ""}
     <p class="gst">Prices in A$, excluding GST. GST is added at checkout.${p.subscription_only ? " Available by subscription only." : ""}</p>
   </div>`;
@@ -223,7 +263,7 @@ export function shopPages(ctx) {
       <td>${p.client_limit == null ? "No limit" : p.client_limit === 1 ? "1" : `Up to ${p.client_limit}`}</td>
       <td>${p.seats_included ?? ""}</td>
       <td class="num">${exGst(p.prices.annual, " a year")}<br><span class="small">or ${money(p.prices.monthly)} +GST a month</span></td>
-      <td><div class="btn-row"><a class="btn btn-small" href="${esc(subscribeHref(p, "annual"))}"${dis(p)}>Yearly</a><a class="btn btn-small" href="${esc(subscribeHref(p, "monthly"))}"${dis(p)}>Monthly</a></div></td>
+      <td>${switchPair("consultant_plans_open", `<span class="btn-row"><a class="btn btn-small" href="${esc(subscribeHref(p, "annual"))}"${dis(p)}>Yearly</a><a class="btn btn-small" href="${esc(subscribeHref(p, "monthly"))}"${dis(p)}>Monthly</a></span>`, interestLink(base, "btn btn-small", "consultant_plans"))}</td>
     </tr>`).join("");
     const lib = plans.at(-1);
     return `<div class="table-scroll"><table class="doc-table plan-table"><thead><tr><th scope="col">Plan</th><th scope="col">Clients a year</th><th scope="col">Users included</th><th scope="col">Price</th><th scope="col"><span class="hp">Subscribe</span></th></tr></thead><tbody>${rows}</tbody></table></div>
@@ -237,7 +277,9 @@ export function shopPages(ctx) {
     const offers = [];
     if (p.prices.one_off) offers.push({ "@type": "Offer", name: "Buy outright", priceCurrency: "AUD", price: p.prices.one_off, availability: "https://schema.org/InStock", url: origin + url,
       priceSpecification: { "@type": "PriceSpecification", price: p.prices.one_off, priceCurrency: "AUD", valueAddedTaxIncluded: false } });
-    offers.push({ "@type": "Offer", name: "Annual subscription", priceCurrency: "AUD", price: p.prices.annual, availability: "https://schema.org/InStock", url: origin + url,
+    // Subscriptions aren't on sale while switch S4 is off: no subscription
+    // offer in the structured data for a pack that can be bought outright.
+    if (!p.prices.one_off) offers.push({ "@type": "Offer", name: "Annual subscription", priceCurrency: "AUD", price: p.prices.annual, availability: "https://schema.org/InStock", url: origin + url,
       priceSpecification: { "@type": "UnitPriceSpecification", price: p.prices.annual, priceCurrency: "AUD", valueAddedTaxIncluded: false, billingDuration: "P1Y" } });
     return { "@context": "https://schema.org", "@type": "Product", name: p.name, description: p.summary, sku: p.id,
       brand: { "@type": "Brand", name: "SiteGuard FORMS" }, offers };
@@ -265,7 +307,7 @@ export function shopPages(ctx) {
       const url = `${meta.path}${t.slug}/`;
       page({
         url, preview, title: `${t.name} packs`,
-        description: `${t.name} SWMS, safety management plans and ITPs at Domestic, Light Commercial and Heavy Commercial level. Buy outright or subscribe.`,
+        description: `${t.name} SWMS, safety management plans and ITPs at Domestic, Light Commercial and Heavy Commercial level. Buy outright; delivered as PDFs by email within ${DELIVERY_DAYS} business days.`,
         trail: [[meta.path, meta.title], [url, t.name]],
         jsonld: t.packs.map((p) => productLd(p, ldUrl(url))),
         body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title], [url, t.name]])}
@@ -273,7 +315,7 @@ export function shopPages(ctx) {
   <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS and the core site SWMS.</p></div></section>
 <section class="band"><div class="wrap">
   <div class="rungs">${t.packs.map((p) => packArticle(p, LEVEL_LABEL[p.level])).join("")}</div>
-  <p class="small mt">Buying outright: after payment you send us your business and project details on a short form, and the documents are filled with them and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in. Subscribing: sign in, add your logo and projects, and generate the documents whenever you need them. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
+  <p class="small mt">Buying outright: after payment you send us your business and project details on a short form, and the documents are filled with them and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in. Subscriptions: <a href="${P("/subscriptions/")}#register-interest">${INTEREST_LABEL}</a>. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
 </div></section>
 ${video(g === "specialist-packs" ? "high-risk" : "trade")}
 ${packHow()}`,
@@ -352,12 +394,17 @@ ${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
   // Subscriptions
   page({
     url: P("/subscriptions/"), preview, title: "Subscriptions", trail: [[P("/subscriptions/"), "Subscriptions"]],
-    description: "Subscribe to any package yearly or monthly: unlimited use, your logo and projects, and documents updated after every 6-monthly legislative review.",
+    description: "SiteGuard FORMS subscriptions and consultant plans: register interest, and buy any pack outright now, delivered as PDFs by email.",
     body: `<section class="page-head"><div class="wrap">${crumbs([[P("/subscriptions/"), "Subscriptions"]])}<h1>Subscriptions</h1>
-  <p class="lede">Every package is available on an annual subscription, our default and best value, and most can also be bought outright. A subscription keeps your documents current and lets you generate them for every project.</p></div></section>
+  ${switchPair("subscriptions_open", "Every package is available on an annual subscription, our default and best value, and most can also be bought outright. A subscription keeps your documents current and lets you generate them for every project.",
+    `Subscriptions and consultant plans aren't on sale yet. ${INTEREST_LABEL} below and we'll email you when they open. Until then, every pack can be bought outright and is delivered as PDFs by email within ${DELIVERY_DAYS} business days.`, "p", ' class="lede"')}</div></section>
+<section class="band band-grey" id="register-interest" aria-labelledby="interest-h"><div class="wrap cols">
+  <div><h2 id="interest-h">${INTEREST_LABEL}</h2><p>Tell us what you're interested in. It's an enquiry, not an order: nothing is charged, and we'll only email you about it.</p></div>
+  <div>${interestForm(ctx.leadEndpoint ?? "")}</div>
+</div></section>
 ${foundingPanel()}
 <section class="band"><div class="wrap cols">
-  <div><h2>What you get</h2><ul>
+  <div><h2>What a subscription includes</h2><ul>
     <li><strong>Unlimited use.</strong> No limit on projects or how often you generate documents.</li>
     <li><strong>Your branding, included.</strong> Upload your logo once and it goes on every document, at no extra cost.</li>
     <li><strong>Project details filled in.</strong> Set up each project and the documents are generated with its details, as PDFs, emailed to you.</li>
@@ -366,8 +413,7 @@ ${foundingPanel()}
   <div><h2>Billing</h2>
     <p><strong>Annual billing is the default and the best value.</strong> Each pack page shows the annual price beside the one-off price. You can pay monthly instead, at a higher annualised rate (the yearly price plus 15%, spread over 12 months and rounded). Prices are in A$ and exclude GST (+GST); GST is added at checkout.</p>
     <p>Subscriptions renew automatically. Cancel at any time from your account; cancellation takes effect at the end of the period you've paid for. See the <a href="/legal/terms-of-sale/">Terms of Sale</a> and <a href="/legal/refunds/">Refunds and cancellations</a>.</p>
-    <p><a class="btn btn-hivis" href="${P("/trade-packs/")}">Choose a package</a></p>
-    <p class="small">Already subscribed? <a href="${appUrl}/login">Sign in</a>.</p></div>
+    <p>${switchPair("subscriptions_open", `<a class="btn btn-hivis" href="${P("/trade-packs/")}">Choose a package</a>`, `<a class="btn btn-hivis" href="#register-interest">${INTEREST_LABEL}</a> <a class="btn" href="${P("/trade-packs/")}">Buy a pack outright</a>`)}</p></div>
 </div></section>
 ${video("subscription")}`,
   });
@@ -384,25 +430,22 @@ ${video("subscription")}`,
     <li><h3>Send us your details</h3><p>Straight after payment, and again in your order email, there's a link to a short form for your business details, ABN, address, logo and project details.</p></li>
     <li><h3>Receive your documents</h3><p>We fill the documents with your details, check them, and email them to you as PDFs with the Document Use Disclaimer, within ${DELIVERY_DAYS} business days of your details being in.</p></li>
   </ol></div>
-  <div><h2>Subscribing</h2><ol class="steps">
-    <li><h3>Choose a package and billing</h3><p>Select "Subscribe yearly" or "Subscribe monthly" on any package and create your account.</p></li>
-    <li><h3>Add your logo and projects</h3><p>Upload your logo, enter your business details, and set up each project.</p></li>
-    <li><h3>Generate and email</h3><p>Generate the documents for a project and send them to your nominated email address with one button, as often as you need.</p></li>
-    <li><h3>Stay current</h3><p>After each 6-monthly legislative review, the updated documents are in your account.</p></li>
-  </ol></div>
+  <div><h2>Subscriptions</h2>
+    <p>Annual and monthly subscriptions, with your logo and projects in your own account and the revised documents after each 6-monthly review, aren't on sale yet.</p>
+    <p><a class="btn btn-small" href="${P("/subscriptions/")}#register-interest">${INTEREST_LABEL}</a></p></div>
 </div></section>
 <section class="band band-grey"><div class="wrap"><div class="note"><p><strong>Before you use a document:</strong> every document is a template. Review it, adapt it to your work and site, consult your workers, and keep it current. <a href="/legal/document-use-disclaimer/">Document Use Disclaimer</a>.</p></div></div></section>`,
   });
 
   // FAQ
   const faq = [
-    ["What format are the documents?", "PDF, with your business and project details filled in. Subscribers can also add their logo."],
+    ["What format are the documents?", "PDF, with your business and project details filled in, and your logo if you send one with your details."],
     ["How quickly will I get them?", `${DELIVERY_LINE}. The ${DELIVERY_DAYS} business days start when your details are in: after payment you get a link to a short details form, on the order page and in your order email. Each set is prepared and checked by our team before it is sent.`],
     ["Are prices inclusive of GST?", "No. Prices exclude GST. GST is calculated and added at checkout and shown on your tax invoice."],
-    ["Can I use the documents on more than one project?", "Yes. Both outright purchases and subscriptions allow use across your own business and projects. A subscription also lets you generate the documents for each project with its details."],
-    ["How are documents kept up to date?", "The whole library is reviewed against legislative change every 6 months. Subscribers receive the updated documents."],
+    ["Can I use the documents on more than one project?", "Yes. An outright purchase allows use across your own business and projects. Each set is filled with the project details you send us; tell us on the details form if you need a set for more than one project."],
+    ["How are documents kept up to date?", "The whole library is reviewed against legislative change every 6 months. A one-off pack is the revision current when it is prepared for you."],
     ["Do the documents meet my legal obligations on their own?", "No document can do that on its own. They are written to Australian WHS laws and aligned to the ISO standards, but the business using them must review and adapt each one to its work and site, consult its workers and keep it current."],
-    ["Can I cancel a subscription?", "Yes, at any time from your account. Cancellation takes effect at the end of the period you've paid for."],
+    ["Can I subscribe instead?", `Not yet: subscriptions and consultant plans aren't on sale. ${INTEREST_LABEL} on the Subscriptions page and we'll email you when they open.`],
     ...(CONSULTANTS_ON ? [["I'm a consultant. Can I use these for my clients?", "Yes, with a consultant plan. Plans are priced by how many clients you serve, and documents are issued under your brand or your client's. See the consultants page and the Consultant Licence."]] : []),
     ["Can you write a custom SWMS or build our management system?", "Yes. That is consulting work through SiteGuard Systems. Contact us and we'll reply within one business day."],
   ];

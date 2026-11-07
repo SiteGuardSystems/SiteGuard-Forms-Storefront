@@ -108,7 +108,7 @@ export function cartPages(ctx) {
     <input type="hidden" name="termsVersion" value="${esc(ctx.termsVersion)}">
     <p class="form-status" data-status aria-live="polite"></p>
     <div class="btn-row"><button class="btn btn-hivis" type="submit">Go to secure checkout</button></div>
-    <p class="small">You'll enter your business name and project address on the next page. The site name above is optional. After payment you'll get a link to a short form for the rest of your details. Subscriptions are set up from each package's "Subscribe" button.</p>
+    <p class="small">You'll enter your business name and project address on the next page. The site name above is optional. After payment you'll get a link to a short form for the rest of your details.</p>
   </form>
 </div></section>`,
   });

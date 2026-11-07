@@ -59,6 +59,8 @@ const app = createApp({
   catalogPath, varDir: path.join(dir, "var"), publicDir: null, stripe, stripeTestMode: true,
   stripeWebhookSecret: webhookSecret, stripeAutomaticTax: true, publicOrigin: "https://example.com",
   mailer: { configured: false }, leadAllowedOrigins: [],
+  // Test mode only: FORMS sales open for this run (the real server reads the switches from FORMS).
+  switches: async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false }),
   orderIntakeUrl: "http://intake.invalid/api/v3/storefront-orders", orderIntakeApiKey: "e2e",
   fetchImpl: async (_u, init) => { intake.push(JSON.parse(init.body)); return { ok: true, status: 201, json: async () => ({ id: `order_${intake.length}` }) }; },
   appBillingPath: configPath, appBillingStripePath: mapPath, foundingAdminToken: adminToken, trustProxy: true,
