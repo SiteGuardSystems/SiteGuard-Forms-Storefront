@@ -93,6 +93,11 @@ export function interestForm(endpoint = "") {
 </form>`;
 }
 
+/** The Document Use Disclaimer summary on every pack (brief Rev02, 3.1). */
+export function disclaimerNote() {
+  return `<p class="small disclaimer-line">Templates aligned to Australian WHS laws, reviewed 6-monthly. The business using them must review and adapt each document to its own work and site, consult its workers and keep it current; it keeps responsibility for its safety obligations. <a href="/legal/document-use-disclaimer/">Document Use Disclaimer</a>.</p>`;
+}
+
 /** The delivery line for a pack, the cart and the single-documents page. */
 export function deliveryNote(extra = "") {
   return `<p class="delivery-line"><strong>${DELIVERY_LINE}.</strong> The ${DELIVERY_DAYS} business days start when your details are in (a short form after payment).${extra ? ` ${extra}` : ""}</p>`;
@@ -249,6 +254,7 @@ export function shopPages(ctx) {
     ${docList(p)}
     ${priceBlock(p)}
     ${p.prices.one_off ? deliveryNote() : ""}
+    ${disclaimerNote()}
   </article>`;
   }
 

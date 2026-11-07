@@ -171,6 +171,8 @@ const app = createApp({
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
   switches: readSwitches,
+  // Go-live 7 Nov 2026: only packs on Dan's sellable-now list are sold.
+  sellableListPath: path.join(__dirname, "data", "sellable-now.json"),
   parkOrder,
   beta: SITE_MODE.beta === true,
   csp: withCspSources(withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)), productVideosCsp(PRODUCT_VIDEOS)),

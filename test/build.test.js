@@ -8,7 +8,11 @@ import { BANNED, GATED, DELIVERY_BANNED } from "../scripts/build-site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
-const cat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
+import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+// The pages are built from the catalogue narrowed by Dan's sellable-now list (go-live, 7 Nov 2026).
+const rawCat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
+const sellable = loadSellableList(path.join(ROOT, "data/sellable-now.json"));
+const cat = applySellableList(rawCat, sellable);
 
 async function htmlFiles(dir = DIST) {
   const out = [];
@@ -182,6 +186,8 @@ test("every pack page: what is in it, project details in, PDFs out, revisions af
   for (const f of ["trade-packs/carpentry/index.html", "builder-packs/index.html", "management-systems/index.html"]) {
     const html = pages.find((p) => p.f === f)?.html;
     assert.ok(html, f);
+    // Builder packs are all held back by the sellable-now list until the held ledger entries land (empty state).
+    if (!html.includes('<article class="rung"')) continue;
     assert.match(html, /How a pack works/, f);
     assert.match(html, /Your details in/, f);
     assert.match(html, /PDFs out/, f);
@@ -237,4 +243,29 @@ test("subscriptions and consultant plans: every Subscribe button is hidden behin
   assert.match(subs, /id="register-interest"/);
   assert.match(subs, /name="enquiry_type" value="forms-interest"/);
   assert.match(subs, /<option value="consultant_plans">/);
+});
+
+// Go-live 7 Nov 2026 (brief Rev02, 5.2; S3): only the sellable-now list is on sale.
+test("the shop lists exactly the packs on the sellable-now list, each with the delivery line and the disclaimer summary", () => {
+  const all = pages.map((p) => p.html).join("\n");
+  const shown = rawCat.packs.filter((p) => p.show && p.prices && all.includes(`data-add-pack="${p.id}"`)).map((p) => p.id).sort();
+  assert.deepEqual(shown, [...sellable.packs_sellable_now].sort());
+  for (const id of [...sellable.packs_sellable_once_held_land, ...sellable.packs_hidden_later_wave]) {
+    assert.ok(!all.includes(`data-add-pack="${id}"`), `${id} is not on sale yet`);
+  }
+  for (const { f, html } of pages) {
+    const articles = html.split('<article class="rung"').slice(1);
+    for (const a of articles) {
+      assert.match(a, /Delivered as PDFs by email within 3 business days/, f);
+      assert.match(a, /Document Use Disclaimer/, f);
+      assert.match(a, /reviewed 6-monthly/, f);
+    }
+  }
+});
+
+test("no held document is sold on its own", async () => {
+  const docs = JSON.parse(await readFile(path.join(DIST, "assets/documents.json"), "utf8")).documents.map((d) => d.code);
+  for (const c of sellable.held_documents) assert.ok(!docs.includes(c), c);
+  const listed = new Set(sellable.documents);
+  for (const c of docs) assert.ok(listed.has(c), `${c} is sold singly but isn't on the list`);
 });

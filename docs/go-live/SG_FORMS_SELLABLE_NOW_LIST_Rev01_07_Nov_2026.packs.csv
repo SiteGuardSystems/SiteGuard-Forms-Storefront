@@ -1,0 +1,91 @@
+pack_id,pack_name,group,trade,level,price_one_off_aud_ex_gst,launch_wave,shown_at_launch,sellable_now,sellable_once_held_entries_land,documents
+subcontractor:CARP:domestic,Carpentry Pack: Domestic,trade-packs,Carpentry,Domestic,599,mar-2027,Yes,Yes,Yes,36
+subcontractor:CARP:light-commercial,Carpentry Pack: Light Commercial,trade-packs,Carpentry,Light Commercial,779,mar-2027,Yes,Yes,Yes,50
+subcontractor:CARP:heavy-commercial,Carpentry Pack: Heavy Commercial,trade-packs,Carpentry,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,56
+subcontractor:CIV:domestic,Civil Works Pack: Domestic,trade-packs,Civil Works,Domestic,599,mar-2027,Yes,Yes,Yes,36
+subcontractor:CIV:light-commercial,Civil Works Pack: Light Commercial,trade-packs,Civil Works,Light Commercial,779,mar-2027,Yes,Yes,Yes,50
+subcontractor:CIV:heavy-commercial,Civil Works Pack: Heavy Commercial,trade-packs,Civil Works,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,64
+subcontractor:COMM:domestic,Communications & Security Pack: Domestic,trade-packs,Communications & Security,Domestic,539,mar-2027,Yes,Yes,Yes,22
+subcontractor:COMM:light-commercial,Communications & Security Pack: Light Commercial,trade-packs,Communications & Security,Light Commercial,719,mar-2027,Yes,Yes,Yes,36
+subcontractor:COMM:heavy-commercial,Communications & Security Pack: Heavy Commercial,trade-packs,Communications & Security,Heavy Commercial,989,mar-2027,Yes,Yes,Yes,40
+subcontractor:CONC:domestic,Concrete Pack: Domestic,trade-packs,Concrete,Domestic,539,mar-2027,Yes,Yes,Yes,30
+subcontractor:CONC:light-commercial,Concrete Pack: Light Commercial,trade-packs,Concrete,Light Commercial,779,mar-2027,Yes,Yes,Yes,44
+subcontractor:CONC:heavy-commercial,Concrete Pack: Heavy Commercial,trade-packs,Concrete,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,52
+subcontractor:DEMO:domestic,Demolition Pack: Domestic,trade-packs,Demolition,Domestic,539,mar-2027,Yes,Yes,Yes,25
+subcontractor:DEMO:light-commercial,Demolition Pack: Light Commercial,trade-packs,Demolition,Light Commercial,779,mar-2027,Yes,Yes,Yes,39
+subcontractor:DEMO:heavy-commercial,Demolition Pack: Heavy Commercial,trade-packs,Demolition,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,44
+subcontractor:ELEC:domestic,Electrical Pack: Domestic,trade-packs,Electrical,Domestic,539,mar-2027,Yes,Yes,Yes,29
+subcontractor:ELEC:light-commercial,Electrical Pack: Light Commercial,trade-packs,Electrical,Light Commercial,779,mar-2027,Yes,Yes,Yes,43
+subcontractor:ELEC:heavy-commercial,Electrical Pack: Heavy Commercial,trade-packs,Electrical,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,48
+subcontractor:FIN:domestic,Interior Finishes Pack: Domestic,trade-packs,Interior Finishes,Domestic,539,mar-2027,Yes,Yes,Yes,27
+subcontractor:FIN:light-commercial,Interior Finishes Pack: Light Commercial,trade-packs,Interior Finishes,Light Commercial,779,mar-2027,Yes,Yes,Yes,41
+subcontractor:FIRE:domestic,Fire Services Pack: Domestic,trade-packs,Fire Services,Domestic,539,mar-2027,Yes,Yes,Yes,24
+subcontractor:FIRE:light-commercial,Fire Services Pack: Light Commercial,trade-packs,Fire Services,Light Commercial,719,mar-2027,Yes,Yes,Yes,38
+subcontractor:FIRE:heavy-commercial,Fire Services Pack: Heavy Commercial,trade-packs,Fire Services,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,43
+subcontractor:GLAZ:domestic,Glazing Pack: Domestic,trade-packs,Glazing,Domestic,479,mar-2027,Yes,Yes,Yes,20
+subcontractor:GLAZ:light-commercial,Glazing Pack: Light Commercial,trade-packs,Glazing,Light Commercial,659,mar-2027,Yes,Yes,Yes,34
+subcontractor:GLAZ:heavy-commercial,Glazing Pack: Heavy Commercial,trade-packs,Glazing,Heavy Commercial,929,mar-2027,Yes,Yes,Yes,38
+subcontractor:LAND:domestic,Landscaping & External Works Pack: Domestic,trade-packs,Landscaping & External Works,Domestic,539,mar-2027,Yes,Yes,Yes,24
+subcontractor:LAND:light-commercial,Landscaping & External Works Pack: Light Commercial,trade-packs,Landscaping & External Works,Light Commercial,719,mar-2027,Yes,Yes,Yes,38
+subcontractor:LAND:heavy-commercial,Landscaping & External Works Pack: Heavy Commercial,trade-packs,Landscaping & External Works,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,44
+subcontractor:LIFT:domestic,Lifts & Vertical Transport Pack: Domestic,trade-packs,Lifts & Vertical Transport,Domestic,479,mar-2027,Yes,Yes,Yes,21
+subcontractor:LIFT:light-commercial,Lifts & Vertical Transport Pack: Light Commercial,trade-packs,Lifts & Vertical Transport,Light Commercial,719,mar-2027,Yes,Yes,Yes,35
+subcontractor:LIFT:heavy-commercial,Lifts & Vertical Transport Pack: Heavy Commercial,trade-packs,Lifts & Vertical Transport,Heavy Commercial,989,mar-2027,Yes,Yes,Yes,39
+subcontractor:MAS:domestic,Masonry Pack: Domestic,trade-packs,Masonry,Domestic,479,mar-2027,Yes,No,Yes,21
+subcontractor:MAS:light-commercial,Masonry Pack: Light Commercial,trade-packs,Masonry,Light Commercial,719,mar-2027,Yes,No,Yes,35
+subcontractor:MAS:heavy-commercial,Masonry Pack: Heavy Commercial,trade-packs,Masonry,Heavy Commercial,989,mar-2027,Yes,No,Yes,39
+subcontractor:MECH:domestic,Mechanical Services Pack: Domestic,trade-packs,Mechanical Services,Domestic,539,mar-2027,Yes,Yes,Yes,26
+subcontractor:MECH:light-commercial,Mechanical Services Pack: Light Commercial,trade-packs,Mechanical Services,Light Commercial,779,mar-2027,Yes,Yes,Yes,40
+subcontractor:MECH:heavy-commercial,Mechanical Services Pack: Heavy Commercial,trade-packs,Mechanical Services,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,45
+subcontractor:PAINT:domestic,Painting Pack: Domestic,trade-packs,Painting,Domestic,539,mar-2027,Yes,Yes,Yes,23
+subcontractor:PAINT:light-commercial,Painting Pack: Light Commercial,trade-packs,Painting,Light Commercial,719,mar-2027,Yes,Yes,Yes,37
+subcontractor:PAINT:heavy-commercial,Painting Pack: Heavy Commercial,trade-packs,Painting,Heavy Commercial,989,mar-2027,Yes,No,Yes,41
+subcontractor:PLAS:domestic,Plastering & Linings Pack: Domestic,trade-packs,Plastering & Linings,Domestic,539,mar-2027,Yes,Yes,Yes,26
+subcontractor:PLAS:light-commercial,Plastering & Linings Pack: Light Commercial,trade-packs,Plastering & Linings,Light Commercial,779,mar-2027,Yes,Yes,Yes,40
+subcontractor:PLAS:heavy-commercial,Plastering & Linings Pack: Heavy Commercial,trade-packs,Plastering & Linings,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,47
+subcontractor:PLMB:domestic,Plumbing & Hydraulics Pack: Domestic,trade-packs,Plumbing & Hydraulics,Domestic,539,mar-2027,Yes,Yes,Yes,27
+subcontractor:PLMB:light-commercial,Plumbing & Hydraulics Pack: Light Commercial,trade-packs,Plumbing & Hydraulics,Light Commercial,779,mar-2027,Yes,Yes,Yes,41
+subcontractor:PLMB:heavy-commercial,Plumbing & Hydraulics Pack: Heavy Commercial,trade-packs,Plumbing & Hydraulics,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,46
+subcontractor:PLT:domestic,Plant Operation Pack: Domestic,trade-packs,Plant Operation,Domestic,599,mar-2027,Yes,Yes,Yes,33
+subcontractor:PLT:light-commercial,Plant Operation Pack: Light Commercial,trade-packs,Plant Operation,Light Commercial,779,mar-2027,Yes,Yes,Yes,47
+subcontractor:ROOF:domestic,Roofing Pack: Domestic,trade-packs,Roofing,Domestic,539,mar-2027,Yes,Yes,Yes,27
+subcontractor:ROOF:light-commercial,Roofing Pack: Light Commercial,trade-packs,Roofing,Light Commercial,779,mar-2027,Yes,Yes,Yes,41
+subcontractor:ROOF:heavy-commercial,Roofing Pack: Heavy Commercial,trade-packs,Roofing,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,45
+subcontractor:RWH:heavy-commercial,Rainwater Harvesting Pack: Heavy Commercial,trade-packs,Rainwater Harvesting,Heavy Commercial,929,mar-2027,Yes,Yes,Yes,36
+subcontractor:SERV:domestic,Building Services Pack: Domestic,trade-packs,Building Services,Domestic,539,mar-2027,Yes,Yes,Yes,27
+subcontractor:SERV:light-commercial,Building Services Pack: Light Commercial,trade-packs,Building Services,Light Commercial,779,mar-2027,Yes,Yes,Yes,41
+subcontractor:STEEL:domestic,Structural Steel Pack: Domestic,trade-packs,Structural Steel,Domestic,539,mar-2027,Yes,Yes,Yes,23
+subcontractor:STEEL:light-commercial,Structural Steel Pack: Light Commercial,trade-packs,Structural Steel,Light Commercial,719,mar-2027,Yes,Yes,Yes,37
+subcontractor:STEEL:heavy-commercial,Structural Steel Pack: Heavy Commercial,trade-packs,Structural Steel,Heavy Commercial,989,mar-2027,Yes,Yes,Yes,42
+subcontractor:TILE:heavy-commercial,Tiling Pack: Heavy Commercial,trade-packs,Tiling,Heavy Commercial,929,mar-2027,Yes,No,Yes,37
+subcontractor:WP:domestic,Waterproofing Pack: Domestic,trade-packs,Waterproofing,Domestic,539,mar-2027,Yes,Yes,Yes,28
+subcontractor:WP:light-commercial,Waterproofing Pack: Light Commercial,trade-packs,Waterproofing,Light Commercial,779,mar-2027,Yes,Yes,Yes,42
+subcontractor:WP:heavy-commercial,Waterproofing Pack: Heavy Commercial,trade-packs,Waterproofing,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,47
+builder:domestic,Builder Pack: Domestic,builder-packs,,Domestic,2199,mar-2027,Yes,No,Yes,215
+builder:light-commercial,Builder Pack: Light Commercial,builder-packs,,Light Commercial,2699,mar-2027,Yes,No,Yes,235
+builder:heavy-commercial,Builder Pack: Heavy Commercial,builder-packs,,Heavy Commercial,4049,mar-2027,Yes,No,Yes,614
+subcontractor-system,Core Management System,management-systems,,n/a,1799,mar-2027,Yes,No,Yes,270
+addon:governance,Governance Pack,management-systems,,n/a,809,later,No (wave 'later'),Yes,Yes,53
+addon:info-security,Information Security Pack,management-systems,,n/a,539,later,No (wave 'later'),Yes,Yes,29
+addon:business-continuity,Business Continuity Pack,management-systems,,n/a,449,later,No (wave 'later'),Yes,Yes,17
+addon:energy,Energy Management Pack,management-systems,,n/a,399,later,No (wave 'later'),Yes,Yes,16
+addon:audit,Audit Management Pack,management-systems,,n/a,399,later,No (wave 'later'),Yes,Yes,15
+addon:sustainability,Sustainability Pack,management-systems,,n/a,309,later,No (wave 'later'),Yes,Yes,12
+addon:risk,Risk Management Pack,management-systems,,n/a,399,later,No (wave 'later'),Yes,Yes,15
+subcontractor:FACA:domestic,Facade & Cladding Pack: Domestic,specialist-packs,Facade & Cladding,Domestic,539,mar-2027,Yes,Yes,Yes,25
+subcontractor:FACA:light-commercial,Facade & Cladding Pack: Light Commercial,specialist-packs,Facade & Cladding,Light Commercial,779,mar-2027,Yes,Yes,Yes,39
+subcontractor:FACA:heavy-commercial,Facade & Cladding Pack: Heavy Commercial,specialist-packs,Facade & Cladding,Heavy Commercial,1119,mar-2027,Yes,Yes,Yes,44
+subcontractor:FDN:domestic,Foundations & Piling Pack: Domestic,specialist-packs,Foundations & Piling,Domestic,479,mar-2027,Yes,Yes,Yes,21
+subcontractor:FDN:light-commercial,Foundations & Piling Pack: Light Commercial,specialist-packs,Foundations & Piling,Light Commercial,719,mar-2027,Yes,Yes,Yes,35
+subcontractor:FDN:heavy-commercial,Foundations & Piling Pack: Heavy Commercial,specialist-packs,Foundations & Piling,Heavy Commercial,929,mar-2027,Yes,Yes,Yes,38
+subcontractor:FENC:domestic,Fencing Pack: Domestic,specialist-packs,Fencing,Domestic,539,mar-2027,Yes,Yes,Yes,22
+subcontractor:FENC:light-commercial,Fencing Pack: Light Commercial,specialist-packs,Fencing,Light Commercial,719,mar-2027,Yes,Yes,Yes,36
+subcontractor:FENC:heavy-commercial,Fencing Pack: Heavy Commercial,specialist-packs,Fencing,Heavy Commercial,929,mar-2027,Yes,Yes,Yes,38
+addon:high-risk,High Risk Construction Work SWMS Pack,specialist-packs,,n/a,539,later,No (wave 'later'),Yes,Yes,27
+addon:labour-hire,Labour Hire Compliance Pack,specialist-packs,,n/a,309,later,No (wave 'later'),Yes,Yes,9
+subcontractor:PFP:domestic,Passive Fire Protection Pack: Domestic,specialist-packs,Passive Fire Protection,Domestic,479,mar-2027,Yes,Yes,Yes,21
+subcontractor:PFP:light-commercial,Passive Fire Protection Pack: Light Commercial,specialist-packs,Passive Fire Protection,Light Commercial,719,mar-2027,Yes,Yes,Yes,35
+subcontractor:PFP:heavy-commercial,Passive Fire Protection Pack: Heavy Commercial,specialist-packs,Passive Fire Protection,Heavy Commercial,929,mar-2027,Yes,Yes,Yes,38
+subcontractor:SOL:domestic,"Solar PV, Battery & EV Charging Pack: Domestic",specialist-packs,"Solar PV, Battery & EV Charging",Domestic,539,mar-2027,Yes,Yes,Yes,22
+subcontractor:SOL:light-commercial,"Solar PV, Battery & EV Charging Pack: Light Commercial",specialist-packs,"Solar PV, Battery & EV Charging",Light Commercial,719,mar-2027,Yes,Yes,Yes,36
+subcontractor:SOL:heavy-commercial,"Solar PV, Battery & EV Charging Pack: Heavy Commercial",specialist-packs,"Solar PV, Battery & EV Charging",Heavy Commercial,989,mar-2027,Yes,Yes,Yes,39
