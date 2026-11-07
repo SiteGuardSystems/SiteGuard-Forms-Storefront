@@ -31,7 +31,7 @@ import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
 import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 // The shop pages and the cart are shared with siteguard-website (WP-S8): the
 // same shop.mjs, cart.mjs and cart-browser.js are in both repos.
-import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS } from "./lib/shop.mjs";
+import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -83,7 +83,10 @@ const FOUNDING_URL = `${SYSTEMS_URL}/app/founding-offer/`;
 // legal pages are exempt: they are solicitor-controlled and use some of these
 // words to say what SiteGuard does NOT claim.
 export const BANNED = /\b(compliant|certified|endorsed|guarantee[sd]?|4801|coming soon|rolling out|in progress|quarterly|money[- ]back)\b/gi;
-const BANNED_ALLOWED = [/Certified Lead Auditor/gi];
+// "Coming soon: register interest" is the go-live wording for FORMS
+// subscriptions and consultant plans (brief Rev02, 5.2); "coming soon" on its
+// own stays banned.
+const BANNED_ALLOWED = [/Certified Lead Auditor/gi, /Coming soon: register interest/g];
 // Go-live 7 Nov 2026 (brief Rev02 3.1): delivery is by hand within 3 business
 // days, so no live page may promise instant or minutes-fast documents. Checked
 // on every built page except the legal pages and preview-only video
@@ -326,8 +329,9 @@ ${foundingPanel()}
   ${ranges ? `<div class="register">${ranges}</div>` : emptyState("packages")}
 </div></section>
 <section class="band"><div class="wrap cols">
-  <div><h2>${CONSULTANTS_ON ? "Three" : "Two"} ways to buy</h2>
-    <p><strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.</p>
+  <div><h2>How to buy</h2>
+    ${switchPair("subscriptions_open", "<strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.",
+      `<strong>Subscriptions and consultant plans.</strong> Not on sale yet. <a href="/subscriptions/#register-interest">${INTEREST_LABEL}</a>.`, "p")}
     <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in.</p>
     ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}
   </div>

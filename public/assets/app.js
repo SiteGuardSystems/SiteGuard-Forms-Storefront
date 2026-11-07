@@ -37,19 +37,28 @@
     f.addEventListener("submit", function (e) {
       e.preventDefault();
       var status = f.querySelector("[data-status]");
-      if (!f.name.value.trim() || !f.email.value.trim() || !f.need.value.trim()) {
-        status.className = "form-status err"; status.textContent = "Add your name, email and what you need."; return;
+      var interestForm = val(f, "enquiry_type") === "forms-interest";
+      if (!f.name.value.trim() || !f.email.value.trim() || (!interestForm && !f.need.value.trim())) {
+        status.className = "form-status err"; status.textContent = interestForm ? "Add your name and email." : "Add your name, email and what you need."; return;
       }
       var endpoint = f.getAttribute("data-endpoint") || "/api/lead";
       var data = { source: f.getAttribute("data-source"), name: f.name.value, email: f.email.value,
         company: f.company.value, phone: f.phone.value, need: f.need.value, website: f.website.value,
         enquiry_type: val(f, "enquiry_type") || "enquiry", ref: ref,
         partner_url: val(f, "partner_url"), partner_kind: val(f, "partner_kind") };
+      if (interestForm) {
+        // "Coming soon: register interest" (FORMS subscriptions and consultant
+        // plans): an enquiry with the interest tag and the consent basis.
+        data.interest = val(f, "interest");
+        data.consent = f.consent && f.consent.checked ? "yes" : "";
+        data.consent_wording = f.consent && f.consent.checked ? (f.consent.getAttribute("data-consent-wording") || "") : "";
+        data.consent_source = window.location.href.split("?")[0];
+      }
       status.className = "form-status"; status.textContent = "Sending…";
       fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
         .then(function (res) {
-          if (res.ok) { f.reset(); status.className = "form-status ok"; status.textContent = "Sent. We'll reply within one business day."; }
+          if (res.ok) { f.reset(); status.className = "form-status ok"; status.textContent = interestForm ? "Thanks. Your interest is registered." : "Sent. We'll reply within one business day."; }
           else { status.className = "form-status err"; status.textContent = (res.body && res.body.reason) || "Your enquiry didn't send. Try again."; }
         })
         .catch(function () { status.className = "form-status err"; status.textContent = "Your enquiry didn't send. Check your connection and try again."; });
@@ -57,6 +66,25 @@
   });
 
   renderCount();
+  // FORMS switches (go-live 7 Nov 2026): subscription and consultant-plan
+  // buttons stay "Coming soon: register interest" unless the storefront's
+  // /api/switches (read from FORMS) says the switch is on. Any failure keeps
+  // them off.
+  var switchEls = document.querySelectorAll("[data-switch]");
+  if (switchEls.length && window.fetch) {
+    fetch("/api/switches", { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (sw) {
+        if (!sw) return;
+        switchEls.forEach(function (el) {
+          var on = sw[el.getAttribute("data-switch")] === true;
+          el.hidden = (el.getAttribute("data-when") === "on") !== on;
+        });
+      })
+      .catch(function () {});
+  }
+  var pick = /[?&]interest=(subscriptions|consultant_plans)(?:&|$)/.exec(window.location.search);
+  if (pick) document.querySelectorAll('select[name="interest"]').forEach(function (s) { s.value = pick[1]; });
   // Intro video (scripts/lib/video.mjs): the YouTube player loads only when
   // someone presses play. Without JavaScript the poster is a link to YouTube.
   document.querySelectorAll("[data-yt]").forEach(function (a) {

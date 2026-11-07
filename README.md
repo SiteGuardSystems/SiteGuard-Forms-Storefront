@@ -128,6 +128,14 @@ narrowed to "everything sold on one site, two kinds of checkout"):
 
 FORMS one-off packs are prepared and checked by hand and **delivered as PDFs by email within 3 business days** of the buyer's details being in (go-live brief Rev02, 3.1). Every pack page, the cart, the single-documents page, the Stripe page (`custom_text.submit`), the order page and the receipt email say so; the build fails on "instant", "within minutes", "download now" and similar on any non-legal page (`DELIVERY_BANNED`). After payment FORMS answers the order intake with `intakeUrl` (the buyer's details form, one per order line): the receipt email lists the link(s), and the success page (`/order/success/?session_id=…`) asks `GET /api/order/intake?session_id=…` for them. The Terms of Sale delivery clause comes from the SiteGuard-Forms legal source and still needs the same change there.
 
+## FORMS switches (go-live, 7 Nov 2026)
+
+SiteGuard-Forms holds the go-live switches (brief Rev02, Section 2) and enforces them itself; the storefront reads them from `GET /api/v3/storefront/switches` (same host and `x-storefront-api-key` as the order intake; `FORMS_SWITCHES_URL` overrides the URL) through `lib/forms-switches.js`, cached for 15 seconds. **Fail closed:** no URL or key, an error or a malformed answer reads as everything off.
+
+- `sales_open` (S1): `/api/checkout` refuses (503) before Stripe while it is off, as well as while `beta` is true.
+- `subscriptions_open` (S4) and `consultant_plans_open` (S5): every Subscribe button is built hidden, with **"Coming soon: register interest"** in its place (to `/subscriptions/#register-interest`, a form that posts to `/api/lead` with `enquiry_type: "forms-interest"` and `interest`: an enquiry, not a sale). `app.js` asks the storefront's `GET /api/switches` and shows the real buttons only when FORMS says the switch is on. A consultant-plan line in `/api/checkout` is refused (409) while S5 is off.
+- Static wording (home, How ordering works, FAQ) is written for the switches off; rebuild with new wording when S4 or S5 is turned on.
+
 ## Stripe webhook
 
 Register `https://www.siteguardforms.com.au/api/webhook/stripe` for

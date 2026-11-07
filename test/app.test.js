@@ -136,6 +136,8 @@ async function withApp(opts, fn) {
     orderIntakeApiKey: opts.orderIntakeApiKey ?? "test-intake-key",
     fetchImpl: opts.fetchImpl ?? makeFakeFetch(),
     beta: opts.beta ?? false,
+    // FORMS sales open (S1) unless a test says otherwise; S4/S5 off.
+    switches: opts.switches ?? (async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false })),
     ...(opts.csp ? { csp: opts.csp } : {}),
   });
   const server = app.listen(0);
@@ -295,7 +297,8 @@ describe("POST /api/checkout", () => {
     });
   });
   test("subscription-only packs go through the FORMS app, not here", async () => {
-    await withApp({ stripe: makeFakeStripe() }, async ({ base }) => {
+    // Consultant plans open (S5 on), so the subscription-only rule is what refuses it.
+    await withApp({ stripe: makeFakeStripe(), switches: async () => ({ sales_open: true, delivery_sla_business_days: 3, subscriptions_open: true, consultant_plans_open: true }) }, async ({ base }) => {
       const res = await checkout(base, [{ packageId: "consultant:t1" }]);
       assert.equal(res.status, 409);
       assert.match((await res.json()).reason, /subscription only/);

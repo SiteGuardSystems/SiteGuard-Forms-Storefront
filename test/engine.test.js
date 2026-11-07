@@ -76,6 +76,7 @@ async function withEngine(fn, { appStatus = "presale", launch = { live: false },
     orderIntakeUrl: "http://intake.test/api", orderIntakeApiKey: "k",
     appBillingPath: path.join(dir, "app-billing.json"), appBillingStripePath: path.join(dir, "map.json"),
     now: () => now, trustProxy: true, beta,
+    switches: async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false }),
   });
   const server = app.listen(0);
   await new Promise((r) => server.once("listening", r));

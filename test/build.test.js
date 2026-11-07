@@ -47,7 +47,7 @@ test("titles are unique", () => {
 test("marketing pages carry none of the banned words", () => {
   for (const { f, html } of pages) {
     if (f.startsWith("legal/")) continue;
-    const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/Certified Lead Auditor/g, "");
+    const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/Certified Lead Auditor/g, "").replace(/Coming soon: register interest/g, "");
     assert.equal(text.match(BANNED), null, f);
   }
 });
@@ -185,7 +185,7 @@ test("every pack page: what is in it, project details in, PDFs out, revisions af
     assert.match(html, /How a pack works/, f);
     assert.match(html, /Your details in/, f);
     assert.match(html, /PDFs out/, f);
-    assert.match(html, /revised documents pushed to their account after each review/, f);
+    assert.match(html, /legislative review every 6 months/, f);
   }
 });
 
@@ -222,4 +222,19 @@ test("no live page promises instant, minutes-fast or download-now delivery", () 
     assert.equal(text.match(DELIVERY_BANNED), null, f);
     assert.ok(!/one business day of payment|often within minutes/i.test(text), f);
   }
+});
+
+// Go-live 7 Nov 2026 (brief Rev02, 5.2): subscriptions (S4) and consultant plans (S5) are off.
+test("subscriptions and consultant plans: every Subscribe button is hidden behind its switch, with register interest in its place", () => {
+  for (const { f, html } of pages) {
+    // Every link to the FORMS app signup or consultant apply page sits inside a hidden "on" switch element.
+    const withoutHidden = html.replace(/<(span|p)[^>]*data-switch="[a-z_]+" data-when="on" hidden>[\s\S]*?<\/\1>/g, "");
+    assert.ok(!/\/signup\?|\/consultant\/apply\?/.test(withoutHidden), `${f}: a visible Subscribe link`);
+    assert.ok(!/>Subscribe (yearly|monthly)</.test(withoutHidden), `${f}: a visible Subscribe button`);
+    if (html.includes("data-add-pack=")) assert.match(withoutHidden, /Coming soon: register interest/, f);
+  }
+  const subs = pages.find((p) => p.f === "subscriptions/index.html").html;
+  assert.match(subs, /id="register-interest"/);
+  assert.match(subs, /name="enquiry_type" value="forms-interest"/);
+  assert.match(subs, /<option value="consultant_plans">/);
 });

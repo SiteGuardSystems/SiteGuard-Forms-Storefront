@@ -407,3 +407,6 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 .founding-places { font-weight: 600; color: var(--ink); }
 .video-placeholder { max-width: 960px; aspect-ratio: 16 / 9; display: grid; place-items: center; padding: 1rem; border: 1px dashed var(--rule-strong); background: var(--site); text-align: center; }
 .video-placeholder p { margin: 0; max-width: 40rem; }
+
+/* FORMS switches (go-live 7 Nov 2026): the hidden half of a switch pair stays hidden. */
+[data-switch][hidden] { display: none !important; }
