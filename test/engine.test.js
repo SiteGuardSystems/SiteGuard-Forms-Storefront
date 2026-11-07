@@ -76,6 +76,7 @@ async function withEngine(fn, { appStatus = "presale", launch = { live: false },
     orderIntakeUrl: "http://intake.test/api", orderIntakeApiKey: "k",
     appBillingPath: path.join(dir, "app-billing.json"), appBillingStripePath: path.join(dir, "map.json"),
     now: () => now, trustProxy: true, beta,
+    switches: async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false }),
   });
   const server = app.listen(0);
   await new Promise((r) => server.once("listening", r));
@@ -138,7 +139,7 @@ describe("WP-S9: /api/checkout for two sites", () => {
       assert.equal(r.headers.get("access-control-allow-origin"), SYSTEMS);
       assert.match((await r.json()).url, /^https:\/\/checkout\.stripe\.com\//);
       const p = stripe.calls.sessions[0];
-      assert.equal(p.success_url, `${SYSTEMS}/order/success/`);
+      assert.equal(p.success_url, `${SYSTEMS}/order/success/?session_id={CHECKOUT_SESSION_ID}`);
       assert.equal(p.cancel_url, `${SYSTEMS}/order/cancelled/`);
       assert.equal(p.metadata.source_site, "systems");
       assert.equal(p.metadata.return_origin, SYSTEMS);
@@ -158,7 +159,7 @@ describe("WP-S9: /api/checkout for two sites", () => {
     await withEngine(async ({ post, stripe }) => {
       const r = await post("/api/checkout", { cart: [{ packageId: "builder:domestic" }], acceptedTerms: true });
       assert.equal(r.status, 200);
-      assert.equal(stripe.calls.sessions[0].success_url, `${FORMS}/order/success/`);
+      assert.equal(stripe.calls.sessions[0].success_url, `${FORMS}/order/success/?session_id={CHECKOUT_SESSION_ID}`);
       assert.equal(stripe.calls.sessions[0].metadata.source_site, "forms");
       assert.equal((await post("/api/checkout", { cart: [{ packageId: "builder:domestic" }] })).status, 400, "terms still required");
       assert.equal((await post("/api/checkout", { cart: [{ packageId: "nope" }], acceptedTerms: true })).status, 404);

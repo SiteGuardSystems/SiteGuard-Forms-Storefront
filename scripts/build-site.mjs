@@ -31,12 +31,16 @@ import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
 import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 // The shop pages and the cart are shared with siteguard-website (WP-S8): the
 // same shop.mjs, cart.mjs and cart-browser.js are in both repos.
-import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages } from "./lib/shop.mjs";
+import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
+import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
 const CATALOGUE = process.env.CATALOGUE_PATH ? path.resolve(process.env.CATALOGUE_PATH) : path.join(ROOT, "data/catalogue.json");
+// Go-live 7 Nov 2026: Dan's sellable-now list (lib/sellable-list.js) narrows
+// what the catalogue shows and sells. The build stops without it.
+export const SELLABLE_LIST = process.env.SELLABLE_LIST_PATH ? path.resolve(process.env.SELLABLE_LIST_PATH) : path.join(ROOT, "data/sellable-now.json");
 const PRODUCTION = process.argv.includes("--production");
 const SAMPLE_PARTNERS = process.argv.includes("--sample-partners");
 // Partners, affiliates and the Google review link (data/partners.json,
@@ -83,7 +87,15 @@ const FOUNDING_URL = `${SYSTEMS_URL}/app/founding-offer/`;
 // legal pages are exempt: they are solicitor-controlled and use some of these
 // words to say what SiteGuard does NOT claim.
 export const BANNED = /\b(compliant|certified|endorsed|guarantee[sd]?|4801|coming soon|rolling out|in progress|quarterly|money[- ]back)\b/gi;
-const BANNED_ALLOWED = [/Certified Lead Auditor/gi];
+// "Coming soon: register interest" is the go-live wording for FORMS
+// subscriptions and consultant plans (brief Rev02, 5.2); "coming soon" on its
+// own stays banned.
+const BANNED_ALLOWED = [/Certified Lead Auditor/gi, /Coming soon: register interest/g];
+// Go-live 7 Nov 2026 (brief Rev02 3.1): delivery is by hand within 3 business
+// days, so no live page may promise instant or minutes-fast documents. Checked
+// on every built page except the legal pages and preview-only video
+// placeholders (the PRD-001 video script stays as it is until it is published).
+export const DELIVERY_BANNED = /\b(instant(ly)?|download (them |it )?now|within minutes|in minutes|(your documents|documents) in five minutes|documents immediately|straight to your inbox)\b/gi;
 // Gated products and markets (rebaseline, 31 Oct 2026): never listed, priced or
 // teased on a customer page. "Core Management System" is a FORMS pack name, not
 // the gated CORE product, so CORE counts only in capitals and not before
@@ -110,6 +122,7 @@ const pages = [];
 // DCR warnings (a retired code neither shown nor sold): reported, never blocking.
 const dcrWarnings = [];
 let DCR_PIN = null;
+let SELLABLE_INFO = null;
 
 /** Loads and verifies the pinned DCR, then checks the catalogue against it. */
 async function checkDcr(cat) {
@@ -286,8 +299,19 @@ async function build() {
   EDU = edu.edu;
   for (const p of edu.problems) problems.push(`data: ${p}`);
   for (const p of PLANNING.problems) problems.push(/open item/.test(p) ? p : `data: ${p}`);
-  const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
-  await checkDcr(cat);
+  const rawCat = JSON.parse(await readFile(CATALOGUE, "utf8"));
+  // The DCR and generated-file checks run on the catalogue as generated; the
+  // pages are built from it narrowed by the sellable list.
+  await checkDcr(rawCat);
+  let list;
+  try {
+    list = loadSellableList(SELLABLE_LIST);
+  } catch (e) {
+    console.error(`Sellable list: ${e.message}. Run scripts/import-sellable-list.mjs on the list CSV. The build stops here.`);
+    process.exit(1);
+  }
+  const cat = applySellableList(rawCat, list);
+  SELLABLE_INFO = { revision: list.revision ?? null, source: list.source ?? null, packs_on_sale: cat.packs.filter((p) => p.show && p.sellable).length };
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const model = shopModel(cat);
   CONSULTANTS_ON = model.consultantsOn;
@@ -299,13 +323,13 @@ async function build() {
   page({
     url: "/", preview,
     title: "SiteGuard FORMS | HSEQ documents for Australian construction",
-    description: "Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.",
+    description: `Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs within ${DELIVERY_DAYS} business days.`,
     jsonld: [{ "@context": "https://schema.org", "@type": "Organization", name: "SiteGuard FORMS", url: ORIGIN,
       logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems", url: SYSTEMS_URL } },
       ...(VIDEO ? [videoJsonLd(VIDEO, ORIGIN)] : [])],
     body: `<section class="hero"><div class="wrap">
   <h1>Site-ready HSEQ documents, with your name on them.</h1>
-  <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Enter your business and project details, and the documents arrive in your inbox as PDFs.</p>
+  <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Send us your business and project details, and the documents are delivered as PDFs by email within ${DELIVERY_DAYS} business days.</p>
   <div class="btn-row"><a class="btn btn-hivis" href="/trade-packs/">Find your trade</a><a class="btn" href="/how-ordering-works/">How ordering works</a></div>
   ${shop.documents ? `<dl class="title-block">
     <div><dt>Documents available</dt><dd>${shop.documents}</dd></div>
@@ -321,9 +345,10 @@ ${foundingPanel()}
   ${ranges ? `<div class="register">${ranges}</div>` : emptyState("packages")}
 </div></section>
 <section class="band"><div class="wrap cols">
-  <div><h2>${CONSULTANTS_ON ? "Three" : "Two"} ways to buy</h2>
-    <p><strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.</p>
-    <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details and emailed to you as PDFs.</p>
+  <div><h2>How to buy</h2>
+    ${switchPair("subscriptions_open", "<strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.",
+      `<strong>Subscriptions and consultant plans.</strong> Not on sale yet. <a href="/subscriptions/#register-interest">${INTEREST_LABEL}</a>.`, "p")}
+    <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in.</p>
     ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}
   </div>
   <div><h2>What every document carries</h2>
@@ -525,6 +550,8 @@ async function main() {
       for (const re of BANNED_ALLOWED) text = text.replace(re, "");
       const hits = text.match(BANNED);
       if (hits) problems.push(`${p.url}: banned wording: ${[...new Set(hits)].join(", ")}`);
+      const delivery = textOf(p.html.replace(/<section[^>]*data-video-placeholder[\s\S]*?<\/section>/g, " ")).match(DELIVERY_BANNED);
+      if (delivery) problems.push(`${p.url}: promises faster delivery than the manual 3-business-day service: ${[...new Set(delivery)].join(", ")}`);
       const gated = text.match(GATED);
       if (gated) problems.push(`${p.url}: names a gated product or market: ${[...new Set(gated)].join(", ")}`);
     }
@@ -550,7 +577,7 @@ ${indexable.map((p) => `  <url><loc>${ORIGIN}${p.url}</loc></url>`).join("\n")}
     : `User-agent: *\nDisallow: /cart/\nDisallow: /order/\nDisallow: /api/\nSitemap: ${ORIGIN}/sitemap.xml\n`);
   await writeFile(path.join(DIST, "build-info.json"), JSON.stringify({
     built_at: new Date().toISOString(), catalogue_generated_at: cat.generated_at, preview: cat.preview, beta: BETA,
-    pricing_revision: cat.pricing_revision, pages: pages.length,
+    pricing_revision: cat.pricing_revision, pages: pages.length, sellable_list: SELLABLE_INFO,
     dcr_revision: DCR_PIN?.revision ?? null, dcr_sha256: DCR_PIN?.sha256 ?? null, dcr_public_sha256: DCR_PIN?.public_sha256 ?? null,
   }, null, 1));
 

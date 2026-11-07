@@ -4,11 +4,15 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { BANNED, GATED } from "../scripts/build-site.mjs";
+import { BANNED, GATED, DELIVERY_BANNED } from "../scripts/build-site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
-const cat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
+import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+// The pages are built from the catalogue narrowed by Dan's sellable-now list (go-live, 7 Nov 2026).
+const rawCat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
+const sellable = loadSellableList(path.join(ROOT, "data/sellable-now.json"));
+const cat = applySellableList(rawCat, sellable);
 
 async function htmlFiles(dir = DIST) {
   const out = [];
@@ -47,7 +51,7 @@ test("titles are unique", () => {
 test("marketing pages carry none of the banned words", () => {
   for (const { f, html } of pages) {
     if (f.startsWith("legal/")) continue;
-    const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/Certified Lead Auditor/g, "");
+    const text = html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ").replace(/Certified Lead Auditor/g, "").replace(/Coming soon: register interest/g, "");
     assert.equal(text.match(BANNED), null, f);
   }
 });
@@ -182,10 +186,12 @@ test("every pack page: what is in it, project details in, PDFs out, revisions af
   for (const f of ["trade-packs/carpentry/index.html", "builder-packs/index.html", "management-systems/index.html"]) {
     const html = pages.find((p) => p.f === f)?.html;
     assert.ok(html, f);
+    // Builder packs are all held back by the sellable-now list until the held ledger entries land (empty state).
+    if (!html.includes('<article class="rung"')) continue;
     assert.match(html, /How a pack works/, f);
-    assert.match(html, /Your project details in/, f);
+    assert.match(html, /Your details in/, f);
     assert.match(html, /PDFs out/, f);
-    assert.match(html, /revised documents pushed to their account after each review/, f);
+    assert.match(html, /legislative review every 6 months/, f);
   }
 });
 
@@ -196,4 +202,70 @@ test("FORMS product video slots sit on their pages (placeholders until published
   assert.ok(slot("builder-packs/index.html", "builder"));
   assert.ok(slot("specialist-packs/index.html", "high-risk"));
   assert.ok(slot("subscriptions/index.html", "subscription"));
+});
+
+// Go-live 7 Nov 2026 (brief Rev02 3.1, 5.2): manual delivery within 3 business days.
+test("manual delivery: the 3-business-day line is on every pack page, the cart, the single documents and the order page", () => {
+  const LINE = /Delivered as PDFs by email within 3 business days/;
+  const get = (f) => pages.find((p) => p.f === f)?.html ?? "";
+  for (const { f, html } of pages) {
+    if (html.includes("data-add-pack=")) assert.match(html, LINE, `${f}: a page selling packs says how they are delivered`);
+  }
+  assert.match(get("cart/index.html"), LINE);
+  assert.match(get("documents/index.html"), LINE);
+  const ok = get("order/success/index.html");
+  assert.match(ok, LINE);
+  assert.match(ok, /clock starts when your details are in/);
+  assert.match(ok, /data-intake-links/);
+  assert.match(get("how-ordering-works/index.html"), /within 3 business days of your details being in/);
+  assert.match(get("faq/index.html"), /start when your details are in/);
+});
+
+test("no live page promises instant, minutes-fast or download-now delivery", () => {
+  for (const { f, html } of pages) {
+    if (f.startsWith("legal/")) continue;
+    const text = html.replace(/<section[^>]*data-video-placeholder[\s\S]*?<\/section>/g, " ").replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ");
+    assert.equal(text.match(DELIVERY_BANNED), null, f);
+    assert.ok(!/one business day of payment|often within minutes/i.test(text), f);
+  }
+});
+
+// Go-live 7 Nov 2026 (brief Rev02, 5.2): subscriptions (S4) and consultant plans (S5) are off.
+test("subscriptions and consultant plans: every Subscribe button is hidden behind its switch, with register interest in its place", () => {
+  for (const { f, html } of pages) {
+    // Every link to the FORMS app signup or consultant apply page sits inside a hidden "on" switch element.
+    const withoutHidden = html.replace(/<(span|p)[^>]*data-switch="[a-z_]+" data-when="on" hidden>[\s\S]*?<\/\1>/g, "");
+    assert.ok(!/\/signup\?|\/consultant\/apply\?/.test(withoutHidden), `${f}: a visible Subscribe link`);
+    assert.ok(!/>Subscribe (yearly|monthly)</.test(withoutHidden), `${f}: a visible Subscribe button`);
+    if (html.includes("data-add-pack=")) assert.match(withoutHidden, /Coming soon: register interest/, f);
+  }
+  const subs = pages.find((p) => p.f === "subscriptions/index.html").html;
+  assert.match(subs, /id="register-interest"/);
+  assert.match(subs, /name="enquiry_type" value="forms-interest"/);
+  assert.match(subs, /<option value="consultant_plans">/);
+});
+
+// Go-live 7 Nov 2026 (brief Rev02, 5.2; S3): only the sellable-now list is on sale.
+test("the shop lists exactly the packs on the sellable-now list, each with the delivery line and the disclaimer summary", () => {
+  const all = pages.map((p) => p.html).join("\n");
+  const shown = rawCat.packs.filter((p) => p.show && p.prices && all.includes(`data-add-pack="${p.id}"`)).map((p) => p.id).sort();
+  assert.deepEqual(shown, [...sellable.packs_sellable_now].sort());
+  for (const id of [...sellable.packs_sellable_once_held_land, ...sellable.packs_hidden_later_wave]) {
+    assert.ok(!all.includes(`data-add-pack="${id}"`), `${id} is not on sale yet`);
+  }
+  for (const { f, html } of pages) {
+    const articles = html.split('<article class="rung"').slice(1);
+    for (const a of articles) {
+      assert.match(a, /Delivered as PDFs by email within 3 business days/, f);
+      assert.match(a, /Document Use Disclaimer/, f);
+      assert.match(a, /reviewed 6-monthly/, f);
+    }
+  }
+});
+
+test("no held document is sold on its own", async () => {
+  const docs = JSON.parse(await readFile(path.join(DIST, "assets/documents.json"), "utf8")).documents.map((d) => d.code);
+  for (const c of sellable.held_documents) assert.ok(!docs.includes(c), c);
+  const listed = new Set(sellable.documents);
+  for (const c of docs) assert.ok(listed.has(c), `${c} is sold singly but isn't on the list`);
 });

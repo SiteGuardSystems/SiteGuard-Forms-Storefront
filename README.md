@@ -124,6 +124,22 @@ narrowed to "everything sold on one site, two kinds of checkout"):
 * **Checkout notice:** the cart requires the SG-LEGAL-06 tick box; the server
   refuses a checkout without it and records the terms versions on the order.
 
+## Manual delivery (go-live, 7 Nov 2026)
+
+FORMS one-off packs are prepared and checked by hand and **delivered as PDFs by email within 3 business days** of the buyer's details being in (go-live brief Rev02, 3.1). Every pack page, the cart, the single-documents page, the Stripe page (`custom_text.submit`), the order page and the receipt email say so; the build fails on "instant", "within minutes", "download now" and similar on any non-legal page (`DELIVERY_BANNED`). After payment FORMS answers the order intake with `intakeUrl` (the buyer's details form, one per order line): the receipt email lists the link(s), and the success page (`/order/success/?session_id=…`) asks `GET /api/order/intake?session_id=…` for them. The Terms of Sale delivery clause comes from the SiteGuard-Forms legal source and still needs the same change there.
+
+## The sellable-now list (go-live, 7 Nov 2026)
+
+Only packs on Dan's FORMS sellable-now list are shown or sold (go-live brief Rev02, 5.2). The list lives in OneDrive (`04_BUSINESS_OPERATIONS/SG_FORMS_SELLABLE_NOW_LIST_RevNN_*.md` and `.csv`, built from DCR Rev24 and the Hseq-Dev generator). `node scripts/import-sellable-list.mjs <list.csv>` writes `data/sellable-now.json` (pack ids and document codes only, with the CSV's sha256) and a pack-level copy in `docs/go-live/`; never edit either by hand. `lib/sellable-list.js` applies it to `data/catalogue.json` in the build and at checkout, and **only narrows**: a pack the catalogue sells but the list doesn't is hidden and refused, and a held or unlisted document can't be bought singly. Titles, prices and contents still come from the catalogue and the pinned DCR. The build stops without the list; the server, given a missing or broken list, sells nothing. Each listed pack shows the delivery line and the Document Use Disclaimer summary. Rev01 (7 Nov): **72 packs** now; 9 more (Masonry, Painting and Tiling Heavy Commercial, the three builder packs and the subcontractor system) once the held Rev24 ledger entries land and the list is re-issued; the 9 `later`-wave add-ons stay hidden.
+
+## FORMS switches (go-live, 7 Nov 2026)
+
+SiteGuard-Forms holds the go-live switches (brief Rev02, Section 2) and enforces them itself; the storefront reads them from `GET /api/v3/storefront/switches` (same host and `x-storefront-api-key` as the order intake; `FORMS_SWITCHES_URL` overrides the URL) through `lib/forms-switches.js`, cached for 15 seconds. **Fail closed:** no URL or key, an error or a malformed answer reads as everything off.
+
+- `sales_open` (S1): `/api/checkout` refuses (503) before Stripe while it is off, as well as while `beta` is true.
+- `subscriptions_open` (S4) and `consultant_plans_open` (S5): every Subscribe button is built hidden, with **"Coming soon: register interest"** in its place (to `/subscriptions/#register-interest`, a form that posts to `/api/lead` with `enquiry_type: "forms-interest"` and `interest`: an enquiry, not a sale). `app.js` asks the storefront's `GET /api/switches` and shows the real buttons only when FORMS says the switch is on. A consultant-plan line in `/api/checkout` is refused (409) while S5 is off.
+- Static wording (home, How ordering works, FAQ) is written for the switches off; rebuild with new wording when S4 or S5 is turned on.
+
 ## Stripe webhook
 
 Register `https://www.siteguardforms.com.au/api/webhook/stripe` for

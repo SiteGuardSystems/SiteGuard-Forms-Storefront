@@ -29,6 +29,7 @@ import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs
 import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
 import { createMailer } from "./lib/mailer.js";
+import { makeSwitchReader, switchesUrlFrom } from "./lib/forms-switches.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VAR_DIR = process.env.SITEGUARD_FORMS_VAR_DIR ?? path.join(__dirname, "var");
@@ -114,6 +115,14 @@ const CHECKOUT_ALLOWED_ORIGINS = process.env.CHECKOUT_ALLOWED_ORIGINS
   ? process.env.CHECKOUT_ALLOWED_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean)
   : LEAD_ALLOWED_ORIGINS;
 
+// Go-live 7 Nov 2026: the FORMS switches (sales_open, delivery SLA,
+// subscriptions_open, consultant_plans_open), read from FORMS
+// GET /api/v3/storefront/switches with the order intake key. FORMS_SWITCHES_URL
+// overrides the URL (default: beside ORDER_INTAKE_URL). Fail closed.
+const FORMS_SWITCHES_URL = process.env.FORMS_SWITCHES_URL || switchesUrlFrom(ORDER_INTAKE_URL);
+const readSwitches = makeSwitchReader({ url: FORMS_SWITCHES_URL, apiKey: ORDER_INTAKE_API_KEY });
+if (!FORMS_SWITCHES_URL || !ORDER_INTAKE_API_KEY) console.warn("FORMS switches: no URL or key, so sales, subscriptions and consultant plans read as OFF.");
+
 // Beta (browse only, no orders): data/site-mode.json, shared with the site build.
 let SITE_MODE = {};
 try { SITE_MODE = JSON.parse(readFileSync(path.join(__dirname, "data", "site-mode.json"), "utf8")); } catch { SITE_MODE = {}; }
@@ -161,6 +170,9 @@ const app = createApp({
   appLaunchUrl: process.env.APP_LAUNCH_URL || undefined,
   orderIntakeUrl: ORDER_INTAKE_URL,
   orderIntakeApiKey: ORDER_INTAKE_API_KEY,
+  switches: readSwitches,
+  // Go-live 7 Nov 2026: only packs on Dan's sellable-now list are sold.
+  sellableListPath: path.join(__dirname, "data", "sellable-now.json"),
   parkOrder,
   beta: SITE_MODE.beta === true,
   csp: withCspSources(withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)), productVideosCsp(PRODUCT_VIDEOS)),
