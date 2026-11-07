@@ -47,6 +47,17 @@ export const money = (n) => "$" + Number(n).toLocaleString("en-AU");
 export const exGst = (n, per = "") => `${money(n)}<small> +GST${per}</small>`;
 export const packSlug = (id) => id.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
 
+// Go-live 7 Nov 2026 (brief Rev02 3.1, 5.2): one-off packs are prepared and
+// checked by hand, and delivered as PDFs by email within 3 business days of
+// the buyer's details being in (forms.delivery_sla_business_days, default 3).
+// Never "instant", "download now" or "minutes".
+export const DELIVERY_DAYS = 3;
+export const DELIVERY_LINE = `Delivered as PDFs by email within ${DELIVERY_DAYS} business days`;
+/** The delivery line for a pack, the cart and the single-documents page. */
+export function deliveryNote(extra = "") {
+  return `<p class="delivery-line"><strong>${DELIVERY_LINE}.</strong> The ${DELIVERY_DAYS} business days start when your details are in (a short form after payment).${extra ? ` ${extra}` : ""}</p>`;
+}
+
 /** What the shop shows, worked out once from the catalogue. */
 export function shopModel(cat) {
   const titles = new Map(cat.documents.map((d) => [d.code, d.title]));
@@ -108,8 +119,8 @@ export function packHow() {
   <h2 id="pack-how-h">How a pack works</h2>
   <ol class="steps steps-row">
     <li><h3>What's in it</h3><p>The documents listed in each pack above, by code and title as they stand in SiteGuard's controlled document register. Every document carries its reference, revision and date.</p></li>
-    <li><h3>Your project details in</h3><p>Enter your business and project details once: at checkout for a one-off purchase, or for each project in your account when you subscribe.</p></li>
-    <li><h3>PDFs out</h3><p>Every document in the pack is filled with those details and emailed to you as PDFs, ready for you to review and adapt to your work and site.</p></li>
+    <li><h3>Your details in</h3><p>After payment, fill in a short form with your business and project details (the link is on the order page and in your order email).</p></li>
+    <li><h3>PDFs out</h3><p>Every document in the pack is filled with those details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in, ready for you to review and adapt to your work and site.</p></li>
     <li><h3>Kept current</h3><p>The whole library has a legislative review every 6 months. Subscribers get the revised documents pushed to their account after each review.</p></li>
   </ol>
 </div></section>`;
@@ -178,7 +189,7 @@ export function shopPages(ctx) {
        <p class="price-tag price-tag-plain">Pay once</p>
        <p class="price-head">One-off purchase</p>
        <p class="amount">${exGst(p.prices.one_off)}</p>
-       <p class="price-note">The current revision, filled with your details and emailed as PDFs.</p>
+       <p class="price-note">The current revision, filled with your details. ${DELIVERY_LINE}.</p>
        <button type="button" class="btn btn-small" data-add-pack="${esc(p.id)}" data-name="${esc(p.name)}" data-price="${p.prices.one_off}"${disabled}>Add to cart</button>
      </div>`
       : "";
@@ -197,6 +208,7 @@ export function shopPages(ctx) {
     <ul>${p.includes.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
     ${docList(p)}
     ${priceBlock(p)}
+    ${p.prices.one_off ? deliveryNote() : ""}
   </article>`;
   }
 
@@ -261,7 +273,7 @@ export function shopPages(ctx) {
   <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS and the core site SWMS.</p></div></section>
 <section class="band"><div class="wrap">
   <div class="rungs">${t.packs.map((p) => packArticle(p, LEVEL_LABEL[p.level])).join("")}</div>
-  <p class="small mt">Buying outright: the documents are filled with the business and project details you enter at checkout and emailed to you. Subscribing: sign in, add your logo and projects, and generate the documents whenever you need them. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
+  <p class="small mt">Buying outright: after payment you send us your business and project details on a short form, and the documents are filled with them and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in. Subscribing: sign in, add your logo and projects, and generate the documents whenever you need them. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
 </div></section>
 ${video(g === "specialist-packs" ? "high-risk" : "trade")}
 ${packHow()}`,
@@ -321,7 +333,8 @@ ${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
     url: P("/documents/"), preview, title: "Single documents", trail: [[P("/documents/"), "Single documents"]],
     description: `Buy one document at a time: SWMS, ITPs, plans, policies, forms and registers${docPrice ? `, ${money(docPrice)} +GST each` : ""}.`,
     body: `<section class="page-head"><div class="wrap">${crumbs([[P("/documents/"), "Single documents"]])}<h1>Single documents</h1>
-  <p class="lede">Need one document, not a pack? ${docPrice ? `Each document is ${money(docPrice)} +GST, bought outright.` : ""} A pack is better value once you need more than a few.</p></div></section>
+  <p class="lede">Need one document, not a pack? ${docPrice ? `Each document is ${money(docPrice)} +GST, bought outright.` : ""} A pack is better value once you need more than a few.</p>
+  ${deliveryNote()}</div></section>
 <section class="band"><div class="wrap">
   <form class="filters" data-doc-filters role="search" aria-label="Filter documents">
     <label>Search<input type="search" name="q" placeholder="Code or title" autocomplete="off"></label>
@@ -362,13 +375,14 @@ ${video("subscription")}`,
   // How ordering works
   page({
     url: P("/how-ordering-works/"), preview, title: "How ordering works", trail: [[P("/how-ordering-works/"), "How ordering works"]],
-    description: "Choose a package, pay securely, and receive your documents as PDFs with your details filled in, within one business day.",
+    description: `Choose a package, pay securely, send us your details, and receive your documents as PDFs by email within ${DELIVERY_DAYS} business days.`,
     body: `<section class="page-head"><div class="wrap">${crumbs([[P("/how-ordering-works/"), "How ordering works"]])}<h1>How ordering works</h1></div></section>
 <section class="band"><div class="wrap cols">
   <div><h2>Buying outright</h2><ol class="steps">
     <li><h3>Choose your package</h3><p>Pick a pack for your trade or business, or single documents, and add them to your cart.</p></li>
     <li><h3>Pay securely</h3><p>Checkout is handled by Stripe. Enter your business name and project address; GST is added and shown on your tax invoice.</p></li>
-    <li><h3>Receive your documents</h3><p>The documents are filled with your details and emailed to you as PDFs, with the Document Use Disclaimer, within one business day and often within minutes.</p></li>
+    <li><h3>Send us your details</h3><p>Straight after payment, and again in your order email, there's a link to a short form for your business details, ABN, address, logo and project details.</p></li>
+    <li><h3>Receive your documents</h3><p>We fill the documents with your details, check them, and email them to you as PDFs with the Document Use Disclaimer, within ${DELIVERY_DAYS} business days of your details being in.</p></li>
   </ol></div>
   <div><h2>Subscribing</h2><ol class="steps">
     <li><h3>Choose a package and billing</h3><p>Select "Subscribe yearly" or "Subscribe monthly" on any package and create your account.</p></li>
@@ -383,7 +397,7 @@ ${video("subscription")}`,
   // FAQ
   const faq = [
     ["What format are the documents?", "PDF, with your business and project details filled in. Subscribers can also add their logo."],
-    ["How quickly will I get them?", "By email within one business day of payment, and often within minutes."],
+    ["How quickly will I get them?", `${DELIVERY_LINE}. The ${DELIVERY_DAYS} business days start when your details are in: after payment you get a link to a short details form, on the order page and in your order email. Each set is prepared and checked by our team before it is sent.`],
     ["Are prices inclusive of GST?", "No. Prices exclude GST. GST is calculated and added at checkout and shown on your tax invoice."],
     ["Can I use the documents on more than one project?", "Yes. Both outright purchases and subscriptions allow use across your own business and projects. A subscription also lets you generate the documents for each project with its details."],
     ["How are documents kept up to date?", "The whole library is reviewed against legislative change every 6 months. Subscribers receive the updated documents."],

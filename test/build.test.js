@@ -4,7 +4,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { BANNED, GATED } from "../scripts/build-site.mjs";
+import { BANNED, GATED, DELIVERY_BANNED } from "../scripts/build-site.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = path.join(ROOT, "dist");
@@ -183,7 +183,7 @@ test("every pack page: what is in it, project details in, PDFs out, revisions af
     const html = pages.find((p) => p.f === f)?.html;
     assert.ok(html, f);
     assert.match(html, /How a pack works/, f);
-    assert.match(html, /Your project details in/, f);
+    assert.match(html, /Your details in/, f);
     assert.match(html, /PDFs out/, f);
     assert.match(html, /revised documents pushed to their account after each review/, f);
   }
@@ -196,4 +196,30 @@ test("FORMS product video slots sit on their pages (placeholders until published
   assert.ok(slot("builder-packs/index.html", "builder"));
   assert.ok(slot("specialist-packs/index.html", "high-risk"));
   assert.ok(slot("subscriptions/index.html", "subscription"));
+});
+
+// Go-live 7 Nov 2026 (brief Rev02 3.1, 5.2): manual delivery within 3 business days.
+test("manual delivery: the 3-business-day line is on every pack page, the cart, the single documents and the order page", () => {
+  const LINE = /Delivered as PDFs by email within 3 business days/;
+  const get = (f) => pages.find((p) => p.f === f)?.html ?? "";
+  for (const { f, html } of pages) {
+    if (html.includes("data-add-pack=")) assert.match(html, LINE, `${f}: a page selling packs says how they are delivered`);
+  }
+  assert.match(get("cart/index.html"), LINE);
+  assert.match(get("documents/index.html"), LINE);
+  const ok = get("order/success/index.html");
+  assert.match(ok, LINE);
+  assert.match(ok, /clock starts when your details are in/);
+  assert.match(ok, /data-intake-links/);
+  assert.match(get("how-ordering-works/index.html"), /within 3 business days of your details being in/);
+  assert.match(get("faq/index.html"), /start when your details are in/);
+});
+
+test("no live page promises instant, minutes-fast or download-now delivery", () => {
+  for (const { f, html } of pages) {
+    if (f.startsWith("legal/")) continue;
+    const text = html.replace(/<section[^>]*data-video-placeholder[\s\S]*?<\/section>/g, " ").replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ");
+    assert.equal(text.match(DELIVERY_BANNED), null, f);
+    assert.ok(!/one business day of payment|often within minutes/i.test(text), f);
+  }
 });

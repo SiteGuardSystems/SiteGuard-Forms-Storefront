@@ -124,6 +124,10 @@ narrowed to "everything sold on one site, two kinds of checkout"):
 * **Checkout notice:** the cart requires the SG-LEGAL-06 tick box; the server
   refuses a checkout without it and records the terms versions on the order.
 
+## Manual delivery (go-live, 7 Nov 2026)
+
+FORMS one-off packs are prepared and checked by hand and **delivered as PDFs by email within 3 business days** of the buyer's details being in (go-live brief Rev02, 3.1). Every pack page, the cart, the single-documents page, the Stripe page (`custom_text.submit`), the order page and the receipt email say so; the build fails on "instant", "within minutes", "download now" and similar on any non-legal page (`DELIVERY_BANNED`). After payment FORMS answers the order intake with `intakeUrl` (the buyer's details form, one per order line): the receipt email lists the link(s), and the success page (`/order/success/?session_id=…`) asks `GET /api/order/intake?session_id=…` for them. The Terms of Sale delivery clause comes from the SiteGuard-Forms legal source and still needs the same change there.
+
 ## Stripe webhook
 
 Register `https://www.siteguardforms.com.au/api/webhook/stripe` for

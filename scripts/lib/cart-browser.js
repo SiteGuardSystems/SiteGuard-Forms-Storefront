@@ -86,7 +86,7 @@
     }).join("");
     view.innerHTML = '<table class="cart-table"><thead><tr><th scope="col">Item</th><th scope="col" class="num">Price</th><th scope="col" class="num"><span class="hp">Remove</span></th></tr></thead><tbody>' +
       rows + '</tbody><tfoot><tr><th scope="row">Subtotal (ex GST)</th><td class="num"><strong>' + money(total) +
-      '</strong></td><td></td></tr></tfoot></table><p class="small">GST is added at checkout. Prices are confirmed when you check out.</p>';
+      '</strong></td><td></td></tr></tfoot></table><p class="small">GST is added at checkout. Prices are confirmed when you check out. Delivered as PDFs by email within 3 business days of your details being in.</p>';
     if (form) form.hidden = false;
   }
   if (view) {
@@ -120,6 +120,34 @@
       });
   });
   if (location.pathname === "/order/success/") save([]);
+
+  // Success page: the details-form link(s) for this order (FORMS returns one
+  // per order line once the webhook is handled). Asked a few times, then the
+  // page keeps pointing at the order email.
+  var intakeBox = document.querySelector("[data-intake-links]");
+  var sid = /[?&]session_id=(cs_(?:test|live)_[A-Za-z0-9]{1,200})(?:&|$)/.exec(window.location.search);
+  if (intakeBox && sid && window.fetch) {
+    var tries = 0;
+    var ask = function () {
+      tries++;
+      fetch("/api/order/intake?session_id=" + encodeURIComponent(sid[1]), { headers: { Accept: "application/json" } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) {
+          var links = (j && j.links || []).filter(function (l) { return /^https?:\/\//.test(l.url || ""); });
+          if (!links.length) { if (tries < 8) setTimeout(ask, 4000); return; }
+          intakeBox.innerHTML = "";
+          links.forEach(function (l) {
+            var p = document.createElement("p");
+            var a = document.createElement("a");
+            a.className = "btn btn-hivis"; a.href = l.url;
+            a.textContent = "Enter your details" + (links.length > 1 && l.name ? ": " + l.name : "");
+            p.appendChild(a); intakeBox.appendChild(p);
+          });
+        })
+        .catch(function () { if (tries < 8) setTimeout(ask, 4000); });
+    };
+    ask();
+  }
 
   // Single documents finder
   var table = document.querySelector("[data-doc-table]");
