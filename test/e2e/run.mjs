@@ -30,10 +30,13 @@ const openMode = path.join(dir, "site-mode-open.json");
 await writeFile(openMode, JSON.stringify({ beta: false }));
 const betaMode = path.join(dir, "site-mode-beta.json");
 await writeFile(betaMode, JSON.stringify({ beta: true }));
+// This test puts everything listed on sale, so its sellable list holds every pack and document too.
+const listPath = path.join(dir, "sellable-now.json");
+await writeFile(listPath, JSON.stringify({ schema: 1, packs_sellable_now: cat.packs.map((p) => p.id), documents: cat.documents.map((d) => d.code), held_documents: [] }));
 const dist = path.join(dir, "dist");
-execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: dist, SITE_MODE_PATH: openMode }, stdio: "inherit" });
+execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: dist, SITE_MODE_PATH: openMode, SELLABLE_LIST_PATH: listPath }, stdio: "inherit" });
 const betaDist = path.join(dir, "dist-beta");
-execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: betaDist, SITE_MODE_PATH: betaMode }, stdio: "inherit" });
+execFileSync("node", [path.join(ROOT, "scripts/build-site.mjs")], { env: { ...process.env, CATALOGUE_PATH: catPath, DIST_DIR: betaDist, SITE_MODE_PATH: betaMode, SELLABLE_LIST_PATH: listPath }, stdio: "inherit" });
 
 const calls = [];
 let port;

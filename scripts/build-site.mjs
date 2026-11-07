@@ -33,10 +33,14 @@ import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 // same shop.mjs, cart.mjs and cart-browser.js are in both repos.
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
+import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
 const CATALOGUE = process.env.CATALOGUE_PATH ? path.resolve(process.env.CATALOGUE_PATH) : path.join(ROOT, "data/catalogue.json");
+// Go-live 7 Nov 2026: Dan's sellable-now list (lib/sellable-list.js) narrows
+// what the catalogue shows and sells. The build stops without it.
+export const SELLABLE_LIST = process.env.SELLABLE_LIST_PATH ? path.resolve(process.env.SELLABLE_LIST_PATH) : path.join(ROOT, "data/sellable-now.json");
 const PRODUCTION = process.argv.includes("--production");
 const SAMPLE_PARTNERS = process.argv.includes("--sample-partners");
 // Partners, affiliates and the Google review link (data/partners.json,
@@ -118,6 +122,7 @@ const pages = [];
 // DCR warnings (a retired code neither shown nor sold): reported, never blocking.
 const dcrWarnings = [];
 let DCR_PIN = null;
+let SELLABLE_INFO = null;
 
 /** Loads and verifies the pinned DCR, then checks the catalogue against it. */
 async function checkDcr(cat) {
@@ -294,8 +299,19 @@ async function build() {
   EDU = edu.edu;
   for (const p of edu.problems) problems.push(`data: ${p}`);
   for (const p of PLANNING.problems) problems.push(/open item/.test(p) ? p : `data: ${p}`);
-  const cat = JSON.parse(await readFile(CATALOGUE, "utf8"));
-  await checkDcr(cat);
+  const rawCat = JSON.parse(await readFile(CATALOGUE, "utf8"));
+  // The DCR and generated-file checks run on the catalogue as generated; the
+  // pages are built from it narrowed by the sellable list.
+  await checkDcr(rawCat);
+  let list;
+  try {
+    list = loadSellableList(SELLABLE_LIST);
+  } catch (e) {
+    console.error(`Sellable list: ${e.message}. Run scripts/import-sellable-list.mjs on the list CSV. The build stops here.`);
+    process.exit(1);
+  }
+  const cat = applySellableList(rawCat, list);
+  SELLABLE_INFO = { revision: list.revision ?? null, source: list.source ?? null, packs_on_sale: cat.packs.filter((p) => p.show && p.sellable).length };
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const model = shopModel(cat);
   CONSULTANTS_ON = model.consultantsOn;
@@ -561,7 +577,7 @@ ${indexable.map((p) => `  <url><loc>${ORIGIN}${p.url}</loc></url>`).join("\n")}
     : `User-agent: *\nDisallow: /cart/\nDisallow: /order/\nDisallow: /api/\nSitemap: ${ORIGIN}/sitemap.xml\n`);
   await writeFile(path.join(DIST, "build-info.json"), JSON.stringify({
     built_at: new Date().toISOString(), catalogue_generated_at: cat.generated_at, preview: cat.preview, beta: BETA,
-    pricing_revision: cat.pricing_revision, pages: pages.length,
+    pricing_revision: cat.pricing_revision, pages: pages.length, sellable_list: SELLABLE_INFO,
     dcr_revision: DCR_PIN?.revision ?? null, dcr_sha256: DCR_PIN?.sha256 ?? null, dcr_public_sha256: DCR_PIN?.public_sha256 ?? null,
   }, null, 1));
 
