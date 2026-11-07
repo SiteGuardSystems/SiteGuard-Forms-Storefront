@@ -235,7 +235,7 @@ export function shopPages(ctx) {
       : "";
     return `<div class="prices">
     <div class="price-pair">${annual}${oneOff}</div>
-    <p class="price-monthly">Or monthly: ${exGst(p.prices.monthly, " a month")}${monthlyExtra > 0 ? `, ${money(monthlyExtra)} more over a year` : ""}.${switchPair("subscriptions_open", ` <a href="${esc(subscribeHref(p, "monthly"))}"${disabled}>Subscribe monthly</a>`, "")}</p>
+    <p class="price-monthly" data-switch="subscriptions_open" data-when="on" hidden>Or monthly: ${exGst(p.prices.monthly, " a month")}${monthlyExtra > 0 ? `, ${money(monthlyExtra)} more over a year` : ""}. <a href="${esc(subscribeHref(p, "monthly"))}"${disabled}>Subscribe monthly</a></p>
     ${p.purchasable === false ? '<p class="gst"><strong>Not yet available to buy.</strong></p>' : ""}
     <p class="gst">Prices in A$, excluding GST. GST is added at checkout.${p.subscription_only ? " Available by subscription only." : ""}</p>
   </div>`;
