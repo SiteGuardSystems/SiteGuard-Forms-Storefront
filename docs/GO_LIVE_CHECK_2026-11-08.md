@@ -9,10 +9,10 @@ Go-live brief Rev02 (7 Nov 2026), Section 6, Session 3, task **S5**. Checked Sat
 | 1 | [#40](https://github.com/SiteGuardSystems/SiteGuard-Forms-Storefront/pull/40) | S1 | `master` | "Delivered as PDFs by email within 3 business days" everywhere; intake link on the success page and in the receipt; fast-delivery words fail the build |
 | 2 | [#41](https://github.com/SiteGuardSystems/SiteGuard-Forms-Storefront/pull/41) | S2 | stacked on #40 | FORMS switches read with the intake key (fail closed); checkout refused while `sales_open` is off; Subscribe buttons hidden behind "Coming soon: register interest" (to `/api/lead`, tag `forms-interest`) |
 | 3 | [#42](https://github.com/SiteGuardSystems/SiteGuard-Forms-Storefront/pull/42) | S3 | stacked on #41 | Only the 72 packs on the Rev01 sellable-now list are shown or sold; delivery line and disclaimer summary on every pack |
-| 4 | this PR | S5 | `master` | This report |
+| 4 | [#43](https://github.com/SiteGuardSystems/SiteGuard-Forms-Storefront/pull/43) | S5 | stacked on #42 | This report (stacked so its CI runs on the checked stack; see below) |
 | none | none | S4 | none | Nothing built: "+GST" kept (Q2 unanswered) |
 
-S1 to S3 are stacked because each changes the shared shop file and the built-site snapshot fixture. Merge #40, then #41, then #42 (GitHub retargets each to `master` when the one below merges). After merging, copy `scripts/lib/shop.mjs`, `cart.mjs` and `cart-browser.js` to siteguard-website (they are kept identical in both repos).
+S1 to S3 are stacked because each changes the shared shop file and the built-site snapshot fixture. Merge #40, then #41, then #42, then #43 (GitHub retargets each to `master` when the one below merges). `master`'s own CI has been red since about 6 Nov: the built-site snapshot pinned the planning pages, which drop past events every day. #40 stops pinning them, so CI is green from #40 on. After merging, copy `scripts/lib/shop.mjs`, `cart.mjs` and `cart-browser.js` to siteguard-website (they are kept identical in both repos).
 
 ## 2. `beta` and the switches
 
@@ -65,7 +65,7 @@ Checks that now run on every build: no "instant", "within minutes", "download no
 
 ## 6. What Dan must do (no code)
 
-- Merge #40, #41, #42 in that order, then this report.
+- Merge #40, #41, #42 and #43 in that order.
 - Deploy FORMS #98 (the switches endpoint) before or with the storefront: without it every switch reads as off and checkout stays closed (on purpose).
 - No new storefront env key is required. Optional: `FORMS_SWITCHES_URL` (defaults to the `ORDER_INTAKE_URL` host). Existing: `ORDER_INTAKE_URL`, `ORDER_INTAKE_API_KEY` (must match FORMS `STOREFRONT_ORDER_INTAKE_API_KEY`), `SUPPORT_EMAIL`.
 - After the Hseq-Dev ledger PR lands and the catalogue is regenerated: `node scripts/import-sellable-list.mjs <Rev02 list CSV>` (81 packs), rebuild, PR.
