@@ -31,7 +31,7 @@ import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
 import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 // The shop pages and the cart are shared with siteguard-website (WP-S8): the
 // same shop.mjs, cart.mjs and cart-browser.js are in both repos.
-import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages } from "./lib/shop.mjs";
+import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -84,6 +84,11 @@ const FOUNDING_URL = `${SYSTEMS_URL}/app/founding-offer/`;
 // words to say what SiteGuard does NOT claim.
 export const BANNED = /\b(compliant|certified|endorsed|guarantee[sd]?|4801|coming soon|rolling out|in progress|quarterly|money[- ]back)\b/gi;
 const BANNED_ALLOWED = [/Certified Lead Auditor/gi];
+// Go-live 7 Nov 2026 (brief Rev02 3.1): delivery is by hand within 3 business
+// days, so no live page may promise instant or minutes-fast documents. Checked
+// on every built page except the legal pages and preview-only video
+// placeholders (the PRD-001 video script stays as it is until it is published).
+export const DELIVERY_BANNED = /\b(instant(ly)?|download (them |it )?now|within minutes|in minutes|(your documents|documents) in five minutes|documents immediately|straight to your inbox)\b/gi;
 // Gated products and markets (rebaseline, 31 Oct 2026): never listed, priced or
 // teased on a customer page. "Core Management System" is a FORMS pack name, not
 // the gated CORE product, so CORE counts only in capitals and not before
@@ -299,13 +304,13 @@ async function build() {
   page({
     url: "/", preview,
     title: "SiteGuard FORMS | HSEQ documents for Australian construction",
-    description: "Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs.",
+    description: `Controlled HSEQ documents for Australian construction: SWMS, ITPs, plans, forms and registers, filled with your details and emailed as PDFs within ${DELIVERY_DAYS} business days.`,
     jsonld: [{ "@context": "https://schema.org", "@type": "Organization", name: "SiteGuard FORMS", url: ORIGIN,
       logo: ORIGIN + "/assets/apple-touch-icon.png", parentOrganization: { "@type": "Organization", name: "SiteGuard Systems", url: SYSTEMS_URL } },
       ...(VIDEO ? [videoJsonLd(VIDEO, ORIGIN)] : [])],
     body: `<section class="hero"><div class="wrap">
   <h1>Site-ready HSEQ documents, with your name on them.</h1>
-  <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Enter your business and project details, and the documents arrive in your inbox as PDFs.</p>
+  <p class="lede">SWMS, inspection and test plans, management plans, forms and registers for Australian construction. Send us your business and project details, and the documents are delivered as PDFs by email within ${DELIVERY_DAYS} business days.</p>
   <div class="btn-row"><a class="btn btn-hivis" href="/trade-packs/">Find your trade</a><a class="btn" href="/how-ordering-works/">How ordering works</a></div>
   ${shop.documents ? `<dl class="title-block">
     <div><dt>Documents available</dt><dd>${shop.documents}</dd></div>
@@ -323,7 +328,7 @@ ${foundingPanel()}
 <section class="band"><div class="wrap cols">
   <div><h2>${CONSULTANTS_ON ? "Three" : "Two"} ways to buy</h2>
     <p><strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.</p>
-    <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details and emailed to you as PDFs.</p>
+    <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in.</p>
     ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}
   </div>
   <div><h2>What every document carries</h2>
@@ -525,6 +530,8 @@ async function main() {
       for (const re of BANNED_ALLOWED) text = text.replace(re, "");
       const hits = text.match(BANNED);
       if (hits) problems.push(`${p.url}: banned wording: ${[...new Set(hits)].join(", ")}`);
+      const delivery = textOf(p.html.replace(/<section[^>]*data-video-placeholder[\s\S]*?<\/section>/g, " ")).match(DELIVERY_BANNED);
+      if (delivery) problems.push(`${p.url}: promises faster delivery than the manual 3-business-day service: ${[...new Set(delivery)].join(", ")}`);
       const gated = text.match(GATED);
       if (gated) problems.push(`${p.url}: names a gated product or market: ${[...new Set(gated)].join(", ")}`);
     }

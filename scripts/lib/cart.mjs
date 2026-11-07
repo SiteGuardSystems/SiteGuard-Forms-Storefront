@@ -21,6 +21,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { esc } from "./md.mjs";
+import { DELIVERY_DAYS, DELIVERY_LINE, deliveryNote } from "./shop.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const BROWSER_FILE = path.join(HERE, "cart-browser.js");
@@ -98,6 +99,7 @@ export function cartPages(ctx) {
 <section class="band"><div class="wrap">
   <div data-cart-view><p>Your cart is empty. <a href="${browse}">Browse trade packs</a>.</p></div>
   <form class="form form-wide" data-checkout-form${engine ? ` data-engine="${esc(new URL(engine).origin)}"` : ""} hidden>
+    ${deliveryNote()}
     ${noticeHtml}
     <label for="cart-site-name">Site name (optional)</label>
     <input id="cart-site-name" name="siteName" type="text" maxlength="100" autocomplete="off" aria-describedby="cart-site-name-hint">
@@ -106,7 +108,7 @@ export function cartPages(ctx) {
     <input type="hidden" name="termsVersion" value="${esc(ctx.termsVersion)}">
     <p class="form-status" data-status aria-live="polite"></p>
     <div class="btn-row"><button class="btn btn-hivis" type="submit">Go to secure checkout</button></div>
-    <p class="small">You'll enter your business name and project address on the next page. The site name above is optional. Subscriptions are set up from each package's "Subscribe" button.</p>
+    <p class="small">You'll enter your business name and project address on the next page. The site name above is optional. After payment you'll get a link to a short form for the rest of your details. Subscriptions are set up from each package's "Subscribe" button.</p>
   </form>
 </div></section>`,
   });
@@ -114,7 +116,9 @@ export function cartPages(ctx) {
     url: "/order/success/", preview, title: "Order received", trail: [["/order/success/", "Order received"]],
     description: "Your order has been received.",
     body: `<section class="page-head"><div class="wrap"><h1>Thank you. Your order is in.</h1>
-  <p class="lede">We've emailed your receipt. Your documents will follow by email within one business day, and often within minutes.</p>
+  <p class="lede">We've emailed your receipt. Next, tell us your business and project details so we can prepare your documents.</p>
+  <div class="note" data-intake-links aria-live="polite"><p data-intake-status>The link to your details form is in your order email. It will also show here in a moment.</p></div>
+  <p><strong>${DELIVERY_LINE}.</strong> The ${DELIVERY_DAYS}-business-day clock starts when your details are in.</p>
   <p><a class="btn" href="${shopHome}">Back to the shop</a></p></div></section>`,
   });
   pages.push({

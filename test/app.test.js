@@ -231,7 +231,10 @@ describe("POST /api/checkout", () => {
       assert.equal(call.line_items[1].price_data.product_data.metadata.documentCode, "SAF-SWMS-CARP-001");
       assert.equal(call.metadata.termsVersion, "SG-LEGAL-02 v0.1");
       assert.deepEqual(call.custom_fields.map((f) => f.key), ["client_name", "project_address", "site_notes"]);
-      assert.equal(call.success_url, "http://localhost:4300/order/success/");
+      assert.equal(call.success_url, "http://localhost:4300/order/success/?session_id={CHECKOUT_SESSION_ID}");
+      // Go-live 7 Nov 2026: the manual-delivery promise is on the Stripe page too.
+      assert.match(call.custom_text.submit.message, /Delivered as PDFs by email within 3 business days/);
+      assert.match(call.custom_text.submit.message, /start when your details are in/);
     });
   });
   test("the optional site name rides in the session metadata, as plain text, and only when given", async () => {
@@ -380,6 +383,32 @@ describe("POST /api/webhook/stripe", () => {
       const orders = (await readFile(path.join(varDir, "orders.jsonl"), "utf8")).trim().split("\n").map(JSON.parse);
       assert.equal(orders[0].amountTax, 6900);
       assert.equal(orders[0].termsVersion, "SG-LEGAL-02 v0.1");
+    });
+  });
+  test("manual delivery: each line's intakeUrl from FORMS goes in the receipt and back to the success page", async () => {
+    const stripe = makeFakeStripe();
+    const mailer = makeFakeMailer();
+    let n = 0;
+    const fetchImpl = makeFakeFetch();
+    const intake = async (url, init) => { await fetchImpl(url, init); n += 1; return { ok: true, status: 201, json: async () => ({ id: `o${n}`, intakeUrl: `https://forms.example/intake/tok${n}` }) }; };
+    await withApp({ stripe, stripeWebhookSecret: "whsec", fetchImpl: intake, mailer }, async ({ base, varDir }) => {
+      // Before the webhook: a valid session id answers an empty list; a bad one is refused.
+      assert.deepEqual(await (await fetch(`${base}/api/order/intake?session_id=cs_test_1`)).json(), { ok: true, links: [] });
+      assert.equal((await fetch(`${base}/api/order/intake?session_id=nope`)).status, 400);
+      const res = await completeOrder(base, stripe, [{ packageId: "subcontractor:CARP:domestic" }, { documentCode: "SAF-SWMS-CARP-001" }]);
+      assert.equal(res.status, 200);
+      const receipt = mailer.sent.find((m) => m.to === "buyer@example.com");
+      assert.ok(receipt.html.includes("https://forms.example/intake/tok1") && receipt.html.includes("https://forms.example/intake/tok2"));
+      assert.ok(receipt.text.includes("https://forms.example/intake/tok1"));
+      assert.match(receipt.text, /the 3-business-day clock starts when your details are in/i);
+      assert.doesNotMatch(receipt.text + receipt.html, /minutes|instant/i);
+      const r = await fetch(`${base}/api/order/intake?session_id=cs_test_1`);
+      assert.equal(r.headers.get("cache-control"), "no-store");
+      const j = await r.json();
+      assert.deepEqual(j.links.map((l) => l.url), ["https://forms.example/intake/tok1", "https://forms.example/intake/tok2"]);
+      assert.deepEqual((await (await fetch(`${base}/api/order/intake?session_id=cs_test_2`)).json()).links, []);
+      // The link is the buyer's own: it isn't copied into the notify log.
+      assert.ok(!(await readFile(path.join(varDir, "order-notify-events.jsonl"), "utf8")).includes("tok1"));
     });
   });
   test("a redelivered event is not processed twice", async () => {
