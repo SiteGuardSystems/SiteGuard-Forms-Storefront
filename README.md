@@ -140,6 +140,23 @@ SiteGuard-Forms holds the go-live switches (brief Rev02, Section 2) and enforces
 - `subscriptions_open` (S4) and `consultant_plans_open` (S5): every Subscribe button is built hidden, with **"Coming soon: register interest"** in its place (to `/subscriptions/#register-interest`, a form that posts to `/api/lead` with `enquiry_type: "forms-interest"` and `interest`: an enquiry, not a sale). `app.js` asks the storefront's `GET /api/switches` and shows the real buttons only when FORMS says the switch is on. A consultant-plan line in `/api/checkout` is refused (409) while S5 is off.
 - Static wording (home, How ordering works, FAQ) is written for the switches off; rebuild with new wording when S4 or S5 is turned on.
 
+## Site metrics: beacon, Search Console, Google tag, campaign counts (S1, 8-9 Nov 2026)
+
+All in `lib/site-metrics.js`, and **all off until set in `.env`**. The tags are added to each page as it is served, so a change needs `sudo systemctl restart siteguard-forms-storefront`, not a rebuild. A value that doesn't look right is ignored, and the start-up log says so. The log's `Site metrics:` line shows what is on.
+
+| Growth item | Setting | What it does |
+|---|---|---|
+| M1 | `CF_WEB_ANALYTICS_TOKEN` | Cloudflare Web Analytics beacon on every page. It is cookie-less, and the CSP opens for `static.cloudflareinsights.com` only while it's set. If the domain is proxied by Cloudflare, its automatic setup works too; use one or the other, not both. |
+| M3 | `GOOGLE_SITE_VERIFICATION` | `<meta name="google-site-verification">` on every page, for the Search Console HTML-tag method. |
+| M9 | `GOOGLE_ADS_TAG=on`, `GOOGLE_ADS_ID`, `GOOGLE_ADS_CONVERSION_LABEL` | The Google tag on every page, and the conversion on `/order/success/`, once per paid session. **It sets Google's cookies, so it stays off until the privacy policy covers it.** It needs all three settings. |
+| M2 | `CAMPAIGN_COUNTS=on`, `CAMPAIGN_METRICS_TOKEN_SHA256` | Counts landings with utm values, enquiries (`/api/lead` bodies carrying `utm_*`) and paid orders (`/api/checkout` bodies carrying `utm_*`, through the Stripe metadata). |
+
+**M2 details.** The counts follow siteguard-ai `docs/METRICS_SETUP.md` §4. They are kept per day (Australia/Sydney) under `utm_source`, `utm_medium` and `utm_campaign` only, in `var/campaign-counts.json`. No IP, cookie, user agent, visitor id or URL is kept, and a utm value that looks like an email address or phone number is dropped.
+
+The Console reads them with `GET /internal/metrics/campaigns?from=&to=` and `Authorization: Bearer <service token>`. `.env` holds only the token's sha256 (`printf %s '<token>' | sha256sum`). Without that hash the route answers 404, and a wrong token gets 401. The answer is `{"site":"storefront","as_of":...,"rows":[...]}`.
+
+Serve it over https only, and don't link it from a page. Copying the utm values from the landing URL into the enquiry form and the cart is the browser's job (`cart-browser.js`, which is shared with siteguard-website). See `DAN_DECISIONS_PARKED.md`.
+
 ## Stripe webhook
 
 Register `https://www.siteguardforms.com.au/api/webhook/stripe` for
