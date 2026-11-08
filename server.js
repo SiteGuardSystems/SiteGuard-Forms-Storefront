@@ -30,6 +30,7 @@ import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
 import { createMailer } from "./lib/mailer.js";
 import { makeSwitchReader, switchesUrlFrom } from "./lib/forms-switches.js";
+import { readSiteMode } from "./lib/site-mode.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VAR_DIR = process.env.SITEGUARD_FORMS_VAR_DIR ?? path.join(__dirname, "var");
@@ -124,8 +125,10 @@ const readSwitches = makeSwitchReader({ url: FORMS_SWITCHES_URL, apiKey: ORDER_I
 if (!FORMS_SWITCHES_URL || !ORDER_INTAKE_API_KEY) console.warn("FORMS switches: no URL or key, so sales, subscriptions and consultant plans read as OFF.");
 
 // Beta (browse only, no orders): data/site-mode.json, shared with the site build.
-let SITE_MODE = {};
-try { SITE_MODE = JSON.parse(readFileSync(path.join(__dirname, "data", "site-mode.json"), "utf8")); } catch { SITE_MODE = {}; }
+// S26: unreadable or no true/false beta = beta (lib/site-mode.js).
+const SITE_MODE_READ = readSiteMode(path.join(__dirname, "data", "site-mode.json"));
+const SITE_MODE = SITE_MODE_READ.mode;
+if (SITE_MODE_READ.problem) console.warn(`FORMS beta: ${SITE_MODE_READ.problem}.`);
 if (SITE_MODE.beta === true) console.warn("FORMS beta: /api/checkout refuses every order (data/site-mode.json).");
 
 // Landing-page intro video: opens the CSP for the YouTube player only when

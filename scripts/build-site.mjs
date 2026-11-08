@@ -34,6 +34,7 @@ import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+import { readSiteMode } from "../lib/site-mode.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
@@ -62,7 +63,10 @@ let PRODUCT_VIDEOS = null;
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
-const SITE_MODE = JSON.parse(await readFile(SITE_MODE_PATH, "utf8").catch(() => "{}"));
+// S26: unreadable or no true/false beta = beta (lib/site-mode.js), as in server.js.
+const SITE_MODE_READ = readSiteMode(SITE_MODE_PATH);
+const SITE_MODE = SITE_MODE_READ.mode;
+if (SITE_MODE_READ.problem) console.warn(`Site mode: ${SITE_MODE_READ.problem}.`);
 const BETA = SITE_MODE.beta === true;
 // The SiteGuard App and Audit stage (data/site-mode.json app_status, the same
 // field and values as siteguard-website: "coming_soon", "presale", "live";
@@ -185,7 +189,7 @@ function footer() {
         <h2>Help</h2>
         <ul>
           <li><a href="/how-ordering-works/">How ordering works</a></li><li><a href="/faq/">Questions</a></li>
-          <li><a href="/contact/">Contact us</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="/planning/">Planning calendar</a></li><li><a href="/education/">SiteGuard Education</a></li><li><a href="${APP_URL}/login">Subscriber sign in</a></li>
+          <li><a href="/contact/">Contact us</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="/planning/">Planning calendar</a></li><li><a href="/education/">SiteGuard Education</a></li><li data-switch="subscriptions_open" data-when="on" hidden><a href="${APP_URL}/login">Subscriber sign in</a></li>
         </ul>
         ${reviewBadge(TRUST, { compact: true })}
       </div>
@@ -346,7 +350,7 @@ ${foundingPanel()}
 </div></section>
 <section class="band"><div class="wrap cols">
   <div><h2>How to buy</h2>
-    ${switchPair("subscriptions_open", "<strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are pushed to your account. Monthly billing is available at a higher rate.",
+    ${switchPair("subscriptions_open", "<strong>Subscribe yearly (best value).</strong> Unlimited use: add your logo, set up as many projects as you like, and generate the documents for each. After each 6-monthly review of the library, the revised documents are emailed to you. Monthly billing is available at a higher rate.",
       `<strong>Subscriptions and consultant plans.</strong> Not on sale yet. <a href="/subscriptions/#register-interest">${INTEREST_LABEL}</a>.`, "p")}
     <p><strong>Buy outright.</strong> Pay once. The documents are filled with your business and project details, checked by our team and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in.</p>
     ${CONSULTANTS_ON ? '<p><strong>Consultants.</strong> Prepare documents for your own clients, issued under your brand or theirs. <a href="/consultants/">See consultant plans</a>.</p>' : ""}

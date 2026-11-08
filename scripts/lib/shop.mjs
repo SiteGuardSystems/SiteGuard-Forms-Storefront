@@ -414,11 +414,11 @@ ${foundingPanel()}
     <li><strong>Unlimited use.</strong> No limit on projects or how often you generate documents.</li>
     <li><strong>Your branding, included.</strong> Upload your logo once and it goes on every document, at no extra cost.</li>
     <li><strong>Project details filled in.</strong> Set up each project and the documents are generated with its details, as PDFs, emailed to you.</li>
-    <li><strong>Kept current.</strong> The library is reviewed against legislative change every 6 months, and the revised documents are pushed to your account after each review.</li>
+    <li><strong>Kept current.</strong> The library is reviewed against legislative change every 6 months, and the revised documents are emailed to you after each 6-monthly review.</li>
   </ul></div>
   <div><h2>Billing</h2>
     <p><strong>Annual billing is the default and the best value.</strong> Each pack page shows the annual price beside the one-off price. You can pay monthly instead, at a higher annualised rate (the yearly price plus 15%, spread over 12 months and rounded). Prices are in A$ and exclude GST (+GST); GST is added at checkout.</p>
-    <p>Subscriptions renew automatically. Cancel at any time from your account; cancellation takes effect at the end of the period you've paid for. See the <a href="/legal/terms-of-sale/">Terms of Sale</a> and <a href="/legal/refunds/">Refunds and cancellations</a>.</p>
+    <p>Subscriptions renew automatically. To cancel, email us at any time; cancellation takes effect at the end of the period you've paid for. See the <a href="/legal/terms-of-sale/">Terms of Sale</a> and <a href="/legal/refunds/">Refunds and cancellations</a>.</p>
     <p>${switchPair("subscriptions_open", `<a class="btn btn-hivis" href="${P("/trade-packs/")}">Choose a package</a>`, `<a class="btn btn-hivis" href="#register-interest">${INTEREST_LABEL}</a> <a class="btn" href="${P("/trade-packs/")}">Buy a pack outright</a>`)}</p></div>
 </div></section>
 ${video("subscription")}`,

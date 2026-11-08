@@ -645,7 +645,7 @@ describe("POST /api/lead: Register interest (app-interest)", () => {
       assert.match(mailer.sent[0].text, /^Trade or business: Consultant$/m);
     });
   });
-  test("no box ticked is an enquiry basis with no wording; a bad interest becomes both; other types keep no consent fields", async () => {
+  test("no box ticked is an enquiry basis with no wording; a bad interest becomes both; other types are enquiry basis too (S23)", async () => {
     await withApp({}, async ({ base, varDir }) => {
       await post(base, "/api/lead", { name: "A", email: "a@b.co", enquiry_type: "app-interest", interest: "core", consent_wording: "forged" });
       await post(base, "/api/lead", { name: "B", email: "b@b.co", need: "x", interest: "app", consent: "yes" });
@@ -661,7 +661,9 @@ describe("POST /api/lead: Register interest (app-interest)", () => {
       assert.match(t, /^Consent at: \d{4}-/m);
       assert.equal(b.enquiry_type, "enquiry");
       assert.equal(b.interest, undefined);
-      assert.equal(b.consent_basis, undefined);
+      assert.equal(b.consent_basis, "enquiry");   // S23: every lead has a basis
+      assert.equal(b.consent_method, "website form");
+      assert.equal(b.consent_wording, undefined);
     });
   });
 });
