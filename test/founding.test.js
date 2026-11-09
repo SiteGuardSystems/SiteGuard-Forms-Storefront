@@ -50,30 +50,30 @@ const STRIPE_MAP = {
   }])),
 };
 
-describe("app prices (Pricing Rev06 workbook)", () => {
+describe("app prices (Pricing Rev08 workbook)", () => {
   // Prices come from data/app-catalogue.json (Hseq-Dev, decision #90); the
   // expected values below are still the workbook's own figures.
   const cfg = validateAppBilling(structuredClone(CONFIG), readAppCatalogue());
   test("monthly list prices match Launch Line-up / Trade Packages / App Bundles / Levers", () => {
-    assert.deepEqual(cfg.products.map((p) => p.monthly_aud), [196, 271, 496, 910, 1279, 1757, 75]);
+    assert.deepEqual(cfg.products.map((p) => p.monthly_aud), [161, 236, 456, 700, 1155, 1585, 75]);
     assert.equal(cfg.default_cadence, "annual");
-    assert.equal(cfg.cadences.monthly.loading, 0.08);
-    assert.equal(cfg.cadences.quarterly.loading, 0.05);
-    assert.equal(cfg.cadences.six_monthly.loading, 0.03);
+    assert.equal(cfg.cadences.monthly.loading, 0.15);
+    assert.equal(cfg.cadences.quarterly.loading, 0.08);
+    assert.equal(cfg.cadences.six_monthly.loading, 0.05);
     assert.equal(cfg.app_go_live_date, "2027-06-01");
   });
   test("cadence prices: annual = 12 x monthly; the workbook's whole-dollar loaded monthly price x months (cents, ex GST)", () => {
-    // Trade Domestic: 196 / 202 / 206 / 212 a month (was 211.68 to the cent before decision #90).
-    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:trade:domestic")), { annual: 235200, six_monthly: 121200, quarterly: 61800, monthly: 21200 });
-    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:heavy-commercial")), { annual: 2108400, six_monthly: 1086000, quarterly: 553500, monthly: 189800 });
-    // App Add-ons & Bands D: Builder Light Commercial 1279 / 1317 / 1343 / 1381 a month.
-    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:light-commercial")), { annual: 1534800, six_monthly: 790200, quarterly: 402900, monthly: 138100 });
-    assert.equal(pricesFor(cfg, getProduct(cfg, "app:audit:seat")).monthly, 8100); // App Add-ons & Bands A: A$81
+    // Trade Domestic: 161 / 169 / 174 / 185 a month (Rev08: +5% / +8% / +15%).
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:trade:domestic")), { annual: 193200, six_monthly: 101400, quarterly: 52200, monthly: 18500 });
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:heavy-commercial")), { annual: 1902000, six_monthly: 998400, quarterly: 513600, monthly: 182300 });
+    // App Add-ons & Bands D: Builder Light Commercial 1155 / 1213 / 1247 / 1328 a month.
+    assert.deepEqual(pricesFor(cfg, getProduct(cfg, "app:builder:light-commercial")), { annual: 1386000, six_monthly: 727800, quarterly: 374100, monthly: 132800 });
+    assert.equal(pricesFor(cfg, getProduct(cfg, "app:audit:seat")).monthly, 8600); // App Add-ons & Bands A: A$86 (Rev08, +15%)
     assert.equal(pricesFor(cfg, getProduct(cfg, "app:audit:seat")).annual, 90000);
   });
   test("founding price: 12 months less 15%", () => {
-    assert.equal(foundingAmountCents(cfg, getProduct(cfg, "app:trade:domestic")), 199920);
-    assert.equal(foundingAmountCents(cfg, getProduct(cfg, "app:builder:domestic")), 928200);
+    assert.equal(foundingAmountCents(cfg, getProduct(cfg, "app:trade:domestic")), 164220);
+    assert.equal(foundingAmountCents(cfg, getProduct(cfg, "app:builder:domestic")), 714000);
     assert.equal(foundingAmountCents(cfg, getProduct(cfg, "app:audit:seat")), 76500);
   });
   test("gated products are refused by the config check", () => {
@@ -107,12 +107,12 @@ describe("founding dates, delay credit and refund", () => {
     assert.equal(delayCreditMonthsDue(cfg, "2027-06-01", "2027-06-15"), 1);
   });
   test("refund of the unused prepayment", () => {
-    const sale = { amount_paid_total_cents: 219912, expected_start_date: "2027-06-01", refunds: [] };
-    assert.equal(unusedPrepaymentCents(cfg, sale, "2027-03-15"), 219912, "before go-live: all of it");
+    const sale = { amount_paid_total_cents: 180642, expected_start_date: "2027-06-01", refunds: [] };
+    assert.equal(unusedPrepaymentCents(cfg, sale, "2027-03-15"), 180642, "before go-live: all of it");
     const mid = unusedPrepaymentCents(cfg, sale, "2027-12-01");
-    assert.ok(mid > 0 && mid < 219912 / 2 + 2000 && mid > 219912 / 2 - 2000, `about half after six months, got ${mid}`);
+    assert.ok(mid > 0 && mid < 180642 / 2 + 2000 && mid > 180642 / 2 - 2000, `about half after six months, got ${mid}`);
     assert.equal(unusedPrepaymentCents(cfg, sale, "2028-06-01"), 0, "nothing after the paid term");
-    assert.equal(unusedPrepaymentCents(cfg, { ...sale, refunds: [{ amount_cents: 219912 }] }, "2027-03-15"), 0, "never twice");
+    assert.equal(unusedPrepaymentCents(cfg, { ...sale, refunds: [{ amount_cents: 180642 }] }, "2027-03-15"), 0, "never twice");
   });
 });
 
@@ -192,7 +192,7 @@ function makeFakeStripe() {
         listLineItems: async () => ({ data: [] }),
       },
     },
-    paymentIntents: { retrieve: async (id) => ({ id, payment_method: "pm_card_visa_x", amount: 219912 }) },
+    paymentIntents: { retrieve: async (id) => ({ id, payment_method: "pm_card_visa_x", amount: 180642 }) },
     subscriptions: {
       create: async (p) => { calls.subs.push(p); return { id: `sub_${calls.subs.length}`, status: "trialing" }; },
       update: async (id, p) => { calls.subUpdates.push({ id, ...p }); return { id }; },
@@ -250,7 +250,7 @@ function completedEvent(session, over = {}) {
     data: { object: {
       id: session.id, object: "checkout.session", payment_status: "paid", status: "complete", metadata: session.metadata,
       customer: "cus_test_1", payment_intent: "pi_test_1", currency: "aud", created: 1804550400,
-      amount_subtotal: 199920, amount_total: 219912, total_details: { amount_tax: 19992, amount_discount: 0 },
+      amount_subtotal: 164220, amount_total: 180642, total_details: { amount_tax: 16422, amount_discount: 0 },
       customer_details: { email: "delivered@resend.dev" },
       custom_fields: [{ key: "client_name", text: { value: "Test Carpentry Pty Ltd" } }, { key: "project_address", text: { value: "1 Test St, Sydney NSW" } }],
       ...over,
@@ -278,7 +278,7 @@ describe("founding checkout over HTTP", () => {
       assert.equal(p.metadata.kind, "founding");
       assert.equal(p.metadata.expected_start_date, "2027-06-01");
       assert.equal(p.metadata.forms_pack_id, "compliance:CARP");
-      assert.equal(p.metadata.founding_price_cents_ex_gst, "199920");
+      assert.equal(p.metadata.founding_price_cents_ex_gst, "164220");
       assert.equal(p.metadata.terms_version, TERMS);
       assert.match(p.custom_text.submit.message, /PENDING SOLICITOR/);
       assert.equal(p.payment_intent_data.setup_future_usage, "off_session");
@@ -355,7 +355,7 @@ describe("founding checkout over HTTP", () => {
       for (const k of ["price_paid_cents_ex_gst", "gst_cents", "amount_paid_total_cents", "expected_start_date", "terms_version", "price_rise_clause_version", "delay_credits", "refunds", "forms_pack", "stripe_subscription_id"]) {
         assert.ok(k in sale, `record has ${k}`);
       }
-      assert.equal(sale.price_paid_cents_ex_gst, 199920);
+      assert.equal(sale.price_paid_cents_ex_gst, 164220);
       assert.equal(sale.expected_start_date, "2027-06-01");
       assert.equal(sale.service_end_date, "2028-06-01");
       assert.equal(sale.forms_pack.intake, "recorded");
@@ -385,7 +385,7 @@ describe("founding checkout over HTTP", () => {
       clock.t = new Date("2027-04-01T00:00:00Z");
       const rf = await (await post("/api/founding/admin/refund", { sale_id: "FND-0001", reason: "delay" }, admin)).json();
       assert.equal(rf.ok, true);
-      assert.equal(rf.refund.amount_cents, 219912);
+      assert.equal(rf.refund.amount_cents, 180642);
       assert.equal(stripe.calls.refunds[0].payment_intent, "pi_test_1");
       assert.deepEqual(stripe.calls.cancels, ["sub_1"]);
       assert.equal(rf.sale.status, "refunded");

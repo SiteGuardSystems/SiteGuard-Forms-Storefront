@@ -105,7 +105,7 @@ describe("app billing sells at the view's figures, never its own", () => {
     const dom = cfg.products.find((p) => p.id === "app:trade:domestic");
     assert.equal(dom.prices_cents.monthly, 21200);
     const blc = cfg.products.find((p) => p.id === "app:builder:light-commercial");
-    assert.deepEqual(blc.loaded_per_month_aud, { annual: 1279, six_monthly: 1317, quarterly: 1343, monthly: 1381 });
+    assert.deepEqual(blc.loaded_per_month_aud, { annual: 1155, six_monthly: 1213, quarterly: 1247, monthly: 1328 });
   });
   test("app-billing.json carries no price, loading or founding discount", () => {
     const raw = JSON.parse(readFileSync(path.join(ROOT, "data/app-billing.json"), "utf8"));
@@ -113,7 +113,7 @@ describe("app billing sells at the view's figures, never its own", () => {
     for (const c of Object.values(raw.cadences)) assert.ok(!("loading" in c));
     assert.ok(!("discount" in raw.founding));
     const withPrice = structuredClone(raw);
-    withPrice.products[0].monthly_aud = 196;
+    withPrice.products[0].monthly_aud = 161;
     assert.throws(() => validateAppBilling(withPrice, readAppCatalogue()), /app catalogue/);
     assert.throws(() => validateAppBilling(raw, { app: null, packs: [] }), /no app catalogue/);
   });

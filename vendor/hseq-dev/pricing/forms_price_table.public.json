@@ -1,7 +1,7 @@
 {
  "$comment": "Public view of Hseq-Dev docs/pricing/forms_price_table.json for a public repo (Dan's decision #90), written by docs/pricing/export_price_tables.py --website: only the figures the site shows or sells from. No internal codes, notes, held or unreleased pack prices. A$ ex GST.",
- "revision": "Rev06",
- "pricing_revision": "Rev06 -- 2026-10-31",
+ "revision": "Rev08",
+ "pricing_revision": "Rev08 -- 2026-11-02",
  "effective_from": "2027-03-01",
  "currency": "AUD",
  "prices_exclude_gst": true,
@@ -11,94 +11,94 @@
  "billing": {
   "default_cadence": "annual",
   "monthly_factor": 1.15,
-  "monthly_round_to_aud": 5
+  "monthly_round_to_aud": 1
  },
  "bands": {
   "swms": [
    {
     "max_docs": 21,
     "one_off": 479,
-    "annual": 719
+    "annual": 569
    },
    {
     "max_docs": 30,
     "one_off": 539,
-    "annual": 809
+    "annual": 649
    },
    {
     "max_docs": null,
     "one_off": 599,
-    "annual": 899
+    "annual": 719
    }
   ],
   "compliance": [
    {
     "max_docs": 27,
     "one_off": 569,
-    "annual": 849
+    "annual": 679
    },
    {
     "max_docs": 33,
     "one_off": 629,
-    "annual": 939
+    "annual": 749
    },
    {
     "max_docs": null,
     "one_off": 689,
-    "annual": 1049
+    "annual": 829
    }
   ],
   "subcontractor_light_commercial": [
    {
     "max_docs": 34,
     "one_off": 659,
-    "annual": 989
+    "annual": 789
    },
    {
     "max_docs": 38,
     "one_off": 719,
-    "annual": 1099
+    "annual": 859
    },
    {
     "max_docs": null,
     "one_off": 779,
-    "annual": 1149
+    "annual": 929
    }
   ],
   "subcontractor_heavy_commercial": [
    {
     "max_docs": 38,
     "one_off": 929,
-    "annual": 1399
+    "annual": 1099
    },
    {
     "max_docs": 42,
     "one_off": 989,
-    "annual": 1499
+    "annual": 1199
    },
    {
     "max_docs": null,
     "one_off": 1119,
-    "annual": 1699
+    "annual": 1349
    }
   ]
  },
  "flat": {
   "builder:domestic": {
    "one_off": 2199,
-   "annual": 2749
+   "annual": 2649
   },
   "builder:light-commercial": {
    "one_off": 2699,
-   "annual": 3349
+   "annual": 3249
   },
   "builder:heavy-commercial": {
    "one_off": 4049,
-   "annual": 5049
+   "annual": 4849
   },
   "subcontractor-system": {
    "one_off": 1799,
-   "annual": 2249
+   "annual": 2149
   },
   "single-document": {
    "one_off": 44,

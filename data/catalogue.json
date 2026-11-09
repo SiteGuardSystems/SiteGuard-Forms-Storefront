@@ -4,10 +4,10 @@
  "dcr_revision": 23,
  "dcr_sha256": "8a8db29c7753ded334f8170bb20b1029fe94e414667e027bc10ffc0e0670a7af",
  "preview": false,
- "pricing_revision": "Rev06 -- 2026-10-31",
- "pricing_status": "Pricing Rev06 (31 Oct 2026; workbook marked DRAFT for Dan). Launch price list for FORMS (March 2027). Not published or live: Stripe test-mode re-provisioning and the FORMS/Storefront/website copy follow (rollout P2/P3).",
+ "pricing_revision": "Rev08 -- 2026-11-02",
+ "pricing_status": "Pricing Rev08 (2 Nov 2026; LOCKED by Dan, Decisions Record Rev02 P-1 to P-7). FORMS subscription = one-off + 20% on every pack (P-1); buy once = one export set with no revision pushes. Launch price list for FORMS (March 2027). Not published or live: Stripe test-mode re-provisioning and the FORMS/Storefront/website copy follow (rollout P2/P3).",
  "price_table": {
-  "revision": "Rev06",
+  "revision": "Rev08",
   "effective_from": "2027-03-01",
   "price_review_clause": true,
   "price_review": {
@@ -19,7 +19,7 @@
   "prices_exclude_gst": true,
   "default_cadence": "annual",
   "monthly_factor": 1.15,
-  "monthly_round_to_aud": 5,
+  "monthly_round_to_aud": 1,
   "launch_waves": [
    "mar-2027",
    "jun-2027",
@@ -441,8 +441,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -525,8 +525,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -617,8 +617,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -684,8 +684,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -759,8 +759,8 @@
    ],
    "prices": {
     "one_off": 689,
-    "annual": 1049,
-    "monthly": 100
+    "annual": 829,
+    "monthly": 79
    },
    "subscription_only": false,
    "sellable": true,
@@ -827,8 +827,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -911,8 +911,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -1011,8 +1011,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -1078,8 +1078,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -1161,8 +1161,8 @@
    ],
    "prices": {
     "one_off": 689,
-    "annual": 1049,
-    "monthly": 100
+    "annual": 829,
+    "monthly": 79
    },
    "subscription_only": false,
    "sellable": true,
@@ -1215,8 +1215,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -1285,8 +1285,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -1361,8 +1361,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -1414,8 +1414,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -1473,8 +1473,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -1535,8 +1535,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -1613,8 +1613,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -1701,8 +1701,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -1762,8 +1762,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -1833,8 +1833,8 @@
    ],
    "prices": {
     "one_off": 689,
-    "annual": 1049,
-    "monthly": 100
+    "annual": 829,
+    "monthly": 79
    },
    "subscription_only": false,
    "sellable": true,
@@ -1890,8 +1890,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -1963,8 +1963,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -2043,8 +2043,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -2099,8 +2099,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2162,8 +2162,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -2223,8 +2223,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2300,8 +2300,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -2384,8 +2384,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -2444,8 +2444,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2511,8 +2511,8 @@
    ],
    "prices": {
     "one_off": 689,
-    "annual": 1049,
-    "monthly": 100
+    "annual": 829,
+    "monthly": 79
    },
    "subscription_only": false,
    "sellable": true,
@@ -2567,8 +2567,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2630,8 +2630,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -2682,8 +2682,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -2739,8 +2739,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -2792,8 +2792,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2849,8 +2849,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -2908,8 +2908,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -2983,8 +2983,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -3058,8 +3058,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": false,
@@ -3116,8 +3116,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -3174,8 +3174,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -3230,8 +3230,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -3302,8 +3302,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -3381,8 +3381,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -3436,8 +3436,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -3498,8 +3498,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -3550,8 +3550,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -3618,8 +3618,8 @@
    ],
    "prices": {
     "one_off": 659,
-    "annual": 989,
-    "monthly": 95
+    "annual": 789,
+    "monthly": 76
    },
    "subscription_only": false,
    "sellable": true,
@@ -3692,8 +3692,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -3743,8 +3743,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -3800,8 +3800,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -3856,8 +3856,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -3928,8 +3928,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -4008,8 +4008,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -4063,8 +4063,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -4126,8 +4126,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -4179,8 +4179,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -4248,8 +4248,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -4323,8 +4323,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -4375,8 +4375,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -4433,8 +4433,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -4486,8 +4486,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -4555,8 +4555,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -4630,8 +4630,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -4682,8 +4682,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -4740,8 +4740,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -4798,8 +4798,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -4872,8 +4872,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -4953,8 +4953,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -5010,8 +5010,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5074,8 +5074,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -5129,8 +5129,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5200,8 +5200,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -5277,8 +5277,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -5331,8 +5331,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5391,8 +5391,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -5443,8 +5443,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -5500,8 +5500,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -5558,8 +5558,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5632,8 +5632,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -5715,8 +5715,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -5772,8 +5772,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5838,8 +5838,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -5897,8 +5897,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -5972,8 +5972,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -6054,8 +6054,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -6112,8 +6112,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -6177,8 +6177,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -6242,8 +6242,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -6323,8 +6323,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -6404,8 +6404,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": false,
@@ -6468,8 +6468,8 @@
    ],
    "prices": {
     "one_off": 599,
-    "annual": 899,
-    "monthly": 85
+    "annual": 719,
+    "monthly": 69
    },
    "subscription_only": false,
    "sellable": true,
@@ -6532,8 +6532,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -6591,8 +6591,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -6666,8 +6666,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -6747,8 +6747,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -6805,8 +6805,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -6869,8 +6869,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -6919,8 +6919,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": false,
@@ -6985,8 +6985,8 @@
    ],
    "prices": {
     "one_off": 659,
-    "annual": 989,
-    "monthly": 95
+    "annual": 789,
+    "monthly": 76
    },
    "subscription_only": false,
    "sellable": false,
@@ -7056,8 +7056,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -7106,8 +7106,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -7161,8 +7161,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -7220,8 +7220,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -7295,8 +7295,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -7370,8 +7370,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": false,
@@ -7428,8 +7428,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -7486,8 +7486,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -7539,8 +7539,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -7597,8 +7597,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -7652,8 +7652,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -7723,8 +7723,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -7801,8 +7801,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -7855,8 +7855,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -7916,8 +7916,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -7966,8 +7966,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": false,
@@ -8032,8 +8032,8 @@
    ],
    "prices": {
     "one_off": 659,
-    "annual": 989,
-    "monthly": 95
+    "annual": 789,
+    "monthly": 76
    },
    "subscription_only": false,
    "sellable": false,
@@ -8104,8 +8104,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -8154,8 +8154,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -8210,8 +8210,8 @@
    ],
    "prices": {
     "one_off": 569,
-    "annual": 849,
-    "monthly": 80
+    "annual": 679,
+    "monthly": 65
    },
    "subscription_only": false,
    "sellable": true,
@@ -8270,8 +8270,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -8346,8 +8346,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -8429,8 +8429,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -8488,8 +8488,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -8554,8 +8554,8 @@
    ],
    "prices": {
     "one_off": 629,
-    "annual": 939,
-    "monthly": 90
+    "annual": 749,
+    "monthly": 72
    },
    "subscription_only": false,
    "sellable": true,
@@ -8800,8 +8800,8 @@
    ],
    "prices": {
     "one_off": 2199,
-    "annual": 2749,
-    "monthly": 265
+    "annual": 2649,
+    "monthly": 254
    },
    "subscription_only": false,
    "sellable": true,
@@ -9070,8 +9070,8 @@
    ],
    "prices": {
     "one_off": 2699,
-    "annual": 3349,
-    "monthly": 320
+    "annual": 3249,
+    "monthly": 311
    },
    "subscription_only": false,
    "sellable": true,
@@ -9725,8 +9725,8 @@
    ],
    "prices": {
     "one_off": 4049,
-    "annual": 5049,
-    "monthly": 485
+    "annual": 4849,
+    "monthly": 465
    },
    "subscription_only": false,
    "sellable": true,
@@ -10648,7 +10648,7 @@
    "prices": {
     "one_off": 4499,
     "annual": 7999,
-    "monthly": 765
+    "monthly": 767
    },
    "subscription_only": false,
    "sellable": true,
@@ -10954,8 +10954,8 @@
    ],
    "prices": {
     "one_off": 1799,
-    "annual": 2249,
-    "monthly": 215
+    "annual": 2149,
+    "monthly": 206
    },
    "subscription_only": false,
    "sellable": true,
@@ -11044,8 +11044,8 @@
    ],
    "prices": {
     "one_off": 809,
-    "annual": 1199,
-    "monthly": 115
+    "annual": 969,
+    "monthly": 93
    },
    "subscription_only": false,
    "sellable": true,
@@ -11110,8 +11110,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -11164,8 +11164,8 @@
    ],
    "prices": {
     "one_off": 449,
-    "annual": 669,
-    "monthly": 65
+    "annual": 539,
+    "monthly": 52
    },
    "subscription_only": false,
    "sellable": true,
@@ -11217,8 +11217,8 @@
    ],
    "prices": {
     "one_off": 399,
-    "annual": 599,
-    "monthly": 55
+    "annual": 479,
+    "monthly": 46
    },
    "subscription_only": false,
    "sellable": true,
@@ -11267,8 +11267,8 @@
    ],
    "prices": {
     "one_off": 399,
-    "annual": 599,
-    "monthly": 55
+    "annual": 479,
+    "monthly": 46
    },
    "subscription_only": false,
    "sellable": true,
@@ -11316,8 +11316,8 @@
    ],
    "prices": {
     "one_off": 309,
-    "annual": 459,
-    "monthly": 45
+    "annual": 369,
+    "monthly": 35
    },
    "subscription_only": false,
    "sellable": true,
@@ -11368,8 +11368,8 @@
    ],
    "prices": {
     "one_off": 399,
-    "annual": 599,
-    "monthly": 55
+    "annual": 479,
+    "monthly": 46
    },
    "subscription_only": false,
    "sellable": true,
@@ -11425,8 +11425,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -11498,8 +11498,8 @@
    ],
    "prices": {
     "one_off": 779,
-    "annual": 1149,
-    "monthly": 110
+    "annual": 929,
+    "monthly": 89
    },
    "subscription_only": false,
    "sellable": true,
@@ -11578,8 +11578,8 @@
    ],
    "prices": {
     "one_off": 1119,
-    "annual": 1699,
-    "monthly": 165
+    "annual": 1349,
+    "monthly": 129
    },
    "subscription_only": false,
    "sellable": true,
@@ -11631,8 +11631,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -11700,8 +11700,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -11774,8 +11774,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -11828,8 +11828,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -11898,8 +11898,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -11972,8 +11972,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -12030,8 +12030,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -12080,8 +12080,8 @@
    ],
    "prices": {
     "one_off": 309,
-    "annual": 459,
-    "monthly": 45
+    "annual": 369,
+    "monthly": 35
    },
    "subscription_only": false,
    "sellable": true,
@@ -12115,7 +12115,7 @@
    "prices": {
     "one_off": null,
     "annual": 269,
-    "monthly": 25
+    "monthly": 26
    },
    "subscription_only": true,
    "sellable": false,
@@ -12167,8 +12167,8 @@
    ],
    "prices": {
     "one_off": 479,
-    "annual": 719,
-    "monthly": 70
+    "annual": 569,
+    "monthly": 55
    },
    "subscription_only": false,
    "sellable": true,
@@ -12236,8 +12236,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -12310,8 +12310,8 @@
    ],
    "prices": {
     "one_off": 929,
-    "annual": 1399,
-    "monthly": 135
+    "annual": 1099,
+    "monthly": 105
    },
    "subscription_only": false,
    "sellable": true,
@@ -12364,8 +12364,8 @@
    ],
    "prices": {
     "one_off": 539,
-    "annual": 809,
-    "monthly": 80
+    "annual": 649,
+    "monthly": 62
    },
    "subscription_only": false,
    "sellable": true,
@@ -12434,8 +12434,8 @@
    ],
    "prices": {
     "one_off": 719,
-    "annual": 1099,
-    "monthly": 105
+    "annual": 859,
+    "monthly": 82
    },
    "subscription_only": false,
    "sellable": true,
@@ -12509,8 +12509,8 @@
    ],
    "prices": {
     "one_off": 989,
-    "annual": 1499,
-    "monthly": 145
+    "annual": 1199,
+    "monthly": 115
    },
    "subscription_only": false,
    "sellable": true,
@@ -13316,7 +13316,7 @@
    "prices": {
     "one_off": null,
     "annual": 7999,
-    "monthly": 765
+    "monthly": 767
    },
    "subscription_only": true,
    "sellable": false,
@@ -14933,7 +14933,7 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [],
-   "problem": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+   "problem": "disabled until white-label ships (Pricing Rev08, Launch Line-up: 'When white-label is built')",
    "client_limit": 1,
    "seats_included": 1,
    "show": false,
@@ -15736,12 +15736,12 @@
    "prices": {
     "one_off": null,
     "annual": 6749,
-    "monthly": 645
+    "monthly": 647
    },
    "subscription_only": true,
    "sellable": false,
    "blocked": [],
-   "problem": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+   "problem": "disabled until white-label ships (Pricing Rev08, Launch Line-up: 'When white-label is built')",
    "client_limit": 3,
    "seats_included": 1,
    "show": false,
@@ -16544,12 +16544,12 @@
    "prices": {
     "one_off": null,
     "annual": 11699,
-    "monthly": 1120
+    "monthly": 1121
    },
    "subscription_only": true,
    "sellable": false,
    "blocked": [],
-   "problem": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+   "problem": "disabled until white-label ships (Pricing Rev08, Launch Line-up: 'When white-label is built')",
    "client_limit": 10,
    "seats_included": 2,
    "show": false,
@@ -17357,7 +17357,7 @@
    "subscription_only": true,
    "sellable": false,
    "blocked": [],
-   "problem": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+   "problem": "disabled until white-label ships (Pricing Rev08, Launch Line-up: 'When white-label is built')",
    "client_limit": 25,
    "seats_included": 3,
    "show": false,
@@ -18160,12 +18160,12 @@
    "prices": {
     "one_off": null,
     "annual": 26999,
-    "monthly": 2585
+    "monthly": 2587
    },
    "subscription_only": true,
    "sellable": false,
    "blocked": [],
-   "problem": "disabled until white-label ships (Pricing Rev06, Launch Line-up: 'When white-label is built')",
+   "problem": "disabled until white-label ships (Pricing Rev08, Launch Line-up: 'When white-label is built')",
    "client_limit": null,
    "seats_included": 5,
    "show": false,

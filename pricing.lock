@@ -3,23 +3,23 @@
  "kind": "price-tables-public-view",
  "decision": "Dan #90 (1 Nov 2026): one price source, Hseq-Dev docs/packages.py via docs/pricing/",
  "revision": {
-  "app": "Rev06",
-  "forms": "Rev06"
+  "app": "Rev08",
+  "forms": "Rev08"
  },
  "files": {
   "app_price_table.public.json": {
    "path": "docs/pricing/app_price_table.json",
    "view": "public (docs/pricing/export_price_tables.py public_views())",
    "vendored_at": "vendor/hseq-dev/pricing/app_price_table.public.json",
-   "sha256": "690e826085e67d2aed025d4c84bccc01e79c576b14c0969c0cb9099ec6d01396",
-   "source_sha256": "ff601a4b1ca4967654594359cf8571dadf12178aefc5b86abc7a2a3d8c1cea68"
+   "sha256": "e9a4b2681b36c87b6d7214e853f36672ef3d169ff9b29cb4d4e53b7a773b9c70",
+   "source_sha256": "8e9ad8e38ff5b5e52637d259a1ec8be54fe867fc39c31b4b71427800a81b0d05"
   },
   "forms_price_table.public.json": {
    "path": "docs/pricing/forms_price_table.json",
    "view": "public (docs/pricing/export_price_tables.py public_views())",
    "vendored_at": "vendor/hseq-dev/pricing/forms_price_table.public.json",
-   "sha256": "c756e0c7b8df7466aa099fdaee71122f978e9ddf6f128ede649390ffe97834cc",
-   "source_sha256": "608b75563ae2b1034f8e2121af4d61b6be50c6b68decccdc8a38fb79b92002b6"
+   "sha256": "fdadfa10e7677de8ecc7cd311c0d5fc6f3fe617d50004d4cbde2dafe9dcd742b",
+   "source_sha256": "ca8d0b0b047f66f96958207f5d7c5cbc3423592482a50cff78096984a555db81"
   }
  },
  "update": "Change the table in Hseq-Dev, re-run docs/pricing/export_price_tables.py (--website / --storefront), commit (docs/pricing/README.md)."
