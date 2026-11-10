@@ -21,8 +21,9 @@ export function normalise(rel, buf) {
   if (rel.endsWith(".ics")) s = s.replace(/^DTSTAMP:.*$/gm, "DTSTAMP:");
   if (rel.endsWith(".html")) s = s.replace(/© \d{4} SiteGuard/g, "© YEAR SiteGuard");
   // The planning pages drop events before the build day (scripts/lib/planning.mjs), so their
-  // HTML changes from one day to the next; test/planning.test.js checks them instead.
-  if (rel.startsWith("planning/") && rel.endsWith(".html")) s = "planning page: changes with the build date";
+  // HTML and .ics change from one day to the next; test/planning.test.js checks them instead.
+  // The .ics files drop past events the same way (icsFor in scripts/lib/planning.mjs).
+  if (rel.startsWith("planning/") && (rel.endsWith(".html") || rel.endsWith(".ics"))) s = "planning page: changes with the build date";
   return Buffer.from(s, "utf8");
 }
 
