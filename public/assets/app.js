@@ -46,6 +46,10 @@
         company: f.company.value, phone: f.phone.value, need: f.need.value, website: f.website.value,
         enquiry_type: val(f, "enquiry_type") || "enquiry", ref: ref,
         partner_url: val(f, "partner_url"), partner_kind: val(f, "partner_kind") };
+      // X2: campaign attribution (assets/attribution.js, loaded only while campaign counts are on).
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"].forEach(function (k) {
+        if (val(f, k)) data[k] = val(f, k);
+      });
       if (interestForm) {
         // "Coming soon: register interest" (FORMS subscriptions and consultant
         // plans): an enquiry with the interest tag and the consent basis.
