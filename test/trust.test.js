@@ -18,7 +18,7 @@ const today = new Date().toISOString().slice(0, 10);
 const P = (o) => ({ name: "Acme Brokers", kind: "partner", url: "https://acme.example/", fee: "none", ...o });
 
 test("nothing renders until there is something real to show", async () => {
-  const t = await loadTrust(await fixture([], { place_id: "", rating: null, count: null }), "systems");
+  const t = await loadTrust(await fixture([], { place_id: "", profile_url: "" }), "systems");
   assert.deepEqual(t.problems, []);
   assert.equal(partnerStrip(t), "");
   assert.equal(reviewBadge(t), "");
@@ -66,25 +66,27 @@ test("text is escaped", async () => {
   assert.match(body, /a &amp; b/);
 });
 
-test("review badge: link only until there is a dated rating", async () => {
+test("Google reviews: a 'See our reviews on Google' link to the profile, and nothing else (N3)", async () => {
+  // only a Place ID: no link yet (the profile link is the Owner's, from the export)
   let t = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop" }), "systems");
-  let b = reviewBadge(t);
-  assert.match(b, /Review us on Google/);
-  assert.match(b, /search\.google\.com\/local\/writereview\?placeid=ChIJabcdefghijklmnop/);
-  assert.ok(!/★/.test(b));
-  t = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop", rating: 4.8, count: 12, as_of: today }), "systems");
-  b = reviewBadge(t);
-  assert.match(b, /<b>4\.8<\/b> on Google · 12 reviews/);
-  assert.match(b, /★★★★★/);
-  assert.match(b, /Rating as shown on our Google Business Profile on/);
+  assert.equal(reviewBadge(t), "");
+  const profile = "https://maps.app.goo.gl/AbCdEfGhIjKl";
+  t = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop", profile_url: profile,
+    review_url: "https://g.page/r/CabcdefSiteGuard/review", write_review_url: "https://search.google.com/local/writereview?placeid=ChIJabcdefghijklmnop" }), "systems");
+  for (const b of [reviewBadge(t), reviewBadge(t, { compact: true })]) {
+    assert.match(b, /<a class="review-link" href="https:\/\/maps\.app\.goo\.gl\/AbCdEfGhIjKl" rel="noopener">See our reviews on Google<\/a>/);
+    assert.ok(!/★|☆|rating|review count|on Google ·/i.test(b.replace("See our reviews on Google", "")));
+  }
+  assert.deepEqual(t.problems, []);
 });
 
-test("a rating without a count or a date is refused", async () => {
-  const t = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop", rating: 5 }), "systems");
-  assert.match(t.problems.join("\n"), /count must be/);
-  assert.match(t.problems.join("\n"), /as_of/);
-  const old = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop", rating: 4.5, count: 3, as_of: "2025-01-01" }), "systems");
-  assert.match(old.problems.join("\n"), /more than 120 days old.*open item/);
+test("a rating, count or review text left in an old file is ignored, never shown", async () => {
+  const t = await loadTrust(await fixture([], { place_id: "ChIJabcdefghijklmnop", profile_url: "https://share.google/AbCdEfGhIjKlMnOp",
+    rating: 4.8, count: 12, as_of: "2026-10-27", reviews: [{ text: "Great", author_name: "Someone" }] }), "systems");
+  assert.deepEqual(Object.keys(t.reviews).sort(), ["place_id", "profile_url"]);
+  const b = reviewBadge(t) + partnersBody(t, { source: "systems", brand: "SiteGuard" });
+  for (const gone of ["4.8", "12 review", "★", "Great", "Someone", "Rating as shown"]) assert.ok(!b.includes(gone), gone);
+  assert.match(b, /See our reviews on Google/);
 });
 
 test("review links must point at Google", async () => {

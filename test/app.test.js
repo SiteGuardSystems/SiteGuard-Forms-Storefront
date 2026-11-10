@@ -139,6 +139,7 @@ async function withApp(opts, fn) {
     // FORMS sales open (S1) unless a test says otherwise; S4/S5 off.
     switches: opts.switches ?? (async () => ({ sales_open: true, delivery_mode: "manual", delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false })),
     ...(opts.csp ? { csp: opts.csp } : {}),
+    ...(opts.campaignCounter ? { campaignCounter: opts.campaignCounter } : {}),
   });
   const server = app.listen(0);
   await new Promise((resolve) => server.once("listening", resolve));
@@ -387,6 +388,34 @@ describe("POST /api/webhook/stripe", () => {
       assert.equal(orders[0].amountTax, 6900);
       assert.equal(orders[0].termsVersion, "SG-LEGAL-02 v0.1");
     });
+  });
+  test("S1 M2: a checkout's utm values ride in the metadata and a paid order is counted once", async () => {
+    const { createCampaignCounter } = await import("../lib/site-metrics.js");
+    const stripe = makeFakeStripe();
+    const dir = await mkdtemp(path.join(tmpdir(), "sf-counts-"));
+    const campaignCounter = createCampaignCounter({ file: path.join(dir, "counts.json") });
+    try {
+      await withApp({ stripe, stripeWebhookSecret: "whsec", campaignCounter }, async ({ base }) => {
+        await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { utm_source: "LinkedIn", utm_medium: "social", utm_campaign: "launch" });
+        const meta = stripe.calls[0].metadata;
+        assert.deepEqual([meta.utm_source, meta.utm_medium, meta.utm_campaign], ["linkedin", "social", "launch"]);
+        const utm = { utm_source: "linkedin", utm_medium: "social", utm_campaign: "launch" };
+        const over = { session: { metadata: { termsVersion: "v", ...utm } } };
+        assert.equal((await completeOrder(base, stripe, null, "evt_a", over)).status, 200);
+        await completeOrder(base, stripe, null, "evt_b", over);   // redelivered: not counted again
+        const rows = await campaignCounter.rows("2000-01-01", "2999-12-31");
+        assert.equal(rows.length, 1);
+        assert.equal(rows[0].orders, 1);
+        assert.equal(rows[0].landings, 0);
+      });
+      const s2 = makeFakeStripe();
+      await withApp({ stripe: s2 }, async ({ base }) => {
+        await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { utm_source: "linkedin" });
+        assert.equal(s2.calls[0].metadata.utm_source, undefined);   // counts off: nothing extra sent to Stripe
+      });
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
   test("manual delivery: each line's intakeUrl from FORMS goes in the receipt and back to the success page", async () => {
     const stripe = makeFakeStripe();

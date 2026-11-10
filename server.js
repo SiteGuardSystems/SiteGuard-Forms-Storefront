@@ -31,6 +31,7 @@ import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-video
 import { createMailer } from "./lib/mailer.js";
 import { makeSwitchReader, switchesUrlFrom } from "./lib/forms-switches.js";
 import { readSiteMode } from "./lib/site-mode.js";
+import { metricsSettings, createCampaignCounter } from "./lib/site-metrics.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VAR_DIR = process.env.SITEGUARD_FORMS_VAR_DIR ?? path.join(__dirname, "var");
@@ -141,6 +142,14 @@ for (const p of EDUCATION.problems) console.warn(`Education page: ${p}`);
 const PRODUCT_VIDEOS = await loadProductVideos(__dirname);
 for (const p of PRODUCT_VIDEOS.problems) console.warn(`Product video: ${p}`);
 
+// S1 (8-9 Nov 2026): Cloudflare beacon, Search Console tag, Google tag and
+// campaign counts (lib/site-metrics.js). Each is off until set in .env.
+const METRICS = metricsSettings(process.env);
+for (const p of METRICS.problems) console.warn(`Site metrics: ${p}`);
+const CAMPAIGN_COUNTER = METRICS.countsOn
+  ? createCampaignCounter({ file: path.join(VAR_DIR, "campaign-counts.json") })
+  : null;
+
 // App billing and the founding offer (docs/FOUNDING_OFFER.md). The Stripe
 // objects come from scripts/sync-app-stripe.mjs, one mapping file per mode.
 const APP_BILLING_STRIPE_PATH = path.join(__dirname, "data",
@@ -183,6 +192,8 @@ const app = createApp({
   appBillingStripePath: APP_BILLING_STRIPE_PATH,
   foundingAdminToken: process.env.FOUNDING_ADMIN_TOKEN || undefined,
   trustProxy: process.env.TRUST_PROXY ? (Number(process.env.TRUST_PROXY) || process.env.TRUST_PROXY) : false,
+  metrics: METRICS,
+  campaignCounter: CAMPAIGN_COUNTER,
 });
 
 app.listen(PORT, HOST, () => {
@@ -202,6 +213,9 @@ app.listen(PORT, HOST, () => {
   } else {
     console.log("Stripe: LIVE MODE (sk_live_...) — real cards will be charged");
   }
+  console.log(`Site metrics: beacon ${METRICS.cfBeaconToken ? "on" : "off"}, Search Console tag ${METRICS.gscVerification ? "on" : "off"}, `
+    + `Google tag ${METRICS.adsOn ? "ON" : "off"}, campaign counts ${CAMPAIGN_COUNTER ? "on" : "off"}`
+    + `${CAMPAIGN_COUNTER ? `, Console read ${METRICS.tokenSha256 ? "on" : "off (no CAMPAIGN_METRICS_TOKEN_SHA256)"}` : ""}`);
   console.log(mailer.configured ? `Mail: Resend configured (from ${process.env.RESEND_FROM_EMAIL})` : "Mail: NOT configured — logged to file only");
   console.log(
     ORDER_INTAKE_URL && ORDER_INTAKE_API_KEY
