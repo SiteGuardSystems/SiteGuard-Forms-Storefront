@@ -399,6 +399,11 @@ describe("POST /api/webhook/stripe", () => {
         await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }], { utm_source: "LinkedIn", utm_medium: "social", utm_campaign: "launch" });
         const meta = stripe.calls[0].metadata;
         assert.deepEqual([meta.utm_source, meta.utm_medium, meta.utm_campaign], ["linkedin", "social", "launch"]);
+        // X2 (S6): term, content and gclid ride along; anything like an email is dropped.
+        await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }],
+          { utm_source: "google", utm_term: "swms template", utm_content: "a@b.com", gclid: "Cj0KCQ-abc_123" });
+        const m2 = stripe.calls[1].metadata;
+        assert.deepEqual([m2.utm_source, m2.utm_term, m2.utm_content, m2.gclid], ["google", "swms template", undefined, "Cj0KCQ-abc_123"]);
         const utm = { utm_source: "linkedin", utm_medium: "social", utm_campaign: "launch" };
         const over = { session: { metadata: { termsVersion: "v", ...utm } } };
         assert.equal((await completeOrder(base, stripe, null, "evt_a", over)).status, 200);
