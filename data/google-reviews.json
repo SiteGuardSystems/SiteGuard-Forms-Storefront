@@ -1,9 +1,7 @@
 {
-  "note": "Google Business Profile. Fill place_id once the profile is verified (Google Business Profile > Ask for reviews gives the review link). rating, count and as_of are read off the profile, never estimated; leave them null until there are reviews. Written by the CRM (partners reviews-set, then export-sites) or edited by hand.",
+  "note": "Written by siteguard-ai `partners export-sites` (Console > Partners > Google Business Profile). Links only: the sites show a 'See our reviews on Google' link to profile_url and never a rating, a review count or review text (decided 8 Nov 2026).",
   "place_id": "",
   "profile_url": "",
   "review_url": "",
-  "rating": null,
-  "count": null,
-  "as_of": ""
+  "write_review_url": ""
 }
