@@ -5,7 +5,7 @@ on:
     branches: [master, main]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # pinned: Playwright 1.56 has no chromium for ubuntu-26.04 (ubuntu-latest from Nov 2026)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
