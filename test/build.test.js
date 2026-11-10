@@ -269,3 +269,26 @@ test("no held document is sold on its own", async () => {
   const listed = new Set(sellable.documents);
   for (const c of docs) assert.ok(listed.has(c), `${c} is sold singly but isn't on the list`);
 });
+
+// Audit leftovers (go-live audit, 7 Nov 2026): S20, S22, S24.
+test("S20: no page says documents are pushed to an account or cancelled from one", () => {
+  for (const { f, html } of pages) {
+    if (f.startsWith("legal/")) continue;
+    assert.ok(!/pushed to your account|Cancel at any time from your account/i.test(html), f);
+  }
+});
+
+test("S22: the product video titles don't promise documents in five minutes or a PDF export", async () => {
+  const v = JSON.parse(await readFile(path.join(ROOT, "data/product-videos.json"), "utf8"));
+  for (const x of v.videos) {
+    assert.ok(!/five minutes|export the PDFs/i.test(`${x.heading} ${x.title} ${x.description}`), x.id);
+  }
+});
+
+test("S24: the footer's Subscriber sign in is hidden behind the subscriptions switch", () => {
+  for (const { f, html } of pages) {
+    const m = html.match(/<li[^>]*><a href="[^"]*\/login">Subscriber sign in<\/a><\/li>/);
+    if (!m) continue;
+    assert.match(m[0], /^<li data-switch="subscriptions_open" data-when="on" hidden>/, f);
+  }
+});
