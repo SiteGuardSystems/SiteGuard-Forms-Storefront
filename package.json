@@ -12,6 +12,7 @@
     "sync-legal": "node scripts/sync-legal.mjs",
     "dcr-check": "node scripts/dcr-check.mjs",
     "test": "node scripts/build-site.mjs && node --test lib/*.test.js test/*.test.js",
+    "check-site": "node scripts/check-site.mjs",
     "test:e2e": "node test/e2e/run.mjs",
     "test:e2e:stripe": "node test/e2e/stripe-test-mode.mjs",
     "sync-app-stripe": "node scripts/sync-app-stripe.mjs",

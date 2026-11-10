@@ -15,3 +15,7 @@ The overnight run (8–9 Nov 2026) parks anything it can't settle here, with wha
    CC doesn't read the server's `.env`, so this is yours to check. *Recommended: yes, `1` unless the domain is orange-clouded in Cloudflare.*
 6. **Shared files with siteguard-website.** `scripts/lib/trust.mjs` (#45, the "See our reviews on Google" link) and `scripts/lib/shop.mjs` (#46, S20 wording) must be byte-identical in both repos, and the website session changes the same lines tonight (W6, W7). *Recommended: yes, if the two copies differ after both merge, copy the storefront's across. The website's sibling check shows any difference.*
 7. **Google tag (M9, #44).** It's built and off (`GOOGLE_ADS_TAG=off`). It sets Google's cookies. *Recommended: yes, keep it off until the privacy policy covering it is approved.*
+
+## Overnight 10–11 Nov 2026 (Rev09 Fork 3: S7)
+
+10. **App-page lockups (W12/S7).** The storefront builds no `/app/` pages (they're on siteguard-website), so S7 checks the header lockup (shield and "SiteGuard FORMS", linking home) on all 71 pages, plus links and self-loops. One fix: the beta bar on `/contact/` linked to `/contact/`; it now says "use the form below". *Recommended: yes, run `npm run check-site` after each build; the website's W12 covers the App pages.*
