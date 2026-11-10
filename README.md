@@ -164,6 +164,18 @@ Register `https://www.siteguardforms.com.au/api/webhook/stripe` for
 Orders are fulfilled only once the session is paid, once per session; a
 Stripe or intake outage answers 500 so Stripe retries.
 
+## Server settings on forms-vps (S4, overnight 8-9 Nov 2026)
+
+`/srv/siteguard/forms-storefront/.env` on forms-vps is loaded by the unit (`EnvironmentFile=`) and by `server.js` (dotenv). Dan edits it on the server; it is never in git. These three are easy to miss:
+
+| Setting | Set it to | Why |
+|---|---|---|
+| `LEAD_NOTIFICATION_EMAIL` | the mailbox that answers enquiries from both websites | Every `/api/lead` enquiry is emailed here. **Set it, or remove the line.** A blank `LEAD_NOTIFICATION_EMAIL=` line turns enquiry emails off: the fallback to `ADMIN_NOTIFICATION_EMAIL` applies only when the line is missing altogether (`server.js` uses `??`). |
+| `TRUST_PROXY` | `1` when one reverse proxy sits in front of node (the usual nginx/Caddy set-up) | The rate limits (checkout, enquiries, order intake) then see the visitor's address, not the proxy's. Count each hop that adds `X-Forwarded-For`: if Cloudflare proxies the domain **and** nginx runs on the server, that's `2`. Unset, every visitor shares the proxy's limit. |
+| `SUPPORT_EMAIL` | `support@siteguardsystems.com.au` | The address on the order email ("Questions, or haven't received the details form?"). Unset, it falls back to `hello@siteguardsystems.com.au` (`lib/mailer.js`). Dan's decision N1, 8 Nov 2026. |
+
+After changing `.env`: `sudo systemctl restart siteguard-forms-storefront`, then `journalctl -u siteguard-forms-storefront -n 30 --no-pager`. The start-up lines say what is and isn't configured, never a value.
+
 ## Run it
 
 ```bash
