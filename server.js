@@ -28,7 +28,7 @@ import { appGates } from "./lib/engine-origins.js";
 import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs";
 import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
-import { createMailer } from "./lib/mailer.js";
+import { createMailer, leadNotificationTo } from "./lib/mailer.js";
 import { makeSwitchReader, switchesUrlFrom } from "./lib/forms-switches.js";
 import { readSiteMode } from "./lib/site-mode.js";
 import { metricsSettings, createCampaignCounter } from "./lib/site-metrics.js";
@@ -172,7 +172,7 @@ const app = createApp({
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
-  leadNotificationEmailTo: process.env.LEAD_NOTIFICATION_EMAIL ?? ADMIN_NOTIFICATION_EMAIL,
+  leadNotificationEmailTo: leadNotificationTo(process.env),
   leadAllowedOrigins: LEAD_ALLOWED_ORIGINS,
   // WP-S9: the Systems site checks out here too (CORS, returnOrigin allowlist).
   checkoutAllowedOrigins: CHECKOUT_ALLOWED_ORIGINS,
