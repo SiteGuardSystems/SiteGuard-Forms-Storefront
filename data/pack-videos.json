@@ -1,0 +1,170 @@
+{
+  "note": "SiteGuard Education videos on the FORMS pack pages (scripts/lib/pack-videos.mjs), in a 'See how the forms work' band with the anchor #videos. 'lead' is shown first on every pack page and the pack index pages. A how-to shows on a pack page when one of its 'documents' is in a pack on that page, or (with 'families') when the page sells any document of that family, e.g. SWMS. Nothing shows until youtube_url is filled in. To fill them from the YouTube upload sheet (SG-E-EDU-YT-003 .csv, youtube_url column): node scripts/fill-pack-videos.mjs <sheet.csv>. Rebuild, and restart the storefront (its CSP opens youtube-nocookie.com and i.ytimg.com only once a video is published).",
+  "lead": "SG-E-GEN-MKT-GEN-002",
+  "videos": [
+    {
+      "doc": "SG-E-GEN-MKT-GEN-001",
+      "kind": "marketing",
+      "documents": [],
+      "title": "SiteGuard Systems | Who We Are and What We Do",
+      "description": "This video covers who SiteGuard Systems is, the construction background behind it, and how we help businesses build safety and quality systems that work on site.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-GEN-002",
+      "kind": "marketing",
+      "documents": [],
+      "title": "SiteGuard FORMS | What It Is and How It Works",
+      "description": "This video covers what SiteGuard FORMS is and how it works: controlled site documents with your project details filled in, reviewed and kept current.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-ENV-HOW-GEN-252",
+      "kind": "how-to",
+      "documents": [
+        "ENV-FRM-GEN-252"
+      ],
+      "title": "How to Use a Spill Report and Response Record",
+      "description": "A step-by-step guide on how to fill in the Spill Report and Response Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-053",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-053"
+      ],
+      "title": "How to Use a Fitness for Work Declaration",
+      "description": "A step-by-step guide on how to fill in the Fitness for Work Declaration, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-055",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-055"
+      ],
+      "title": "How to Use a Hot Works Permit",
+      "description": "A step-by-step guide on how to fill in the Hot Works Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-056",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-056"
+      ],
+      "title": "How to Use a Confined Space Permit",
+      "description": "A step-by-step guide on how to fill in the Confined Space Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-254",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-254"
+      ],
+      "title": "How to Use a Pre-Task Risk Assessment (JSEA)",
+      "description": "A step-by-step guide on how to fill in the Pre-Task Risk Assessment (JSEA), section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-258",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-258"
+      ],
+      "title": "How to Use an Excavation and Services Permit",
+      "description": "A step-by-step guide on how to fill in the Excavation and Services Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-259",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-259"
+      ],
+      "title": "How to Use a Work at Heights Permit",
+      "description": "A step-by-step guide on how to fill in the Work at Heights Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-262",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-262"
+      ],
+      "title": "How to Use a Silica Hazard Control Statement",
+      "description": "A step-by-step guide on how to fill in the Silica Hazard Control Statement, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-264",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-264"
+      ],
+      "title": "How to Use an Asbestos Discovery Report",
+      "description": "A step-by-step guide on how to fill in the Asbestos Discovery Report, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-265",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-265"
+      ],
+      "title": "How to Use a Site Establishment Checklist",
+      "description": "A step-by-step guide on how to fill in the Site Establishment Checklist, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-266",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-266"
+      ],
+      "title": "How to Use a Daily Pre-Start Record",
+      "description": "A step-by-step guide on how to fill in the Daily Pre-Start Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-270",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-270"
+      ],
+      "title": "How to Use the HRCW SWMS Review Record",
+      "description": "A step-by-step guide on how to fill in the HRCW SWMS Review Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-MAS-001",
+      "kind": "how-to",
+      "documents": [
+        "SAF-SWMS-MAS-001"
+      ],
+      "families": [
+        "SWMS"
+      ],
+      "title": "How to Read, Sign and Use a SWMS (Bricklaying Worked Example)",
+      "description": "A worked example of reading, signing and using a Safe Work Method Statement, using a bricklaying and masonry SWMS: what each part is for, how the controls follow the hierarchy, and what to check before work starts.",
+      "youtube_url": "",
+      "upload_date": ""
+    }
+  ]
+}

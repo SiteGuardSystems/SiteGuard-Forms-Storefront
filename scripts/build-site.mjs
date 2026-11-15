@@ -29,6 +29,7 @@ import { loadPlanning, planningIndexBody, planningStateBody, inspectionsIndexBod
 import { loadEducation, educationBody, seriesBody, seriesPath, educationJsonLd } from "./lib/education.mjs";
 import { loadPinned, checkCatalogue, rev2 } from "./lib/dcr.mjs";
 import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
+import { loadPackVideos, packVideosSection, packVideosJsonLd } from "./lib/pack-videos.mjs";
 // The shop pages and the cart are shared with siteguard-website (WP-S8): the
 // same shop.mjs, cart.mjs and cart-browser.js are in both repos.
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
@@ -60,6 +61,9 @@ let EDU = null;
 // FORMS product videos on the pack pages (data/product-videos.json;
 // scripts/lib/product-videos.mjs). Placeholders until each is published.
 let PRODUCT_VIDEOS = null;
+// SiteGuard Education videos on the pack pages (data/pack-videos.json;
+// scripts/lib/pack-videos.mjs). Nothing shows until a video is published.
+let PACK_VIDEOS = null;
 // Beta: the shop can be browsed but nothing can be bought or subscribed to
 // (data/site-mode.json, read by server.js too). Dan, 22 Oct 2026.
 const SITE_MODE_PATH = process.env.SITE_MODE_PATH ? path.resolve(process.env.SITE_MODE_PATH) : path.join(ROOT, "data/site-mode.json");
@@ -297,6 +301,8 @@ async function build() {
   PLANNING = await loadPlanning(ROOT);
   PRODUCT_VIDEOS = await loadProductVideos(ROOT);
   for (const p of PRODUCT_VIDEOS.problems) problems.push(`data: ${p}`);
+  PACK_VIDEOS = await loadPackVideos(ROOT);
+  for (const p of PACK_VIDEOS.problems) problems.push(`data: ${p}`);
   if (!APP_STATUSES.includes(APP_STATUS)) problems.push(`data: site-mode.json app_status must be one of ${APP_STATUSES.join(", ")} (it is ${JSON.stringify(APP_STATUS)})`);
   if (FOUNDING_PLACES_API && !/^\/[A-Za-z0-9/_-]*$/.test(FOUNDING_PLACES_API)) problems.push("data: site-mode.json founding_places_api must be a same-origin path such as /api/founding/places");
   const edu = await loadEducation(ROOT);
@@ -377,6 +383,7 @@ ${foundingPanel()}
   const shopOut = shopPages({
     cat, model, base: "", origin: ORIGIN, appUrl: APP_URL, isoUrl: `${SYSTEMS_URL}/consulting/iso-ims/`, beta: BETA, crumbs,
     video: (kind) => productVideo(PRODUCT_VIDEOS, kind, { production: PRODUCTION }), foundingPanel,
+    packVideos: (codes) => ({ html: packVideosSection(PACK_VIDEOS, codes), jsonld: packVideosJsonLd(PACK_VIDEOS, codes, ORIGIN) }),
   });
   for (const spec of shopOut.pages) page(spec);
   await mkdir(path.join(DIST, "assets/packs"), { recursive: true });
