@@ -8,7 +8,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
-import { howTosFor, loadPackVideos, packVideosCsp, packVideosJsonLd, packVideosSection, parsePackVideos } from "../scripts/lib/pack-videos.mjs";
+import { howTosFor, walkthroughFor, loadPackVideos, packVideosCsp, packVideosJsonLd, packVideosSection, parsePackVideos } from "../scripts/lib/pack-videos.mjs";
 import { fill, parseCsv } from "../scripts/fill-pack-videos.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -26,11 +26,14 @@ const SAMPLE = {
 };
 
 describe("pack videos", () => {
-  test("the committed map has the wave 1 videos, the FORMS video as lead, none published yet", async () => {
+  test("the committed map has the wave 1 videos and 23 trade walkthroughs, the FORMS video as lead, none published yet", async () => {
     const pv = await loadPackVideos(ROOT, "");
     assert.deepEqual(pv.problems, []);
     assert.equal(pv.lead.entry.doc, "SG-E-GEN-MKT-GEN-002");
-    assert.equal(pv.videos.length, 15);
+    assert.equal(pv.videos.length, 38);
+    const wts = pv.videos.filter((v) => v.entry.kind === "walkthrough");
+    assert.equal(wts.length, 23);
+    assert.ok(wts.every((v) => v.entry.doc === `SG-E-GEN-MKT-${v.entry.trade}-001`));
     assert.ok(pv.videos.every((v) => v.video === null && v.entry.youtube_url === ""));
     assert.equal(packVideosSection(pv, ["SAF-FRM-GEN-266", "SAF-SWMS-CARP-001"]), "");
     assert.deepEqual(packVideosCsp(pv), { frame: [], img: [] });
@@ -61,6 +64,24 @@ describe("pack videos", () => {
     const ld = packVideosJsonLd(pv, ["SAF-FRM-GEN-266"], "https://siteguardforms.com.au");
     assert.deepEqual(ld.map((x) => x.embedUrl), ["https://www.youtube-nocookie.com/embed/leadleadAAA", "https://www.youtube-nocookie.com/embed/prestartBBB"]);
     assert.ok(ld.every((x) => x["@type"] === "VideoObject"));
+  });
+
+  test("a trade's own page leads with its walkthrough; the general lead moves into the grid", () => {
+    const pv = parsePackVideos({ ...SAMPLE, videos: [...SAMPLE.videos,
+      vid("WT-CARP", "walkthrough", { trade: "CARP", ...pub("carpcarpDDD") }),
+      vid("WT-ELEC", "walkthrough", { trade: "ELEC" })] });
+    const carp = ["SAF-SWMS-CARP-001", "SAF-SWMS-GEN-012", "SAF-PLN-TRD-001", "SAF-PLN-GEN-201", "QUA-ITP-CARP-001"];
+    assert.equal(walkthroughFor(pv, carp).entry.doc, "WT-CARP");
+    const html = packVideosSection(pv, carp);
+    assert.ok(html.indexOf("carpcarpDDD") < html.indexOf("leadleadAAA"), "walkthrough first, then the FORMS video");
+    assert.match(html, /edu-grid[\s\S]*leadleadAAA/);
+    assert.deepEqual(packVideosJsonLd(pv, carp, "https://x").map((x) => x.embedUrl.split("/").pop()), ["carpcarpDDD", "leadleadAAA", "swmsswmsCCC"]);
+    // unpublished walkthrough (electrical): the general lead as before
+    assert.equal(walkthroughFor(pv, ["SAF-SWMS-ELEC-001", "SAF-SWMS-GEN-001"]), null);
+    // a page naming several trades (builder, all documents) gets no trade walkthrough
+    assert.equal(walkthroughFor(pv, ["SAF-SWMS-CARP-001", "SAF-SWMS-ELEC-001"]), null);
+    // a walkthrough without its trade code is reported
+    assert.ok(parsePackVideos({ videos: [vid("WT-X", "walkthrough")] }).problems.some((p) => /needs its trade code/.test(p)));
   });
 
   test("an index page (no documents) shows the lead alone", () => {
