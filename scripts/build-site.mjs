@@ -34,6 +34,7 @@ import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+import { publicCatalogue, PUBLIC_CATALOGUE_PATH } from "./lib/public-catalogue.mjs";
 import { readSiteMode } from "../lib/site-mode.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -381,6 +382,9 @@ ${foundingPanel()}
   for (const spec of shopOut.pages) page(spec);
   await mkdir(path.join(DIST, "assets/packs"), { recursive: true });
   for (const [rel, content] of shopOut.files) await writeFile(path.join(DIST, rel), content);
+  // The public catalogue for the Org AI (FORMS queue S9): the packs these pages
+  // show, with each one's page and anchor. No prices, nothing private.
+  await writeFile(path.join(DIST, PUBLIC_CATALOGUE_PATH), JSON.stringify(publicCatalogue(cat, model, { origin: ORIGIN, beta: BETA }), null, 1) + "\n");
 
   // SiteGuard Education (same data and layout as siteguardsystems.com.au/education/)
   if (EDU) {

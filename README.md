@@ -41,6 +41,10 @@ npm run build:production && sudo systemctl restart siteguard-forms-storefront
 `--preview` lists every pack for layout review. A preview build shows a
 banner, is not indexed, refuses payment, and `build:production` refuses it.
 
+## Public catalogue for the Org AI (`/assets/catalogue.json`)
+
+The build writes `dist/assets/catalogue.json` (`scripts/lib/public-catalogue.mjs`) from the same model as the shop pages: each listed pack's id, name, group, trade, level, page URL with its anchor, and `orderable_now` (false while `beta` is on). No prices, document lists or anything private. The SiteGuard Org AI reads it to link prospects to the right pack. `test/public-catalogue.test.js` builds the site and checks the JSON against the pages both ways.
+
 ## DCR (the controlled document register)
 
 This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-dcr's **public page-A extract** (now Rev23, `public/rev23/dcr-public.json`) by sha256, and records the sha256 of the full release it was made from. The extract is vendored under `vendor/siteguard-dcr/public/` and marked `-text`, so git never changes its bytes. It holds page A, external, non-reserved rows only, with these fields: code, title, family, revision, lifecycle status, kept code, package family and bundle. The reader is `scripts/lib/dcr.mjs`. It needs no network, deploy key or proprietary client.
