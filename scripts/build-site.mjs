@@ -34,6 +34,8 @@ import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+import { cardsFor, shareUrl, CARD_DIR, CARD_W, CARD_H, DEFAULT_CARD } from "./lib/share-cards.mjs";
+import { existsSync } from "node:fs";
 import { readSiteMode } from "../lib/site-mode.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -216,6 +218,28 @@ function breadcrumbLd(trail) {
   };
 }
 
+// FORMS queue S12: share cards. A pack or trade page gets its own 1200x630 card
+// (public/assets/og/, made by npm run share-cards); every other page, or one
+// whose card hasn't been made yet, gets the default card. Never a price.
+let SHARE_CARDS = new Map();
+function cardFile(card) {
+  return card && existsSync(path.join(ROOT, "public", CARD_DIR, card.file)) ? card : null;
+}
+function shareCardTags(url, fullTitle, description) {
+  const card = cardFile(SHARE_CARDS.get(url)) ?? cardFile(DEFAULT_CARD);
+  const img = card ? `${ORIGIN}/${CARD_DIR}/${card.file}` : `${ORIGIN}/assets/apple-touch-icon.png`;
+  const alt = card ? `${card.title}: ${card.line}. SiteGuard FORMS.` : "SiteGuard FORMS";
+  return `<meta property="og:image" content="${img}">
+${card ? `<meta property="og:image:width" content="${CARD_W}">
+<meta property="og:image:height" content="${CARD_H}">
+` : ""}<meta property="og:image:alt" content="${esc(alt)}">
+<meta name="twitter:card" content="${card ? "summary_large_image" : "summary"}">
+<meta name="twitter:title" content="${esc(fullTitle)}">
+<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:image" content="${img}">
+<meta name="twitter:image:alt" content="${esc(alt)}">`;
+}
+
 function page({ url, title, description, body, trail, jsonld = [], preview, strip = true }) {
   const fullTitle = url === "/" ? title : `${title} | SiteGuard FORMS`;
   const ld = [...jsonld, ...(trail?.length ? [breadcrumbLd(trail)] : [])];
@@ -232,8 +256,8 @@ ${preview || BETA ? '<meta name="robots" content="noindex, nofollow">' : ""}
 <meta property="og:site_name" content="SiteGuard FORMS">
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description)}">
-<meta property="og:url" content="${ORIGIN}${url}">
-<meta property="og:image" content="${ORIGIN}/assets/apple-touch-icon.png">
+<meta property="og:url" content="${esc(shareUrl(ORIGIN, url))}">
+${shareCardTags(url, fullTitle, description)}
 <meta name="theme-color" content="#2B2A2F">
 <link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
@@ -319,6 +343,8 @@ async function build() {
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const model = shopModel(cat);
   CONSULTANTS_ON = model.consultantsOn;
+  SHARE_CARDS = cardsFor(cat, model);
+  for (const [u, c] of SHARE_CARDS) if (!cardFile(c)) problems.push(`open item: share card public/${CARD_DIR}/${c.file} for ${u} isn't made yet (npm run share-cards); the default card is used`);
   const preview = cat.preview;
   const shop = model.counts;
 
