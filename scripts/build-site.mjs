@@ -216,14 +216,6 @@ function breadcrumbLd(trail) {
   };
 }
 
-// FORMS queue S14: every pack page links to "How delivery works". The pack
-// pages come from scripts/lib/shop.mjs (shared with siteguard-website), so the
-// link is added here, by URL, rather than in that file.
-let DELIVERY_LINK_PAGES = new Set();
-function deliveryLinkBand() {
-  return `<section class="band band-grey"><div class="wrap"><p><strong>Buying outright?</strong> After payment you send us your details, we prepare and check your pack, and email it as PDFs within ${DELIVERY_DAYS} business days of your details being in. <a href="/how-delivery-works/">How delivery works</a>.</p></div></section>`;
-}
-
 function page({ url, title, description, body, trail, jsonld = [], preview, strip = true }) {
   const fullTitle = url === "/" ? title : `${title} | SiteGuard FORMS`;
   const ld = [...jsonld, ...(trail?.length ? [breadcrumbLd(trail)] : [])];
@@ -264,6 +256,14 @@ ${footer()}
 </html>
 `;
   pages.push({ url, title: fullTitle, description, html });
+}
+
+// FORMS queue S14: every pack page links to "How delivery works". The pack
+// pages come from scripts/lib/shop.mjs (shared with siteguard-website), so the
+// link is added here, by URL, rather than in that file.
+let DELIVERY_LINK_PAGES = new Set();
+function deliveryLinkBand() {
+  return `<section class="band band-grey"><div class="wrap"><p><strong>Buying outright?</strong> After payment you send us your details, we prepare and check your pack, and email it as PDFs within ${DELIVERY_DAYS} business days of your details being in. <a href="/how-delivery-works/">How delivery works</a>.</p></div></section>`;
 }
 
 // -- pack rendering: scripts/lib/shop.mjs (shared with siteguard-website) ------
@@ -328,6 +328,9 @@ async function build() {
   if (PRODUCTION && cat.preview) problems.push("catalogue.json is a PREVIEW build (generated with --preview); regenerate without it");
   const model = shopModel(cat);
   CONSULTANTS_ON = model.consultantsOn;
+  const preview = cat.preview;
+  const shop = model.counts;
+  // S14: the pack pages that link to How delivery works.
   {
     const G = groups("");
     DELIVERY_LINK_PAGES = new Set([
@@ -335,8 +338,6 @@ async function build() {
       ...["builder-packs", "management-systems", "specialist-packs"].filter((g) => model.inGroup(g).length).map((g) => G[g].path),
     ]);
   }
-  const preview = cat.preview;
-  const shop = model.counts;
 
   // Home
   const ranges = rangesHtml(model, "");
