@@ -83,6 +83,62 @@
       })
       .catch(function () {});
   }
+  // FORMS queue S11: while orders are closed (beta, a preview build, or FORMS'
+  // sales switch off; any failure to ask counts as closed), each pack's
+  // "Add to cart" becomes "Tell me when this pack opens": name, email and an
+  // UNTICKED express opt-in box. Ticked, the lead is express consent with the
+  // wording shown; unticked, it's an enquiry (a reply, nothing more). Once
+  // FORMS opens orders the buttons come back on their own.
+  var packBtns = document.querySelectorAll("[data-add-pack]");
+  var PACK_OPT_IN = "Email me when this pack can be ordered, and with SiteGuard FORMS news. I can unsubscribe at any time.";
+  function packInterest(btn) {
+    if (btn.getAttribute("data-interest-swapped")) return;
+    btn.setAttribute("data-interest-swapped", "1");
+    btn.hidden = true;
+    var open = document.createElement("button");
+    open.type = "button"; open.className = "btn btn-small"; open.textContent = "Tell me when this pack opens";
+    open.setAttribute("data-pack-interest", btn.getAttribute("data-add-pack"));
+    var f = document.createElement("form");
+    f.className = "form"; f.hidden = true; f.noValidate = true;
+    f.setAttribute("data-pack-interest-form", btn.getAttribute("data-add-pack"));
+    var uid = "pi-" + btn.getAttribute("data-add-pack").replace(/[^A-Za-z0-9]+/g, "-");
+    f.innerHTML = '<label>Your name<input name="name" autocomplete="name" required maxlength="200"></label>' +
+      '<label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>' +
+      '<label class="check"><input type="checkbox" name="consent" id="' + uid + '"> <span></span></label>' +
+      '<div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>' +
+      '<p class="form-status" data-status aria-live="polite"></p>' +
+      '<div><button class="btn btn-small btn-hivis" type="submit">Notify me</button></div>';
+    f.querySelector(".check span").textContent = PACK_OPT_IN;
+    open.addEventListener("click", function () { f.hidden = false; open.hidden = true; f.name.focus(); });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector("[data-status]");
+      if (!f.name.value.trim() || !f.email.value.trim()) { status.className = "form-status err"; status.textContent = "Add your name and email."; return; }
+      var ticked = f.consent.checked;
+      status.className = "form-status"; status.textContent = "Sending…";
+      fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+        source: "forms", name: f.name.value, email: f.email.value, website: f.website.value, ref: ref,
+        enquiry_type: "pack-interest", pack: btn.getAttribute("data-add-pack"),
+        consent: ticked ? "yes" : "", consent_wording: ticked ? PACK_OPT_IN : "",
+        consent_source: window.location.href.split("?")[0] }) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+        .then(function (res) {
+          if (res.ok) { f.reset(); status.className = "form-status ok"; status.textContent = ticked ? "Thanks. We'll email you when this pack can be ordered." : "Thanks. We've got your details."; }
+          else { status.className = "form-status err"; status.textContent = (res.body && res.body.reason) || "That didn't send. Try again."; }
+        })
+        .catch(function () { status.className = "form-status err"; status.textContent = "That didn't send. Check your connection and try again."; });
+    });
+    btn.parentNode.insertBefore(f, btn.nextSibling);
+    btn.parentNode.insertBefore(open, btn.nextSibling);
+  }
+  function ordersClosed() { packBtns.forEach(packInterest); }
+  if (packBtns.length) {
+    if (document.body.getAttribute("data-beta") === "1" || document.body.getAttribute("data-preview") === "1" || !window.fetch) ordersClosed();
+    else fetch("/api/switches", { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (sw) { if (!sw || sw.checkout_open !== true) ordersClosed(); })
+      .catch(ordersClosed);
+  }
   var pick = /[?&]interest=(subscriptions|consultant_plans)(?:&|$)/.exec(window.location.search);
   if (pick) document.querySelectorAll('select[name="interest"]').forEach(function (s) { s.value = pick[1]; });
   // Intro video (scripts/lib/video.mjs): the YouTube player loads only when
