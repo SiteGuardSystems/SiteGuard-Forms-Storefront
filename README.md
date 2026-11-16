@@ -41,10 +41,6 @@ npm run build:production && sudo systemctl restart siteguard-forms-storefront
 `--preview` lists every pack for layout review. A preview build shows a
 banner, is not indexed, refuses payment, and `build:production` refuses it.
 
-## Tell me when this pack opens (FORMS queue S11)
-
-While orders are closed (`beta`, a preview build, or FORMS' sales switch off; failing to ask counts as closed), `public/assets/app.js` swaps each pack's "Add to cart" for "Tell me when this pack opens": name, email, honeypot and an **unticked** opt-in box. It posts to `/api/lead` as `enquiry_type: "pack-interest"` with the pack id (kept only if the shop lists that pack). Ticked: `consent_basis: express`, with the wording shown, the page and the time. Unticked: `enquiry`. The lead email adds "Enquiry type: FORMS pack interest" and "Pack: <id>". When FORMS opens orders the buttons come back by themselves.
-
 ## DCR (the controlled document register)
 
 This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-dcr's **public page-A extract** (now Rev23, `public/rev23/dcr-public.json`) by sha256, and records the sha256 of the full release it was made from. The extract is vendored under `vendor/siteguard-dcr/public/` and marked `-text`, so git never changes its bytes. It holds page A, external, non-reserved rows only, with these fields: code, title, family, revision, lifecycle status, kept code, package family and bundle. The reader is `scripts/lib/dcr.mjs`. It needs no network, deploy key or proprietary client.
@@ -65,6 +61,10 @@ The shop pages (trade, builder, management systems, specialist and consultant pa
 
 - `public/assets/app.js` is a template: the build splices the two parts of `cart-browser.js` in at its `//@@cart part 1` and `//@@cart part 2` lines.
 - `test/shop-snapshot.test.js` builds the site and compares every file with `test/fixtures/dist-snapshot.json` (made from a build before the extraction; build time, `.ics` DTSTAMP, the copyright year and CRLF are taken out). Regenerate the fixture (`node test/dist-snapshot.mjs <dist>`) only for an intended change to the built site, and say so in the PR.
+
+## Tell me when this pack opens (FORMS queue S11)
+
+While orders are closed (`beta`, a preview build, or FORMS' sales switch off; failing to ask counts as closed), `public/assets/app.js` swaps each pack's "Add to cart" for "Tell me when this pack opens": name, email, honeypot and an **unticked** opt-in box. It posts to `/api/lead` as `enquiry_type: "pack-interest"` with the pack id (kept only if the shop lists that pack). Ticked: `consent_basis: express`, with the wording shown, the page and the time. Unticked: `enquiry`. The lead email adds "Enquiry type: FORMS pack interest" and "Pack: <id>". When FORMS opens orders the buttons come back by themselves.
 
 ## Partners, affiliates and Google reviews
 
