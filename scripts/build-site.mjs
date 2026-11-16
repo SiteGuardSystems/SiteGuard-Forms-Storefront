@@ -189,7 +189,7 @@ function footer() {
         <h2>Help</h2>
         <ul>
           <li><a href="/how-ordering-works/">How ordering works</a></li><li><a href="/faq/">Questions</a></li>
-          <li><a href="/contact/">Contact us</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="/planning/">Planning calendar</a></li><li><a href="/education/">SiteGuard Education</a></li><li data-switch="subscriptions_open" data-when="on" hidden><a href="${APP_URL}/login">Subscriber sign in</a></li>
+          <li><a href="/contact/">Contact us</a></li><li data-switch="redelivery_open" data-when="on" hidden><a href="/lost-documents/">Lost your documents?</a></li><li><a href="/partners/">Partners and referrals</a></li><li><a href="/planning/">Planning calendar</a></li><li><a href="/education/">SiteGuard Education</a></li><li data-switch="subscriptions_open" data-when="on" hidden><a href="${APP_URL}/login">Subscriber sign in</a></li>
         </ul>
         ${reviewBadge(TRUST, { compact: true })}
       </div>
@@ -466,6 +466,23 @@ ${CTA}`,
 ${partnersBody(TRUST, { source: "forms", endpoint: "", brand: "SiteGuard" })}`,
   });
 
+  // FORMS queue S10 (pairs with SiteGuard-Forms F11): "Lost your documents?".
+  // The form shows only while FORMS says forms.redelivery_open is on
+  // (/api/switches); until then the page says to contact us. Every answer is
+  // the same sentence, so the page reveals nothing about orders.
+  page({
+    url: "/lost-documents/", preview, title: "Lost your documents?", trail: [["/lost-documents/", "Lost your documents?"]],
+    description: "Lost the SiteGuard FORMS documents we emailed you? Ask for them to be sent again to the order's delivery address.",
+    body: `<section class="page-head"><div class="wrap">${crumbs([["/lost-documents/", "Lost your documents?"]])}<h1>Lost your documents?</h1><p class="lede">We can email your last delivered set again. For security, it only ever goes to the delivery email address on the order.</p></div></section>
+<section class="band"><div class="wrap cols"><div>
+${switchPair("redelivery_open", redeliveryForm(), "<p>Sending documents again from this page isn't open yet. <a href=\"/contact/\">Contact us</a> with your order number and we'll help.</p>", "div")}
+</div><div><h2>How it works</h2><ol class="steps">
+  <li><h3>Enter your order number and email</h3><p>The order number is in your order confirmation email.</p></li>
+  <li><h3>Check the delivery inbox</h3><p>If they match an order, we email a link to the order's delivery address. The link works once and expires after 72 hours.</p></li>
+  <li><h3>Open the link</h3><p>Your last delivered documents are emailed to you again.</p></li>
+</ol><p class="small">Changed email address, or the delivery address no longer works? <a href="/contact/">Contact us</a>.</p></div></div></section>`,
+  });
+
   page({
     url: "/contact/sent/", preview, title: "Enquiry sent", trail: [["/contact/", "Contact us"], ["/contact/sent/", "Sent"]],
     description: "Your enquiry has been sent. We reply within one business day.",
@@ -512,6 +529,19 @@ async function legal(file) {
     legalCache.set(file, frontMatter(await readFile(path.join(ROOT, "content/legal", file), "utf8")));
   }
   return legalCache.get(file);
+}
+
+/** FORMS queue S10: the "Send my documents again" form (public/assets/app.js
+ *  [data-redelivery-form] posts it to /api/redelivery-request). */
+export function redeliveryForm() {
+  return `<form class="form" data-redelivery-form method="post" action="/api/redelivery-request" novalidate>
+  <label>Order number<input name="order_number" autocomplete="off" required maxlength="64"></label>
+  <label>Email<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+  <p class="small">We use these only to find your order. <a href="/legal/privacy/">Privacy Policy</a>.</p>
+  <p class="form-status" data-status aria-live="polite"></p>
+  <div><button class="btn btn-hivis" type="submit">Send my documents again</button></div>
+</form>`;
 }
 
 export function leadForm(source) {
