@@ -34,9 +34,9 @@ import { loadProductVideos, productVideo } from "./lib/product-videos.mjs";
 import { groups, money, exGst, shopModel, rangesHtml, emptyState, shopPages, DELIVERY_DAYS, switchPair, INTEREST_LABEL } from "./lib/shop.mjs";
 import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/cart.mjs";
 import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
+import { readSiteMode } from "../lib/site-mode.js";
 import { cardsFor, shareUrl, CARD_DIR, CARD_W, CARD_H, DEFAULT_CARD } from "./lib/share-cards.mjs";
 import { existsSync } from "node:fs";
-import { readSiteMode } from "../lib/site-mode.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = process.env.DIST_DIR ? path.resolve(process.env.DIST_DIR) : path.join(ROOT, "dist");
