@@ -41,10 +41,6 @@ npm run build:production && sudo systemctl restart siteguard-forms-storefront
 `--preview` lists every pack for layout review. A preview build shows a
 banner, is not indexed, refuses payment, and `build:production` refuses it.
 
-## Lost your documents? (`/lost-documents/`, pairs with SiteGuard-Forms F11)
-
-A form for the order number and email. `POST /api/redelivery-request` (honeypot, 5 per 15 minutes per IP) passes them to FORMS `POST /api/v3/orders/redelivery-request` (default: beside `ORDER_INTAKE_URL`; override with the `redeliveryUrl` option), which emails a single-use 72-hour link to the order's delivery address only. Every answer is the same sentence: "If that matches an order, we've emailed the delivery address." The form, and the footer link to it, show only while FORMS' switches answer says `redelivery_open: true` (FORMS switch `forms.redelivery_open`, default off); otherwise the page says to contact us and `/api/redelivery-request` answers 404.
-
 ## DCR (the controlled document register)
 
 This repo is public, so it never holds the full DCR. `dcr.lock` pins siteguard-dcr's **public page-A extract** (now Rev23, `public/rev23/dcr-public.json`) by sha256, and records the sha256 of the full release it was made from. The extract is vendored under `vendor/siteguard-dcr/public/` and marked `-text`, so git never changes its bytes. It holds page A, external, non-reserved rows only, with these fields: code, title, family, revision, lifecycle status, kept code, package family and bundle. The reader is `scripts/lib/dcr.mjs`. It needs no network, deploy key or proprietary client.
@@ -196,3 +192,7 @@ npm run test:e2e          # real browser: cart, checkout, enquiry, 360px layout
 SiteGuard-Forms legal sources, sync, and build again.
 
 See `HARDENING.md` for the security and quality checks, and what proves each.
+
+## Lost your documents? (`/lost-documents/`, pairs with SiteGuard-Forms F11)
+
+A form for the order number and email. `POST /api/redelivery-request` (honeypot, 5 per 15 minutes per IP) passes them to FORMS `POST /api/v3/orders/redelivery-request` (default: beside `ORDER_INTAKE_URL`; override with the `redeliveryUrl` option), which emails a single-use 72-hour link to the order's delivery address only. Every answer is the same sentence: "If that matches an order, we've emailed the delivery address." The form, and the footer link to it, show only while FORMS' switches answer says `redelivery_open: true` (FORMS switch `forms.redelivery_open`, default off); otherwise the page says to contact us and `/api/redelivery-request` answers 404.
