@@ -152,6 +152,24 @@ try {
       body: JSON.stringify({ cart: [{ packageId: "subcontractor:CARP:domestic" }], acceptedTerms: true }) })).status);
     assert.equal(res, 503);
     assert.equal(calls.length, before, "beta never reaches Stripe");
+
+    // S11: while orders are closed, "Add to cart" becomes "Tell me when this
+    // pack opens"; the opt-in box starts unticked.
+    await bp.locator('[data-pack-interest="subcontractor:CARP:domestic"]').click();
+    const pf = bp.locator('[data-pack-interest-form="subcontractor:CARP:domestic"]');
+    assert.ok(await pf.isVisible(), "the interest form opens");
+    assert.ok(!(await bp.locator('[data-add-pack="subcontractor:CARP:domestic"]').isVisible()), "Add to cart is hidden");
+    assert.equal(await pf.locator('input[name="consent"]').isChecked(), false, "the opt-in box starts unticked");
+    await pf.locator('input[name="name"]').fill("Test Person");
+    await pf.locator('input[name="email"]').fill("delivered@resend.dev");
+    await pf.locator('input[name="consent"]').check();
+    await pf.locator('button[type="submit"]').click();
+    await pf.locator(".form-status.ok").waitFor();
+    const { readFile: rf } = await import("node:fs/promises");
+    const pl = (await rf(path.join(dir, "var-beta", "leads.jsonl"), "utf8")).trim().split("\n").map((l) => JSON.parse(l)).at(-1);
+    assert.equal(pl.enquiry_type, "pack-interest");
+    assert.equal(pl.pack, "subcontractor:CARP:domestic");
+    assert.equal(pl.consent_basis, "express");
   } finally {
     await new Promise((r) => betaServer.close(r));
   }

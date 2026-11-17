@@ -410,3 +410,4 @@ mark.placeholder { background: var(--warn-wash); color: var(--ink); padding: 0 0
 
 /* FORMS switches (go-live 7 Nov 2026): the hidden half of a switch pair stays hidden. */
 [data-switch][hidden] { display: none !important; }
+[data-interest-swapped][hidden], [data-pack-interest][hidden], [data-pack-interest-form][hidden] { display: none !important; }
