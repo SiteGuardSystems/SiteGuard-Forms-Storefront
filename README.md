@@ -196,3 +196,7 @@ npm run test:e2e          # real browser: cart, checkout, enquiry, 360px layout
 SiteGuard-Forms legal sources, sync, and build again.
 
 See `HARDENING.md` for the security and quality checks, and what proves each.
+
+## Lost your documents? (`/lost-documents/`, pairs with SiteGuard-Forms F11)
+
+A form for the order number and email. `POST /api/redelivery-request` (honeypot, 5 per 15 minutes per IP) passes them to FORMS `POST /api/v3/orders/redelivery-request` (default: beside `ORDER_INTAKE_URL`; override with the `redeliveryUrl` option), which emails a single-use 72-hour link to the order's delivery address only. Every answer is the same sentence: "If that matches an order, we've emailed the delivery address." The form, and the footer link to it, show only while FORMS' switches answer says `redelivery_open: true` (FORMS switch `forms.redelivery_open`, default off); otherwise the page says to contact us and `/api/redelivery-request` answers 404.
