@@ -276,7 +276,8 @@ ${BETA ? '<div class="preview-bar beta-bar" role="note"><strong>SiteGuard FORMS 
 ${preview ? '<div class="preview-bar" role="note"><strong>Preview build.</strong> This shows every package for review, including packages not yet released for sale. Checkout is switched off.</div>' : ""}
 ${header(url)}
 <main id="main">
-${body}
+${body}${DELIVERY_LINK_PAGES.has(url) ? `
+${deliveryLinkBand()}` : ""}
 </main>
 ${strip && !url.startsWith("/cart/") && !url.startsWith("/order/") ? partnerStrip(TRUST) : ""}
 ${footer()}
@@ -284,6 +285,14 @@ ${footer()}
 </html>
 `;
   pages.push({ url, title: fullTitle, description, html });
+}
+
+// FORMS queue S14: every pack page links to "How delivery works". The pack
+// pages come from scripts/lib/shop.mjs (shared with siteguard-website), so the
+// link is added here, by URL, rather than in that file.
+let DELIVERY_LINK_PAGES = new Set();
+function deliveryLinkBand() {
+  return `<section class="band band-grey"><div class="wrap"><p><strong>Buying outright?</strong> After payment you send us your details, we prepare and check your pack, and email it as PDFs within ${DELIVERY_DAYS} business days of your details being in. <a href="/how-delivery-works/">How delivery works</a>.</p></div></section>`;
 }
 
 // -- pack rendering: scripts/lib/shop.mjs (shared with siteguard-website) ------
@@ -354,6 +363,14 @@ async function build() {
   for (const [u, c] of SHARE_CARDS) if (!cardFile(c)) problems.push(`open item: share card public/${CARD_DIR}/${c.file} for ${u} isn't made yet (npm run share-cards); the default card is used`);
   const preview = cat.preview;
   const shop = model.counts;
+  // S14: the pack pages that link to How delivery works.
+  {
+    const G = groups("");
+    DELIVERY_LINK_PAGES = new Set([
+      ...model.trades.map((t) => `${G[t.group].path}${t.slug}/`),
+      ...["builder-packs", "management-systems", "specialist-packs"].filter((g) => model.inGroup(g).length).map((g) => G[g].path),
+    ]);
+  }
 
   // Home
   const ranges = rangesHtml(model, "");
@@ -546,6 +563,37 @@ ${switchPair("redelivery_open", redeliveryForm(), "<p>Sending documents again fr
       body: `<section class="page-head"><div class="wrap">${crumbs([["/legal/terms-of-sale/", "Legal"], [url, l.nav]])}
   <h1>${esc(doc.meta.title)}</h1><p class="small">${esc(doc.meta.reference)}, version ${esc(doc.meta.version)}, ${esc(doc.meta.date)}</p></div></section>
 <section class="band"><div class="wrap prose" data-legal>${render(doc.body)}</div></section>`,
+    });
+  }
+
+  // FORMS queue S14: How delivery works. Links to "Lost your documents?"
+  // (S10) when that page is in this build; otherwise to the contact page.
+  {
+    const lost = pages.some((p) => p.url === "/lost-documents/");
+    const T = [["/how-delivery-works/", "How delivery works"]];
+    page({
+      url: "/how-delivery-works/", preview, title: "How delivery works", trail: T,
+      description: `What happens after you pay for a SiteGuard FORMS pack: send us your details, we prepare and check your documents, and email them as PDFs within ${DELIVERY_DAYS} business days.`,
+      body: `<section class="page-head"><div class="wrap">${crumbs(T)}<h1>How delivery works</h1><p class="lede">Every one-off pack is prepared and checked by our team, then emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in.</p></div></section>
+<section class="band"><div class="wrap cols">
+  <div><ol class="steps">
+    <li><h3>1. You pay</h3><p>Checkout is handled by Stripe. You get an order email with your order number straight away.</p></li>
+    <li><h3>2. You send us your details</h3><p>After payment, and in your order email, there's a link to a short form: business name, ABN, address, logo and project details. The ${DELIVERY_DAYS} business days start when this is in.</p></li>
+    <li><h3>3. We prepare and check your pack</h3><p>We fill each document with your details, then a person checks the set before it goes out.</p></li>
+    <li><h3>4. It's emailed to you</h3><p>The documents arrive as PDFs by email, with the Document Use Disclaimer, within ${DELIVERY_DAYS} business days of your details being in.</p></li>
+    <li><h3>5. Lost them later?</h3><p>${lost ? `Ask for them again on <a href="/lost-documents/">Lost your documents?</a>. They're only ever sent to the order's delivery email address.` : `<a href="/contact/">Contact us</a> with your order number and we'll send them again to the order's delivery email address.`}</p></li>
+  </ol></div>
+  <div><h2>What can slow it down</h2>
+    <ul>
+      <li>Details not sent yet: the ${DELIVERY_DAYS} business days start when the details form is in.</li>
+      <li>Something on the form we need to check with you, such as a project address or a logo that won't print clearly. We'll email you.</li>
+      <li>Weekends and public holidays aren't business days.</li>
+    </ul>
+    <h2>Before you use a document</h2>
+    <p>Every document is a template. Review it, adapt it to your work and site, consult your workers, and keep it current. <a href="/legal/document-use-disclaimer/">Document Use Disclaimer</a>.</p>
+    <p><a class="btn" href="/how-ordering-works/">How ordering works</a> <a class="btn" href="/contact/">Contact us</a></p>
+  </div>
+</div></section>`,
     });
   }
 
