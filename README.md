@@ -66,6 +66,10 @@ The shop pages (trade, builder, management systems, specialist and consultant pa
 - `public/assets/app.js` is a template: the build splices the two parts of `cart-browser.js` in at its `//@@cart part 1` and `//@@cart part 2` lines.
 - `test/shop-snapshot.test.js` builds the site and compares every file with `test/fixtures/dist-snapshot.json` (made from a build before the extraction; build time, `.ics` DTSTAMP, the copyright year and CRLF are taken out). Regenerate the fixture (`node test/dist-snapshot.mjs <dist>`) only for an intended change to the built site, and say so in the PR.
 
+## Tell me when this pack opens (FORMS queue S11)
+
+While orders are closed (`beta`, a preview build, or FORMS' sales switch off; failing to ask counts as closed), `public/assets/app.js` swaps each pack's "Add to cart" for "Tell me when this pack opens": name, email, honeypot and an **unticked** opt-in box. It posts to `/api/lead` as `enquiry_type: "pack-interest"` with the pack id (kept only if the shop lists that pack). Ticked: `consent_basis: express`, with the wording shown, the page and the time. Unticked: `enquiry`. The lead email adds "Enquiry type: FORMS pack interest" and "Pack: <id>". When FORMS opens orders the buttons come back by themselves.
+
 ## Partners, affiliates and Google reviews
 
 Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/trust.test.js` are identical in both repos.
