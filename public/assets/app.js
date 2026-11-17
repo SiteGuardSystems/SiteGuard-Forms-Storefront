@@ -33,6 +33,23 @@
   } catch (e) { ref = ""; }
   document.querySelectorAll("[data-ref-field]").forEach(function (i) { i.value = ref; });
   function val(f, n) { return f[n] && typeof f[n].value === "string" ? f[n].value : ""; }
+  // FORMS queue S10: "Lost your documents?". Every answer shows the same
+  // sentence, so the page reveals nothing about orders.
+  document.querySelectorAll("[data-redelivery-form]").forEach(function (f) {
+    var SAME = "If that matches an order, we've emailed the delivery address.";
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = f.querySelector("[data-status]");
+      if (!f.order_number.value.trim() || !f.email.value.trim()) {
+        status.className = "form-status err"; status.textContent = "Add your order number and email."; return;
+      }
+      status.className = "form-status"; status.textContent = "Sending…";
+      fetch("/api/redelivery-request", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ order_number: f.order_number.value.trim(), email: f.email.value.trim(), website: f.website.value }) })
+        .then(function () { f.reset(); status.className = "form-status ok"; status.textContent = SAME; })
+        .catch(function () { status.className = "form-status ok"; status.textContent = SAME; });
+    });
+  });
   document.querySelectorAll("[data-lead-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -46,6 +63,10 @@
         company: f.company.value, phone: f.phone.value, need: f.need.value, website: f.website.value,
         enquiry_type: val(f, "enquiry_type") || "enquiry", ref: ref,
         partner_url: val(f, "partner_url"), partner_kind: val(f, "partner_kind") };
+      // X2: campaign attribution (assets/attribution.js, loaded only while campaign counts are on).
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"].forEach(function (k) {
+        if (val(f, k)) data[k] = val(f, k);
+      });
       if (interestForm) {
         // "Coming soon: register interest" (FORMS subscriptions and consultant
         // plans): an enquiry with the interest tag and the consent basis.

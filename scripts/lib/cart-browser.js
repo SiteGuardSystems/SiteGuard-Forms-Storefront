@@ -107,7 +107,9 @@
     form.querySelector("button[type=submit]").disabled = true;
     fetch("/api/checkout", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart: cart, acceptedTerms: true, termsVersion: form.termsVersion.value, siteName: form.siteName ? form.siteName.value : "" }),
+      // X2: campaign attribution, when assets/attribution.js is loaded (campaign counts on).
+      body: JSON.stringify(Object.assign({ cart: cart, acceptedTerms: true, termsVersion: form.termsVersion.value, siteName: form.siteName ? form.siteName.value : "" },
+        typeof window.sgAttribution === "function" ? window.sgAttribution() : {})),
     }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
       .then(function (res) {
         if (res.ok && res.body.url) { window.location.href = res.body.url; return; }
