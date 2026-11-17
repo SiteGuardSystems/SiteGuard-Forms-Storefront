@@ -79,6 +79,12 @@ Same as siteguard-website (see its README); `scripts/lib/trust.mjs` and `test/tr
 - `/api/lead` takes four more optional fields: `enquiry_type` (`partner` or `enquiry`), `ref` (referral code from a `?ref=` link), `partner_url` and `partner_kind`. Anything invalid is dropped. Leads land in `leads.jsonl`; the notification email adds "Enquiry type", "Partner kind", "Partner website" and "Referral code" lines, which the CRM's inbox triage reads.
 - `npm run build -- --sample-partners` previews with fictional sample listings; `build:production` refuses it.
 
+## Share cards (FORMS queue S12)
+
+Every page has Open Graph and Twitter tags. Each trade and specialist trade page, and each range page, has its own 1200x630 card in `public/assets/og/` (SiteGuard FORMS lockup, the trade or range, the levels; never a price), listed by `scripts/lib/share-cards.mjs`. Other pages use `default.png`. `og:url` carries `utm_source=social&utm_medium=share&utm_campaign=<page>`; the canonical link stays clean.
+
+After a catalogue change adds a trade or range, run `npm run share-cards` (uses the Playwright Chromium the browser tests install) and commit the PNGs. Until then the build notes the missing card and uses the default one. `test/share-cards.test.js` checks every page's tags, every card's size and that no card names a price.
+
 ## Introduction video (landing page)
 
 `scripts/lib/video.mjs` (the same file is in both SiteGuard sites; keep them identical) and `data/intro-video.json`. Each site has its own JSON, so each can show a different video. Nothing shows while `provider` is empty.
