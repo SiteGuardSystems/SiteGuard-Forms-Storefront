@@ -25,10 +25,11 @@ process.on("uncaughtException", (err) => {
 import Stripe from "stripe";
 import { createApp, CSP } from "./lib/create-app.js";
 import { appGates } from "./lib/engine-origins.js";
+import { loadPackVideos, packVideosCsp } from "./scripts/lib/pack-videos.mjs";
 import { loadVideo, withVideoCsp, withCspSources } from "./scripts/lib/video.mjs";
 import { loadEducation, educationCsp } from "./scripts/lib/education.mjs";
 import { loadProductVideos, productVideosCsp } from "./scripts/lib/product-videos.mjs";
-import { createMailer } from "./lib/mailer.js";
+import { createMailer, leadNotificationTo } from "./lib/mailer.js";
 import { makeSwitchReader, switchesUrlFrom } from "./lib/forms-switches.js";
 import { readSiteMode } from "./lib/site-mode.js";
 import { metricsSettings, createCampaignCounter } from "./lib/site-metrics.js";
@@ -141,6 +142,9 @@ for (const p of EDUCATION.problems) console.warn(`Education page: ${p}`);
 // FORMS product videos on the pack pages (data/product-videos.json).
 const PRODUCT_VIDEOS = await loadProductVideos(__dirname);
 for (const p of PRODUCT_VIDEOS.problems) console.warn(`Product video: ${p}`);
+// Education videos on the pack pages (data/pack-videos.json).
+const PACK_VIDEOS = await loadPackVideos(__dirname);
+for (const p of PACK_VIDEOS.problems) console.warn(`Pack video: ${p}`);
 
 // S1 (8-9 Nov 2026): Cloudflare beacon, Search Console tag, Google tag and
 // campaign counts (lib/site-metrics.js). Each is off until set in .env.
@@ -172,7 +176,7 @@ const app = createApp({
   publicOrigin: PUBLIC_ORIGIN,
   mailer,
   adminNotificationEmail: ADMIN_NOTIFICATION_EMAIL,
-  leadNotificationEmailTo: process.env.LEAD_NOTIFICATION_EMAIL ?? ADMIN_NOTIFICATION_EMAIL,
+  leadNotificationEmailTo: leadNotificationTo(process.env),
   leadAllowedOrigins: LEAD_ALLOWED_ORIGINS,
   // WP-S9: the Systems site checks out here too (CORS, returnOrigin allowlist).
   checkoutAllowedOrigins: CHECKOUT_ALLOWED_ORIGINS,
@@ -187,7 +191,7 @@ const app = createApp({
   sellableListPath: path.join(__dirname, "data", "sellable-now.json"),
   parkOrder,
   beta: SITE_MODE.beta === true,
-  csp: withCspSources(withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)), productVideosCsp(PRODUCT_VIDEOS)),
+  csp: withCspSources(withCspSources(withCspSources(withVideoCsp(CSP, INTRO_VIDEO.video), educationCsp(EDUCATION.edu)), productVideosCsp(PRODUCT_VIDEOS)), packVideosCsp(PACK_VIDEOS)),
   appBillingPath: path.join(__dirname, "data", "app-billing.json"),
   appBillingStripePath: APP_BILLING_STRIPE_PATH,
   foundingAdminToken: process.env.FOUNDING_ADMIN_TOKEN || undefined,
