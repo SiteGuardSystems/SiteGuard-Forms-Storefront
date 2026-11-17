@@ -1,0 +1,377 @@
+{
+  "note": "SiteGuard Education videos on the FORMS pack pages (scripts/lib/pack-videos.mjs), in a 'See how the forms work' band with the anchor #videos. 'lead' is shown first on every pack page and the pack index pages. A how-to shows on a pack page when one of its 'documents' is in a pack on that page, or (with 'families') when the page sells any document of that family, e.g. SWMS. A 'walkthrough' (kind walkthrough, with its trade code) leads on that trade's own pack page, ahead of the general lead. Nothing shows until youtube_url is filled in. To fill them from the YouTube upload sheet (SG-E-EDU-YT-003 or YT-004 .csv, youtube_url column): node scripts/fill-pack-videos.mjs <sheet.csv>. Rebuild, and restart the storefront (its CSP opens youtube-nocookie.com and i.ytimg.com only once a video is published).",
+  "lead": "SG-E-GEN-MKT-GEN-002",
+  "videos": [
+    {
+      "doc": "SG-E-GEN-MKT-GEN-001",
+      "kind": "marketing",
+      "documents": [],
+      "title": "SiteGuard Systems | Who We Are and What We Do",
+      "description": "This video covers who SiteGuard Systems is, the construction background behind it, and how we help businesses build safety and quality systems that work on site.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-GEN-002",
+      "kind": "marketing",
+      "documents": [],
+      "title": "SiteGuard FORMS | What It Is and How It Works",
+      "description": "This video covers what SiteGuard FORMS is and how it works: controlled site documents with your project details filled in, reviewed and kept current.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-ENV-HOW-GEN-252",
+      "kind": "how-to",
+      "documents": [
+        "ENV-FRM-GEN-252"
+      ],
+      "title": "How to Use a Spill Report and Response Record",
+      "description": "A step-by-step guide on how to fill in the Spill Report and Response Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-053",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-053"
+      ],
+      "title": "How to Use a Fitness for Work Declaration",
+      "description": "A step-by-step guide on how to fill in the Fitness for Work Declaration, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-055",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-055"
+      ],
+      "title": "How to Use a Hot Works Permit",
+      "description": "A step-by-step guide on how to fill in the Hot Works Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-056",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-056"
+      ],
+      "title": "How to Use a Confined Space Permit",
+      "description": "A step-by-step guide on how to fill in the Confined Space Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-254",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-254"
+      ],
+      "title": "How to Use a Pre-Task Risk Assessment (JSEA)",
+      "description": "A step-by-step guide on how to fill in the Pre-Task Risk Assessment (JSEA), section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-258",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-258"
+      ],
+      "title": "How to Use an Excavation and Services Permit",
+      "description": "A step-by-step guide on how to fill in the Excavation and Services Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-259",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-259"
+      ],
+      "title": "How to Use a Work at Heights Permit",
+      "description": "A step-by-step guide on how to fill in the Work at Heights Permit, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-262",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-262"
+      ],
+      "title": "How to Use a Silica Hazard Control Statement",
+      "description": "A step-by-step guide on how to fill in the Silica Hazard Control Statement, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-264",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-264"
+      ],
+      "title": "How to Use an Asbestos Discovery Report",
+      "description": "A step-by-step guide on how to fill in the Asbestos Discovery Report, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-265",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-265"
+      ],
+      "title": "How to Use a Site Establishment Checklist",
+      "description": "A step-by-step guide on how to fill in the Site Establishment Checklist, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-266",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-266"
+      ],
+      "title": "How to Use a Daily Pre-Start Record",
+      "description": "A step-by-step guide on how to fill in the Daily Pre-Start Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-GEN-270",
+      "kind": "how-to",
+      "documents": [
+        "SAF-FRM-GEN-270"
+      ],
+      "title": "How to Use the HRCW SWMS Review Record",
+      "description": "A step-by-step guide on how to fill in the HRCW SWMS Review Record, section by section, and the common mistakes to avoid.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-SAF-HOW-MAS-001",
+      "kind": "how-to",
+      "documents": [
+        "SAF-SWMS-MAS-001"
+      ],
+      "families": [
+        "SWMS"
+      ],
+      "title": "How to Read, Sign and Use a SWMS (Bricklaying Worked Example)",
+      "description": "A worked example of reading, signing and using a Safe Work Method Statement, using a bricklaying and masonry SWMS: what each part is for, how the controls follow the hierarchy, and what to check before work starts.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-CARP-001",
+      "kind": "walkthrough",
+      "trade": "CARP",
+      "title": "The Carpentry Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Carpentry Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-CIV-001",
+      "kind": "walkthrough",
+      "trade": "CIV",
+      "title": "The Civil Works Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Civil Works Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-COMM-001",
+      "kind": "walkthrough",
+      "trade": "COMM",
+      "title": "The Communications & Security Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Communications & Security Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-CONC-001",
+      "kind": "walkthrough",
+      "trade": "CONC",
+      "title": "The Concrete Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Concrete Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-DEMO-001",
+      "kind": "walkthrough",
+      "trade": "DEMO",
+      "title": "The Demolition Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Demolition Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-ELEC-001",
+      "kind": "walkthrough",
+      "trade": "ELEC",
+      "title": "The Electrical Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Electrical Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-FIN-001",
+      "kind": "walkthrough",
+      "trade": "FIN",
+      "title": "The Interior Finishes Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Interior Finishes Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-FIRE-001",
+      "kind": "walkthrough",
+      "trade": "FIRE",
+      "title": "The Fire Services Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Fire Services Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-GLAZ-001",
+      "kind": "walkthrough",
+      "trade": "GLAZ",
+      "title": "The Glazing Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Glazing Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-LAND-001",
+      "kind": "walkthrough",
+      "trade": "LAND",
+      "title": "The Landscaping & External Works Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Landscaping & External Works Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-LIFT-001",
+      "kind": "walkthrough",
+      "trade": "LIFT",
+      "title": "The Lifts & Vertical Transport Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Lifts & Vertical Transport Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-MAS-001",
+      "kind": "walkthrough",
+      "trade": "MAS",
+      "title": "The Masonry Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Masonry Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-MECH-001",
+      "kind": "walkthrough",
+      "trade": "MECH",
+      "title": "The Mechanical Services Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Mechanical Services Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-PAINT-001",
+      "kind": "walkthrough",
+      "trade": "PAINT",
+      "title": "The Painting Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Painting Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-PLAS-001",
+      "kind": "walkthrough",
+      "trade": "PLAS",
+      "title": "The Plastering & Linings Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Plastering & Linings Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-PLMB-001",
+      "kind": "walkthrough",
+      "trade": "PLMB",
+      "title": "The Plumbing & Hydraulics Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Plumbing & Hydraulics Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-PLT-001",
+      "kind": "walkthrough",
+      "trade": "PLT",
+      "title": "The Plant Operation Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Plant Operation Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-ROOF-001",
+      "kind": "walkthrough",
+      "trade": "ROOF",
+      "title": "The Roofing Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Roofing Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-RWH-001",
+      "kind": "walkthrough",
+      "trade": "RWH",
+      "title": "The Rainwater Harvesting Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Rainwater Harvesting Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-SERV-001",
+      "kind": "walkthrough",
+      "trade": "SERV",
+      "title": "The Building Services Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Building Services Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-STEEL-001",
+      "kind": "walkthrough",
+      "trade": "STEEL",
+      "title": "The Structural Steel Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Structural Steel Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-TILE-001",
+      "kind": "walkthrough",
+      "trade": "TILE",
+      "title": "The Tiling Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Tiling Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    },
+    {
+      "doc": "SG-E-GEN-MKT-WP-001",
+      "kind": "walkthrough",
+      "trade": "WP",
+      "title": "The Waterproofing Pack: What You Get and How to Use It",
+      "description": "A walkthrough of the Waterproofing Pack: what's in it, how to use the documents on site, and the SiteGuard app planned for June 2027.",
+      "youtube_url": "",
+      "upload_date": ""
+    }
+  ]
+}

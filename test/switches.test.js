@@ -85,7 +85,7 @@ describe("the storefront enforces the switches too", () => {
       assert.match((await res.json()).reason, /aren't open yet/);
       assert.equal(calls.length, 0);
       const sw = await (await fetch(`${base}/api/switches`)).json();
-      assert.deepEqual(sw, { sales_open: false, checkout_open: false, delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false });
+      assert.deepEqual(sw, { sales_open: false, checkout_open: false, delivery_sla_business_days: 3, subscriptions_open: false, consultant_plans_open: false, redelivery_open: false });
     });
     await withApp({ switches: async () => { throw new Error("FORMS down"); } }, async ({ base, calls }) => {
       assert.equal((await checkout(base, [{ packageId: "subcontractor:CARP:domestic" }])).status, 503);
