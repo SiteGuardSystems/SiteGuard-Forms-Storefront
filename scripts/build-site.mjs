@@ -243,7 +243,7 @@ ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o).replace(
 <script src="/assets/app.js" defer></script>
 </head>
 <body data-forms-app="${APP_URL}"${preview ? ' data-preview="1"' : ""}${BETA ? ' data-beta="1"' : ""}>
-${BETA ? '<div class="preview-bar beta-bar" role="note"><strong>SiteGuard FORMS is in beta.</strong> You can browse the packs and documents, but orders and subscriptions aren\'t open yet. To talk about documents now, <a href="/contact/">contact us</a>.</div>' : ""}
+${BETA ? '<div class="preview-bar beta-bar" role="note"><strong>SiteGuard FORMS is in beta.</strong> You can browse the packs and documents, but orders and subscriptions aren\'t open yet. To talk about documents now, ' + (url === "/contact/" ? "use the form below" : '<a href="/contact/">contact us</a>') + '.</div>' : ""}
 ${preview ? '<div class="preview-bar" role="note"><strong>Preview build.</strong> This shows every package for review, including packages not yet released for sale. Checkout is switched off.</div>' : ""}
 ${header(url)}
 <main id="main">
