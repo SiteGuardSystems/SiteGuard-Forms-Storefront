@@ -24,6 +24,9 @@
 //   beta           FORMS is in beta: nothing can be bought or subscribed to
 //   crumbs(trail)  the site's breadcrumb HTML
 //   video(kind)    a product video band, or "" (storefront: product-videos.mjs)
+//   packVideos(codes)  optional: { html, jsonld } for the Education videos that
+//                  fit the documents sold on a page, or nothing (storefront:
+//                  pack-videos.mjs). Sites without it render as before.
 //   foundingPanel()  the founding-offer panel, or ""
 //   leadEndpoint   where the register-interest form posts ("" = same-origin /api/lead)
 //
@@ -177,7 +180,9 @@ export function packHow() {
  * content] pairs).
  */
 export function shopPages(ctx) {
-  const { cat, model, base = "", origin, appUrl, isoUrl, beta = false, crumbs, video = () => "", foundingPanel = () => "" } = ctx;
+  const { cat, model, base = "", origin, appUrl, isoUrl, beta = false, crumbs, video = () => "", foundingPanel = () => "", packVideos = () => null } = ctx;
+  // Education videos for the documents a page sells: "" and no JSON-LD when none fit.
+  const pv = (packs) => packVideos(packs.flatMap((p) => p.documents ?? [])) ?? { html: "", jsonld: [] };
   const G = groups(base);
   const { titles, inGroup, trades, fromOf } = model;
   const preview = cat.preview;
@@ -311,11 +316,12 @@ export function shopPages(ctx) {
       : "Packs for specialist trades and work types, at Domestic, Light Commercial or Heavy Commercial level.";
     for (const t of gTrades) {
       const url = `${meta.path}${t.slug}/`;
+      const tv = pv(t.packs);
       page({
         url, preview, title: `${t.name} packs`,
         description: `${t.name} SWMS, safety management plans and ITPs at Domestic, Light Commercial and Heavy Commercial level. Buy outright; delivered as PDFs by email within ${DELIVERY_DAYS} business days.`,
         trail: [[meta.path, meta.title], [url, t.name]],
-        jsonld: t.packs.map((p) => productLd(p, ldUrl(url))),
+        jsonld: [...t.packs.map((p) => productLd(p, ldUrl(url))), ...tv.jsonld],
         body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title], [url, t.name]])}
   <h1>${esc(t.name)} packs</h1>
   <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS and the core site SWMS.</p></div></section>
@@ -323,10 +329,11 @@ export function shopPages(ctx) {
   <div class="rungs">${t.packs.map((p) => packArticle(p, LEVEL_LABEL[p.level])).join("")}</div>
   <p class="small mt">Buying outright: after payment you send us your business and project details on a short form, and the documents are filled with them and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in. Subscriptions: <a href="${P("/subscriptions/")}#register-interest">${INTEREST_LABEL}</a>. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
 </div></section>
-${video(g === "specialist-packs" ? "high-risk" : "trade")}
+${tv.html}${video(g === "specialist-packs" ? "high-risk" : "trade")}
 ${packHow()}`,
       });
     }
+    const iv = pv(addons);
     page({
       url: meta.path, preview, title: meta.title,
       description: g === "trade-packs" ? "SWMS, safety plans and ITPs for your trade, at Domestic, Light Commercial or Heavy Commercial level." : "SWMS, safety plans and ITPs for specialist trades: fencing, passive fire, solar and EV, foundations, and facade and cladding.",
@@ -336,8 +343,8 @@ ${packHow()}`,
   ${rows ? `<div class="register">${rows}</div>` : (addons.length ? "" : emptyState(meta.title.toLowerCase()))}
   ${addons.length ? `<h2 class="mt-lg">Other specialist packs</h2><div class="rungs">${addons.map((p) => packArticle(p)).join("")}</div>` : ""}
 </div></section>
-${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
-      jsonld: addons.map((p) => productLd(p, ldUrl(meta.path))),
+${iv.html}${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
+      jsonld: [...addons.map((p) => productLd(p, ldUrl(meta.path))), ...iv.jsonld],
     });
   }
 
@@ -363,11 +370,12 @@ ${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
   <h2>The licence</h2><p>You may use and adapt the documents while delivering services to your own clients. You may not resell the templates as a standalone product or publish them. <a href="/legal/consultant-licence/">Read the Consultant Licence</a>.</p>
   <p>Every set you generate includes a Document Use Disclaimer for your client.</p></div>
 </div></section>` : g === "management-systems" ? `<section class="band band-grey"><div class="wrap"><div class="note"><p>Looking for ISO 45001, ISO 9001 or ISO 14001 implementation, an integrated management system or audit readiness support? That is consulting work. <a href="${isoUrl}">See SiteGuard Systems ISO and IMS services</a>.</p></div></div></section>` : "";
+    const gv = pv(packs);
     page({
       url: meta.path, preview, title: meta.title, trail: [[meta.path, meta.title]],
-      description: groupIntro[g], jsonld: packs.map((p) => productLd(p, ldUrl(meta.path))),
+      description: groupIntro[g], jsonld: [...packs.map((p) => productLd(p, ldUrl(meta.path))), ...gv.jsonld],
       body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title]])}<h1>${meta.title}</h1><p class="lede">${groupIntro[g]}</p></div></section>
-<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${g === "builder-packs" ? video("builder") : ""}${g !== "consultants" && packs.length ? packHow() : ""}${extra}`,
+<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${gv.html}${g === "builder-packs" ? video("builder") : ""}${g !== "consultants" && packs.length ? packHow() : ""}${extra}`,
     });
   }
 
@@ -377,8 +385,10 @@ ${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
   const families = [...new Set(docs.map((d) => d.family))].sort();
   const docTrades = [...new Set(docs.map((d) => d.trade).filter(Boolean))].sort();
   const docPrice = cat.documents[0]?.price ?? null;
+  const dv = pv([{ documents: docs.map((d) => d.code) }]);
   page({
     url: P("/documents/"), preview, title: "Single documents", trail: [[P("/documents/"), "Single documents"]],
+    ...(dv.jsonld.length ? { jsonld: dv.jsonld } : {}),
     description: `Buy one document at a time: SWMS, ITPs, plans, policies, forms and registers${docPrice ? `, ${money(docPrice)} +GST each` : ""}.`,
     body: `<section class="page-head"><div class="wrap">${crumbs([[P("/documents/"), "Single documents"]])}<h1>Single documents</h1>
   <p class="lede">Need one document, not a pack? ${docPrice ? `Each document is ${money(docPrice)} +GST, bought outright.` : ""} A pack is better value once you need more than a few.</p>
@@ -393,7 +403,7 @@ ${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
   <table class="doc-table" data-doc-table data-price="${docPrice ?? ""}"><thead><tr><th scope="col">Code</th><th scope="col">Title</th><th scope="col">Type</th><th scope="col"><span class="hp">Add</span></th></tr></thead><tbody></tbody></table>
   <noscript><p>The document finder needs JavaScript. <a href="/contact/">Contact us</a> and we'll help you find the document you need.</p></noscript>
   ${docs.length ? "" : emptyState("single documents")}
-</div></section>`,
+</div></section>${dv.html}`,
   });
   const files = [[`${base.slice(1)}${base ? "/" : ""}assets/documents.json`, JSON.stringify({ price: docPrice, preview, documents: docs })]];
 
