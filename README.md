@@ -170,7 +170,7 @@ Stripe or intake outage answers 500 so Stripe retries.
 
 | Setting | Set it to | Why |
 |---|---|---|
-| `LEAD_NOTIFICATION_EMAIL` | the mailbox that answers enquiries from both websites | Every `/api/lead` enquiry is emailed here. **Set it, or remove the line.** A blank `LEAD_NOTIFICATION_EMAIL=` line turns enquiry emails off: the fallback to `ADMIN_NOTIFICATION_EMAIL` applies only when the line is missing altogether (`server.js` uses `??`). |
+| `LEAD_NOTIFICATION_EMAIL` | the mailbox that answers enquiries from both websites | Every `/api/lead` enquiry is emailed here. Unset **or blank**, enquiries go to `ADMIN_NOTIFICATION_EMAIL` instead (`leadNotificationTo` in `lib/mailer.js`; S5, 10 Nov 2026). Enquiry emails are off only when neither is set. |
 | `TRUST_PROXY` | `1` when one reverse proxy sits in front of node (the usual nginx/Caddy set-up) | The rate limits (checkout, enquiries, order intake) then see the visitor's address, not the proxy's. Count each hop that adds `X-Forwarded-For`: if Cloudflare proxies the domain **and** nginx runs on the server, that's `2`. Unset, every visitor shares the proxy's limit. |
 | `SUPPORT_EMAIL` | `support@siteguardsystems.com.au` | The address on the order email ("Questions, or haven't received the details form?"). Unset, it falls back to `hello@siteguardsystems.com.au` (`lib/mailer.js`). Dan's decision N1, 8 Nov 2026. |
 
