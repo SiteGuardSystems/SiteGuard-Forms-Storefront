@@ -7,9 +7,10 @@ import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, test } from "node:test";
+import vm from "node:vm";
 import { createApp, CSP } from "../lib/create-app.js";
 import {
-  metricsSettings, headTags, metricsCsp, cleanUtm, utmFrom, sydneyDate, createCampaignCounter,
+  metricsSettings, headTags, metricsCsp, cleanUtm, utmFrom, sydneyDate, createCampaignCounter, attributionFrom, ATTRIBUTION_KEYS,
 } from "../lib/site-metrics.js";
 
 // Made at run time, so nothing key-like sits in the file.
@@ -177,5 +178,79 @@ describe("M2 campaign counts", () => {
       await fetch(base + "/?utm_source=linkedin");
       await assert.rejects(readFile(path.join(varDir, "campaign-counts.json"), "utf8"));
     });
+  });
+});
+
+// X2 (S6, 10 Nov 2026): the attribution pair with the website (W10). Same keys, same
+// storage key ("sg_attribution", sessionStorage), same tests.
+describe("X2 attribution", () => {
+  test("the six carried keys", () => {
+    assert.deepEqual(ATTRIBUTION_KEYS, ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid"]);
+  });
+
+  test("the script is on the pages only while campaign counts are on", () => {
+    assert.equal(headTags(metricsSettings({})), "");
+    assert.match(headTags(metricsSettings({ CAMPAIGN_COUNTS: "on" })), /<script src="\/assets\/attribution\.js" defer><\/script>/);
+  });
+
+  test("attributionFrom cleans for Stripe metadata and keeps nothing personal", () => {
+    assert.deepEqual(attributionFrom({ utm_source: "LinkedIn", gclid: "abc-_1", utm_term: "0412 345 678", utm_content: "x@y.au", other: "z" }),
+      { utm_source: "linkedin", gclid: "abc-_1" });
+    assert.deepEqual(attributionFrom({ gclid: "<script>" }), {});
+    assert.deepEqual(attributionFrom(null), {});
+  });
+
+  /** Runs public/assets/attribution.js against a fake page. */
+  async function runScript({ search = "", stored = null, forms = 1 } = {}) {
+    const src = await readFile(new URL("../public/assets/attribution.js", import.meta.url), "utf8");
+    const store = new Map(stored ? [["sg_attribution", stored]] : []);
+    const made = [];
+    const form = () => {
+      const kids = [];
+      return { kids, appendChild: (i) => (kids.push(i), i), querySelector: (sel) => kids.find((i) => sel.includes(`"${i.name}"`)) ?? null };
+    };
+    const fs = Array.from({ length: forms }, form);
+    const window = {
+      location: { search },
+      sessionStorage: { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, String(v)) },
+    };
+    const document = {
+      readyState: "complete",
+      querySelectorAll: (sel) => (sel === "[data-lead-form]" ? fs : []),
+      createElement: () => { const i = {}; made.push(i); return i; },
+      addEventListener: () => {},
+    };
+    vm.runInNewContext(src, { window, document, URLSearchParams });
+    // The script's objects come from another realm: compare them as plain JSON.
+    const attribution = () => JSON.parse(JSON.stringify(window.sgAttribution()));
+    return { attribution, store, forms: fs };
+  }
+
+  test("keeps the landing's values for the visit and adds hidden fields to enquiry forms", async () => {
+    const { attribution, store, forms } = await runScript({ search: "?utm_source=google&utm_campaign=swms&gclid=Cj0&x=1", forms: 2 });
+    assert.deepEqual(JSON.parse(store.get("sg_attribution")), { utm_source: "google", utm_campaign: "swms", gclid: "Cj0" });
+    assert.deepEqual(attribution(), { utm_source: "google", utm_campaign: "swms", gclid: "Cj0" });
+    for (const f of forms) {
+      assert.deepEqual(f.kids.map((i) => [i.type, i.name, i.value]),
+        [["hidden", "utm_source", "google"], ["hidden", "utm_campaign", "swms"], ["hidden", "gclid", "Cj0"]]);
+    }
+  });
+
+  test("the first landing in the visit wins", async () => {
+    const { attribution } = await runScript({ search: "?utm_source=bing", stored: JSON.stringify({ utm_source: "google" }) });
+    assert.deepEqual(attribution(), { utm_source: "google" });
+  });
+
+  test("no params: nothing stored and no fields added", async () => {
+    const { attribution, store, forms } = await runScript({ search: "?ref=abc" });
+    assert.equal(store.size, 0);
+    assert.deepEqual(attribution(), {});
+    assert.equal(forms[0].kids.length, 0);
+  });
+
+  test("no cookie and no localStorage", async () => {
+    const src = await readFile(new URL("../public/assets/attribution.js", import.meta.url), "utf8");
+    const code = src.split(/\r?\n/).filter((l) => !l.trim().startsWith("//")).join(" ");
+    assert.doesNotMatch(code, /document\.cookie|localStorage/);
   });
 });
