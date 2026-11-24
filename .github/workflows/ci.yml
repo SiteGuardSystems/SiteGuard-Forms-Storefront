@@ -1,8 +1,24 @@
+# Actions minutes (K7): a newer push to a PR cancels that PR's older run; a push to master/main is
+# never cancelled. A docs-only PR (Markdown at the root or under docs/, nothing else) doesn't run
+# this workflow, except README.md and HARDENING.md, which dcr-check scans. content/**/*.md (the
+# legal pages the build renders) is never ignored. No check is required today; if `test` becomes
+# required, replace the paths filter with a job-level docs-only check, or docs PRs will wait on it.
 name: CI
 on:
   pull_request:
+    paths:
+      - "**"
+      - "!*.md"
+      - "!docs/**/*.md"
+      - "README.md"
+      - "HARDENING.md"
   push:
     branches: [master, main]
+concurrency:
+  # PRs: one group per PR, older runs cancelled. Anything else: its own group (the run id), so a
+  # push to master/main is never cancelled or held back by another run.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   test:
     runs-on: ubuntu-24.04  # pinned: Playwright 1.56 has no chromium for ubuntu-26.04 (ubuntu-latest from Nov 2026)
