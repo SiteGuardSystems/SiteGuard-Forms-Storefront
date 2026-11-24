@@ -15,12 +15,14 @@ const cat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "u
 const list = loadSellableList(path.join(ROOT, "data/sellable-now.json"));
 
 describe("the committed sellable-now list", () => {
-  test("is Rev01 of 7 Nov 2026: 72 packs now, 9 once the held entries land, 9 later-wave packs hidden, 10 held documents", () => {
-    assert.equal(list.source, "SG_FORMS_SELLABLE_NOW_LIST_Rev01_07_Nov_2026.csv");
-    assert.equal(list.packs_sellable_now.length, 72);
-    assert.equal(list.packs_sellable_once_held_land.length, 9);
-    assert.equal(list.packs_hidden_later_wave.length, 9);
-    assert.equal(list.held_documents.length, 10);
+  // Rev02 (24 Nov 2026): the held DCR Rev24 entries have landed (Hseq-Dev #62) and the packs were
+  // rebuilt (Hseq-Dev Packs Rev09), so Rev01's 72 + 9 are all on sale and nothing is held.
+  test("is Rev02 of 24 Nov 2026: 81 packs now, none waiting on held entries, no held documents", () => {
+    assert.equal(list.source, "SG_FORMS_SELLABLE_NOW_LIST_Rev02_24_Nov_2026.csv");
+    assert.equal(list.packs_sellable_now.length, 81);
+    assert.equal(list.packs_sellable_once_held_land.length, 0);
+    assert.equal(list.packs_hidden_later_wave.length, 0);
+    assert.equal(list.held_documents.length, 0);
   });
 
   test("only narrows: every pack on it is one the catalogue already shows and sells, and every document is in the catalogue", () => {
@@ -35,7 +37,7 @@ describe("the committed sellable-now list", () => {
   });
 
   test("the pack-level CSV copy in docs/go-live matches the list", async () => {
-    const rows = parseCsv(await readFile(path.join(ROOT, "docs/go-live/SG_FORMS_SELLABLE_NOW_LIST_Rev01_07_Nov_2026.packs.csv"), "utf8"));
+    const rows = parseCsv(await readFile(path.join(ROOT, "docs/go-live/SG_FORMS_SELLABLE_NOW_LIST_Rev02_24_Nov_2026.packs.csv"), "utf8"));
     const h = rows[0];
     const now = rows.slice(1).filter((r) => r[h.indexOf("shown_at_launch")] === "Yes" && r[h.indexOf("sellable_now")] === "Yes").map((r) => r[0]).sort();
     assert.deepEqual(now, [...list.packs_sellable_now].sort());
@@ -91,16 +93,18 @@ describe("checkout follows the list", () => {
   const buy = (base, cart) => fetch(`${base}/api/checkout`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ cart, acceptedTerms: true }) });
 
   test("a pack on the list sells; one held back by the list, or a held document, is refused", async () => {
-    await withApp(JSON.stringify(list), async ({ base, calls }) => {
-      assert.equal((await buy(base, [{ packageId: list.packs_sellable_now[0] }])).status, 200);
-      const blocked = list.packs_sellable_once_held_land[0];
+    // Rev02 holds nothing back, so narrow a copy: one pack off the list, one document held.
+    const blocked = list.packs_sellable_now[0];
+    const narrowed = { ...list, packs_sellable_now: list.packs_sellable_now.slice(1), held_documents: [list.documents[0]] };
+    await withApp(JSON.stringify(narrowed), async ({ base, calls }) => {
+      assert.equal((await buy(base, [{ packageId: narrowed.packs_sellable_now[0] }])).status, 200);
       const r = await buy(base, [{ packageId: blocked }]);
       assert.equal(r.status, 409, `${blocked} is refused`);
-      assert.equal((await buy(base, [{ documentCode: list.held_documents[0] }])).status, 409);
+      assert.equal((await buy(base, [{ documentCode: narrowed.held_documents[0] }])).status, 409);
       assert.equal(calls.length, 1);
       const health = await (await fetch(`${base}/api/health`)).json();
-      assert.equal(health.catalogue.on_sale, 72);
-      assert.equal(health.catalogue.sellable_list, "Rev01, 7 Nov 2026");
+      assert.equal(health.catalogue.on_sale, narrowed.packs_sellable_now.length);
+      assert.equal(health.catalogue.sellable_list, "Rev02, 24 Nov 2026");
     });
   });
 

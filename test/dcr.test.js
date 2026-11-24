@@ -31,13 +31,13 @@ function catalogue(over = {}) {
 const kinds = (fs, sev) => fs.filter((f) => !sev || f.severity === sev).map((f) => f.kind).sort();
 
 describe("pinned public extract (dcr.lock)", () => {
-  test("Rev23 public extract loads and verifies against dcr.lock", () => {
-    assert.equal(LOCK.revision, 23);
-    assert.equal(LOCK.sha256, "ee1287fab6a10715edd66cc9e8088a114fea59843db7baec8e74b289a6f8e9cf");
-    assert.equal(LOCK.source_dcr_sha256, "8a8db29c7753ded334f8170bb20b1029fe94e414667e027bc10ffc0e0670a7af");
-    assert.equal(dcr.revision, 23);
+  test("Rev24 public extract loads and verifies against dcr.lock", () => {
+    assert.equal(LOCK.revision, 24);
+    assert.equal(LOCK.sha256, "06c7b711dfc25c1ada328e24416b9a98c258d730c936766d923a9eec21147dce");
+    assert.equal(LOCK.source_dcr_sha256, "eced966dad2fbd1ef5087298f8ee3b18677156ccd1992bdd7dd3c123798703ef");
+    assert.equal(dcr.revision, 24);
     assert.equal(dcr.sourceSha256, LOCK.source_dcr_sha256);
-    assert.ok(live && retired, "Rev23 has live and retired public rows to test with");
+    assert.ok(live && retired, "Rev24 has live and retired public rows to test with");
   });
 
   test("the extract holds only whitelisted fields", () => {
@@ -104,7 +104,7 @@ describe("catalogue against the DCR", () => {
     assert.deepEqual(kinds(checkCatalogue(catalogue({ dcr_revision: undefined, dcr_sha256: undefined }), pinned), "error"), ["not_stamped"]);
   });
 
-  test("the committed catalogue has no finding against Rev23 and is as generated", async () => {
+  test("the committed catalogue has no finding against the pinned revision and is as generated", async () => {
     const cat = JSON.parse(await readFile(path.join(ROOT, "data/catalogue.json"), "utf8"));
     assert.deepEqual(checkCatalogue(cat, pinned), []);
     assert.deepEqual(checkGenerated(cat), []);

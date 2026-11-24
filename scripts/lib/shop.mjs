@@ -147,7 +147,7 @@ export function rangesHtml(model, base = "") {
     const from = model.fromOf(packs);
     const blurb = {
       "trade-packs": "SWMS, safety plans and ITPs for one trade, at Domestic, Light Commercial or Heavy Commercial level.",
-      "builder-packs": "Every trade's SWMS for a builder running the whole site, up to a full management system.",
+      "builder-packs": "What a builder runs on site: the SWMS you do yourself, inductions, toolbox talks, inspections and incident reporting, up to a full management system.",
       "management-systems": "The Core Management System: safety, quality and environmental management system documents aligned to the ISO standards.",
       "specialist-packs": "Fencing, passive fire, solar and EV, foundations, and facade and cladding.",
       "consultants": "Prepare documents for your own clients under your brand or theirs. Plans by number of clients.",
@@ -324,7 +324,7 @@ export function shopPages(ctx) {
         jsonld: [...t.packs.map((p) => productLd(p, ldUrl(url))), ...tv.jsonld],
         body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title], [url, t.name]])}
   <h1>${esc(t.name)} packs</h1>
-  <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS and the core site SWMS.</p></div></section>
+  <p class="lede">Choose the level that matches the work. Every level includes the ${esc(t.name.toLowerCase())} SWMS, the general SWMS you use on every job, and a starter kit of forms and registers.</p></div></section>
 <section class="band"><div class="wrap">
   <div class="rungs">${t.packs.map((p) => packArticle(p, LEVEL_LABEL[p.level])).join("")}</div>
   <p class="small mt">Buying outright: after payment you send us your business and project details on a short form, and the documents are filled with them and emailed to you as PDFs within ${DELIVERY_DAYS} business days of your details being in. Subscriptions: <a href="${P("/subscriptions/")}#register-interest">${INTEREST_LABEL}</a>. <a href="${P("/how-ordering-works/")}">How ordering works</a>.</p>
@@ -350,7 +350,7 @@ ${iv.html}${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
 
   // Builder, management systems, consultants: packs on one page
   const groupIntro = {
-    "builder-packs": "For builders running the whole site: every trade's SWMS, then safety plans and governance, then the full management system.",
+    "builder-packs": "For builders running the whole site: your site kit and the SWMS you do yourself, then the principal contractor's plans and permits, then the full management system. Your trades bring their own SWMS; you keep them in the SWMS register.",
     "management-systems": "Management-system documents aligned to the ISO standards, ready to adapt to how your business works. ISO certification support is consulting work through SiteGuard Systems.",
     "consultants": "Consultant plans let you prepare documents for your own clients, issued under your brand or your client's. Every plan includes the whole library; plans differ by how many clients you serve.",
   };
