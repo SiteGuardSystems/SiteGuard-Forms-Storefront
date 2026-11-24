@@ -106,6 +106,15 @@ The storefront server reads the same file for its CSP: restart it after a change
 - Both files carry a `checked` date. A production build fails once it's more than 200 days old: re-check the entries against their sources (RDO calendars and 2027 dates are released through the year), then update `checked`.
 - **SiteGuard Education** (`data/education.json`): `/education/` with a tab per series (About SiteGuard, How-tos, Toolbox talks, Inductions) and a page for each at `/education/<slug>/`. Every series shows from the start; one without videos says so and links the channel. To add a video, paste its YouTube link as `youtube_url` with `title`, `description` and `upload_date` (the file's `note` has the full list). Each video gets Watch on YouTube, Copy link and, with `download_url`, Download.
 
+## Builder + trade bundle (package suite audit P6)
+
+A builder pack bought with one trade pack in the same order takes the price table's `bundles.builder_plus_trade` discount (15% in Pricing Rev09) off the pair. `lib/bundles.js` reads it from the pinned public view (`vendor/hseq-dev/pricing/forms_price_table.public.json`, `pricing.lock`), and `/api/checkout` applies it server-side from the cart's pack ids: the browser can't claim it, and any price, discount or bundle field it sends is ignored.
+
+- **The rule:** one bundle per order. The pair is the cart's dearest builder pack (`builder:*`) and its dearest trade pack (`subcontractor:*:*`, which includes the specialist packs); ties keep cart order. Each of the two lines is cut by the percentage, to the cent; every other line is charged in full. The Stripe line keeps the pack name and says "Builder + trade bundle: 15% off" in its description; its metadata and the session's carry `bundle: builder_plus_trade`.
+- **One-off only:** the cart is the one-off checkout; FORMS subscriptions never come through it.
+- **It follows the table:** no bundle in the view (or the view unreadable or malformed) means no discount and no note on the site. A new percentage or `max_trade_packs` arrives with the next `export_price_tables.py --storefront`.
+- The builder packs page shows the bundle (`shop.mjs` `ctx.bundle`; a site that doesn't pass it renders as before). Tests: `test/bundles.test.js`.
+
 ## How buying works
 
 Two kinds of checkout (Dan, 1 Nov 2026, #96: Q1 "everything from one cart" is

@@ -34,3 +34,12 @@ The overnight run (8–9 Nov 2026) parks anything it can't settle here, with wha
 7. **S12 "npm run check-site".** That script is in draft #52 (not merged), so S12's checks are a test (`test/share-cards.test.js`). *Recommended: yes, once #52 merges, have check-site call the same checks.*
 8. **S13 adds one field to the Stripe session:** `accepted: terms-of-sale,document-use-disclaimer`, beside `termsVersion`. Checkout already refused without the tick; this records it on the Stripe side too. *Recommended: yes, keep.*
 9. **Share cards are committed PNGs** (29 files, about 1.6 MB) made by `npm run share-cards` with Playwright. A trade added later uses the default card until someone re-runs it. *Recommended: yes, re-run it after any catalogue change that adds a trade.*
+
+## Package suite audit K2, 24 Nov 2026 (builder + trade bundle at checkout)
+
+1. **The bundle needs Hseq-Dev #64.** The pinned public price view didn't carry `bundles`, so Hseq-Dev #64 adds it to `export_price_tables.py`. This PR vendors the FORMS view as #64 writes it (the app view stays at Rev06, K5). *Recommended: yes, merge Hseq-Dev #64 first or together with this.*
+2. **The rule when the cart has more than one pair:** one bundle per order, on the dearest builder pack and the dearest trade pack (ties keep cart order); everything else full price. *Recommended: yes, keep. The table's `max_trade_packs` already allows more trade packs if you raise it.*
+3. **Specialist packs count as trade packs.** The table's `trade` pattern is `subcontractor:*:*`, which the specialist packs (facade, fencing, foundations, passive fire, solar) match too. *Recommended: yes, keep. To exclude them, narrow the pattern in Hseq-Dev.*
+4. **Browser price fields are ignored, not refused.** A cart entry carrying `price`, `discount_pct` or `bundle` still checks out at the server's prices, as S13 already did for `price`. *Recommended: yes, keep. A 400 for those fields is a one-line change if you want one.*
+5. **The cart page total shows list prices.** The 15% shows on the Stripe page (each line says "Builder + trade bundle: 15% off"), not in the cart, because the cart page is the shared `cart-browser.js`. *Recommended: yes, leave it; a paired storefront + website PR can show it in the cart later.*
+6. **siteguard-website's copy of `shop.mjs`.** This PR adds an optional `ctx.bundle` (the website renders exactly as before without it). *Recommended: yes, once this merges, copy `shop.mjs` to the website again, and have it pass the bundle and vendor the FORMS view at its next export (K5).*
