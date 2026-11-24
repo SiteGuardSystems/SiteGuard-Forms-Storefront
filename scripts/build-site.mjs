@@ -37,6 +37,7 @@ import { cartPages, cartBrowserParts, spliceCart, termsVersion } from "./lib/car
 import { loadSellableList, applySellableList } from "../lib/sellable-list.js";
 import { publicCatalogue, PUBLIC_CATALOGUE_PATH } from "./lib/public-catalogue.mjs";
 import { readSiteMode } from "../lib/site-mode.js";
+import { readBundleRule } from "../lib/bundles.js";
 import { cardsFor, shareUrl, CARD_DIR, CARD_W, CARD_H, DEFAULT_CARD } from "./lib/share-cards.mjs";
 import { existsSync } from "node:fs";
 
@@ -428,6 +429,8 @@ ${foundingPanel()}
     cat, model, base: "", origin: ORIGIN, appUrl: APP_URL, isoUrl: `${SYSTEMS_URL}/consulting/iso-ims/`, beta: BETA, crumbs,
     video: (kind) => productVideo(PRODUCT_VIDEOS, kind, { production: PRODUCTION }), foundingPanel,
     packVideos: (codes) => ({ html: packVideosSection(PACK_VIDEOS, codes), jsonld: packVideosJsonLd(PACK_VIDEOS, codes, ORIGIN) }),
+    // P6: the builder + trade bundle the checkout applies, from the pinned price table view.
+    bundle: readBundleRule(path.join(ROOT, "vendor/hseq-dev/pricing/forms_price_table.public.json")),
   });
   for (const spec of shopOut.pages) page(spec);
   await mkdir(path.join(DIST, "assets/packs"), { recursive: true });

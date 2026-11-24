@@ -29,6 +29,10 @@
 //                  pack-videos.mjs). Sites without it render as before.
 //   foundingPanel()  the founding-offer panel, or ""
 //   leadEndpoint   where the register-interest form posts ("" = same-origin /api/lead)
+//   bundle         optional: the price table's builder + trade bundle ({ discount_pct,
+//                  max_trade_packs }, storefront lib/bundles.js), shown on the builder
+//                  packs page; the storefront checkout applies it. Sites without it
+//                  render as before.
 //
 // Go-live 7 Nov 2026 (brief Rev02, 5.2): FORMS subscriptions (switch S4) and
 // consultant plans (S5) are off. Their buttons show "Coming soon: register
@@ -180,7 +184,7 @@ export function packHow() {
  * content] pairs).
  */
 export function shopPages(ctx) {
-  const { cat, model, base = "", origin, appUrl, isoUrl, beta = false, crumbs, video = () => "", foundingPanel = () => "", packVideos = () => null } = ctx;
+  const { cat, model, base = "", origin, appUrl, isoUrl, beta = false, crumbs, video = () => "", foundingPanel = () => "", packVideos = () => null, bundle = null } = ctx;
   // Education videos for the documents a page sells: "" and no JSON-LD when none fit.
   const pv = (packs) => packVideos(packs.flatMap((p) => p.documents ?? [])) ?? { html: "", jsonld: [] };
   const G = groups(base);
@@ -371,11 +375,14 @@ ${iv.html}${video(g === "specialist-packs" ? "high-risk" : "trade")}`,
   <p>Every set you generate includes a Document Use Disclaimer for your client.</p></div>
 </div></section>` : g === "management-systems" ? `<section class="band band-grey"><div class="wrap"><div class="note"><p>Looking for ISO 45001, ISO 9001 or ISO 14001 implementation, an integrated management system or audit readiness support? That is consulting work. <a href="${isoUrl}">See SiteGuard Systems ISO and IMS services</a>.</p></div></div></section>` : "";
     const gv = pv(packs);
+    const bundleNote = g === "builder-packs" && bundle && packs.length && inGroup("trade-packs").length
+      ? `<section class="band band-grey"><div class="wrap"><div class="note" id="builder-trade-bundle"><p><strong>Builder + trade bundle: ${esc(String(bundle.discount_pct))}% off the pair.</strong> Buy a builder pack and ${bundle.max_trade_packs > 1 ? `up to ${esc(String(bundle.max_trade_packs))} trade packs` : `one <a href="${G["trade-packs"].path}">trade pack</a>`} in the same order and the discount comes off ${bundle.max_trade_packs > 1 ? "them" : "both"} at checkout. One-off purchases only, one bundle per order: with more packs in the cart, it goes on the dearest builder pack and the dearest trade pack.</p></div></div></section>`
+      : "";
     page({
       url: meta.path, preview, title: meta.title, trail: [[meta.path, meta.title]],
       description: groupIntro[g], jsonld: [...packs.map((p) => productLd(p, ldUrl(meta.path))), ...gv.jsonld],
       body: `<section class="page-head"><div class="wrap">${crumbs([[meta.path, meta.title]])}<h1>${meta.title}</h1><p class="lede">${groupIntro[g]}</p></div></section>
-<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${gv.html}${g === "builder-packs" ? video("builder") : ""}${g !== "consultants" && packs.length ? packHow() : ""}${extra}`,
+<section class="band"><div class="wrap">${g === "consultants" ? consultantPlans(packs) : packs.length ? `<div class="rungs">${packs.map((p) => packArticle(p)).join("")}</div>` : emptyState(meta.title.toLowerCase())}</div></section>${bundleNote}${gv.html}${g === "builder-packs" ? video("builder") : ""}${g !== "consultants" && packs.length ? packHow() : ""}${extra}`,
     });
   }
 

@@ -18,7 +18,7 @@
    "path": "docs/pricing/forms_price_table.json",
    "view": "public (docs/pricing/export_price_tables.py public_views())",
    "vendored_at": "vendor/hseq-dev/pricing/forms_price_table.public.json",
-   "sha256": "08ed175be04b00d1900aa49e0e7f3c1e5fbd90e821f344248a70de2eff3ceaf8",
+   "sha256": "2b3fcdacc642cbf2fb1b66b9f14a17b1b7facad3365f52e3658268d11897f2cc",
    "source_sha256": "af1685ab8d42940653b5498918036f08f66572e4879a5cab1321d9f04eae6667"
   }
  },

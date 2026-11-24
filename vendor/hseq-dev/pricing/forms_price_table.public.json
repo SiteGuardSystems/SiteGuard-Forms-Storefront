@@ -104,5 +104,13 @@
    "one_off": 44,
    "annual": null
   }
+ },
+ "bundles": {
+  "builder_plus_trade": {
+   "discount_pct": 15,
+   "builder": "builder:*",
+   "trade": "subcontractor:*:*",
+   "max_trade_packs": 1
+  }
  }
 }
